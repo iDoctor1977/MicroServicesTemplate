@@ -1,7 +1,10 @@
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
+using CoreServicesTemplate.Console.Web.Models;
 using CoreServicesTemplate.Console.Web.Testing.Fixtures;
+using CoreServicesTemplate.Shared.Core.Models;
+using Moq;
 using Xunit;
 
 namespace CoreServicesTemplate.Console.Web.Testing.HomeController

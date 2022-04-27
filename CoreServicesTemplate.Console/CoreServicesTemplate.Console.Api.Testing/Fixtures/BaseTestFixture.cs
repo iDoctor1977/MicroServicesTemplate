@@ -1,4 +1,11 @@
 ﻿using System;
+using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace CoreServicesTemplate.Console.Api.Testing.Fixtures
 {
@@ -7,12 +14,12 @@ namespace CoreServicesTemplate.Console.Api.Testing.Fixtures
         public IServiceProvider ServiceProvider { get; set; }
 
         public Mock<IStorageRoomService> StorageRoomServiceMock { get; private set; }
-        public Mock<ILogger<Controllers.ConsolleApiController>> LoggerMock { get; private set; }
+        public Mock<ILogger<Controllers.ConsoleApiController>> LoggerMock { get; private set; }
 
         public void GenerateHost()
         {
             StorageRoomServiceMock = new Mock<IStorageRoomService>();
-            LoggerMock = new Mock<ILogger<Controllers.ConsolleApiController>>();
+            LoggerMock = new Mock<ILogger<Controllers.ConsoleApiController>>();
 
             var host = Host.CreateDefaultBuilder().ConfigureWebHostDefaults(hostBuilder =>
             {

@@ -2,7 +2,10 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
+using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Console.Web.Models;
+using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.Shared.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

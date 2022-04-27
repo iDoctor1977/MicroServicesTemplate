@@ -1,4 +1,6 @@
 ﻿using System;
+using CoreServicesTemplate.Shared.Core.Bases;
+using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Console.Core.Aggregates
 {

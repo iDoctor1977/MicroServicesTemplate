@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Console.Api.Testing.Fixtures;
+using CoreServicesTemplate.Shared.Core.Models;
+using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
@@ -48,7 +51,7 @@ namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
             //Arrange
             _fixture.StorageRoomServiceMock.Setup(service => service.ReadUsersAsync()).ReturnsAsync(users);
 
-            var controller = new Controllers.ConsolleApiController(_fixture.ServiceProvider, _fixture.LoggerMock.Object);
+            var controller = new Controllers.ConsoleApiController(_fixture.ServiceProvider, _fixture.LoggerMock.Object);
 
             //Act
             var result = await controller.Get();

@@ -3,19 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Console.Web", "CoreServicesTemplate.Console.Web\CoreServicesTemplate.Console.Web.csproj", "{D34F5AE6-E293-4A83-9E13-E4424B9C455D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Console.Web", "CoreServicesTemplate.Console.Web\CoreServicesTemplate.Console.Web.csproj", "{D34F5AE6-E293-4A83-9E13-E4424B9C455D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Console.Web.Testing", "CoreServicesTemplate.Console.Web.Testing\CoreServicesTemplate.Console.Web.Testing.csproj", "{7CAA367D-E8DA-40FB-8F48-E4B88F85653E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Console.Web.Testing", "CoreServicesTemplate.Console.Web.Testing\CoreServicesTemplate.Console.Web.Testing.csproj", "{7CAA367D-E8DA-40FB-8F48-E4B88F85653E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Console.Api", "CoreServicesTemplate.Console.Api\CoreServicesTemplate.Console.Api.csproj", "{68AB05AF-636D-4712-BB04-8EEFC95285E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Console.Api", "CoreServicesTemplate.Console.Api\CoreServicesTemplate.Console.Api.csproj", "{68AB05AF-636D-4712-BB04-8EEFC95285E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Console.Api.Testing", "CoreServicesTemplate.Console.Api.Testing\CoreServicesTemplate.Console.Api.Testing.csproj", "{FB4306D9-FAC3-468B-996A-E659229DF125}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Console.Api.Testing", "CoreServicesTemplate.Console.Api.Testing\CoreServicesTemplate.Console.Api.Testing.csproj", "{FB4306D9-FAC3-468B-996A-E659229DF125}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Console.Common", "CoreServicesTemplate.Console.Common\CoreServicesTemplate.Console.Common.csproj", "{1743386C-E020-451A-B30C-3A07A0BD2418}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Console.Common", "CoreServicesTemplate.Console.Common\CoreServicesTemplate.Console.Common.csproj", "{1743386C-E020-451A-B30C-3A07A0BD2418}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Console.Core", "CoreServicesTemplate.Console.Core\CoreServicesTemplate.Console.Core.csproj", "{C35E2167-4FD2-4907-96DD-93D3D0B55ACC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Console.Core", "CoreServicesTemplate.Console.Core\CoreServicesTemplate.Console.Core.csproj", "{C35E2167-4FD2-4907-96DD-93D3D0B55ACC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Console.Services", "CoreServicesTemplate.Console.Services\CoreServicesTemplate.Console.Services.csproj", "{C4292237-76EB-4992-AF16-C20E4BE9D41B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Console.Services", "CoreServicesTemplate.Console.Services\CoreServicesTemplate.Console.Services.csproj", "{C4292237-76EB-4992-AF16-C20E4BE9D41B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Shared.Core", "..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj", "{64C652BB-077D-4D9B-B281-7AD68BBB3C47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{C4292237-76EB-4992-AF16-C20E4BE9D41B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4292237-76EB-4992-AF16-C20E4BE9D41B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4292237-76EB-4992-AF16-C20E4BE9D41B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64C652BB-077D-4D9B-B281-7AD68BBB3C47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64C652BB-077D-4D9B-B281-7AD68BBB3C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64C652BB-077D-4D9B-B281-7AD68BBB3C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64C652BB-077D-4D9B-B281-7AD68BBB3C47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

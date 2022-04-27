@@ -1,4 +1,11 @@
 ﻿using System;
+using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace CoreServicesTemplate.Console.Web.Testing.Fixtures
 {

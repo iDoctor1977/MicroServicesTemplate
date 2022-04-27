@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using CoreServicesTemplate.Shared.Core.Interfaces.ICqrs;
+using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Console.Common.Interfaces.IFeatures
 {

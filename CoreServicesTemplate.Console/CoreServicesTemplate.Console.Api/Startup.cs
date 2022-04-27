@@ -1,3 +1,6 @@
+using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.Console.Core.Features;
+using CoreServicesTemplate.Shared.Core.HealthChecks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

@@ -1,4 +1,6 @@
-﻿using CoreServicesTemplate.Console.Web.Models;
+﻿using AutoMapper;
+using CoreServicesTemplate.Console.Web.Models;
+using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Console.Web.MapperProfiles
 {

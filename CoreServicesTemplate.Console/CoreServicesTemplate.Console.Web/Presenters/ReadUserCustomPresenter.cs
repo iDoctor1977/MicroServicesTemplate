@@ -1,5 +1,8 @@
 ﻿using System;
 using CoreServicesTemplate.Console.Web.Models;
+using CoreServicesTemplate.Shared.Core.Bases;
+using CoreServicesTemplate.Shared.Core.Extensions;
+using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Console.Web.Presenters
 {

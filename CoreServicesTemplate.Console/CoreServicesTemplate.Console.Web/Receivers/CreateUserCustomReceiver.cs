@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using CoreServicesTemplate.Console.Web.Models;
+using CoreServicesTemplate.Shared.Core.Bases;
+using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Console.Web.Receivers
 {

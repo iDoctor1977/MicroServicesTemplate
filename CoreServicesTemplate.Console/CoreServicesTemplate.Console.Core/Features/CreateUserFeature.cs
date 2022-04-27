@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Console.Core.Aggregates;
+using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
+using CoreServicesTemplate.Shared.Core.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreServicesTemplate.Console.Core.Features
 {
