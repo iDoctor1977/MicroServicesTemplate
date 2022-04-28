@@ -6,7 +6,7 @@ using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Console.Web.Receivers
 {
-    public class CreateUserCustomReceiver : ABaseConsolidator<UserViewModel, UserApiModel>
+    public class CreateUserCustomReceiver : AConsolidatorBase<UserViewModel, UserApiModel>
     {
         public CreateUserCustomReceiver(IServiceProvider service) : base(service) { }
 

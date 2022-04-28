@@ -6,7 +6,7 @@ using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Console.Web.Presenters
 {
-    public class ReadUserCustomPresenter : ABaseConsolidator<UserApiModel, UserViewModel>
+    public class ReadUserCustomPresenter : AConsolidatorBase<UserApiModel, UserViewModel>
     {
         public ReadUserCustomPresenter(IServiceProvider service) : base(service) { }
 

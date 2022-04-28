@@ -4,7 +4,7 @@ using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Console.Core.Aggregates
 {
-    public class UserAggregate : ABaseAggregate<UserApiModel>
+    public class UserAggregate : AAggregateBase<UserApiModel>
     {
         public UserAggregate(UserApiModel model) : base(model) { }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Console.Api.Testing.Fixtures;
+using CoreServicesTemplate.Shared.Core.Interfaces.ICqrs;
 using CoreServicesTemplate.Shared.Core.Models;
 using FluentAssertions;
 using Moq;
@@ -23,6 +24,15 @@ namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
         [Fact]
         public async Task Should_Execute_Read_Users()
         {
+            var model = new UserApiModel
+            {
+                PagingData = new PagingData
+                {
+                    MaxRecords = 100000,
+                    PageNumber = 1000
+                }
+            };
+
             var users = new List<UserApiModel>
             {
                 new UserApiModel
@@ -54,7 +64,7 @@ namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
             var controller = new Controllers.ConsoleApiController(_fixture.ServiceProvider, _fixture.LoggerMock.Object);
 
             //Act
-            var result = await controller.Get();
+            var result = await controller.Get(model);
 
             //Assert
             _fixture.StorageRoomServiceMock.Verify((method => method.ReadUsersAsync()), Times.Once());

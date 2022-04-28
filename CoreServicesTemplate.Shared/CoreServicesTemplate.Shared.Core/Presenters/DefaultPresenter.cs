@@ -3,7 +3,7 @@ using CoreServicesTemplate.Shared.Core.Bases;
 
 namespace CoreServicesTemplate.Shared.Core.Presenters
 {
-    public sealed class DefaultPresenter<TIn, TOut> : ABaseConsolidator<TIn, TOut>
+    public sealed class DefaultPresenter<TIn, TOut> : AConsolidatorBase<TIn, TOut>
     {
         public DefaultPresenter(IServiceProvider service) : base(service) { }
 

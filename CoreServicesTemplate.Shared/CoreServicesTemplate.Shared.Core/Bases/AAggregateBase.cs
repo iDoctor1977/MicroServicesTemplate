@@ -4,11 +4,11 @@ using CoreServicesTemplate.Shared.Core.Resources;
 
 namespace CoreServicesTemplate.Shared.Core.Bases
 {
-    public abstract class ABaseAggregate<T> where T : ABaseModel
+    public abstract class AAggregateBase<T> where T : ABaseModel
     {
         protected readonly T Model;
 
-        protected ABaseAggregate(T model)
+        protected AAggregateBase(T model)
         {
             Model = model;
 

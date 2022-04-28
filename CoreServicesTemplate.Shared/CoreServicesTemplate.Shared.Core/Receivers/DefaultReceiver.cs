@@ -3,7 +3,7 @@ using CoreServicesTemplate.Shared.Core.Bases;
 
 namespace CoreServicesTemplate.Shared.Core.Receivers
 {
-    public sealed class DefaultReceiver<TIn, TOut> : ABaseConsolidator<TIn, TOut>
+    public sealed class DefaultReceiver<TIn, TOut> : AConsolidatorBase<TIn, TOut>
     {
         public DefaultReceiver(IServiceProvider service) : base(service) { }
 

@@ -6,6 +6,4 @@ namespace CoreServicesTemplate.Shared.Core.Interfaces.ICqrs
     {
         public Task ExecuteAsync(T model);
     }
-
-     public interface ICqrsCommandBase { }
 }
