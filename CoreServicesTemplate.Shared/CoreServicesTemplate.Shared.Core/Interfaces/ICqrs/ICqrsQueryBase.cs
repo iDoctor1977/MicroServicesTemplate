@@ -7,7 +7,7 @@
 
     public class PagingData
     {
-        public int MaxRecords { get; set; } = 10000;
-        public int PageNumber { get; set; } = 10;
+        public int MaxRecords { get; set; } = 100000;
+        public int PageNumber { get; set; } = 1000;
     }
 }

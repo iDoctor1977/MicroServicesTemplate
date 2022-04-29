@@ -41,6 +41,12 @@ namespace CoreServicesTemplate.Console.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(UserViewModel viewModel)

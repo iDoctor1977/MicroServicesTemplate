@@ -13,7 +13,7 @@ namespace CoreServicesTemplate.Console.Web.Receivers
         public override UserApiModel ToData(UserViewModel viewModel)
         {
             var model = ToExternalData(viewModel);
-            model.Birth = DateTime.Parse(viewModel.Birth, CultureInfo.InvariantCulture);
+            model.Birth = DateTime.ParseExact(viewModel.Birth, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
             return model;
         }
