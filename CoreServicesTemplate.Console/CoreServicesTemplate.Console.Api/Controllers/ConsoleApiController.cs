@@ -25,9 +25,9 @@ namespace CoreServicesTemplate.Console.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<UserApiModel>> Get(UserApiModel model)
+        public async Task<IEnumerable<UserApiModel>> Get()
         {
-            var apiModels = await _readUsersFeature.ExecuteAsync(model);
+            var apiModels = await _readUsersFeature.HandleAsync();
 
             return apiModels;
         }

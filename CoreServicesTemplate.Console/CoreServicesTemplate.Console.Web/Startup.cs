@@ -9,6 +9,7 @@ using CoreServicesTemplate.Shared.Core;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
+using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.Shared.Core.Receivers;
 using Microsoft.AspNetCore.Builder;

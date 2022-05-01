@@ -56,7 +56,7 @@ namespace CoreServicesTemplate.Console.Web.Controllers
             var responseMessage = new HttpResponseMessage();
             if (ModelState.IsValid)
             {
-                responseMessage = await _createUserFeature.ExecuteAsync(model);
+                responseMessage = await _createUserFeature.HandleAsync(model);
             }
 
             return RedirectToAction("Index", responseMessage);

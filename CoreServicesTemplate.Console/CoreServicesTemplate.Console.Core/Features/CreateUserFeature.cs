@@ -17,7 +17,7 @@ namespace CoreServicesTemplate.Console.Core.Features
             _storageRoomService = service.GetRequiredService<IStorageRoomService>();
         }
 
-        public async Task<HttpResponseMessage> ExecuteAsync(UserApiModel model)
+        public async Task<HttpResponseMessage> HandleAsync(UserApiModel model)
         {
             var aggregate = new UserAggregate(model);
             aggregate.SetGuid(Guid.NewGuid());

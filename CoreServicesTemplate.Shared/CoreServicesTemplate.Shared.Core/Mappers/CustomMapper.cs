@@ -3,7 +3,7 @@ using AutoMapper;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CoreServicesTemplate.Shared.Core
+namespace CoreServicesTemplate.Shared.Core.Mappers
 {
     /// <summary>
     /// Wrapper class for external mapping tool.
