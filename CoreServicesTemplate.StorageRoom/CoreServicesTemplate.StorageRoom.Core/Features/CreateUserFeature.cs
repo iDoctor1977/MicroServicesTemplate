@@ -16,12 +16,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _createUserDepot = service.GetRequiredService<ICreateUserDepot>();
         }
 
-        public async Task ExecuteAsync(UserApiModel model)
+        public async Task HandleAsync(UserApiModel model)
         {
             var aggregate = new CreateAggregate(model);
             aggregate.SetGuid(Guid.NewGuid());
 
-            await _createUserDepot.ExecuteAsync(aggregate.ToModel());
+            await _createUserDepot.HandleAsync(aggregate.ToModel());
         }
     }
 }

@@ -37,13 +37,13 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                 .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-22897))
                 .Build();
 
-            _fixture.ReadUsersDepotMock.Setup(depot => depot.ExecuteAsync(It.IsAny<UserApiModel>())).Returns(Task.FromResult(users));
+            _fixture.ReadUsersDepotMock.Setup(depot => depot.HandleAsync()).Returns(Task.FromResult(users));
 
             //Act
             var result = await _client.GetFromJsonAsync<IEnumerable<UserApiModel>>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}");
 
             //Assert
-            _fixture.ReadUsersDepotMock.Verify((c => c.ExecuteAsync(null)), Times.Once());
+            _fixture.ReadUsersDepotMock.Verify((c => c.HandleAsync()), Times.Once());
             result.Should().HaveCountGreaterThan(0);
         }
     }

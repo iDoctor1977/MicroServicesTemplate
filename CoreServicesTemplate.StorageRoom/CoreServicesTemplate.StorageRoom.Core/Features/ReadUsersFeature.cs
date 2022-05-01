@@ -16,11 +16,16 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _readUsersDepot = service.GetRequiredService<IReadUsersDepot>();
         }
 
-        public async Task<IEnumerable<UserApiModel>> ExecuteAsync()
+        public async Task<IEnumerable<UserApiModel>> HandleAsync()
         {
-            var users = await _readUsersDepot.ExecuteAsync(null);
+            var users = await _readUsersDepot.HandleAsync();
 
             return users;
+        }
+
+        public Task<IEnumerable<UserApiModel>> ExecuteAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

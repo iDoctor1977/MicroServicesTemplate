@@ -4,5 +4,5 @@ using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots
 {
-    public interface IReadUsersDepot : ICqrsQueryAsync<object, IEnumerable<UserApiModel>> { }
+    public interface IReadUsersDepot : ICqrsQueryHandler<IEnumerable<UserApiModel>> { }
 }

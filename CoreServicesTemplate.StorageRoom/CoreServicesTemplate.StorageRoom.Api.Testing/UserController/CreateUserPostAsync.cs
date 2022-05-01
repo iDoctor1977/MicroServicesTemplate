@@ -34,13 +34,13 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                 Birth = DateTime.Now.AddDays(-14000)
             };
 
-            _fixture.CreateUserDepotMock.Setup(depot => depot.ExecuteAsync(It.IsAny<UserApiModel>()));
+            _fixture.CreateUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserApiModel>()));
 
             //Act
             await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}", modelApi);
 
             //Assert
-            _fixture.CreateUserDepotMock.Verify((c => c.ExecuteAsync(It.Is<UserApiModel>(arg => arg.Name == modelApi.Name))));
+            _fixture.CreateUserDepotMock.Verify((c => c.HandleAsync(It.Is<UserApiModel>(arg => arg.Name == modelApi.Name))));
         }
     }
 }

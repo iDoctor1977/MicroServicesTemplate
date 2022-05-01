@@ -25,14 +25,14 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         [HttpPost]
         public async Task Post(UserApiModel model)
         {
-            await _createUserFeature.ExecuteAsync(model);
+            await _createUserFeature.HandleAsync(model);
         }
 
         // GET: StorageRoom/User/Get
         [HttpGet]
         public async Task<IEnumerable<UserApiModel>> Get()
         {
-            var result = await _readUsersFeature.ExecuteAsync(null);
+            var result = await _readUsersFeature.HandleAsync();
 
             return result;
         }

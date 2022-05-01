@@ -4,7 +4,7 @@ using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates
 {
-    public class CreateAggregate : ABaseAggregate<UserApiModel>
+    public class CreateAggregate : AAggregateBase<UserApiModel>
     {
         public CreateAggregate(UserApiModel model) : base(model) { }
 

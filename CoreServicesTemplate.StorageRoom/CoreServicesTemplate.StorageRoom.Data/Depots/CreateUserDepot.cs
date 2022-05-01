@@ -15,7 +15,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Depots
             _userRepository = service.GetRequiredService<IUserRepository>();
         }
 
-        public async Task ExecuteAsync(UserApiModel model)
+        public async Task HandleAsync(UserApiModel model)
         {
             await _userRepository.CreateEntity(model);
         }
