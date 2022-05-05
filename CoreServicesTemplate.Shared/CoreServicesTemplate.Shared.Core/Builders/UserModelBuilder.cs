@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CoreServicesTemplate.Shared.Core.Models;
 
-namespace CoreServicesTemplate.StorageRoom.Data.Builders
+namespace CoreServicesTemplate.Shared.Core.Builders
 {
     public class UserModelBuilder : IUserModelBuilder, IUserModelAdded
     {
