@@ -25,13 +25,18 @@ namespace CoreServicesTemplate.StorageRoom.Data.Mocks
             _mapper = service.GetRequiredService<IMapper>();
 
             var builder = new UserEntityBuilder();
-            var users = builder
-                .AddUser("Donald", "Duck", DateTime.Now.AddDays(-13698))
-                .AddUser("Foo", "Foo", DateTime.Now.AddDays(-9635))
-                .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-7326))
-                .Build();
 
-            Entities.AddRange(users);
+            if (Entities is null || !Entities.Any())
+            {
+                var users = builder
+                    .AddUser("Donald", "Duck", DateTime.Now.AddDays(-13698))
+                    .AddUser("Foo", "Foo", DateTime.Now.AddDays(-9635))
+                    .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-7326))
+                    .AddUser("Jerry", "Scala", DateTime.Now.AddDays(-15326))
+                    .Build();
+
+                Entities.AddRange(users);
+            }
         }
 
         public Task<int> CreateEntity(UserApiModel model)
@@ -39,11 +44,15 @@ namespace CoreServicesTemplate.StorageRoom.Data.Mocks
             return Task.FromResult(1);
         }
 
-        public Task<IEnumerable<UserApiModel>> ReadEntities()
+        public Task<UsersApiModel> ReadEntities()
         {
-            var models = _mapper.Map<IEnumerable<UserApiModel>>(Entities);
+            var model = new UsersApiModel
+            {
+                UsersApiModelList = _mapper.Map<IEnumerable<UserApiModel>>(Entities)
 
-            return Task.FromResult(models);
+            };
+
+            return Task.FromResult(model);
         }
 
         public Task<UserApiModel> ReadEntityByGuid(Guid guid)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
@@ -16,16 +15,11 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _readUsersDepot = service.GetRequiredService<IReadUsersDepot>();
         }
 
-        public async Task<IEnumerable<UserApiModel>> HandleAsync()
+        public async Task<UsersApiModel> HandleAsync()
         {
-            var users = await _readUsersDepot.HandleAsync();
+            var model = await _readUsersDepot.HandleAsync();
 
-            return users;
-        }
-
-        public Task<IEnumerable<UserApiModel>> ExecuteAsync()
-        {
-            throw new NotImplementedException();
+            return model;
         }
     }
 }

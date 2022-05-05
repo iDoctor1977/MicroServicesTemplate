@@ -23,28 +23,31 @@ namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
         [Fact]
         public async Task Should_Execute_Read_Users()
         {
-            var users = new List<UserApiModel>
+            var users = new UsersApiModel
             {
-                new UserApiModel
+                UsersApiModelList = new List<UserApiModel>
                 {
-                    Guid = Guid.NewGuid(),
-                    Name = "Foo",
-                    Surname = "Foo Foo",
-                    Birth = DateTime.Now.AddDays(-12569)
-                },
-                new UserApiModel
-                {
-                    Guid = Guid.NewGuid(),
-                    Name = "Duffy",
-                    Surname = "Duck",
-                    Birth = DateTime.Now.AddDays(-11398)
-                },
-                new UserApiModel
-                {
-                    Guid = Guid.NewGuid(),
-                    Name = "Micky",
-                    Surname = "Mouse",
-                    Birth = DateTime.Now.AddDays(-12569)
+                    new UserApiModel
+                    {
+                        Guid = Guid.NewGuid(),
+                        Name = "Foo",
+                        Surname = "Foo Foo",
+                        Birth = DateTime.Now.AddDays(-12569)
+                    },
+                    new UserApiModel
+                    {
+                        Guid = Guid.NewGuid(),
+                        Name = "Duffy",
+                        Surname = "Duck",
+                        Birth = DateTime.Now.AddDays(-11398)
+                    },
+                    new UserApiModel
+                    {
+                        Guid = Guid.NewGuid(),
+                        Name = "Micky",
+                        Surname = "Mouse",
+                        Birth = DateTime.Now.AddDays(-12569)
+                    }
                 }
             };
 
@@ -58,7 +61,7 @@ namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
 
             //Assert
             _fixture.StorageRoomServiceMock.Verify((method => method.ReadUsersAsync()), Times.Once());
-            result.Should().AllBeOfType<UserApiModel>().And.HaveCountGreaterThan(0);
+            result.UsersApiModelList.Should().AllBeOfType<UserApiModel>().And.HaveCountGreaterThan(0);
         }
     }
 }

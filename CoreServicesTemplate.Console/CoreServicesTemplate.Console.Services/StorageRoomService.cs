@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -25,12 +24,12 @@ namespace CoreServicesTemplate.Console.Services
             return responseMessage;
         }
 
-        public async Task<IEnumerable<UserApiModel>> ReadUsersAsync()
+        public async Task<UsersApiModel> ReadUsersAsync()
         {
             //HTTP GET
-            var users = await _client.GetFromJsonAsync<IEnumerable<UserApiModel>>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}");
+            var apiModel = await _client.GetFromJsonAsync<UsersApiModel>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}");
 
-            return users;
+            return apiModel;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
@@ -30,7 +29,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
         // GET: StorageRoom/User/Get
         [HttpGet]
-        public async Task<IEnumerable<UserApiModel>> Get()
+        public async Task<UsersApiModel> Get()
         {
             var result = await _readUsersFeature.HandleAsync();
 

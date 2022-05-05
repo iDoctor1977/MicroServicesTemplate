@@ -5,7 +5,6 @@ using CoreServicesTemplate.Console.Web.MapperProfiles;
 using CoreServicesTemplate.Console.Web.Models;
 using CoreServicesTemplate.Console.Web.Presenters;
 using CoreServicesTemplate.Console.Web.Receivers;
-using CoreServicesTemplate.Shared.Core;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
@@ -35,6 +34,7 @@ namespace CoreServicesTemplate.Console.Web
             #region Injection
 
             services.AddTransient<ICreateUserFeature, CreateUserFeature>();
+            services.AddTransient<IReadUsersFeature, ReadUsersFeature>();
 
             services.AddTransient<IStorageRoomService, StorageRoomService>();
 
@@ -47,6 +47,7 @@ namespace CoreServicesTemplate.Console.Web
             services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultReceiver<,>));
             services.AddTransient(typeof(IConsolidators<UserViewModel, UserApiModel>), typeof(CreateUserCustomReceiver));
             services.AddTransient(typeof(IConsolidators<UserApiModel, UserViewModel>), typeof(ReadUserCustomPresenter));
+            services.AddTransient(typeof(IConsolidators<UsersApiModel, UsersViewModel>), typeof(ReadUsersCustomPresenter));
 
             #endregion
 

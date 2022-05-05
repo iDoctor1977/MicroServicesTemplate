@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,18 +18,20 @@ namespace CoreServicesTemplate.Console.Web.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly IConsolidators<UserViewModel, UserApiModel> _createUserCustomReceiver;
-        private readonly IConsolidators<UserApiModel, UserViewModel> _readUserCustomPresenter;
+        private readonly IConsolidators<UsersApiModel, UsersViewModel> _readUsersCustomPresenter;
 
         private readonly ICreateUserFeature _createUserFeature;
+        private readonly IReadUsersFeature _readUsersFeature;
 
         public HomeController(IServiceProvider service, ILogger<HomeController> logger)
         {
             _logger = logger;
 
             _createUserCustomReceiver = service.GetRequiredService<IConsolidators<UserViewModel, UserApiModel>>();
-            _readUserCustomPresenter = service.GetRequiredService<IConsolidators<UserApiModel, UserViewModel>>();
+            _readUsersCustomPresenter = service.GetRequiredService<IConsolidators<UsersApiModel, UsersViewModel>>();
 
             _createUserFeature = service.GetRequiredService<ICreateUserFeature>();
+            _readUsersFeature = service.GetRequiredService<IReadUsersFeature>();
         }
 
         public IActionResult Index()
@@ -60,6 +63,16 @@ namespace CoreServicesTemplate.Console.Web.Controllers
             }
 
             return RedirectToAction("Index", responseMessage);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Read()
+        {
+            var model = await _readUsersFeature.HandleAsync();
+
+            var viewModel = _readUsersCustomPresenter.ToData(model);
+
+            return View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

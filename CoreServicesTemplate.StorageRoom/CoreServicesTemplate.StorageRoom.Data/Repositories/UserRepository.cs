@@ -125,17 +125,19 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
             return 0;
         }
 
-        public async Task<IEnumerable<UserApiModel>> ReadEntities()
+        public async Task<UsersApiModel> ReadEntities()
         {
+            var model = new UsersApiModel();
+
             try
             {
                 IEnumerable<User> entities = DbContext.EntitiesA.ToList();
 
                 if (entities.Any())
                 {
-                    var models = Mapper.Map<IEnumerable<UserApiModel>>(entities);
+                    model.UsersApiModelList = Mapper.Map<IEnumerable<UserApiModel>>(entities);
 
-                    return await Task.FromResult(models);
+                    return await Task.FromResult(model);
                 }
             }
             catch (Exception exception)
@@ -143,7 +145,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
                 throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
             }
 
-            return await Task.FromResult(Enumerable.Empty<UserApiModel>());
+            return await Task.FromResult(model);
         }
     }
 }

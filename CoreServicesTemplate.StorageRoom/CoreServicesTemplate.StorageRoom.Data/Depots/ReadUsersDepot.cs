@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
@@ -16,11 +15,11 @@ namespace CoreServicesTemplate.StorageRoom.Data.Depots
             _userRepository = service.GetRequiredService<IUserRepository>();
         }
 
-        public async Task<IEnumerable<UserApiModel>> HandleAsync()
+        public async Task<UsersApiModel> HandleAsync()
         {
-            var models = await _userRepository.ReadEntities();
+            var model = await _userRepository.ReadEntities();
 
-            return models;
+            return model;
         }
     }
 }

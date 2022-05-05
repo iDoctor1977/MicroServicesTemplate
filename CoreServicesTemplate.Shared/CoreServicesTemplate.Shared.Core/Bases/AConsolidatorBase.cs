@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,18 @@ namespace CoreServicesTemplate.Shared.Core.Bases
             var valueMap = _customMapper.Map<TIn, TOut>(model);
 
             return valueMap;
+        }
+
+        public IEnumerable<TOut> ToData(IEnumerable<TIn> model)
+        {
+            var viewModels = new List<TOut>();
+
+            foreach (var apiModel in model)
+            {
+                viewModels.Add(ToData(apiModel));
+            }
+
+            return viewModels;
         }
 
         public abstract TOut ToData(TIn model);

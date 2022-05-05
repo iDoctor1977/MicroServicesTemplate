@@ -31,20 +31,23 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
         {
             //Arrange
             var userBuilder = new UserModelBuilder();
-            var users = userBuilder
-                .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-123987))
-                .AddUser("Duffy", "Duck", DateTime.Now.AddDays(-187962))
-                .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-22897))
-                .Build();
+            var users = new UsersApiModel
+            {
+                UsersApiModelList = userBuilder
+                    .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-123987))
+                    .AddUser("Duffy", "Duck", DateTime.Now.AddDays(-187962))
+                    .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-22897))
+                    .Build()
+            };
 
             _fixture.ReadUsersDepotMock.Setup(depot => depot.HandleAsync()).Returns(Task.FromResult(users));
 
             //Act
-            var result = await _client.GetFromJsonAsync<IEnumerable<UserApiModel>>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}");
+            var result = await _client.GetFromJsonAsync<UsersApiModel>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}");
 
             //Assert
             _fixture.ReadUsersDepotMock.Verify((c => c.HandleAsync()), Times.Once());
-            result.Should().HaveCountGreaterThan(0);
+            result.UsersApiModelList.Should().HaveCountGreaterThan(0);
         }
     }
 }

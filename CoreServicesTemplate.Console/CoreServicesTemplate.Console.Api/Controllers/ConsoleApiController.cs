@@ -25,11 +25,11 @@ namespace CoreServicesTemplate.Console.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<UserApiModel>> Get()
+        public async Task<UsersApiModel> Get()
         {
-            var apiModels = await _readUsersFeature.HandleAsync();
+            var apiModel = await _readUsersFeature.HandleAsync();
 
-            return apiModels;
+            return apiModel;
         }
     }
 }

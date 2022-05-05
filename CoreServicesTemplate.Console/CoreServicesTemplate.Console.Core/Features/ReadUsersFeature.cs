@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
@@ -17,11 +16,11 @@ namespace CoreServicesTemplate.Console.Core.Features
             _storageRoomService = service.GetRequiredService<IStorageRoomService>();
         }
 
-        public async Task<IEnumerable<UserApiModel>> HandleAsync()
+        public async Task<UsersApiModel> HandleAsync()
         {
-            var apiModels = await _storageRoomService.ReadUsersAsync();
+            var apiModel = await _storageRoomService.ReadUsersAsync();
 
-            return apiModels;
+            return apiModel;
         }
     }
 }
