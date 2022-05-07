@@ -1,7 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Console.Api.Testing.Fixtures;
+using CoreServicesTemplate.Shared.Core.Builders;
 using CoreServicesTemplate.Shared.Core.Models;
 using FluentAssertions;
 using Moq;
@@ -23,36 +23,20 @@ namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
         [Fact]
         public async Task Should_Execute_Read_Users()
         {
-            var users = new UsersApiModel
+            //Arrange
+            var builder = new UserModelBuilder();
+            var usersList = builder
+                .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-12569))
+                .AddUser("Duffy", "Duck", DateTime.Now.AddDays(-11398))
+                .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-168963))
+                .Build();
+
+            var model = new UsersApiModel
             {
-                UsersApiModelList = new List<UserApiModel>
-                {
-                    new UserApiModel
-                    {
-                        Guid = Guid.NewGuid(),
-                        Name = "Foo",
-                        Surname = "Foo Foo",
-                        Birth = DateTime.Now.AddDays(-12569)
-                    },
-                    new UserApiModel
-                    {
-                        Guid = Guid.NewGuid(),
-                        Name = "Duffy",
-                        Surname = "Duck",
-                        Birth = DateTime.Now.AddDays(-11398)
-                    },
-                    new UserApiModel
-                    {
-                        Guid = Guid.NewGuid(),
-                        Name = "Micky",
-                        Surname = "Mouse",
-                        Birth = DateTime.Now.AddDays(-12569)
-                    }
-                }
+                UsersApiModelList = usersList
             };
 
-            //Arrange
-            _fixture.StorageRoomServiceMock.Setup(service => service.ReadUsersAsync()).ReturnsAsync(users);
+            _fixture.StorageRoomServiceMock.Setup(service => service.ReadUsersAsync()).ReturnsAsync(model);
 
             var controller = new Controllers.ConsoleApiController(_fixture.ServiceProvider, _fixture.LoggerMock.Object);
 
