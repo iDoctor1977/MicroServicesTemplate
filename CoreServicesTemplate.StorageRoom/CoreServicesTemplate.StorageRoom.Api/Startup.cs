@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using CoreServicesTemplate.Shared.Core.Filters;
+using CoreServicesTemplate.StorageRoom.Api.Handlers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Core.Features;
@@ -14,6 +15,8 @@ using CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;
 using CoreServicesTemplate.StorageRoom.Data.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Data.Mocks;
 using CoreServicesTemplate.StorageRoom.Data.Repositories;
+using Rebus.Config;
+using Rebus.Transport.FileSystem;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {
@@ -70,6 +73,17 @@ namespace CoreServicesTemplate.StorageRoom.Api
             });
 
             services.AddHealthChecks();
+
+            #region Rebus data streaming
+
+            services.AddRebus(configure => configure
+                .Logging(l => l.ColoredConsole())
+                .Transport(t => t.UseFileSystem("c:/temp/rebus", "queueStorageRoom"))
+            );
+
+            services.AddRebusHandler<SimulationRebusHandler>();
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +107,12 @@ namespace CoreServicesTemplate.StorageRoom.Api
                 endpoints.MapControllers();
                 endpoints.MapHealthChecks("/health");
             });
+
+            #region Rebus data streaming
+
+            app.ApplicationServices.UseRebus();
+
+            #endregion
         }
     }
 }

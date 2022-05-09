@@ -4,7 +4,7 @@ using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Shared.Core.Builders
 {
-    public class UserModelBuilder : IUserModelBuilder, IUserModelAdded
+    public class UserModelBuilder : IUserModelAdded
     {
         private ICollection<UserApiModel> _users;
 

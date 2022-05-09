@@ -6,6 +6,7 @@ using CoreServicesTemplate.Console.Web.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Builders;
 using CoreServicesTemplate.Shared.Core.Models;
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
@@ -70,6 +71,7 @@ namespace CoreServicesTemplate.Console.Web.Testing.HomeController
 
             //Assert
             _fixture.StorageRoomServiceMock.Verify((c => c.ReadUsersAsync()), Times.Once);
+            result.Should().BeOfType<ViewResult>();
         }
     }
 }
