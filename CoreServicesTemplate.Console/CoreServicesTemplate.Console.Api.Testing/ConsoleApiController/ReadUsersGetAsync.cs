@@ -9,6 +9,8 @@ using Xunit;
 
 namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
 {
+    using Controllers;
+
     [Collection("BaseTest")]
     public class ReadUsersGetAsync
     {
@@ -38,7 +40,7 @@ namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
 
             _fixture.StorageRoomServiceMock.Setup(service => service.ReadUsersAsync()).ReturnsAsync(model);
 
-            var controller = new Controllers.ConsoleApiController(_fixture.ServiceProvider, _fixture.LoggerMock.Object);
+            var controller = new ConsoleApiController(_fixture.ServiceProvider, _fixture.LoggerMock.Object);
 
             //Act
             var result = await controller.Get();

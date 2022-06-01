@@ -4,5 +4,5 @@ using Xunit;
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures
 {
     [CollectionDefinition("BaseTest")]
-    public class BaseTestCollection : ICollectionFixture<BaseTestFixture>, IClassFixture<WebApplicationFactory<Startup>> { }
+    public class TestCollectionBase : ICollectionFixture<TestFixtureBase>, IClassFixture<WebApplicationFactory<Startup>> { }
 }

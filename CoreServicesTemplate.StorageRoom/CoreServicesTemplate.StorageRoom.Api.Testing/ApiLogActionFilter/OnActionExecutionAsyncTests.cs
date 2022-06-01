@@ -17,9 +17,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
     public class OnActionExecutionAsyncTests
     {
         private readonly HttpClient _client;
-        private readonly BaseTestFixture _fixture;
+        private readonly TestFixtureBase _fixture;
 
-        public OnActionExecutionAsyncTests(WebApplicationFactory<Startup> factory, BaseTestFixture fixture)
+        public OnActionExecutionAsyncTests(WebApplicationFactory<Startup> factory, TestFixtureBase fixture)
         {
             _fixture = fixture;
             _client = _fixture.GenerateClient(factory);

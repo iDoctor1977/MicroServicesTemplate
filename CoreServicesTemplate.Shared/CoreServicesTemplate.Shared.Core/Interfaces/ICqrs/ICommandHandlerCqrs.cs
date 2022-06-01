@@ -2,7 +2,7 @@
 
 namespace CoreServicesTemplate.Shared.Core.Interfaces.ICqrs
 {
-    public interface ICqrsCommandHandler<in T>
+    public interface ICommandHandlerCqrs<in T>
     {
         public Task HandleAsync(T model);
     }

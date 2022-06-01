@@ -17,9 +17,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
     public class ReadUsersGetAsync
     {
         private readonly HttpClient _client;
-        private readonly BaseTestFixture _fixture;
+        private readonly TestFixtureBase _fixture;
 
-        public ReadUsersGetAsync(WebApplicationFactory<Startup> factory, BaseTestFixture fixture)
+        public ReadUsersGetAsync(WebApplicationFactory<Startup> factory, TestFixtureBase fixture)
         {
             _fixture = fixture;
             _client = _fixture.GenerateClient(factory);

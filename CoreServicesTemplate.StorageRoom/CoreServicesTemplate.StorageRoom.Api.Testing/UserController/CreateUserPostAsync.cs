@@ -15,9 +15,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
     public class CreateUserPostAsync
     {
         private readonly HttpClient _client;
-        private readonly BaseTestFixture _fixture;
+        private readonly TestFixtureBase _fixture;
 
-        public CreateUserPostAsync(WebApplicationFactory<Startup> factory, BaseTestFixture fixture)
+        public CreateUserPostAsync(WebApplicationFactory<Startup> factory, TestFixtureBase fixture)
         {
             _fixture = fixture;
             _client = _fixture.GenerateClient(factory);

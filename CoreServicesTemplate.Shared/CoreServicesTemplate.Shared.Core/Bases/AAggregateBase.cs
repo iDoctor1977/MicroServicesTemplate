@@ -4,7 +4,7 @@ using CoreServicesTemplate.Shared.Core.Resources;
 
 namespace CoreServicesTemplate.Shared.Core.Bases
 {
-    public abstract class AAggregateBase<T> where T : ABaseModel
+    public abstract class AAggregateBase<T> where T : AModelBase
     {
         protected readonly T Model;
 

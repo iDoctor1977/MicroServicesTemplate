@@ -3,5 +3,5 @@ using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures
 {
-    public interface ICreateUserFeature : ICqrsCommandHandler<UserApiModel> { }
+    public interface ICreateUserFeature : ICommandHandlerCqrs<UserApiModel> { }
 }

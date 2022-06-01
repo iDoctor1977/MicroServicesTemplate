@@ -9,7 +9,7 @@ using Moq;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures
 {
-    public class BaseTestFixture
+    public class TestFixtureBase
     {
         public Mock<ICreateUserDepot> CreateUserDepotMock { get; private set; }
         public Mock<ILogger<ApiLogActionFilterAsync>> LoggerMock { get; private set; }
