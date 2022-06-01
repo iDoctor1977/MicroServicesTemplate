@@ -7,19 +7,19 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Moq;
 
-namespace CoreServicesTemplate.Console.Api.Testing.Fixtures
+namespace CoreServicesTemplate.Console.Web.Testing.Fixtures
 {
-    public class BaseTestFixture
+    public class TestFixtureBase
     {
         public IServiceProvider ServiceProvider { get; set; }
 
         public Mock<IStorageRoomService> StorageRoomServiceMock { get; private set; }
-        public Mock<ILogger<Controllers.ConsoleApiController>> LoggerMock { get; private set; }
+        public Mock<ILogger<Controllers.HomeController>> LoggerMock { get; private set; }
 
         public void GenerateHost()
         {
             StorageRoomServiceMock = new Mock<IStorageRoomService>();
-            LoggerMock = new Mock<ILogger<Controllers.ConsoleApiController>>();
+            LoggerMock = new Mock<ILogger<Controllers.HomeController>>();
 
             var host = Host.CreateDefaultBuilder().ConfigureWebHostDefaults(hostBuilder =>
             {

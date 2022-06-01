@@ -4,5 +4,5 @@ using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Console.Common.Interfaces.IFeatures
 {
-    public interface ICreateUserFeature : ICqrsQueryHandler<UserApiModel, HttpResponseMessage> { }
+    public interface ICreateUserFeature : IQueryHandlerCqrs<UserApiModel, HttpResponseMessage> { }
 }

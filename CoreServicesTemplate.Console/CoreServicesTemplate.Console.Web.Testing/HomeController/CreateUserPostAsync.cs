@@ -5,7 +5,6 @@ using CoreServicesTemplate.Console.Web.Models;
 using CoreServicesTemplate.Console.Web.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Builders;
 using CoreServicesTemplate.Shared.Core.Models;
-using FluentAssertions;
 using Moq;
 using Xunit;
 
@@ -14,9 +13,9 @@ namespace CoreServicesTemplate.Console.Web.Testing.HomeController
     [Collection("BaseTest")]
     public class CreateUserPostAsync
     {
-        private readonly BaseTestFixture _fixture;
+        private readonly TestFixtureBase _fixture;
 
-        public CreateUserPostAsync(BaseTestFixture fixture)
+        public CreateUserPostAsync(TestFixtureBase fixture)
         {
             _fixture = fixture;
             _fixture.GenerateHost();

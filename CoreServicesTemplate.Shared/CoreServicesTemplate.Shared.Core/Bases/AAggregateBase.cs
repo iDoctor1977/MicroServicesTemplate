@@ -1,5 +1,4 @@
 ﻿using System;
-using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.Shared.Core.Resources;
 
 namespace CoreServicesTemplate.Shared.Core.Bases

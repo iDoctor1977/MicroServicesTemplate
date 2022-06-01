@@ -14,9 +14,9 @@ namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
     [Collection("BaseTest")]
     public class ReadUsersGetAsync
     {
-        private readonly BaseTestFixture _fixture;
+        private readonly TestFixtureBase _fixture;
 
-        public ReadUsersGetAsync(BaseTestFixture fixture)
+        public ReadUsersGetAsync(TestFixtureBase fixture)
         {
             _fixture = fixture;
             _fixture.GenerateHost();
