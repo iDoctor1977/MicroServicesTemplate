@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
-using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -39,28 +40,33 @@ namespace CoreServicesTemplate.StorageRoom.Data.Mocks
             }
         }
 
-        public Task<int> CreateEntity(UserApiModel model)
+        public Task<int> CreateEntity(User entity)
         {
             return Task.FromResult(1);
         }
 
-        public Task<UsersApiModel> ReadEntities()
+        public Task<IEnumerable<User>> ReadEntities()
         {
-            var model = new UsersApiModel
-            {
-                UsersApiModelList = _mapper.Map<IEnumerable<UserApiModel>>(Entities)
-
-            };
-
-            return Task.FromResult(model);
+            return Task.FromResult<IEnumerable<User>>(Entities);
         }
 
-        public Task<UserApiModel> ReadEntityByGuid(Guid guid)
+        public async Task<User> ReadEntityByGuid(User entity)
         {
-            var entity = Entities.First();
-            var model = _mapper.Map<UserApiModel>(entity);
+            try
+            {
+                if (entity != null)
+                {
+                    entity = Entities.First();
 
-            return Task.FromResult(model);
+                    return await Task.FromResult(entity);
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+            }
+
+            return await Task.FromResult<User>(null);
         }
     }
 }

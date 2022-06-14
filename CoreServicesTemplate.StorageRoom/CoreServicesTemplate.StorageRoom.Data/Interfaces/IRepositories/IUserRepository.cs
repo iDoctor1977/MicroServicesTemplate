@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
-using CoreServicesTemplate.Shared.Core.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using CoreServicesTemplate.StorageRoom.Data.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories
 {
     public interface IUserRepository
     {
-        Task<int> CreateEntity(UserApiModel model);
-        Task<UsersApiModel> ReadEntities();
+        Task<int> CreateEntity(User entity);
+        Task<IEnumerable<User>> ReadEntities();
     }
 }

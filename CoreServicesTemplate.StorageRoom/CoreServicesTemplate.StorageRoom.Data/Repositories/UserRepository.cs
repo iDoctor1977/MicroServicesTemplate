@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using CoreServicesTemplate.Shared.Core.Models;
+using CoreServicesTemplate.StorageRoom.Data.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Repositories
 {
-    public class UserRepository : BaseRepository, IUserRepository
+    public class UserRepository : RepositoryBase, IUserRepository
     {
         public UserRepository(IServiceProvider service) : base(service) { }
 
@@ -18,10 +18,8 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
 
         public UserRepository(IServiceProvider service, DbContextOptions<ProjectDbContext> options) : base(service, options) { }
 
-        public async Task<int> CreateEntity(UserApiModel model)
+        public async Task<int> CreateEntity(User entity)
         {
-            var entity = Mapper.Map<User>(model);
-
             try
             {
                 if (entity != null)
@@ -40,16 +38,17 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
             return 0;
         }
 
-        public async Task<int> UpdateEntity(UserApiModel model)
+        public async Task<int> UpdateEntity(User entity)
         {
-            var entity = await DbContext.EntitiesA.FindAsync(model.Guid);
+            var updateEntity = await DbContext.EntitiesA.SingleOrDefaultAsync(e => e.Name == entity.Name);
 
             try
             {
                 if (entity != null)
                 {
-                    entity.Name = model.Name;
-                    entity.Surname = model.Surname;
+                    updateEntity.Name = entity.Name;
+                    updateEntity.Surname = entity.Surname;
+                    updateEntity.Birth = entity.Birth;
 
                     return await Commit();
                 }
@@ -62,17 +61,15 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
             return 0;
         }
 
-        public async Task<UserApiModel> ReadEntityByGuid(Guid guid)
+        public async Task<User> ReadEntityByGuid(User entity)
         {
             try
             {
-                var entity = await DbContext.EntitiesA.FindAsync(guid);
+                entity = await DbContext.EntitiesA.SingleOrDefaultAsync(e => e.Guid == entity.Guid);
 
                 if (entity != null)
                 {
-                    var model = Mapper.Map<UserApiModel>(entity);
-
-                    return await Task.FromResult(model);
+                    return await Task.FromResult(entity);
                 }
             }
             catch (Exception exception)
@@ -80,20 +77,18 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
                 throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
             }
 
-            return await Task.FromResult<UserApiModel>(null);
+            return await Task.FromResult<User>(null);
         }
 
-        public async Task<UserApiModel> ReadEntityByName(string name)
+        public async Task<User> ReadEntityByName(User entity)
         {
             try
             {
-                var entity = DbContext.EntitiesA.SingleOrDefault(eA => eA.Name == name);
+                entity = DbContext.EntitiesA.SingleOrDefault(e => e.Name == entity.Name);
 
                 if (entity != null)
                 {
-                    var model = Mapper.Map<UserApiModel>(entity);
-
-                    return await Task.FromResult(model);
+                    return await Task.FromResult(entity);
                 }
             }
             catch (Exception exception)
@@ -101,14 +96,14 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
                 throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
             }
 
-            return await Task.FromResult<UserApiModel>(null);
+            return await Task.FromResult<User>(null);
         }
 
-        public async Task<int> DeleteEntity(UserApiModel model)
+        public async Task<int> DeleteEntity(User entity)
         {
             try
             {
-                var entity = DbContext.EntitiesA.Find(model.Guid);
+                entity = await DbContext.EntitiesA.FindAsync(entity.Guid);
 
                 if (entity != null)
                 {
@@ -125,19 +120,15 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
             return 0;
         }
 
-        public async Task<UsersApiModel> ReadEntities()
+        public async Task<IEnumerable<User>> ReadEntities()
         {
-            var model = new UsersApiModel();
-
             try
             {
                 IEnumerable<User> entities = DbContext.EntitiesA.ToList();
 
                 if (entities.Any())
                 {
-                    model.UsersApiModelList = Mapper.Map<IEnumerable<UserApiModel>>(entities);
-
-                    return await Task.FromResult(model);
+                    return entities;
                 }
             }
             catch (Exception exception)
@@ -145,7 +136,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
                 throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
             }
 
-            return await Task.FromResult(model);
+            return await Task.FromResult(Enumerable.Empty<User>());
         }
     }
 }
