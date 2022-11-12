@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
@@ -40,7 +42,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Mocks
             }
         }
 
-        public Task<int> CreateEntity(User entity)
+        public Task CreateEntity(User entity)
         {
             return Task.FromResult(1);
         }
@@ -48,6 +50,16 @@ namespace CoreServicesTemplate.StorageRoom.Data.Mocks
         public Task<IEnumerable<User>> ReadEntities()
         {
             return Task.FromResult<IEnumerable<User>>(Entities);
+        }
+
+        public Task UpdateEntity(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<User> ReadEntityByName(User entity)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<User> ReadEntityByGuid(User entity)
@@ -67,6 +79,86 @@ namespace CoreServicesTemplate.StorageRoom.Data.Mocks
             }
 
             return await Task.FromResult<User>(null);
+        }
+
+        public Task DeleteEntity(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User Get(Expression<Func<User, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<User> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<User> GetAll(Expression<Func<User, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddAsync(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddRange(IEnumerable<User> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveRange(IEnumerable<User> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateRange(IEnumerable<User> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<User> GetAsync(Expression<Func<User, bool>> expression, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<User>> GetAllAsync(Expression<Func<User, bool>> expression, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddAsync(User entity, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddRangeAsync(IEnumerable<User> entities, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
         }
     }
 }

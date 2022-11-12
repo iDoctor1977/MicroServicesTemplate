@@ -22,7 +22,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Entities
 
         public ProjectDbContext(DbContextOptions<ProjectDbContext> options) : base(options) { }
 
-        public DbSet<User> EntitiesA { get; set; }
+        public DbSet<User> Users { get; set; }
 
         private string CreateConnectionStringPath() {
             var folder = Environment.SpecialFolder.LocalApplicationData;
@@ -37,7 +37,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Entities
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().ToTable("AEntity");
+            modelBuilder.Entity<User>().ToTable("Users");
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using CoreServicesTemplate.StorageRoom.Data.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
@@ -10,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Repositories
 {
-    public class UserRepository : RepositoryBase, IUserRepository
+    public class UserRepository : RepositoryBase<User>, IUserRepository
     {
         public UserRepository(IServiceProvider service) : base(service) { }
 
@@ -18,29 +20,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
 
         public UserRepository(IServiceProvider service, DbContextOptions<ProjectDbContext> options) : base(service, options) { }
 
-        public async Task<int> CreateEntity(User entity)
+        public async Task UpdateEntity(User entity)
         {
-            try
-            {
-                if (entity != null)
-                {
-                    entity.Id = new Random().Next();
-                    DbContext.EntitiesA.Add(entity);
-
-                    return await Commit();
-                }
-            }
-            catch (Exception exception)
-            {
-                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
-            }
-
-            return 0;
-        }
-
-        public async Task<int> UpdateEntity(User entity)
-        {
-            var updateEntity = await DbContext.EntitiesA.SingleOrDefaultAsync(e => e.Name == entity.Name);
+            var updateEntity = await EntitySet.SingleOrDefaultAsync(e => e.Name == entity.Name);
 
             try
             {
@@ -50,41 +32,20 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
                     updateEntity.Surname = entity.Surname;
                     updateEntity.Birth = entity.Birth;
 
-                    return await Commit();
+                    await CommitAsync();
                 }
             }
             catch (Exception exception)
             {
                 throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
             }
-
-            return 0;
-        }
-
-        public async Task<User> ReadEntityByGuid(User entity)
-        {
-            try
-            {
-                entity = await DbContext.EntitiesA.SingleOrDefaultAsync(e => e.Guid == entity.Guid);
-
-                if (entity != null)
-                {
-                    return await Task.FromResult(entity);
-                }
-            }
-            catch (Exception exception)
-            {
-                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
-            }
-
-            return await Task.FromResult<User>(null);
         }
 
         public async Task<User> ReadEntityByName(User entity)
         {
             try
             {
-                entity = DbContext.EntitiesA.SingleOrDefault(e => e.Name == entity.Name);
+                entity = EntitySet.SingleOrDefault(e => e.Name == entity.Name);
 
                 if (entity != null)
                 {
@@ -99,17 +60,33 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
             return await Task.FromResult<User>(null);
         }
 
-        public async Task<int> DeleteEntity(User entity)
+        public async Task CreateEntity(User entity)
         {
             try
             {
-                entity = await DbContext.EntitiesA.FindAsync(entity.Guid);
+                if (entity != null)
+                {
+                    entity.Id = new Random().Next();
+                    EntitySet.Add(entity);
+
+                    await CommitAsync();
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+            }
+        }
+
+        public async Task<User> ReadEntityByGuid(User entity)
+        {
+            try
+            {
+                entity = await EntitySet.SingleOrDefaultAsync(e => e.Guid == entity.Guid);
 
                 if (entity != null)
                 {
-                    DbContext.EntitiesA.Remove(entity);
-
-                    return await Commit();
+                    return await Task.FromResult(entity);
                 }
             }
             catch (Exception exception)
@@ -117,14 +94,33 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
                 throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
             }
 
-            return 0;
+            return await Task.FromResult<User>(null);
+        }
+
+        public async Task DeleteEntity(User entity)
+        {
+            try
+            {
+                entity = await EntitySet.FindAsync(entity.Guid);
+
+                if (entity != null)
+                {
+                    EntitySet.Remove(entity);
+
+                    await CommitAsync();
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+            }
         }
 
         public async Task<IEnumerable<User>> ReadEntities()
         {
             try
             {
-                IEnumerable<User> entities = DbContext.EntitiesA.ToList();
+                IEnumerable<User> entities = EntitySet.ToList();
 
                 if (entities.Any())
                 {
