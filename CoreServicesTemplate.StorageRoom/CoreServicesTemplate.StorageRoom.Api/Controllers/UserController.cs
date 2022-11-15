@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 {
@@ -14,10 +12,10 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         private readonly ICreateUserFeature _createUserFeature;
         private readonly IReadUsersFeature _readUsersFeature;
 
-        public UserController(IServiceProvider service)
+        public UserController(ICreateUserFeature createUserFeature, IReadUsersFeature readUsersFeature)
         {
-            _createUserFeature = service.GetRequiredService<ICreateUserFeature>();
-            _readUsersFeature = service.GetRequiredService<IReadUsersFeature>();
+            _createUserFeature = createUserFeature;
+            _readUsersFeature = readUsersFeature;
         }
 
         // POST: StorageRoom/User/Post

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using AutoMapper;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Data.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Depots
 {
@@ -12,9 +11,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.Depots
     {
         private readonly IUserRepository _userRepository;
 
-        public ReadUsersDepot(IServiceProvider service) : base(service)
+        public ReadUsersDepot(IMapper mapper, IUserRepository userRepository) : base(mapper)
         {
-            _userRepository = service.GetRequiredService<IUserRepository>();
+            _userRepository = userRepository;
         }
 
         public async Task<UsersApiModel> HandleAsync()

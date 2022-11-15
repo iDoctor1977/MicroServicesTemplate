@@ -12,18 +12,18 @@ namespace CoreServicesTemplate.StorageRoom.Data.Bases
 {
     public class RepositoryBase<T> : IGenericRepository<T> where T : EntityBase
     {
-        protected RepositoryBase (IServiceProvider service) {
+        protected RepositoryBase () {
             DbContext = new ProjectDbContext();
             EntitySet = DbContext.Set<T>();
         }
 
-        protected RepositoryBase(IServiceProvider service, string dbName)
+        protected RepositoryBase(string dbName)
         {
             DbContext = new ProjectDbContext(dbName);
             EntitySet = DbContext.Set<T>();
         }
 
-        protected RepositoryBase(IServiceProvider service, DbContextOptions<ProjectDbContext> options)
+        protected RepositoryBase(DbContextOptions<ProjectDbContext> options)
         {
             DbContext = new ProjectDbContext(options);
             EntitySet = DbContext.Set<T>();
@@ -31,6 +31,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Bases
 
         protected ProjectDbContext DbContext { get; }
         protected DbSet<T> EntitySet { get; }
+
         public T Get(Expression<Func<T, bool>> expression) => EntitySet.FirstOrDefault(expression);
 
         public IEnumerable<T> GetAll() => EntitySet.AsEnumerable();
@@ -65,12 +66,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.Bases
             return Task.CompletedTask;
         }
 
-        public void Commit() => DbContext.SaveChanges();
+        protected void Commit() => DbContext.SaveChanges();
 
-        public async Task CommitAsync() => await DbContext.SaveChangesAsync();
+        protected async Task CommitAsync() => await DbContext.SaveChangesAsync();
 
-        public void Rollback() => DbContext.Dispose();
+        protected void Rollback() => DbContext.Dispose();
 
-        public async Task RollbackAsync() => await DbContext.DisposeAsync();
+        protected async Task RollbackAsync() => await DbContext.DisposeAsync();
     }
 }

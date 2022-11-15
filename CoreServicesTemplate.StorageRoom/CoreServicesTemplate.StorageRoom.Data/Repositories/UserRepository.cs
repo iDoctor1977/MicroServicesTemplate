@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using CoreServicesTemplate.StorageRoom.Data.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
@@ -14,11 +12,11 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
 {
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {
-        public UserRepository(IServiceProvider service) : base(service) { }
+        public UserRepository() { }
 
-        public UserRepository(IServiceProvider service, string dbName) : base(service, dbName) { }
+        public UserRepository(string dbName) : base(dbName) { }
 
-        public UserRepository(IServiceProvider service, DbContextOptions<ProjectDbContext> options) : base(service, options) { }
+        public UserRepository(DbContextOptions<ProjectDbContext> options) : base(options) { }
 
         public async Task UpdateEntity(User entity)
         {

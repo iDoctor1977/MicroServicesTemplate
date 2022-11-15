@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
@@ -11,8 +9,8 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
     {
         private readonly IReadUsersDepot _readUsersDepot;
 
-        public ReadUsersFeature(IServiceProvider service) {
-            _readUsersDepot = service.GetRequiredService<IReadUsersDepot>();
+        public ReadUsersFeature(IReadUsersDepot readUsersDepot) {
+            _readUsersDepot = readUsersDepot;
         }
 
         public async Task<UsersApiModel> HandleAsync()

@@ -6,26 +6,26 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using CoreServicesTemplate.StorageRoom.Data.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Mocks
 {
-    public class UserRepositoryMock : IUserRepository
+    public class UserRepositoryMock : RepositoryBase<User>, IUserRepository
     {
         private IConfiguration Configuration { get; }
         private readonly IMapper _mapper;
 
         private static readonly List<User> Entities = new List<User>();
 
-        public UserRepositoryMock(IServiceProvider service, IConfiguration configuration)
+        public UserRepositoryMock(IMapper mapper, IConfiguration configuration)
         {
             Configuration = configuration;
-            _mapper = service.GetRequiredService<IMapper>();
+            _mapper = mapper;
 
             var builder = new UserEntityBuilder();
 
@@ -44,7 +44,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Mocks
 
         public Task CreateEntity(User entity)
         {
-            return Task.FromResult(1);
+            return Task.CompletedTask;
         }
 
         public Task<IEnumerable<User>> ReadEntities()
@@ -54,12 +54,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.Mocks
 
         public Task UpdateEntity(User entity)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task<User> ReadEntityByName(User entity)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(Entities.FirstOrDefault(r => r.Name == entity.Name));
         }
 
         public async Task<User> ReadEntityByGuid(User entity)
@@ -83,80 +83,89 @@ namespace CoreServicesTemplate.StorageRoom.Data.Mocks
 
         public Task DeleteEntity(User entity)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
-        public User Get(Expression<Func<User, bool>> expression)
+        public new User Get(Expression<Func<User, bool>> expression)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<User> GetAll()
+        public new IEnumerable<User> GetAll()
+        {
+            return Entities;
+        }
+
+        public new IEnumerable<User> GetAll(Expression<Func<User, bool>> expression)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<User> GetAll(Expression<Func<User, bool>> expression)
+        public new void Add(User entity)
+        {
+            Entities.Add(entity);
+        }
+
+        public new Task AddAsync(User entity)
+        {
+            return Task.CompletedTask;
+        }
+
+        public new void AddRange(IEnumerable<User> entities)
+        {
+            Entities.AddRange(entities);
+        }
+
+        public new void Remove(User entity)
+        {
+            Entities.Remove(entity);
+        }
+
+        public new void RemoveRange(IEnumerable<User> entities)
+        {
+            Entities.RemoveAll(entities.Contains);
+        }
+
+        public new void Update(User entity)
+        {
+            var result = Entities.FirstOrDefault(u => u.Guid == entity.Guid);
+
+            if (result != null)
+            {
+                result.Name = entity.Name;
+                result.Surname = entity.Surname;
+                result.Birth = entity.Birth;
+
+                Commit();
+            }
+        }
+
+        public new void UpdateRange(IEnumerable<User> entities)
         {
             throw new NotImplementedException();
         }
 
-        public void Add(User entity)
+        public new Task<User> GetAsync(Expression<Func<User, bool>> expression, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddAsync(User entity)
+        public new Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public void AddRange(IEnumerable<User> entities)
+        public new Task<IEnumerable<User>> GetAllAsync(Expression<Func<User, bool>> expression, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(User entity)
+        public new Task AddAsync(User entity, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveRange(IEnumerable<User> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(User entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateRange(IEnumerable<User> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<User> GetAsync(Expression<Func<User, bool>> expression, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<User>> GetAllAsync(Expression<Func<User, bool>> expression, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AddAsync(User entity, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AddRangeAsync(IEnumerable<User> entities, CancellationToken cancellationToken = default)
+        public new Task AddRangeAsync(IEnumerable<User> entities, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

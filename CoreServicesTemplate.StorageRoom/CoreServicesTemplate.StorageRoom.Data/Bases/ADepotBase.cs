@@ -1,6 +1,4 @@
-﻿using System;
-using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Bases
 {
@@ -8,9 +6,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.Bases
     {
         protected readonly IMapper Mapper;
 
-        protected ADepotBase(IServiceProvider service)
+        protected ADepotBase(IMapper mapper)
         {
-            Mapper = service.GetRequiredService<IMapper>();
+            Mapper = mapper;
         }
     }
 }

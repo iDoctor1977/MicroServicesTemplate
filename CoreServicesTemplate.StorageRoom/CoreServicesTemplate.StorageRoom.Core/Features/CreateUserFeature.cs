@@ -4,7 +4,6 @@ using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
@@ -12,8 +11,8 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
     {
         private readonly ICreateUserDepot _createUserDepot;
 
-        public CreateUserFeature(IServiceProvider service) {
-            _createUserDepot = service.GetRequiredService<ICreateUserDepot>();
+        public CreateUserFeature(ICreateUserDepot createUserDepot) {
+            _createUserDepot = createUserDepot;
         }
 
         public async Task HandleAsync(UserApiModel model)
