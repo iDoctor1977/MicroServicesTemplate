@@ -5,27 +5,15 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Interfaces.IRepository;
-using CoreServicesTemplate.StorageRoom.Data.Entities;
+using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Bases
 {
-    public class RepositoryBase<T> : IGenericRepository<T> where T : EntityBase
+    public class RepositoryBaseEF<T> : IRepository<T> where T : EntityBase
     {
-        protected RepositoryBase () {
-            DbContext = new ProjectDbContext();
-            EntitySet = DbContext.Set<T>();
-        }
-
-        protected RepositoryBase(string dbName)
-        {
-            DbContext = new ProjectDbContext(dbName);
-            EntitySet = DbContext.Set<T>();
-        }
-
-        protected RepositoryBase(DbContextOptions<ProjectDbContext> options)
-        {
-            DbContext = new ProjectDbContext(options);
+        protected RepositoryBaseEF (ProjectDbContext dbContext) {
+            DbContext = dbContext;
             EntitySet = DbContext.Set<T>();
         }
 
@@ -65,13 +53,5 @@ namespace CoreServicesTemplate.StorageRoom.Data.Bases
             DbContext.AddRange(entities);
             return Task.CompletedTask;
         }
-
-        protected void Commit() => DbContext.SaveChanges();
-
-        protected async Task CommitAsync() => await DbContext.SaveChangesAsync();
-
-        protected void Rollback() => DbContext.Dispose();
-
-        protected async Task RollbackAsync() => await DbContext.DisposeAsync();
     }
 }

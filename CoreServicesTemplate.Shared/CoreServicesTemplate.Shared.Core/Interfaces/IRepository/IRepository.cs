@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoreServicesTemplate.Shared.Core.Interfaces.IRepository
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IRepository<T> : IRepository where T : class
     {
         T Get(Expression<Func<T, bool>> expression);
         IEnumerable<T> GetAll();
@@ -24,4 +24,6 @@ namespace CoreServicesTemplate.Shared.Core.Interfaces.IRepository
         Task AddAsync(T entity, CancellationToken cancellationToken = default);
         Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
     }
+
+    public interface IRepository { }
 }

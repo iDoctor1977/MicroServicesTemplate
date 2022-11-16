@@ -1,7 +1,8 @@
 ﻿using System;
+using CoreServicesTemplate.StorageRoom.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreServicesTemplate.StorageRoom.Data.Entities
+namespace CoreServicesTemplate.StorageRoom.Data.RepositoriesEF
 {
     public class ProjectDbContext : DbContext
     {
@@ -20,7 +21,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Entities
             _connectionStringName = CreateConnectionStringPath();
         }
 
-        public ProjectDbContext(DbContextOptions<ProjectDbContext> options) : base(options) { }
+        public ProjectDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
 

@@ -9,20 +9,21 @@ using AutoMapper;
 using CoreServicesTemplate.StorageRoom.Data.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
-using CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;
+using CoreServicesTemplate.StorageRoom.Data.Interfaces.IGenericRepositories;
+using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Mocks
 {
-    public class UserRepositoryMock : RepositoryBase<User>, IUserRepository
+    public class UserRepositoryMock : RepositoryBaseEF<User>, IUserRepository
     {
         private IConfiguration Configuration { get; }
         private readonly IMapper _mapper;
 
         private static readonly List<User> Entities = new List<User>();
 
-        public UserRepositoryMock(IMapper mapper, IConfiguration configuration)
+        public UserRepositoryMock(ProjectDbContext dbContext, IMapper mapper, IConfiguration configuration) : base(dbContext)
         {
             Configuration = configuration;
             _mapper = mapper;
@@ -135,8 +136,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.Mocks
                 result.Name = entity.Name;
                 result.Surname = entity.Surname;
                 result.Birth = entity.Birth;
-
-                Commit();
             }
         }
 

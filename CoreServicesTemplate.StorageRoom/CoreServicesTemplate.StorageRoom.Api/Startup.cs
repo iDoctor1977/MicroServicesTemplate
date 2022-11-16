@@ -9,11 +9,11 @@ using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Core.Features;
-using CoreServicesTemplate.StorageRoom.Data.Depots;
-using CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;
+using CoreServicesTemplate.StorageRoom.Data.DepotsEF;
+using CoreServicesTemplate.StorageRoom.Data.Interfaces.IGenericRepositories;
 using CoreServicesTemplate.StorageRoom.Data.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Data.Mocks;
-using CoreServicesTemplate.StorageRoom.Data.Repositories;
+using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {
@@ -34,8 +34,8 @@ namespace CoreServicesTemplate.StorageRoom.Api
             services.AddTransient<ICreateUserFeature, CreateUserFeature>();
             services.AddTransient<IReadUsersFeature, ReadUsersFeature>();
 
-            services.AddTransient<ICreateUserDepot, CreateUserDepot>();
-            services.AddTransient<IReadUsersDepot, ReadUsersDepot>();
+            services.AddTransient<ICreateUserDepot, CreateUserDepotEF>();
+            services.AddTransient<IReadUsersDepot, ReadUsersDepotEF>();
 
             if (Configuration["mocked"].Equals("true", StringComparison.OrdinalIgnoreCase))
             {
@@ -43,7 +43,7 @@ namespace CoreServicesTemplate.StorageRoom.Api
             }
             else
             {
-                services.AddTransient<IUserRepository, UserRepository>();
+                services.AddTransient<IUserRepository, UserRepositoryEF>();
             }
 
             #endregion

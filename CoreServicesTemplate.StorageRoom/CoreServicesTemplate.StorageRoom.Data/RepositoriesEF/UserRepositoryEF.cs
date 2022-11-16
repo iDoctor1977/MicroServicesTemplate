@@ -5,23 +5,19 @@ using System.Reflection;
 using System.Threading.Tasks;
 using CoreServicesTemplate.StorageRoom.Data.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
-using CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;
+using CoreServicesTemplate.StorageRoom.Data.Interfaces.IGenericRepositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreServicesTemplate.StorageRoom.Data.Repositories
+namespace CoreServicesTemplate.StorageRoom.Data.RepositoriesEF
 {
-    public class UserRepository : RepositoryBase<User>, IUserRepository
+    public class UserRepositoryEF : RepositoryBaseEF<User>, IUserRepository
     {
-        public UserRepository() { }
-
-        public UserRepository(string dbName) : base(dbName) { }
-
-        public UserRepository(DbContextOptions<ProjectDbContext> options) : base(options) { }
+        public UserRepositoryEF(ProjectDbContext dbContext) : base(dbContext) { }
 
         public async Task UpdateEntity(User entity)
         {
             var updateEntity = await EntitySet.SingleOrDefaultAsync(e => e.Name == entity.Name);
-
+            
             try
             {
                 if (entity != null)
@@ -29,8 +25,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
                     updateEntity.Name = entity.Name;
                     updateEntity.Surname = entity.Surname;
                     updateEntity.Birth = entity.Birth;
-
-                    await CommitAsync();
                 }
             }
             catch (Exception exception)
@@ -66,14 +60,14 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
                 {
                     entity.Id = new Random().Next();
                     EntitySet.Add(entity);
-
-                    await CommitAsync();
                 }
             }
             catch (Exception exception)
             {
                 throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
             }
+
+            await Task.CompletedTask;
         }
 
         public async Task<User> ReadEntityByGuid(User entity)
@@ -104,8 +98,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.Repositories
                 if (entity != null)
                 {
                     EntitySet.Remove(entity);
-
-                    await CommitAsync();
                 }
             }
             catch (Exception exception)

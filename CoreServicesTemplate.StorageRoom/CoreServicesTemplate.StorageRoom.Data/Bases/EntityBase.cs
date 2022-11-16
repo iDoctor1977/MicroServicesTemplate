@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace CoreServicesTemplate.StorageRoom.Data.Entities
+namespace CoreServicesTemplate.StorageRoom.Data.Bases
 {
     public class EntityBase
     {
