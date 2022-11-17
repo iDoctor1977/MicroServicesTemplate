@@ -1,5 +1,5 @@
 ﻿using System;
-using CoreServicesTemplate.Shared.Core.Interfaces.IRepository;
+using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
 using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 

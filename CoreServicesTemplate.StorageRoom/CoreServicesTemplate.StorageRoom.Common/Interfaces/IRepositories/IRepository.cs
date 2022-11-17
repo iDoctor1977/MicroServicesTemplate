@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CoreServicesTemplate.Shared.Core.Interfaces.IRepository
+namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories
 {
     public interface IRepository<T> : IRepository where T : class
     {

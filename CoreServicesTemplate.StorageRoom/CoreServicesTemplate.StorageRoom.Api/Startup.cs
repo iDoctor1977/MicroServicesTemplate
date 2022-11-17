@@ -37,6 +37,10 @@ namespace CoreServicesTemplate.StorageRoom.Api
             services.AddTransient<ICreateUserDepot, CreateUserDepotEF>();
             services.AddTransient<IReadUsersDepot, ReadUsersDepotEF>();
 
+            services.AddTransient<IUserRepository, UserRepositoryEF>();
+
+            services.AddTransient<ProjectDbContext, ProjectDbContext>();
+
             if (Configuration["mocked"].Equals("true", StringComparison.OrdinalIgnoreCase))
             {
                 services.AddTransient<IUserRepository, UserRepositoryMock>();

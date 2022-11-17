@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using CoreServicesTemplate.Shared.Core.Interfaces.IRepository;
+using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
 using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF;
 using Microsoft.EntityFrameworkCore;
 
