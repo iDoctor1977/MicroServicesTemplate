@@ -41,7 +41,7 @@ namespace CoreServicesTemplate.StorageRoom.Api
             services.AddTransient<IRepositoryFactoryEF, RepositoryFactoryEF>();
             services.AddTransient<IUserRepository, UserRepositoryEF>();
 
-            services.AddTransient<DbContextProject, DbContextProject>();
+            services.AddTransient<DbContextProject>();
 
             if (Configuration["mocked"].Equals("true", StringComparison.OrdinalIgnoreCase))
             {

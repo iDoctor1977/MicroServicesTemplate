@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
@@ -13,9 +14,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.DepotsEF
     {
         private readonly IUserRepository _userRepository;
 
-        public ReadUsersDepotEF(IMapper mapper, DbContextProject dbContext, IRepositoryFactoryEF repositoryFactory) : base(mapper, dbContext)
+        public ReadUsersDepotEF(IMapper mapper, Lazy<DbContextProject> dbContext, IRepositoryFactoryEF repositoryFactory) : base(mapper, dbContext)
         {
-            _userRepository = repositoryFactory.CreateRepository<IUserRepository>(dbContext);
+            _userRepository = repositoryFactory.CreateRepository<IUserRepository>(dbContext.Value);
         }
 
         public async Task<UsersApiModel> HandleAsync()
