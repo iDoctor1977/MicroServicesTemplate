@@ -7,7 +7,7 @@ namespace CoreServicesTemplate.Shared.Core.Interfaces.ICqrs
         Task<TOut> HandleAsync(TIn model);
     }
 
-    public interface ICqrsQueryHandler<TOut>
+    public interface IQueryHandlerCqrs<TOut>
     {
         Task<TOut> HandleAsync();
     }

@@ -10,10 +10,11 @@ using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Core.Features;
 using CoreServicesTemplate.StorageRoom.Data.DepotsEF;
-using CoreServicesTemplate.StorageRoom.Data.Interfaces.IGenericRepositories;
+using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using CoreServicesTemplate.StorageRoom.Data.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Data.Mocks;
 using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF;
+using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF.Interfaces;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {
@@ -37,9 +38,10 @@ namespace CoreServicesTemplate.StorageRoom.Api
             services.AddTransient<ICreateUserDepot, CreateUserDepotEF>();
             services.AddTransient<IReadUsersDepot, ReadUsersDepotEF>();
 
+            services.AddTransient<IRepositoryFactoryEF, RepositoryFactoryEF>();
             services.AddTransient<IUserRepository, UserRepositoryEF>();
 
-            services.AddTransient<ProjectDbContext, ProjectDbContext>();
+            services.AddTransient<DbContextProject, DbContextProject>();
 
             if (Configuration["mocked"].Equals("true", StringComparison.OrdinalIgnoreCase))
             {

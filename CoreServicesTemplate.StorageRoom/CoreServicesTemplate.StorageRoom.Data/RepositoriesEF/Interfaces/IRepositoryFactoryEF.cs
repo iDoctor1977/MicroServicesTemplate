@@ -4,6 +4,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.RepositoriesEF.Interfaces
 {
     public interface IRepositoryFactoryEF
     {
-        public T CreateRepository<T>(ProjectDbContext dbContext) where T : IRepository;
+        public T CreateRepository<T>(DbContextProject dbContext) where T : IRepository;
     }
 }

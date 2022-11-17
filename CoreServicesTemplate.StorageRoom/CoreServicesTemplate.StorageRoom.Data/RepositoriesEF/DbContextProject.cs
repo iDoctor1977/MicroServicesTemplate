@@ -4,24 +4,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Data.RepositoriesEF
 {
-    public class ProjectDbContext : DbContext
+    public class DbContextProject : DbContext
     {
         private readonly string _dbName;
         private readonly string _connectionStringName;
 
-        public ProjectDbContext()
+        public DbContextProject()
         {
             _dbName = "ProjectNameDB";
             _connectionStringName = CreateConnectionStringPath();
         }
 
-        public ProjectDbContext(string dbName)
+        public DbContextProject(string dbName)
         {
             _dbName = dbName;
             _connectionStringName = CreateConnectionStringPath();
         }
 
-        public ProjectDbContext(DbContextOptions options) : base(options) { }
+        public DbContextProject(DbContextOptions options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
 

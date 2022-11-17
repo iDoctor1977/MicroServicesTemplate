@@ -5,14 +5,14 @@ using System.Reflection;
 using System.Threading.Tasks;
 using CoreServicesTemplate.StorageRoom.Data.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
-using CoreServicesTemplate.StorageRoom.Data.Interfaces.IGenericRepositories;
+using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Data.RepositoriesEF
 {
     public class UserRepositoryEF : RepositoryBaseEF<User>, IUserRepository
     {
-        public UserRepositoryEF(ProjectDbContext dbContext) : base(dbContext) { }
+        public UserRepositoryEF(DbContextProject dbContext) : base(dbContext) { }
 
         public async Task UpdateEntity(User entity)
         {

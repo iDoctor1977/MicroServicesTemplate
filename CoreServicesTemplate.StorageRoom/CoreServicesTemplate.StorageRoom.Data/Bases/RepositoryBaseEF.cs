@@ -12,12 +12,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.Bases
 {
     public class RepositoryBaseEF<T> : IRepository<T> where T : EntityBase
     {
-        protected RepositoryBaseEF (ProjectDbContext dbContext) {
+        protected RepositoryBaseEF (DbContextProject dbContext) {
             DbContext = dbContext;
             EntitySet = DbContext.Set<T>();
         }
 
-        protected ProjectDbContext DbContext { get; }
+        protected DbContextProject DbContext { get; }
         protected DbSet<T> EntitySet { get; }
 
         public T Get(Expression<Func<T, bool>> expression) => EntitySet.FirstOrDefault(expression);

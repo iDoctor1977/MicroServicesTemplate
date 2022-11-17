@@ -9,7 +9,7 @@ using AutoMapper;
 using CoreServicesTemplate.StorageRoom.Data.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
-using CoreServicesTemplate.StorageRoom.Data.Interfaces.IGenericRepositories;
+using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +23,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Mocks
 
         private static readonly List<User> Entities = new List<User>();
 
-        public UserRepositoryMock(ProjectDbContext dbContext, IMapper mapper, IConfiguration configuration) : base(dbContext)
+        public UserRepositoryMock(DbContextProject dbContext, IMapper mapper, IConfiguration configuration) : base(dbContext)
         {
             Configuration = configuration;
             _mapper = mapper;

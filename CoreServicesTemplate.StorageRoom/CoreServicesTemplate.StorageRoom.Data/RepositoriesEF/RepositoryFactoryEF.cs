@@ -14,7 +14,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.RepositoriesEF
             _serviceProvider = serviceProvider;
         }
 
-        public T CreateRepository<T>(ProjectDbContext dbContext) where T : IRepository
+        public T CreateRepository<T>(DbContextProject dbContext) where T : IRepository
         {
             return ActivatorUtilities.CreateInstance<T>(_serviceProvider, dbContext);
         }
