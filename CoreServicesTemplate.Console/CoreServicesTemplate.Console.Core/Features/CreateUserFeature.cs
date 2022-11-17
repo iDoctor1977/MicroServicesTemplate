@@ -5,7 +5,6 @@ using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Console.Core.Aggregates;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Models;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreServicesTemplate.Console.Core.Features
 {
@@ -13,8 +12,8 @@ namespace CoreServicesTemplate.Console.Core.Features
     {
         private readonly IStorageRoomService _storageRoomService;
 
-        public CreateUserFeature(IServiceProvider service) {
-            _storageRoomService = service.GetRequiredService<IStorageRoomService>();
+        public CreateUserFeature(IStorageRoomService storageRoomService) {
+            _storageRoomService = storageRoomService;
         }
 
         public async Task<HttpResponseMessage> HandleAsync(UserApiModel model)
