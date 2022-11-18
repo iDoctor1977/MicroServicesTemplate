@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Shared.Core.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.Console.Api.Controllers
@@ -16,11 +15,11 @@ namespace CoreServicesTemplate.Console.Api.Controllers
 
         private readonly IReadUsersFeature _readUsersFeature;
 
-        public ConsoleApiController(IServiceProvider service, ILogger<ConsoleApiController> logger)
+        public ConsoleApiController(IReadUsersFeature readUsersFeature, ILogger<ConsoleApiController> logger)
         {
             _logger = logger;
 
-            _readUsersFeature = service.GetRequiredService<IReadUsersFeature>();
+            _readUsersFeature = readUsersFeature;
         }
 
         [HttpGet]
