@@ -22,5 +22,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Bases
         protected async Task CommitAsync() => await _dbContext.Value.SaveChangesAsync();
 
         public void Dispose() => _dbContext?.Value.Dispose();
+
+        public async Task DisposeAsync() => await _dbContext.Value.DisposeAsync();
     }
 }
