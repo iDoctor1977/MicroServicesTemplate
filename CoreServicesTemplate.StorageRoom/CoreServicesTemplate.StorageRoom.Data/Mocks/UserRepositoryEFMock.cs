@@ -16,14 +16,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Mocks
 {
-    public class UserRepositoryMock : RepositoryBaseEF<User>, IUserRepository
+    public class UserRepositoryEFMock : RepositoryBaseEF<User>, IUserRepository
     {
         private IConfiguration Configuration { get; }
         private readonly IMapper _mapper;
 
         private static readonly List<User> Entities = new List<User>();
 
-        public UserRepositoryMock(DbContextProject dbContext, IMapper mapper, IConfiguration configuration) : base(dbContext)
+        public UserRepositoryEFMock(Lazy<DbContextProject> dbContext, IMapper mapper, IConfiguration configuration) : base(dbContext)
         {
             Configuration = configuration;
             _mapper = mapper;

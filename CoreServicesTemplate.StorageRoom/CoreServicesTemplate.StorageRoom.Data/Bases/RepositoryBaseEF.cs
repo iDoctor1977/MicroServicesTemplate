@@ -12,8 +12,8 @@ namespace CoreServicesTemplate.StorageRoom.Data.Bases
 {
     public class RepositoryBaseEF<T> : IRepository<T> where T : EntityBase
     {
-        protected RepositoryBaseEF (DbContextProject dbContext) {
-            DbContext = dbContext;
+        protected RepositoryBaseEF (Lazy<DbContextProject> dbContext) {
+            DbContext = dbContext.Value;
             EntitySet = DbContext.Set<T>();
         }
 

@@ -12,7 +12,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.RepositoriesEF
 {
     public class UserRepositoryEF : RepositoryBaseEF<User>, IUserRepository
     {
-        public UserRepositoryEF(DbContextProject dbContext) : base(dbContext) { }
+        public UserRepositoryEF(Lazy<DbContextProject> dbContext) : base(dbContext) { }
 
         public async Task UpdateEntity(User entity)
         {
