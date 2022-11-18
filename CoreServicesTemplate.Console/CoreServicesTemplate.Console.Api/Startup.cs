@@ -1,6 +1,9 @@
 using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.Console.Core;
 using CoreServicesTemplate.Console.Core.Features;
+using CoreServicesTemplate.Console.Services;
 using CoreServicesTemplate.Shared.Core.HealthChecks;
+using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,9 +28,9 @@ namespace CoreServicesTemplate.Console.Api
         {
             #region Injections
 
-            services.AddTransient<IHealthCheck, StorageRoomHealthCheck>();
+            CoreConfigureServices.InitializeDependencies(services);
 
-            services.AddTransient<IReadUsersFeature, ReadUsersFeature>();
+            services.AddHttpClient();
 
             #endregion
 

@@ -12,7 +12,8 @@ namespace CoreServicesTemplate.Console.Core.Features
     {
         private readonly IStorageRoomService _storageRoomService;
 
-        public CreateUserFeature(IStorageRoomService storageRoomService) {
+        public CreateUserFeature(IStorageRoomService storageRoomService) 
+        {
             _storageRoomService = storageRoomService;
         }
 

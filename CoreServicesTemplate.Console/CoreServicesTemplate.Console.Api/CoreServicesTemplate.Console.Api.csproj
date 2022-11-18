@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CoreServicesTemplate.Console.Core\CoreServicesTemplate.Console.Core.csproj" />
+    <ProjectReference Include="..\CoreServicesTemplate.Console.Services\CoreServicesTemplate.Console.Services.csproj" />
   </ItemGroup>
 
 </Project>

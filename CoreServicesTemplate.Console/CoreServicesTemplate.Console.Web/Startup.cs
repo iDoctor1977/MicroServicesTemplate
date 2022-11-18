@@ -1,4 +1,5 @@
 using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.Console.Core;
 using CoreServicesTemplate.Console.Core.Features;
 using CoreServicesTemplate.Console.Services;
 using CoreServicesTemplate.Console.Web.MapperProfiles;
@@ -33,10 +34,7 @@ namespace CoreServicesTemplate.Console.Web
         {
             #region Injection
 
-            services.AddTransient<ICreateUserFeature, CreateUserFeature>();
-            services.AddTransient<IReadUsersFeature, ReadUsersFeature>();
-
-            services.AddTransient<IStorageRoomService, StorageRoomService>();
+            CoreConfigureServices.InitializeDependencies(services);
 
             #endregion
 
