@@ -1,14 +1,10 @@
-using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Console.Core;
-using CoreServicesTemplate.Console.Core.Features;
-using CoreServicesTemplate.Console.Services;
 using CoreServicesTemplate.Console.Web.MapperProfiles;
 using CoreServicesTemplate.Console.Web.Models;
 using CoreServicesTemplate.Console.Web.Presenters;
 using CoreServicesTemplate.Console.Web.Receivers;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
-using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.Shared.Core.Receivers;

@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CoreServicesTemplate.Console.Core\CoreServicesTemplate.Console.Core.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.Console.Services\CoreServicesTemplate.Console.Services.csproj" />
+    <ProjectReference Include="..\CoreServicesTemplate.Console.Web\CoreServicesTemplate.Console.Web.csproj" />
   </ItemGroup>
 
 </Project>

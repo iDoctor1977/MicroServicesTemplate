@@ -1,14 +1,9 @@
-using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Console.Core;
-using CoreServicesTemplate.Console.Core.Features;
-using CoreServicesTemplate.Console.Services;
 using CoreServicesTemplate.Shared.Core.HealthChecks;
-using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
