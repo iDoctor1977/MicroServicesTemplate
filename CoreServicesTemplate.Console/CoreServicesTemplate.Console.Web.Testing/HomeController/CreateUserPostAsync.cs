@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
+using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Console.Core.Features;
 using CoreServicesTemplate.Console.Web.Models;
 using CoreServicesTemplate.Console.Web.Testing.Fixtures;
@@ -40,8 +41,8 @@ namespace CoreServicesTemplate.Console.Web.Testing.HomeController
             var controller = new Controllers.HomeController(
                 _fixture.ServiceProvider.GetRequiredService<IConsolidators<UserViewModel, UserApiModel>>(),
                 _fixture.ServiceProvider.GetRequiredService<IConsolidators<UsersApiModel, UsersViewModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<CreateUserFeature>(),
-                _fixture.ServiceProvider.GetRequiredService<ReadUsersFeature>(),
+                _fixture.ServiceProvider.GetRequiredService<ICreateUserFeature>(),
+                _fixture.ServiceProvider.GetRequiredService<IReadUsersFeature>(),
                 _fixture.LoggerMock.Object);
 
             //Act
@@ -73,8 +74,8 @@ namespace CoreServicesTemplate.Console.Web.Testing.HomeController
             var controller = new Controllers.HomeController(
                 _fixture.ServiceProvider.GetRequiredService<IConsolidators<UserViewModel, UserApiModel>>(),
                 _fixture.ServiceProvider.GetRequiredService<IConsolidators<UsersApiModel, UsersViewModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<CreateUserFeature>(),
-                _fixture.ServiceProvider.GetRequiredService<ReadUsersFeature>(),
+                _fixture.ServiceProvider.GetRequiredService<ICreateUserFeature>(),
+                _fixture.ServiceProvider.GetRequiredService<IReadUsersFeature>(),
                 _fixture.LoggerMock.Object);
 
             //Act
