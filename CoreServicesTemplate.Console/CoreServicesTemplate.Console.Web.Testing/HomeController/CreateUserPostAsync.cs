@@ -2,7 +2,6 @@ using System;
 using System.Globalization;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.Console.Core.Features;
 using CoreServicesTemplate.Console.Web.Models;
 using CoreServicesTemplate.Console.Web.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Builders;

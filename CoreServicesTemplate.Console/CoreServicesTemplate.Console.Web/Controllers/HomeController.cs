@@ -18,7 +18,8 @@ namespace CoreServicesTemplate.Console.Web.Controllers
         private readonly ICreateUserFeature _createUserFeature;
         private readonly IReadUsersFeature _readUsersFeature;
 
-        public HomeController(IConsolidators<UserViewModel, UserApiModel> userReceiver,
+        public HomeController(
+            IConsolidators<UserViewModel, UserApiModel> userReceiver,
             IConsolidators<UsersApiModel, UsersViewModel> userPresenter,
             ICreateUserFeature createUserFeature,
             IReadUsersFeature readUsersFeature,
