@@ -2,7 +2,9 @@ using System;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Console.Api.Testing.Fixtures;
 using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.Console.Common.Models;
 using CoreServicesTemplate.Shared.Core.Builders;
+using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Models;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,8 +13,6 @@ using Xunit;
 
 namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
 {
-    using Controllers;
-
     [Collection("BaseTest")]
     public class ReadUsersGetAsync
     {
@@ -42,7 +42,10 @@ namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
 
             _fixture.StorageRoomServiceMock.Setup(service => service.ReadUsersAsync()).ReturnsAsync(model);
 
-            var controller = new ConsoleApiController(_fixture.ServiceProvider.GetRequiredService<IReadUsersFeature>(), _fixture.LoggerMock.Object);
+            var controller = new Controllers.ConsoleApiController(
+                _fixture.ServiceProvider.GetRequiredService<IReadUsersFeature>(),
+                _fixture.ServiceProvider.GetRequiredService<IConsolidators<UsersModel, UsersApiModel>>(),
+                _fixture.LoggerMock.Object);
 
             //Act
             var result = await controller.Get();

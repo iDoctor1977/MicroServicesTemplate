@@ -22,14 +22,14 @@ namespace CoreServicesTemplate.Shared.Core.Bases
 
         public IEnumerable<TOut> ToData(IEnumerable<TIn> model)
         {
-            var viewModels = new List<TOut>();
+            var models = new List<TOut>();
 
             foreach (var apiModel in model)
             {
-                viewModels.Add(ToData(apiModel));
+                models.Add(ToData(apiModel));
             }
 
-            return viewModels;
+            return models;
         }
 
         public abstract TOut ToData(TIn model);

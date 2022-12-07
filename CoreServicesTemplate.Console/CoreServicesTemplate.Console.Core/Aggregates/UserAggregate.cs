@@ -1,12 +1,12 @@
 ﻿using System;
+using CoreServicesTemplate.Console.Common.Models;
 using CoreServicesTemplate.Shared.Core.Bases;
-using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Console.Core.Aggregates
 {
-    public class UserAggregate : AAggregateBase<UserApiModel>
+    public class UserAggregate : AAggregateBase<UserModel>
     {
-        public UserAggregate(UserApiModel model) : base(model) { }
+        public UserAggregate(UserModel model) : base(model) { }
 
         public void SetGuid(Guid guid)
         {
@@ -26,7 +26,7 @@ namespace CoreServicesTemplate.Console.Core.Aggregates
             Model.Birth = birth;
         }
 
-        public override UserApiModel ToModel()
+        public override UserModel ToModel()
         {
             return Model;
         }

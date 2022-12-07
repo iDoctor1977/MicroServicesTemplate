@@ -1,5 +1,8 @@
+using CoreServicesTemplate.Console.Common.Models;
 using CoreServicesTemplate.Console.Core;
 using CoreServicesTemplate.Console.Core.MapperProfiles;
+using CoreServicesTemplate.Console.Core.Presenters;
+using CoreServicesTemplate.Console.Core.Receivers;
 using CoreServicesTemplate.Console.Web.MapperProfiles;
 using CoreServicesTemplate.Console.Web.Models;
 using CoreServicesTemplate.Console.Web.Presenters;
@@ -8,6 +11,7 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
+using CoreServicesTemplate.Shared.Core.Presenters;
 using CoreServicesTemplate.Shared.Core.Receivers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,9 +44,15 @@ namespace CoreServicesTemplate.Console.Web
             services.AddTransient<ICustomMapper, CustomMapper>();
 
             services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultReceiver<,>));
-            services.AddTransient(typeof(IConsolidators<UserViewModel, UserApiModel>), typeof(CreateUserCustomReceiver));
-            services.AddTransient(typeof(IConsolidators<UserApiModel, UserViewModel>), typeof(ReadUserCustomPresenter));
-            services.AddTransient(typeof(IConsolidators<UsersApiModel, UsersViewModel>), typeof(ReadUsersCustomPresenter));
+            services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultPresenter<,>));
+
+            services.AddTransient(typeof(IConsolidators<UserViewModel, UserModel>), typeof(CreateUserCustomReceiver));
+            services.AddTransient(typeof(IConsolidators<UsersApiModel, UsersModel>), typeof(GetUsersCoreCustomReceiver));
+
+            services.AddTransient(typeof(IConsolidators<UserModel, UserViewModel>), typeof(GetUserWebCustomPresenter));
+            services.AddTransient(typeof(IConsolidators<UsersModel, UsersViewModel>), typeof(GetUsersWebCustomPresenter));
+            services.AddTransient(typeof(IConsolidators<UsersModel, UsersApiModel>), typeof(GetUsersCoreCustomPresenter));
+
 
             #endregion
 

@@ -1,5 +1,15 @@
+using CoreServicesTemplate.Console.Common.Models;
 using CoreServicesTemplate.Console.Core;
+using CoreServicesTemplate.Console.Core.MapperProfiles;
+using CoreServicesTemplate.Console.Core.Presenters;
+using CoreServicesTemplate.Console.Core.Receivers;
 using CoreServicesTemplate.Shared.Core.HealthChecks;
+using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
+using CoreServicesTemplate.Shared.Core.Mappers;
+using CoreServicesTemplate.Shared.Core.Models;
+using CoreServicesTemplate.Shared.Core.Presenters;
+using CoreServicesTemplate.Shared.Core.Receivers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +36,25 @@ namespace CoreServicesTemplate.Console.Api
             CoreConfigureServices.InitializeDependencies(services);
 
             services.AddHttpClient();
+
+            #endregion
+
+            #region Consolidator
+
+            services.AddTransient<ICustomMapper, CustomMapper>();
+
+            services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultReceiver<,>));
+            services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultPresenter<,>));
+
+            services.AddTransient(typeof(IConsolidators<UsersApiModel, UsersModel>), typeof(GetUsersCoreCustomReceiver));
+
+            services.AddTransient(typeof(IConsolidators<UsersModel, UsersApiModel>), typeof(GetUsersCoreCustomPresenter));
+
+            #endregion
+
+            #region Automapper
+
+            services.AddAutoMapper(typeof(CoreMappingProfile));
 
             #endregion
 

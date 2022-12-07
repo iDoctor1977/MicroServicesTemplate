@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Console.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.Console.Common.Models;
 using CoreServicesTemplate.Console.Web.Models;
 using CoreServicesTemplate.Console.Web.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Builders;
@@ -38,8 +39,8 @@ namespace CoreServicesTemplate.Console.Web.Testing.HomeController
             _fixture.StorageRoomServiceMock.Setup(service => service.CreateUserAsync(It.IsAny<UserApiModel>()));
 
             var controller = new Controllers.HomeController(
-                _fixture.ServiceProvider.GetRequiredService<IConsolidators<UserViewModel, UserApiModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<IConsolidators<UsersApiModel, UsersViewModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IConsolidators<UserViewModel, UserModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IConsolidators<UsersModel, UsersViewModel>>(),
                 _fixture.ServiceProvider.GetRequiredService<ICreateUserFeature>(),
                 _fixture.ServiceProvider.GetRequiredService<IReadUsersFeature>(),
                 _fixture.LoggerMock.Object);
@@ -71,8 +72,8 @@ namespace CoreServicesTemplate.Console.Web.Testing.HomeController
             _fixture.StorageRoomServiceMock.Setup(service => service.ReadUsersAsync()).ReturnsAsync(model);
 
             var controller = new Controllers.HomeController(
-                _fixture.ServiceProvider.GetRequiredService<IConsolidators<UserViewModel, UserApiModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<IConsolidators<UsersApiModel, UsersViewModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IConsolidators<UserViewModel, UserModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IConsolidators<UsersModel, UsersViewModel>>(),
                 _fixture.ServiceProvider.GetRequiredService<ICreateUserFeature>(),
                 _fixture.ServiceProvider.GetRequiredService<IReadUsersFeature>(),
                 _fixture.LoggerMock.Object);

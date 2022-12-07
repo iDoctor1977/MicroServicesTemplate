@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using CoreServicesTemplate.Console.Common.Models;
 using CoreServicesTemplate.Console.Web.Models;
-using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Console.Web.MapperProfiles
 {
@@ -8,8 +8,8 @@ namespace CoreServicesTemplate.Console.Web.MapperProfiles
     {
         public WebMappingProfile()
         {
-            CreateMap<UserViewModel, UserApiModel>().ReverseMap();
-            CreateMap<UsersViewModel, UsersApiModel>().ReverseMap();
+            CreateMap<UserViewModel, UserModel>().ReverseMap();
+            CreateMap<UsersViewModel, UsersModel>().ReverseMap();
         }
     }
 }

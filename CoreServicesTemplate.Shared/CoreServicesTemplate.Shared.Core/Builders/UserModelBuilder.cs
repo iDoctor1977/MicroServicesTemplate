@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CoreServicesTemplate.Shared.Core.Models;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace CoreServicesTemplate.Shared.Core.Builders
 {
