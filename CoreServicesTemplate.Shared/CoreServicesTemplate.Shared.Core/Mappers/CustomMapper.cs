@@ -1,7 +1,5 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreServicesTemplate.Shared.Core.Mappers
 {
@@ -12,9 +10,9 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
     {
         private readonly IMapper _mapper;
 
-        public CustomMapper(IServiceProvider service)
+        public CustomMapper(IMapper mapper)
         {
-            _mapper = service.GetRequiredService<IMapper>();
+            _mapper = mapper;
         }
 
         public TOut Map<TIn ,TOut>(TIn model)

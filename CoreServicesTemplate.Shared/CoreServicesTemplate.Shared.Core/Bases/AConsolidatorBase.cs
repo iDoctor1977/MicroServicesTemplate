@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreServicesTemplate.Shared.Core.Bases
 {
@@ -10,9 +8,9 @@ namespace CoreServicesTemplate.Shared.Core.Bases
     {
         private readonly ICustomMapper _customMapper;
 
-        protected AConsolidatorBase(IServiceProvider service)
+        protected AConsolidatorBase(ICustomMapper customMapper)
         {
-            _customMapper = service.GetRequiredService<ICustomMapper>();
+            _customMapper = customMapper;
         }
 
         protected TOut ToExternalData(TIn model)

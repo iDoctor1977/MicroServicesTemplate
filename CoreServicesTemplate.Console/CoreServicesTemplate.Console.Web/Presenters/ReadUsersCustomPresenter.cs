@@ -1,9 +1,8 @@
-﻿using System;
-using CoreServicesTemplate.Console.Web.Models;
+﻿using CoreServicesTemplate.Console.Web.Models;
 using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using CoreServicesTemplate.Shared.Core.Models;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreServicesTemplate.Console.Web.Presenters
 {
@@ -11,9 +10,9 @@ namespace CoreServicesTemplate.Console.Web.Presenters
     {
         private readonly IConsolidators<UserApiModel, UserViewModel> _readUserCustomPresenter;
 
-        public ReadUsersCustomPresenter(IServiceProvider service) : base(service)
+        public ReadUsersCustomPresenter(ICustomMapper customMapper, IConsolidators<UserApiModel, UserViewModel> readUserCustomPresenter) : base(customMapper)
         {
-            _readUserCustomPresenter = service.GetRequiredService<IConsolidators<UserApiModel, UserViewModel>>();
+            _readUserCustomPresenter = readUserCustomPresenter;
         }
 
         public override UsersViewModel ToData(UsersApiModel model)

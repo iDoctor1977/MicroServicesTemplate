@@ -1,4 +1,5 @@
 using CoreServicesTemplate.Console.Core;
+using CoreServicesTemplate.Console.Core.MapperProfiles;
 using CoreServicesTemplate.Console.Web.MapperProfiles;
 using CoreServicesTemplate.Console.Web.Models;
 using CoreServicesTemplate.Console.Web.Presenters;
@@ -47,7 +48,7 @@ namespace CoreServicesTemplate.Console.Web
 
             #region Automapper
 
-            services.AddAutoMapper(typeof(WebMappingProfile));
+            services.AddAutoMapper(typeof(WebMappingProfile), typeof(CoreMappingProfile));
 
             #endregion
 

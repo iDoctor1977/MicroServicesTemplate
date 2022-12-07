@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CoreServicesTemplate.Shared.Core.Models;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace CoreServicesTemplate.Shared.Core.Builders
 {
@@ -16,6 +17,7 @@ namespace CoreServicesTemplate.Shared.Core.Builders
         {
             var user = new UserApiModel
             {
+                Id = new Random().Next(1, 100),
                 Guid = Guid.NewGuid(),
                 Name = name,
             };
