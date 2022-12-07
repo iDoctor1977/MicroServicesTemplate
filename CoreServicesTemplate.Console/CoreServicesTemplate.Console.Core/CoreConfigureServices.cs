@@ -10,8 +10,8 @@ namespace CoreServicesTemplate.Console.Core
     {
         public static void InitializeDependencies(IServiceCollection services)
         {
-            services.AddTransient<ICreateUserFeature, CreateUserFeature>();
-            services.AddTransient<IReadUsersFeature, ReadUsersFeature>();
+            services.AddTransient<IAddUserFeature, AddUserFeature>();
+            services.AddTransient<IGetUsersFeature, GetUsersFeature>();
             services.AddTransient<IStorageRoomService, StorageRoomService>();
         }
     }

@@ -28,7 +28,7 @@ namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
         public async Task Should_Execute_Read_Users()
         {
             //Arrange
-            var builder = new UserModelBuilder();
+            var builder = new UserApiModelBuilder();
             var usersList = builder
                 .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-12569))
                 .AddUser("Duffy", "Duck", DateTime.Now.AddDays(-11398))
@@ -40,10 +40,10 @@ namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
                 UsersApiModelList = usersList
             };
 
-            _fixture.StorageRoomServiceMock.Setup(service => service.ReadUsersAsync()).ReturnsAsync(model);
+            _fixture.StorageRoomServiceMock.Setup(service => service.GetUsersAsync()).ReturnsAsync(model);
 
             var controller = new Controllers.ConsoleApiController(
-                _fixture.ServiceProvider.GetRequiredService<IReadUsersFeature>(),
+                _fixture.ServiceProvider.GetRequiredService<IGetUsersFeature>(),
                 _fixture.ServiceProvider.GetRequiredService<IConsolidators<UsersModel, UsersApiModel>>(),
                 _fixture.LoggerMock.Object);
 
@@ -51,7 +51,7 @@ namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
             var result = await controller.Get();
 
             //Assert
-            _fixture.StorageRoomServiceMock.Verify((method => method.ReadUsersAsync()), Times.Once());
+            _fixture.StorageRoomServiceMock.Verify((method => method.GetUsersAsync()), Times.Once());
             result.UsersApiModelList.Should().AllBeOfType<UserApiModel>().And.HaveCountGreaterThan(0);
         }
     }

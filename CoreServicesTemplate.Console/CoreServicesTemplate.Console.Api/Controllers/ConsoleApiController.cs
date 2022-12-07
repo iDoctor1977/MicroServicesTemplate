@@ -13,24 +13,24 @@ namespace CoreServicesTemplate.Console.Api.Controllers
     public class ConsoleApiController : ControllerBase
     {
         private readonly IConsolidators<UsersModel, UsersApiModel> _consolidators;
-        private readonly IReadUsersFeature _readUsersFeature;
+        private readonly IGetUsersFeature _getUsersFeature;
         private readonly ILogger<ConsoleApiController> _logger;
 
         public ConsoleApiController(
-            IReadUsersFeature readUsersFeature,
+            IGetUsersFeature getUsersFeature,
             IConsolidators<UsersModel, UsersApiModel> consolidators,
             ILogger<ConsoleApiController> logger)
         {
             _logger = logger;
             _consolidators = consolidators;
 
-            _readUsersFeature = readUsersFeature;
+            _getUsersFeature = getUsersFeature;
         }
 
         [HttpGet]
         public async Task<UsersApiModel> Get()
         {
-            var model = await _readUsersFeature.HandleAsync();
+            var model = await _getUsersFeature.HandleAsync();
 
             var apiModel = _consolidators.ToData(model);
 

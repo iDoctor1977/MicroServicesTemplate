@@ -33,27 +33,27 @@ namespace CoreServicesTemplate.Console.Web.NET7.Testing.HomeController
                 Birth = DateTime.Now.AddDays(-26985).ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)
             };
 
-            _fixture.StorageRoomServiceMock.Setup(service => service.CreateUserAsync(It.IsAny<UserApiModel>()));
+            _fixture.StorageRoomServiceMock.Setup(service => service.AddUserAsync(It.IsAny<UserApiModel>()));
 
             var controller = new Controllers.HomeController(
                 _fixture.ServiceProvider.GetRequiredService<IConsolidators<UserViewModel, UserModel>>(),
                 _fixture.ServiceProvider.GetRequiredService<IConsolidators<UsersModel, UsersViewModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<ICreateUserFeature>(),
-                _fixture.ServiceProvider.GetRequiredService<IReadUsersFeature>(),
+                _fixture.ServiceProvider.GetRequiredService<IAddUserFeature>(),
+                _fixture.ServiceProvider.GetRequiredService<IGetUsersFeature>(),
                 _fixture.LoggerMock.Object);
 
             //Act
             await controller.Create(userViewModel);
 
             //Assert
-            _fixture.StorageRoomServiceMock.Verify((c => c.CreateUserAsync(It.Is<UserApiModel>(arg => arg.Name == userViewModel.Name))));
+            _fixture.StorageRoomServiceMock.Verify((c => c.AddUserAsync(It.Is<UserApiModel>(arg => arg.Name == userViewModel.Name))));
         }
 
         [Fact]
         public async Task Should_Execute_Reading_Users_With_StorageRoomServiceMock()
         {
             //Arrange
-            var builder = new UserModelBuilder();
+            var builder = new UserApiModelBuilder();
             var users = builder
                 .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-12369))
                 .AddUser("Matt", "Daemon", DateTime.Now.AddDays(-36982))
@@ -66,20 +66,20 @@ namespace CoreServicesTemplate.Console.Web.NET7.Testing.HomeController
                 UsersApiModelList = users
             };
 
-            _fixture.StorageRoomServiceMock.Setup(service => service.ReadUsersAsync()).ReturnsAsync(model);
+            _fixture.StorageRoomServiceMock.Setup(service => service.GetUsersAsync()).ReturnsAsync(model);
 
             var controller = new Controllers.HomeController(
                 _fixture.ServiceProvider.GetRequiredService<IConsolidators<UserViewModel, UserModel>>(),
                 _fixture.ServiceProvider.GetRequiredService<IConsolidators<UsersModel, UsersViewModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<ICreateUserFeature>(),
-                _fixture.ServiceProvider.GetRequiredService<IReadUsersFeature>(),
+                _fixture.ServiceProvider.GetRequiredService<IAddUserFeature>(),
+                _fixture.ServiceProvider.GetRequiredService<IGetUsersFeature>(),
                 _fixture.LoggerMock.Object);
 
             //Act
             var result = await controller.Read();
 
             //Assert
-            _fixture.StorageRoomServiceMock.Verify((c => c.ReadUsersAsync()), Times.Once);
+            _fixture.StorageRoomServiceMock.Verify((c => c.GetUsersAsync()), Times.Once);
         }
     }
 }

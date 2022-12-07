@@ -10,12 +10,12 @@ using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Console.Core.Features
 {
-    public class CreateUserFeature : ICreateUserFeature
+    public class AddUserFeature : IAddUserFeature
     {
         private readonly IStorageRoomService _storageRoomService;
         private readonly IConsolidators<UserModel, UserApiModel> _consolidators;
 
-        public CreateUserFeature(IStorageRoomService storageRoomService, IConsolidators<UserModel, UserApiModel> consolidators) 
+        public AddUserFeature(IStorageRoomService storageRoomService, IConsolidators<UserModel, UserApiModel> consolidators) 
         {
             _storageRoomService = storageRoomService;
             _consolidators = consolidators;
@@ -28,7 +28,7 @@ namespace CoreServicesTemplate.Console.Core.Features
 
             var apiModel = _consolidators.ToData(aggregate.ToModel());
 
-            var responseMessage = await _storageRoomService.CreateUserAsync(apiModel);
+            var responseMessage = await _storageRoomService.AddUserAsync(apiModel);
 
             return responseMessage;
         }

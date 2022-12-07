@@ -45,8 +45,8 @@ namespace CoreServicesTemplate.Console.Web.NET7.Testing.Fixtures
 
             #region Injection
 
-            builder.Services.AddTransient<ICreateUserFeature, CreateUserFeature>();
-            builder.Services.AddTransient<IReadUsersFeature, ReadUsersFeature>();
+            builder.Services.AddTransient<IAddUserFeature, AddUserFeature>();
+            builder.Services.AddTransient<IGetUsersFeature, GetUsersFeature>();
             builder.Services.AddTransient(provider => StorageRoomServiceMock.Object);
             builder.Services.AddTransient(provider => LoggerMock.Object);
 

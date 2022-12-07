@@ -6,7 +6,7 @@ namespace CoreServicesTemplate.Shared.Core.Interfaces.IServices
 {
     public interface IStorageRoomService
     {
-        Task<HttpResponseMessage> CreateUserAsync(UserApiModel model);
-        Task<UsersApiModel> ReadUsersAsync();
+        Task<HttpResponseMessage> AddUserAsync(UserApiModel model);
+        Task<UsersApiModel> GetUsersAsync();
     }
 }

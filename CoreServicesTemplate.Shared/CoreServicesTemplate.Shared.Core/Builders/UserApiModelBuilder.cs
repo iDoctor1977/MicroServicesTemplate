@@ -4,11 +4,11 @@ using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Shared.Core.Builders
 {
-    public class UserModelBuilder : IUserModelBuilder, IUserModelAdded
+    public class UserApiModelBuilder : IUserApiModelBuilder, IUserApiApiModelAdded
     {
         private ICollection<UserApiModel> _users;
 
-        public UserModelBuilder() {
+        public UserApiModelBuilder() {
             _users = new List<UserApiModel>();
         }
 
@@ -40,7 +40,7 @@ namespace CoreServicesTemplate.Shared.Core.Builders
             return user;
         }
 
-        public IUserModelAdded AddUser(string name)
+        public IUserApiApiModelAdded AddUser(string name)
         {
             var user = CreateUser(name);
             _users.Add(user);
@@ -48,14 +48,14 @@ namespace CoreServicesTemplate.Shared.Core.Builders
             return this;
         }
 
-        public IUserModelAdded AddUser(string name, string surname)
+        public IUserApiApiModelAdded AddUser(string name, string surname)
         {
             var user = CreateUser(name, surname);
             _users.Add(user);
 
             return this;
         }
-        public IUserModelAdded AddUser(string name, string surname, DateTime birth)
+        public IUserApiApiModelAdded AddUser(string name, string surname, DateTime birth)
         {
             var user = CreateUser(name, surname, birth);
             _users.Add(user);
@@ -72,14 +72,14 @@ namespace CoreServicesTemplate.Shared.Core.Builders
         }
     }
 
-    public interface IUserModelBuilder
+    public interface IUserApiModelBuilder
     {
-        IUserModelAdded AddUser(string name);
-        IUserModelAdded AddUser(string name, string surname);
-        IUserModelAdded AddUser(string name, string surname, DateTime birth);
+        IUserApiApiModelAdded AddUser(string name);
+        IUserApiApiModelAdded AddUser(string name, string surname);
+        IUserApiApiModelAdded AddUser(string name, string surname, DateTime birth);
     }
 
-    public interface IUserModelAdded : IUserModelBuilder
+    public interface IUserApiApiModelAdded : IUserApiModelBuilder
     {
         IEnumerable<UserApiModel> Build();
     }

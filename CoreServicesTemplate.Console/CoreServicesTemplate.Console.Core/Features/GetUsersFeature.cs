@@ -7,12 +7,12 @@ using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Console.Core.Features
 {
-    public class ReadUsersFeature : IReadUsersFeature
+    public class GetUsersFeature : IGetUsersFeature
     {
         private readonly IStorageRoomService _storageRoomService;
         private readonly IConsolidators<UsersApiModel, UsersModel> _consolidators;
 
-        public ReadUsersFeature(IStorageRoomService storageRoomService, IConsolidators<UsersApiModel, UsersModel> consolidators)
+        public GetUsersFeature(IStorageRoomService storageRoomService, IConsolidators<UsersApiModel, UsersModel> consolidators)
         {
             _storageRoomService = storageRoomService;
             _consolidators = consolidators;
@@ -20,7 +20,7 @@ namespace CoreServicesTemplate.Console.Core.Features
 
         public async Task<UsersModel> HandleAsync()
         {
-            var apiModel = await _storageRoomService.ReadUsersAsync();
+            var apiModel = await _storageRoomService.GetUsersAsync();
 
             var model = _consolidators.ToData(apiModel);
 

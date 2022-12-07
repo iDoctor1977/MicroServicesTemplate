@@ -3,5 +3,5 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 
 namespace CoreServicesTemplate.Console.Common.Interfaces.IFeatures
 {
-    public interface IReadUsersFeature : IQueryHandler<UsersModel> { }
+    public interface IGetUsersFeature : IQueryHandler<UsersModel> { }
 }

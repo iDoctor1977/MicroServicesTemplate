@@ -14,21 +14,21 @@ namespace CoreServicesTemplate.Console.Web.Controllers
         private readonly IConsolidators<UserViewModel, UserModel> _createUserCustomReceiver;
         private readonly IConsolidators<UsersModel, UsersViewModel> _readUsersCustomPresenter;
 
-        private readonly ICreateUserFeature _createUserFeature;
-        private readonly IReadUsersFeature _readUsersFeature;
+        private readonly IAddUserFeature _addUserFeature;
+        private readonly IGetUsersFeature _getUsersFeature;
 
         public HomeController(
             IConsolidators<UserViewModel, UserModel> userReceiver,
             IConsolidators<UsersModel, UsersViewModel> userPresenter,
-            ICreateUserFeature createUserFeature,
-            IReadUsersFeature readUsersFeature,
+            IAddUserFeature addUserFeature,
+            IGetUsersFeature getUsersFeature,
             ILogger<HomeController> logger) : base(logger)
         {
             _createUserCustomReceiver = userReceiver;
             _readUsersCustomPresenter = userPresenter;
 
-            _createUserFeature = createUserFeature;
-            _readUsersFeature = readUsersFeature;
+            _addUserFeature = addUserFeature;
+            _getUsersFeature = getUsersFeature;
         }
 
         public IActionResult Index()
@@ -56,7 +56,7 @@ namespace CoreServicesTemplate.Console.Web.Controllers
             var responseMessage = new HttpResponseMessage();
             if (ModelState.IsValid)
             {
-                responseMessage = await _createUserFeature.HandleAsync(model);
+                responseMessage = await _addUserFeature.HandleAsync(model);
             }
 
             return RedirectToAction("Index", responseMessage);
@@ -65,7 +65,7 @@ namespace CoreServicesTemplate.Console.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Read()
         {
-            var model = await _readUsersFeature.HandleAsync();
+            var model = await _getUsersFeature.HandleAsync();
 
             var viewModel = _readUsersCustomPresenter.ToData(model);
 
