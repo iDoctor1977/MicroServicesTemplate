@@ -1,7 +1,7 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
-using CoreServicesTemplate.Shared.Core.Models;
+using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures
 {
-    public interface IReadUsersFeature : IQueryHandler<UsersApiModel> { }
+    public interface IGetUsersFeature : IQueryHandler<UsersModel> { }
 }

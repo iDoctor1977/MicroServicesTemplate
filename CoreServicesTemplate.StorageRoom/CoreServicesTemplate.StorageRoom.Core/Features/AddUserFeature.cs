@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
-    public class CreateUserFeature : ICreateUserFeature
+    public class AddUserFeature : IAddUserFeature
     {
-        private readonly ICreateUserDepot _createUserDepot;
+        private readonly IAddUserDepot _addUserDepot;
 
-        public CreateUserFeature(ICreateUserDepot createUserDepot) {
-            _createUserDepot = createUserDepot;
+        public AddUserFeature(IAddUserDepot addUserDepot) {
+            _addUserDepot = addUserDepot;
         }
 
-        public async Task HandleAsync(UserApiModel model)
+        public async Task HandleAsync(UserModel model)
         {
             var aggregate = new CreateAggregate(model);
             aggregate.SetGuid(Guid.NewGuid());
 
-            await _createUserDepot.HandleAsync(aggregate.ToModel());
+            await _addUserDepot.HandleAsync(aggregate.ToModel());
         }
     }
 }

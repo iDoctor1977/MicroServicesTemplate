@@ -1,7 +1,7 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.ICqrs;
-using CoreServicesTemplate.Shared.Core.Models;
+using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots
 {
-    public interface IReadUsersDepot : IQueryHandlerCqrs<UsersApiModel> { }
+    public interface IAddUserDepot : ICommandHandlerCqrs<UserModel> { }
 }

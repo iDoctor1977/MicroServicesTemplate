@@ -17,4 +17,8 @@
     <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Common\CoreServicesTemplate.StorageRoom.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Receivers\" />
+  </ItemGroup>
+
 </Project>

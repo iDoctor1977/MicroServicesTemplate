@@ -33,7 +33,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.RepositoriesEF
             }
         }
 
-        public async Task<User> ReadEntityByName(User entity)
+        public async Task<User> GetEntityByName(User entity)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.RepositoriesEF
             return await Task.FromResult<User>(null);
         }
 
-        public async Task CreateEntity(User entity)
+        public async Task AddEntity(User entity)
         {
             try
             {
@@ -70,11 +70,30 @@ namespace CoreServicesTemplate.StorageRoom.Data.RepositoriesEF
             await Task.CompletedTask;
         }
 
-        public async Task<User> ReadEntityByGuid(User entity)
+        public async Task<User> GetEntityByGuid(User entity)
         {
             try
             {
                 entity = await EntitySet.SingleOrDefaultAsync(e => e.Guid == entity.Guid);
+
+                if (entity != null)
+                {
+                    return await Task.FromResult(entity);
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+            }
+
+            return await Task.FromResult<User>(null);
+        }
+
+        public async Task<User> GetEntityById(User entity)
+        {
+            try
+            {
+                entity = await EntitySet.SingleOrDefaultAsync(e => e.Id == entity.Id);
 
                 if (entity != null)
                 {
@@ -106,7 +125,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.RepositoriesEF
             }
         }
 
-        public async Task<IEnumerable<User>> ReadEntities()
+        public async Task<IEnumerable<User>> GetEntities()
         {
             try
             {

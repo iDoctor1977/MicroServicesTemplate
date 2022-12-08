@@ -43,12 +43,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.Mocks
             }
         }
 
-        public Task CreateEntity(User entity)
+        public Task AddEntity(User entity)
         {
             return Task.CompletedTask;
         }
 
-        public Task<IEnumerable<User>> ReadEntities()
+        public Task<IEnumerable<User>> GetEntities()
         {
             return Task.FromResult<IEnumerable<User>>(Entities);
         }
@@ -58,12 +58,31 @@ namespace CoreServicesTemplate.StorageRoom.Data.Mocks
             return Task.CompletedTask;
         }
 
-        public Task<User> ReadEntityByName(User entity)
+        public Task<User> GetEntityByName(User entity)
         {
             return Task.FromResult(Entities.FirstOrDefault(r => r.Name == entity.Name));
         }
 
-        public async Task<User> ReadEntityByGuid(User entity)
+        public async Task<User> GetEntityByGuid(User entity)
+        {
+            try
+            {
+                if (entity != null)
+                {
+                    entity = Entities.First();
+
+                    return await Task.FromResult(entity);
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+            }
+
+            return await Task.FromResult<User>(null);
+        }
+
+        public async Task<User> GetEntityById(User entity)
         {
             try
             {

@@ -1,8 +1,9 @@
 ﻿using System;
+using CoreServicesTemplate.Shared.Core.Bases;
 
-namespace CoreServicesTemplate.Shared.Core.Models
+namespace CoreServicesTemplate.StorageRoom.Common.Models
 {
-    public class UserApiModel
+    public class UserModel : AModelBase
     {
         public Guid Guid { get; set; }
         public string Name { get; set; }

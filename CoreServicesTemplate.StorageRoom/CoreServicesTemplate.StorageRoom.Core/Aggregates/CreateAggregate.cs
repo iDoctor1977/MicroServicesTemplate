@@ -1,12 +1,12 @@
 ﻿using System;
 using CoreServicesTemplate.Shared.Core.Bases;
-using CoreServicesTemplate.Shared.Core.Models;
+using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates
 {
-    public class CreateAggregate : AAggregateBase<UserApiModel>
+    public class CreateAggregate : AAggregateBase<UserModel>
     {
-        public CreateAggregate(UserApiModel model) : base(model) { }
+        public CreateAggregate(UserModel model) : base(model) { }
 
         public void SetGuid(Guid guid)
         {
@@ -26,7 +26,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates
             Model.Birth = birth;
         }
 
-        public override UserApiModel ToModel()
+        public override UserModel ToModel()
         {
             return Model;
         }

@@ -1,7 +1,7 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
-using CoreServicesTemplate.Shared.Core.Models;
+using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures
 {
-    public interface ICreateUserFeature : ICommandHandler<UserApiModel> { }
+    public interface IAddUserFeature : ICommandHandler<UserModel> { }
 }

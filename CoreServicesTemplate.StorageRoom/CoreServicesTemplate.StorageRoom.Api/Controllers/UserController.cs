@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.StorageRoom.Common.Models;
+using System.Linq;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 {
@@ -9,29 +13,115 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     [Route("StorageRoom/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly ICreateUserFeature _createUserFeature;
-        private readonly IReadUsersFeature _readUsersFeature;
+        private readonly IAddUserFeature _addUserFeature;
+        private readonly IGetUserFeature _getUserFeature;
+        private readonly IGetUsersFeature _getUsersFeature;
 
-        public UserController(ICreateUserFeature createUserFeature, IReadUsersFeature readUsersFeature)
+        private readonly IConsolidators<UserApiModel, UserModel> _consolidatorsReceiver;
+        private readonly IConsolidators<UserModel, UserApiModel> _consolidatorsPresenter;
+        private readonly IConsolidators<UsersModel, UsersApiModel> _consolidatorsCustomPresenter;
+
+        public UserController(
+            IAddUserFeature addUserFeature,
+            IGetUserFeature getUserFeature,
+            IGetUsersFeature getUsersFeature,
+            IConsolidators<UserApiModel, UserModel> consolidatorsReceiver,
+            IConsolidators<UserModel, UserApiModel> consolidatorsPresenter,
+            IConsolidators<UsersModel, UsersApiModel> consolidatorsCustomPresenter)
         {
-            _createUserFeature = createUserFeature;
-            _readUsersFeature = readUsersFeature;
+            _addUserFeature = addUserFeature;
+            _getUserFeature = getUserFeature;
+            _getUsersFeature = getUsersFeature;
+            _consolidatorsReceiver = consolidatorsReceiver;
+            _consolidatorsPresenter = consolidatorsPresenter;
+            _consolidatorsCustomPresenter = consolidatorsCustomPresenter;
         }
 
-        // POST: StorageRoom/User/Post
-        [HttpPost]
-        public async Task Post(UserApiModel model)
+        // POST: StorageRoom/User/AddUser
+        [HttpPost(Name = "AddUser")]
+        public async Task<IActionResult> AddUser(UserApiModel apiModel)
         {
-            await _createUserFeature.HandleAsync(model);
+            var model = _consolidatorsReceiver.ToData(apiModel);
+
+            await _addUserFeature.HandleAsync(model);
+            
+            return CreatedAtAction(nameof(AddUser), apiModel);
         }
 
-        // GET: StorageRoom/User/Get
-        [HttpGet]
-        public async Task<UsersApiModel> Get()
+        // GET: StorageRoom/User/GetUser/{apiModel}
+        [HttpGet("{apiModel}", Name = "GetUser")]
+        public async Task<ActionResult<UserApiModel>> GetUser(UserApiModel apiModel)
         {
-            var result = await _readUsersFeature.HandleAsync();
+            var model = _consolidatorsReceiver.ToData(apiModel);
 
-            return result;
+            if (model.Guid == Guid.Empty)
+            {
+                return await Task.FromResult<ActionResult>(BadRequest());
+            }
+
+            var resultModel = await _getUserFeature.HandleAsync(model);
+
+            if (resultModel is null)
+            {
+                return await Task.FromResult<ActionResult>(NoContent());
+            }
+
+            var resultApiModel = _consolidatorsPresenter.ToData(resultModel);
+            
+            return resultApiModel;
+        }
+
+        // GET: StorageRoom/User/GetUsers
+        [HttpGet(Name = "GetUsers")]
+        public async Task<ActionResult<UsersApiModel>> GeUsers()
+        {
+            var model = await _getUsersFeature.HandleAsync();
+
+            if (!model.UsersModelList.Any())
+            {
+                return await Task.FromResult<ActionResult>(NoContent());
+            }
+
+            var apiModel = _consolidatorsCustomPresenter.ToData(model);
+
+            return apiModel;
+        }
+
+        // PUT: StorageRoom/User/UpdateUser/{apiModel}
+        [HttpPut("{apiModel}", Name = "UpdateUser")]
+        public async Task<IActionResult> UpdateUser(UserApiModel apiModel)
+        {
+            var model = _consolidatorsReceiver.ToData(apiModel);
+
+            if (model.Guid == Guid.Empty)
+            {
+                return await Task.FromResult<IActionResult>(BadRequest());
+            }
+
+            // var result = await _updateUserFeature.HandleAsync(model);
+
+            //if (result is null)
+            //{
+            //    return await Task.FromResult<IActionResult>(NotFound());
+            //}
+            
+            return await Task.FromResult<IActionResult>(NoContent());
+        }
+
+        // DELETE: StorageRoom/User/DeleteUser/{apiModel}
+        [HttpDelete("{apiModel}", Name = "DeleteUser")]
+        public async Task<IActionResult> DeleteUser(UserApiModel apiModel)
+        {
+            var model = _consolidatorsReceiver.ToData(apiModel);
+
+            // var result = await _deleteUserFeature.HandleAsync(model);
+
+            //if (result is null)
+            //{
+            //    return await Task.FromResult<IActionResult>(NotFound());
+            //}
+
+            return NoContent();
         }
     }
 }

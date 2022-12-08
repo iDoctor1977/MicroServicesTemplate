@@ -29,7 +29,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
         public async Task Should_LogTheCallToAnyAction()
         {
             //Arrange
-            IUserModelBuilder builder = new UserModelBuilder();
+            IUserApiModelBuilder builder = new UserApiModelBuilder();
             var model = builder.AddUser("foo", "foo foo", DateTime.Now.AddDays(-18659)).Build();
 
             //Act

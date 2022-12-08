@@ -15,6 +15,19 @@ using CoreServicesTemplate.StorageRoom.Data.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Data.Mocks;
 using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF;
 using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF.Interfaces;
+using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
+using CoreServicesTemplate.Shared.Core.Mappers;
+using CoreServicesTemplate.Shared.Core.Presenters;
+using CoreServicesTemplate.Shared.Core.Receivers;
+using CoreServicesTemplate.Shared.Core.Models;
+using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
+using CoreServicesTemplate.StorageRoom.Api.Presenters;
+using CoreServicesTemplate.StorageRoom.Api.Receivers;
+using CoreServicesTemplate.StorageRoom.Common.Models;
+using CoreServicesTemplate.StorageRoom.Data.Entities;
+using System.Collections.Generic;
+using CoreServicesTemplate.StorageRoom.Data.Presenters;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {
@@ -32,18 +45,20 @@ namespace CoreServicesTemplate.StorageRoom.Api
         {
             #region Injections
 
-            services.AddTransient<ICreateUserFeature, CreateUserFeature>();
-            services.AddTransient<IReadUsersFeature, ReadUsersFeature>();
+            services.AddTransient<IAddUserFeature, AddUserFeature>();
+            services.AddTransient<IGetUserFeature, GetUserFeature>();
+            services.AddTransient<IGetUsersFeature, GetUsersFeature>();
 
-            services.AddTransient<ICreateUserDepot, CreateUserDepotEF>();
-            services.AddTransient<IReadUsersDepot, ReadUsersDepotEF>();
+            services.AddTransient<IAddUserDepot, AddUserDepotEF>();
+            services.AddTransient<IGetUserDepot, GetUserDepotEF>();
+            services.AddTransient<IGetUsersDepot, GetUsersDepotEF>();
 
             services.AddTransient<IRepositoryFactoryEF, RepositoryFactoryEF>();
             services.AddTransient<IUserRepository, UserRepositoryEF>();
 
             services.AddTransient<Lazy<DbContextProject>>();
 
-            if (Configuration["mocked"].Equals("true", StringComparison.OrdinalIgnoreCase))
+            if (Configuration["mocked"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
             {
                 services.AddTransient<IUserRepository, UserRepositoryEFMock>();
             }
@@ -51,6 +66,20 @@ namespace CoreServicesTemplate.StorageRoom.Api
             {
                 services.AddTransient<IUserRepository, UserRepositoryEF>();
             }
+
+            #endregion
+
+            #region Consolidator
+
+            services.AddTransient<ICustomMapper, CustomMapper>();
+
+            services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultReceiver<,>));
+            services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultPresenter<,>));
+
+            services.AddTransient(typeof(IConsolidators<UsersApiModel, UsersModel>), typeof(GetUsersApiCustomReceiver));
+            
+            services.AddTransient(typeof(IConsolidators<UsersModel, UsersApiModel>), typeof(GetUsersApiCustomPresenter));
+            services.AddTransient(typeof(IConsolidators<IEnumerable<User>, UsersModel>), typeof(GetUsersDataCustomPresenter));
 
             #endregion
 
@@ -65,7 +94,7 @@ namespace CoreServicesTemplate.StorageRoom.Api
 
             #region Automapper
 
-            services.AddAutoMapper(typeof(DataMappingProfile));
+            services.AddAutoMapper(typeof(CoreMappingProfile), typeof(DataMappingProfile));
 
             #endregion
 
@@ -87,6 +116,9 @@ namespace CoreServicesTemplate.StorageRoom.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoreServicesTemplate.StorageRoom.Api v1"));
             }
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 
