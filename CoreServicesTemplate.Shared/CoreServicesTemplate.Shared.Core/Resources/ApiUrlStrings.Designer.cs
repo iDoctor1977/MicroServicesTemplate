@@ -19,7 +19,7 @@ namespace CoreServicesTemplate.Shared.Core.Resources {
     // tramite uno strumento quale ResGen o Visual Studio.
     // Per aggiungere o rimuovere un membro, modificare il file con estensione ResX ed eseguire nuovamente ResGen
     // con l'opzione /str oppure ricompilare il progetto VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ApiUrlStrings {
@@ -61,7 +61,7 @@ namespace CoreServicesTemplate.Shared.Core.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User.
+        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/.
         /// </summary>
         public static string StorageRoomUserControllerLocalhostUrl {
             get {

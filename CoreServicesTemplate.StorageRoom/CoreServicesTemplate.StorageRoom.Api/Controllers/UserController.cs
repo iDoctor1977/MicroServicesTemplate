@@ -10,7 +10,7 @@ using System.Linq;
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 {
     [ApiController]
-    [Route("StorageRoom/[controller]")]
+    [Route("StorageRoom/[controller]/[action]", Name = "[controller]_[action]")]
     public class UserController : ControllerBase
     {
         private readonly IAddUserFeature _addUserFeature;
@@ -38,7 +38,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         }
 
         // POST: StorageRoom/User/AddUser
-        [HttpPost(Name = "AddUser")]
+        [HttpPost("{apiModel}")]
         public async Task<IActionResult> AddUser(UserApiModel apiModel)
         {
             var model = _consolidatorsReceiver.ToData(apiModel);
@@ -49,7 +49,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         }
 
         // GET: StorageRoom/User/GetUser/{apiModel}
-        [HttpGet("{apiModel}", Name = "GetUser")]
+        [HttpGet("{apiModel}")]
         public async Task<ActionResult<UserApiModel>> GetUser(UserApiModel apiModel)
         {
             var model = _consolidatorsReceiver.ToData(apiModel);
@@ -72,7 +72,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         }
 
         // GET: StorageRoom/User/GetUsers
-        [HttpGet(Name = "GetUsers")]
+        [HttpGet]
         public async Task<ActionResult<UsersApiModel>> GeUsers()
         {
             var model = await _getUsersFeature.HandleAsync();
@@ -88,7 +88,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         }
 
         // PUT: StorageRoom/User/UpdateUser/{apiModel}
-        [HttpPut("{apiModel}", Name = "UpdateUser")]
+        [HttpPut("{apiModel}")]
         public async Task<IActionResult> UpdateUser(UserApiModel apiModel)
         {
             var model = _consolidatorsReceiver.ToData(apiModel);
@@ -109,7 +109,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         }
 
         // DELETE: StorageRoom/User/DeleteUser/{apiModel}
-        [HttpDelete("{apiModel}", Name = "DeleteUser")]
+        [HttpDelete("{apiModel}")]
         public async Task<IActionResult> DeleteUser(UserApiModel apiModel)
         {
             var model = _consolidatorsReceiver.ToData(apiModel);
