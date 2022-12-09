@@ -6,6 +6,8 @@ using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using System.Linq;
+using Microsoft.Extensions.Logging;
+using CoreServicesTemplate.Shared.Core.Filters;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 {
@@ -21,13 +23,16 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         private readonly IConsolidators<UserModel, UserApiModel> _consolidatorsPresenter;
         private readonly IConsolidators<UsersModel, UsersApiModel> _consolidatorsCustomPresenter;
 
+        private readonly ILogger<ApiLogActionFilterAsync> _logger;
+
         public UserController(
             IAddUserFeature addUserFeature,
             IGetUserFeature getUserFeature,
             IGetUsersFeature getUsersFeature,
             IConsolidators<UserApiModel, UserModel> consolidatorsReceiver,
             IConsolidators<UserModel, UserApiModel> consolidatorsPresenter,
-            IConsolidators<UsersModel, UsersApiModel> consolidatorsCustomPresenter)
+            IConsolidators<UsersModel, UsersApiModel> consolidatorsCustomPresenter, 
+            ILogger<ApiLogActionFilterAsync> logger)
         {
             _addUserFeature = addUserFeature;
             _getUserFeature = getUserFeature;
@@ -35,6 +40,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             _consolidatorsReceiver = consolidatorsReceiver;
             _consolidatorsPresenter = consolidatorsPresenter;
             _consolidatorsCustomPresenter = consolidatorsCustomPresenter;
+            _logger = logger;
         }
 
         // POST: StorageRoom/User/AddUser
@@ -49,8 +55,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         }
 
         // GET: StorageRoom/User/GetUser/{apiModel}
-        [HttpGet("{apiModel}")]
-        public async Task<ActionResult<UserApiModel>> GetUser(UserApiModel apiModel)
+        [HttpGet]
+        public async Task<ActionResult<UserApiModel>> GetUser([FromBody] UserApiModel apiModel)
         {
             var model = _consolidatorsReceiver.ToData(apiModel);
 
@@ -73,7 +79,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
         // GET: StorageRoom/User/GetUsers
         [HttpGet]
-        public async Task<ActionResult<UsersApiModel>> GeUsers()
+        public async Task<ActionResult<UsersApiModel>> GetUsers()
         {
             var model = await _getUsersFeature.HandleAsync();
 

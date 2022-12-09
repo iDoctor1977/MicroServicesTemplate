@@ -43,7 +43,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             _fixture.GetUsersDepotMock.Setup(depot => depot.HandleAsync()).Returns(Task.FromResult(users));
 
             //Act
-            var result = await _client.GetFromJsonAsync<UsersApiModel>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}");
+            var result = await _client.GetFromJsonAsync<UsersApiModel>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}/GetUsers");
 
             //Assert
             _fixture.GetUsersDepotMock.Verify((c => c.HandleAsync()), Times.Once());

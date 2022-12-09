@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -12,9 +11,9 @@ namespace CoreServicesTemplate.Shared.Core.Filters
     {
         private readonly ILogger<ApiLogActionFilterAsync> _logger;
 
-        public ApiLogActionFilterAsync(IServiceProvider service)
+        public ApiLogActionFilterAsync(ILogger<ApiLogActionFilterAsync> logger)
         {
-            _logger = service.GetRequiredService<ILogger<ApiLogActionFilterAsync>>();
+            _logger = logger;
         }
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)

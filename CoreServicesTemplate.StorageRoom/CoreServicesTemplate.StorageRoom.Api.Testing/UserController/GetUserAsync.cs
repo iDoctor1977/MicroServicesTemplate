@@ -12,8 +12,11 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using CoreServicesTemplate.Shared.Core.Builders;
 using FluentAssertions;
+using Newtonsoft.Json;
 using Xunit;
+using System.Text;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {
@@ -34,6 +37,17 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
         {
             //Arrange
             var userBuilder = new UserModelBuilder();
+            var userApiBuilder = new UserApiModelBuilder();
+
+            var usersApiModel = new UsersApiModel
+            {
+                UsersApiModelList = userApiBuilder
+                    .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-123987))
+                    .AddUser("Duffy", "Duck", DateTime.Now.AddDays(-187962))
+                    .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-22897))
+                    .Build()
+            };
+
             var users = new UsersModel
             {
                 UsersModelList = userBuilder
@@ -43,15 +57,24 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                     .Build()
             };
 
-            _fixture.GetUserDepotMock.Setup(depot => depot.HandleAsync(users.UsersModelList.ElementAt(2))).Returns(Task.FromResult(users.UsersModelList.FirstOrDefault()));
+            var modelMock = users.UsersModelList.ElementAtOrDefault(2);
+            _fixture.GetUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserModel>())).Returns(Task.FromResult(modelMock));
 
             //Act
-            var a = $"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl + users.UsersModelList.FirstOrDefault()}";
-            var result = await _client.GetFromJsonAsync<UserApiModel>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl + users.UsersModelList.FirstOrDefault()}");
+            UserApiModel userApiModel = usersApiModel.UsersApiModelList.ElementAt(2);
+
+            var serializedObject = JsonConvert.SerializeObject(userApiModel);
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}/GetUser"),
+                Content = new StringContent(serializedObject, Encoding.Default, "application/json")
+            };
+
+            var result = await _client.SendAsync(request);
 
             //Assert
             _fixture.GetUserDepotMock.Verify((c => c.HandleAsync(It.IsAny<UserModel>())), Times.Once());
-            result.Should().BeOfType<UserApiModel>().And.NotBeNull().And.Equals(users.UsersModelList.FirstOrDefault());
         }
     }
 }

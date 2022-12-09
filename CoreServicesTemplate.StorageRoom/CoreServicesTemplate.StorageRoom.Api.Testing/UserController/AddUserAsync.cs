@@ -13,12 +13,12 @@ using Xunit;
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {
     [Collection("BaseTest")]
-    public class AddUserPostAsync
+    public class AddUserAsync
     {
         private readonly HttpClient _client;
         private readonly TestFixtureBase _fixture;
 
-        public AddUserPostAsync(WebApplicationFactory<Startup> factory, TestFixtureBase fixture)
+        public AddUserAsync(WebApplicationFactory<Startup> factory, TestFixtureBase fixture)
         {
             _fixture = fixture;
             _client = _fixture.GenerateClient(factory);
@@ -35,13 +35,13 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                 Birth = DateTime.Now.AddDays(-14000)
             };
 
-            _fixture.CreateUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserModel>()));
+            _fixture.AddUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserModel>()));
 
             //Act
-            await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}", modelApi);
+            await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}/AddUser/{modelApi}", modelApi);
 
             //Assert
-            _fixture.CreateUserDepotMock.Verify((c => c.HandleAsync(It.Is<UserModel>(arg => arg.Name == modelApi.Name))));
+            _fixture.AddUserDepotMock.Verify((c => c.HandleAsync(It.Is<UserModel>(arg => arg.Name == modelApi.Name))));
         }
     }
 }

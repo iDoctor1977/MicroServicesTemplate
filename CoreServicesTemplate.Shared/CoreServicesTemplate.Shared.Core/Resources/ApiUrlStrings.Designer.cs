@@ -61,7 +61,7 @@ namespace CoreServicesTemplate.Shared.Core.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/.
+        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User.
         /// </summary>
         public static string StorageRoomUserControllerLocalhostUrl {
             get {
