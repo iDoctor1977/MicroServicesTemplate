@@ -28,7 +28,6 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using System.Collections.Generic;
 using CoreServicesTemplate.StorageRoom.Data.Presenters;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {
@@ -117,9 +116,6 @@ namespace CoreServicesTemplate.StorageRoom.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoreServicesTemplate.StorageRoom.Api v1"));
             }
-
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 

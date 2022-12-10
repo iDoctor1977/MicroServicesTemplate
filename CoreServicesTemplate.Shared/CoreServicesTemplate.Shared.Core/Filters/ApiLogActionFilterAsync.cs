@@ -28,7 +28,7 @@ namespace CoreServicesTemplate.Shared.Core.Filters
             };
 
             _logger.LogInformation($"StorageRoom API call STARTED - {JsonConvert.SerializeObject(logApiModel)}");
-            
+
             await next();
         }
     }

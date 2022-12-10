@@ -4,8 +4,10 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Builders;
+using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.Shared.Core.Resources;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
+using CoreServicesTemplate.StorageRoom.Data.Builders;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -29,11 +31,15 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
         public async Task Should_LogTheCallToAnyAction()
         {
             //Arrange
-            IUserApiModelBuilder builder = new UserApiModelBuilder();
-            var model = builder.AddUser("foo", "foo foo", DateTime.Now.AddDays(-18659)).Build();
+            var apiModel = new UserApiModel
+            {
+                Name = "Foo",
+                Surname = "Foo Foo",
+                Birth = DateTime.Now.AddDays(-14000)
+            };
 
             //Act
-            await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}", model.FirstOrDefault());
+            await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}/AddUser/{apiModel}", apiModel);
 
             //Assert
             _fixture.LoggerMock.Verify(x => x.Log(LogLevel.Information,
