@@ -63,7 +63,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}/GetUser"),
+                RequestUri = new Uri($"{ApiUrlStrings.StorageRoomUserControllerLocalhostGetUserUrl}"),
                 Content = new StringContent(serializedObject, Encoding.Default, "application/json")
             };
 

@@ -38,7 +38,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             _fixture.AddUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserModel>()));
 
             //Act
-            await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}/AddUser/{modelApi}", modelApi);
+            await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostAddUserUrl}/{modelApi}", modelApi);
 
             //Assert
             _fixture.AddUserDepotMock.Verify((c => c.HandleAsync(It.Is<UserModel>(arg => arg.Name == modelApi.Name))));

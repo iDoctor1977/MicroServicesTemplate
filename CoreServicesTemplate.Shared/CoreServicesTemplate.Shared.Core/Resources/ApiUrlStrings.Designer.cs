@@ -61,6 +61,51 @@ namespace CoreServicesTemplate.Shared.Core.Resources {
         }
         
         /// <summary>
+        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/AddUser.
+        /// </summary>
+        public static string StorageRoomUserControllerLocalhostAddUserUrl {
+            get {
+                return ResourceManager.GetString("StorageRoomUserControllerLocalhostAddUserUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/DeletUser.
+        /// </summary>
+        public static string StorageRoomUserControllerLocalhostDeleteUserUrl {
+            get {
+                return ResourceManager.GetString("StorageRoomUserControllerLocalhostDeleteUserUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/GetUsers.
+        /// </summary>
+        public static string StorageRoomUserControllerLocalhostGetUsersUrl {
+            get {
+                return ResourceManager.GetString("StorageRoomUserControllerLocalhostGetUsersUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/GetUser.
+        /// </summary>
+        public static string StorageRoomUserControllerLocalhostGetUserUrl {
+            get {
+                return ResourceManager.GetString("StorageRoomUserControllerLocalhostGetUserUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/UpdateUser.
+        /// </summary>
+        public static string StorageRoomUserControllerLocalhostUpdateUserUrl {
+            get {
+                return ResourceManager.GetString("StorageRoomUserControllerLocalhostUpdateUserUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User.
         /// </summary>
         public static string StorageRoomUserControllerLocalhostUrl {
