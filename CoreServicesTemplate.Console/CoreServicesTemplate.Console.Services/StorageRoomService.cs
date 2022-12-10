@@ -16,10 +16,10 @@ namespace CoreServicesTemplate.Console.Services
             _client = new HttpClient();
         }
 
-        public async Task<HttpResponseMessage> AddUserAsync(UserApiModel model)
+        public async Task<HttpResponseMessage> AddUserAsync(UserApiModel apiModel)
         {
             //HTTP POST
-            var responseMessage = await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}", model);
+            var responseMessage = await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostAddUserUrl}/{apiModel}", apiModel);
 
             return responseMessage;
         }
@@ -27,7 +27,7 @@ namespace CoreServicesTemplate.Console.Services
         public async Task<UsersApiModel> GetUsersAsync()
         {
             //HTTP GET
-            var apiModel = await _client.GetFromJsonAsync<UsersApiModel>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}");
+            var apiModel = await _client.GetFromJsonAsync<UsersApiModel>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostGetUsersUrl}");
 
             return apiModel;
         }

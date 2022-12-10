@@ -3,7 +3,7 @@ using CoreServicesTemplate.Shared.Core.Bases;
 
 namespace CoreServicesTemplate.Console.Common.Models
 {
-    public class UsersModel : AModelBase
+    public class UsersModel : AAppModelBase
     {
         public IEnumerable<UserModel> UsersModelList { get; set; }
     }

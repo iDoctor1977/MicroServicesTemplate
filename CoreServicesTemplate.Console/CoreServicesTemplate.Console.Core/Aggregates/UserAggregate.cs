@@ -8,9 +8,24 @@ namespace CoreServicesTemplate.Console.Core.Aggregates
     {
         public UserAggregate(UserModel model) : base(model) { }
 
+        public void SetId(int id)
+        {
+            Model.Id = id;
+        }
+
+        public int GetId()
+        {
+            return Model.Id;
+        }
+
         public void SetGuid(Guid guid)
         {
             Model.Guid = guid;
+        }
+
+        public Guid GetGuid()
+        {
+            return Model.Guid;
         }
 
         public void SetName (string name)

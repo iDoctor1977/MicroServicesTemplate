@@ -14,11 +14,11 @@ using Xunit;
 namespace CoreServicesTemplate.Console.Api.Testing.ConsoleApiController
 {
     [Collection("BaseTest")]
-    public class ReadUsersGetAsync
+    public class GetUsersAsync
     {
         private readonly TestFixtureBase _fixture;
 
-        public ReadUsersGetAsync(TestFixtureBase fixture)
+        public GetUsersAsync(TestFixtureBase fixture)
         {
             _fixture = fixture;
             _fixture.GenerateHost();
