@@ -126,7 +126,7 @@ namespace CoreServicesTemplate.StorageRoom.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHealthChecks("/health");
+                endpoints.MapHealthChecks("/health").RequireHost("www.coreservicestemplate.com:5000");
             });
         }
     }
