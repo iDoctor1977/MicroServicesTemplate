@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj" />
+    <ProjectReference Include="..\CoreServicesTemplate.Dashboard.Common\CoreServicesTemplate.Dashboard.Common.csproj" />
+  </ItemGroup>
+
+</Project>
