@@ -6,6 +6,7 @@ using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 {
@@ -41,6 +42,11 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         [HttpPost("{apiModel}")]
         public async Task<IActionResult> AddUser(UserApiModel apiModel)
         {
+            if (apiModel is null)
+            {
+                return await Task.FromResult<ActionResult>(BadRequest());
+            }
+
             var model = _consolidatorsReceiver.ToData(apiModel);
 
             await _addUserFeature.HandleAsync(model);
@@ -52,23 +58,18 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<UserApiModel>> GetUser([FromBody] UserApiModel apiModel)
         {
-            var model = _consolidatorsReceiver.ToData(apiModel);
-
-            if (model.Guid == Guid.Empty)
+            if (apiModel is null || apiModel.Guid == Guid.Empty)
             {
                 return await Task.FromResult<ActionResult>(BadRequest());
             }
 
+            var model = _consolidatorsReceiver.ToData(apiModel);
+
             var resultModel = await _getUserFeature.HandleAsync(model);
 
-            if (resultModel is null)
-            {
-                return await Task.FromResult<ActionResult>(NoContent());
-            }
-
             var resultApiModel = _consolidatorsPresenter.ToData(resultModel);
-            
-            return resultApiModel;
+
+            return resultApiModel is null ? NoContent() : resultApiModel;
         }
 
         // GET: StorageRoom/User/GetUsers
@@ -77,26 +78,21 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         {
             var model = await _getUsersFeature.HandleAsync();
 
-            if (!model.UsersModelList.Any())
-            {
-                return await Task.FromResult<ActionResult>(NoContent());
-            }
-
             var apiModel = _consolidatorsCustomPresenter.ToData(model);
 
-            return apiModel;
+            return apiModel is null ? NoContent() : apiModel;
         }
 
         // PUT: StorageRoom/User/UpdateUser/{apiModel}
         [HttpPut("{apiModel}")]
         public async Task<IActionResult> UpdateUser(UserApiModel apiModel)
         {
-            var model = _consolidatorsReceiver.ToData(apiModel);
-
-            if (model.Guid == Guid.Empty)
+            if (apiModel is null || apiModel.Guid == Guid.Empty)
             {
-                return await Task.FromResult<IActionResult>(BadRequest());
+                return await Task.FromResult<ActionResult>(BadRequest());
             }
+
+            var model = _consolidatorsReceiver.ToData(apiModel);
 
             // var result = await _updateUserFeature.HandleAsync(model);
 
@@ -112,6 +108,11 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         [HttpDelete("{apiModel}")]
         public async Task<IActionResult> DeleteUser(UserApiModel apiModel)
         {
+            if (apiModel is null || apiModel.Guid == Guid.Empty)
+            {
+                return await Task.FromResult<ActionResult>(BadRequest());
+            }
+
             var model = _consolidatorsReceiver.ToData(apiModel);
 
             // var result = await _deleteUserFeature.HandleAsync(model);

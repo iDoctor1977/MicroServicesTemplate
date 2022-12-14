@@ -37,10 +37,14 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
         {
             return View();
         }
+        public IActionResult Add()
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(UserViewModel viewModel)
+        public async Task<RedirectToActionResult> Add(UserViewModel viewModel)
         {
             var model = _createUserCustomReceiver.ToData(viewModel);
 
@@ -54,7 +58,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ViewResult> GetAll()
         {
             var model = await _getUsersFeature.HandleAsync();
 

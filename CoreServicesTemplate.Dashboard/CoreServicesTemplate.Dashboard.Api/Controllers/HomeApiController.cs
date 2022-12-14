@@ -25,13 +25,13 @@ namespace CoreServicesTemplate.Dashboard.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<UsersApiModel> GetAll()
+        public async Task<ActionResult<UsersApiModel>> GetAll()
         {
             var model = await _getUsersFeature.HandleAsync();
 
             var apiModel = _consolidators.ToData(model);
 
-            return apiModel;
+            return apiModel == null ? NotFound() : Ok(apiModel);
         }
     }
 }
