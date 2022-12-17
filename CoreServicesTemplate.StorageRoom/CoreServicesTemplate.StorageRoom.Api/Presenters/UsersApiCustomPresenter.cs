@@ -15,10 +15,10 @@ namespace CoreServicesTemplate.StorageRoom.Api.Presenters
             _userConsolidator = userConsolidator;
         }
 
-        public override UsersApiModel ToData(UsersModel model)
+        public override UsersApiModel ToData(UsersModel modelIn)
         {
-            var viewModel = ToExternalData(model);
-            viewModel.UsersApiModelList = _userConsolidator.ToData(model.UsersModelList);
+            var viewModel = ToExternalData(modelIn);
+            viewModel.UsersApiModelList = _userConsolidator.ToData(modelIn.UsersModelList);
 
             return viewModel;
         }

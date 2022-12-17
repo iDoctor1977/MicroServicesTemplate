@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
@@ -16,10 +17,11 @@ namespace CoreServicesTemplate.StorageRoom.Data.Presenters
             _userConsolidator = userConsolidator;
         }
 
-        public override UsersModel ToData(IEnumerable<User> entity)
+        public override UsersModel ToData(IEnumerable<User> modelIn)
         {
-            var model = ToExternalData(entity);
-            model.UsersModelList = _userConsolidator.ToData(entity);
+            var entityList = modelIn.ToList();
+            var model = ToExternalData(entityList);
+            model.UsersModelList = _userConsolidator.ToData(entityList);
 
             return model;
         }

@@ -7,9 +7,9 @@ namespace CoreServicesTemplate.Shared.Core.Consolidators
     {
         public DefaultConsolidator(ICustomMapper customMapper) : base(customMapper) { }
 
-        public override TOut ToData(TIn viewModel)
+        public override TOut ToData(TIn modelIn)
         {
-            var model = ToExternalData(viewModel);
+            var model = ToExternalData(modelIn);
 
             return model;
         }

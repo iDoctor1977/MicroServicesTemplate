@@ -20,11 +20,11 @@ namespace CoreServicesTemplate.Shared.Core.Bases
             return valueMap;
         }
 
-        public IEnumerable<TOut> ToData(IEnumerable<TIn> model)
+        public IEnumerable<TOut> ToData(IEnumerable<TIn> modelIn)
         {
             var models = new List<TOut>();
 
-            foreach (var apiModel in model)
+            foreach (var apiModel in modelIn)
             {
                 models.Add(ToData(apiModel));
             }
@@ -32,6 +32,6 @@ namespace CoreServicesTemplate.Shared.Core.Bases
             return models;
         }
 
-        public abstract TOut ToData(TIn model);
+        public abstract TOut ToData(TIn modelIn);
     }
 }
