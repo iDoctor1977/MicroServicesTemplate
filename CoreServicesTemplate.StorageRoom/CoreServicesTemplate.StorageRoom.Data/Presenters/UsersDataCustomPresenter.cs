@@ -7,19 +7,19 @@ using CoreServicesTemplate.StorageRoom.Data.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Presenters
 {
-    public class GetUsersDataCustomPresenter : AConsolidatorBase<IEnumerable<User>, UsersModel>
+    public class UsersDataCustomPresenter : AConsolidatorBase<IEnumerable<User>, UsersModel>
     {
-        private readonly IConsolidators<User, UserModel> _customPresenter;
+        private readonly IConsolidators<User, UserModel> _userConsolidator;
 
-        public GetUsersDataCustomPresenter(ICustomMapper customMapper, IConsolidators<User, UserModel> customPresenter) : base(customMapper)
+        public UsersDataCustomPresenter(ICustomMapper customMapper, IConsolidators<User, UserModel> userConsolidator) : base(customMapper)
         {
-            _customPresenter = customPresenter;
+            _userConsolidator = userConsolidator;
         }
 
         public override UsersModel ToData(IEnumerable<User> entity)
         {
             var model = ToExternalData(entity);
-            model.UsersModelList = _customPresenter.ToData(entity);
+            model.UsersModelList = _userConsolidator.ToData(entity);
 
             return model;
         }

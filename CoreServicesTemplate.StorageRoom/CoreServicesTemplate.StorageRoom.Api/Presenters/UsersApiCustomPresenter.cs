@@ -6,19 +6,19 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Presenters
 {
-    public class GetUsersApiCustomPresenter : AConsolidatorBase<UsersModel, UsersApiModel>
+    public class UsersApiCustomPresenter : AConsolidatorBase<UsersModel, UsersApiModel>
     {
-        private readonly IConsolidators<UserModel, UserApiModel> _customPresenter;
+        private readonly IConsolidators<UserModel, UserApiModel> _userConsolidator;
 
-        public GetUsersApiCustomPresenter(ICustomMapper customMapper, IConsolidators<UserModel, UserApiModel> customPresenter) : base(customMapper)
+        public UsersApiCustomPresenter(ICustomMapper customMapper, IConsolidators<UserModel, UserApiModel> userConsolidator) : base(customMapper)
         {
-            _customPresenter = customPresenter;
+            _userConsolidator = userConsolidator;
         }
 
         public override UsersApiModel ToData(UsersModel model)
         {
             var viewModel = ToExternalData(model);
-            viewModel.UsersApiModelList = _customPresenter.ToData(model.UsersModelList);
+            viewModel.UsersApiModelList = _userConsolidator.ToData(model.UsersModelList);
 
             return viewModel;
         }
