@@ -50,7 +50,7 @@ namespace CoreServicesTemplate.Dashboard.Api.Testing.HomeApiController
 
             //Assert
             _fixture.StorageRoomServiceMock.Verify((method => method.GetUsersAsync()), Times.Once());
-            result.UsersApiModelList.Should().AllBeOfType<UserApiModel>().And.HaveCountGreaterThan(0);
+            result.Value?.UsersApiModelList.Should().AllBeOfType<UserApiModel>().And.HaveCountGreaterThan(0);
         }
     }
 }

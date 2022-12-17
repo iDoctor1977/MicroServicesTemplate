@@ -3,12 +3,11 @@ using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
 using CoreServicesTemplate.Dashboard.Core.Presenters;
 using CoreServicesTemplate.Dashboard.Core.Receivers;
 using CoreServicesTemplate.Dashboard.Core;
+using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.Shared.Core.Presenters;
-using CoreServicesTemplate.Shared.Core.Receivers;
 using CoreServicesTemplate.Shared.Core.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,8 +28,7 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddTransient<ICustomMapper, CustomMapper>();
 
-builder.Services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultReceiver<,>));
-builder.Services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultPresenter<,>));
+builder.Services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultConsolidator<,>));
 
 builder.Services.AddTransient(typeof(IConsolidators<UsersApiModel, UsersModel>), typeof(GetUsersCoreCustomReceiver));
 

@@ -8,13 +8,12 @@ using CoreServicesTemplate.Dashboard.Web.MapperProfiles;
 using CoreServicesTemplate.Dashboard.Web.Models;
 using CoreServicesTemplate.Dashboard.Web.Presenters;
 using CoreServicesTemplate.Dashboard.Web.Receivers;
+using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.Shared.Core.Presenters;
-using CoreServicesTemplate.Shared.Core.Receivers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -55,8 +54,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.Fixtures
 
             builder.Services.AddTransient<ICustomMapper, CustomMapper>();
 
-            builder.Services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultReceiver<,>));
-            builder.Services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultPresenter<,>));
+            builder.Services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultConsolidator<,>));
 
             builder.Services.AddTransient(typeof(IConsolidators<UserViewModel, UserModel>), typeof(AddUserCustomReceiver));
             builder.Services.AddTransient(typeof(IConsolidators<UsersApiModel, UsersModel>), typeof(GetUsersCoreCustomReceiver));

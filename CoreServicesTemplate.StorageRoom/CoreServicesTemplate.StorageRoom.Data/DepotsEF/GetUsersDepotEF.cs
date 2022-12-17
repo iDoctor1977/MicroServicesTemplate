@@ -15,22 +15,22 @@ namespace CoreServicesTemplate.StorageRoom.Data.DepotsEF
     public class GetUsersDepotEF : DepotBaseEF, IGetUsersDepot
     {
         private readonly IUserRepository _userRepository;
-        private readonly IConsolidators<IEnumerable<User>, UsersModel> _consolidatorsCustomPresenter;
+        private readonly IConsolidators<IEnumerable<User>, UsersModel> _usersModelCustomPresenter;
 
         public GetUsersDepotEF(
             Lazy<DbContextProject> dbContext,
             IRepositoryFactoryEF repositoryFactory, 
-            IConsolidators<IEnumerable<User>, UsersModel> consolidatorsCustomPresenter) : base(dbContext)
+            IConsolidators<IEnumerable<User>, UsersModel> usersModelCustomPresenter) : base(dbContext)
         {
             _userRepository = repositoryFactory.CreateRepository<IUserRepository>(dbContext.Value);
-            _consolidatorsCustomPresenter = consolidatorsCustomPresenter;
+            _usersModelCustomPresenter = usersModelCustomPresenter;
         }
 
         public async Task<UsersModel> HandleAsync()
         {
             var entity = await _userRepository.GetEntities();
 
-            var model = _consolidatorsCustomPresenter.ToData(entity);
+            var model = _usersModelCustomPresenter.ToData(entity);
 
             return model;
         }

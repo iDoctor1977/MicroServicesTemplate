@@ -18,16 +18,14 @@ using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF.Interfaces;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
-using CoreServicesTemplate.Shared.Core.Presenters;
-using CoreServicesTemplate.Shared.Core.Receivers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Api.Presenters;
-using CoreServicesTemplate.StorageRoom.Api.Receivers;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using System.Collections.Generic;
 using CoreServicesTemplate.StorageRoom.Data.Presenters;
+using CoreServicesTemplate.Shared.Core.Consolidators;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {
@@ -73,12 +71,12 @@ namespace CoreServicesTemplate.StorageRoom.Api
 
             services.AddTransient<ICustomMapper, CustomMapper>();
 
-            services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultReceiver<,>));
-            services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultPresenter<,>));
+            services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultConsolidator<,>));
 
-            services.AddTransient(typeof(IConsolidators<UsersApiModel, UsersModel>), typeof(GetUsersApiCustomReceiver));
-            
+            // consolidator custom for Api layer
             services.AddTransient(typeof(IConsolidators<UsersModel, UsersApiModel>), typeof(GetUsersApiCustomPresenter));
+
+            // consolidator custom for Data layer
             services.AddTransient(typeof(IConsolidators<IEnumerable<User>, UsersModel>), typeof(GetUsersDataCustomPresenter));
 
             #endregion
@@ -94,7 +92,7 @@ namespace CoreServicesTemplate.StorageRoom.Api
 
             #region Automapper
 
-            services.AddAutoMapper(typeof(CoreMappingProfile), typeof(DataMappingProfile));
+            services.AddAutoMapper(typeof(ApiMappingProfile), typeof(DataMappingProfile));
 
             #endregion
 

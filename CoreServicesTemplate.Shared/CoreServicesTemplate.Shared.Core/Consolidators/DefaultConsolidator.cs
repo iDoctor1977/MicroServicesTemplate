@@ -1,11 +1,11 @@
 ﻿using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 
-namespace CoreServicesTemplate.Shared.Core.Receivers
+namespace CoreServicesTemplate.Shared.Core.Consolidators
 {
-    public sealed class DefaultReceiver<TIn, TOut> : AConsolidatorBase<TIn, TOut>
+    public sealed class DefaultConsolidator<TIn, TOut> : AConsolidatorBase<TIn, TOut>
     {
-        public DefaultReceiver(ICustomMapper customMapper) : base(customMapper) { }
+        public DefaultConsolidator(ICustomMapper customMapper) : base(customMapper) { }
 
         public override TOut ToData(TIn viewModel)
         {
