@@ -14,12 +14,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.DepotsEF
     public class AddUserDepotEF : DepotBaseEF, IAddUserDepot
     {
         private readonly IUserRepository _userRepository;
-        private readonly IConsolidators<UserModel, User> _userModelReceiver;
+        private readonly IConsolidatorToData<UserModel, User> _userModelReceiver;
 
         public AddUserDepotEF(
             Lazy<DbContextProject> dbContext,
             IRepositoryFactoryEF repositoryFactory,
-            IConsolidators<UserModel, User> userModelReceiver) : base(dbContext)
+            IConsolidatorToData<UserModel, User> userModelReceiver) : base(dbContext)
         {
             _userModelReceiver = userModelReceiver;
             _userRepository = repositoryFactory.CreateRepository<IUserRepository>(dbContext.Value);
@@ -27,7 +27,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.DepotsEF
 
         public async Task HandleAsync(UserModel model)
         {
-            var entity = _userModelReceiver.ToData(model);
+            var entity = _userModelReceiver.ToData(model).Resolve();
 
             await _userRepository.AddEntity(entity);
 

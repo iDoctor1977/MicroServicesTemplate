@@ -1,17 +1,40 @@
 ﻿using CoreServicesTemplate.Shared.Core.Bases;
+using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 
-namespace CoreServicesTemplate.Shared.Core.Consolidators
+namespace CoreServicesTemplate.Shared.Core.Consolidators;
+
+public sealed class DefaultConsolidator<TIn, TOut> : AConsolidatorBase<TIn, TOut>,
+    IConsolidatorToResolve<TIn, TOut>,
+    IConsolidatorToResolveReversing<TIn,TOut>
 {
-    public sealed class DefaultConsolidator<TIn, TOut> : AConsolidatorBase<TIn, TOut>
+    private TIn _modelIn;
+    private TOut _modelOut;
+
+    internal DefaultConsolidator(ICustomMapper customMapper) : base(customMapper) { }
+
+    public override IConsolidatorToResolve<TIn, TOut> ToData(TIn @in)
     {
-        public DefaultConsolidator(ICustomMapper customMapper) : base(customMapper) { }
+        _modelIn = @in;
+        _modelOut = InDataToOutData(@in);
 
-        public override TOut ToData(TIn modelIn)
-        {
-            var model = ToExternalData(modelIn);
+        return this;
+    }
 
-            return model;
-        }
+    public override IConsolidatorToResolveReversing<TIn, TOut> ToDataReverse(TOut @out)
+    {
+        _modelIn = OutDataToInData(@out);
+
+        return this;
+    }
+
+    TOut IConsolidatorToResolve<TIn, TOut>.Resolve()
+    {
+        return _modelOut;
+    }
+
+    TIn IConsolidatorToResolveReversing<TIn, TOut>.Resolve()
+    {
+        return _modelIn;
     }
 }

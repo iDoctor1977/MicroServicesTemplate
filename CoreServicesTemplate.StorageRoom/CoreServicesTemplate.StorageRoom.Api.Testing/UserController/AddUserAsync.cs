@@ -25,7 +25,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
         }
 
         [Fact]
-        public async Task Should_ExecuteCreationNewUser()
+        public async Task Should_Execute_Adding_New_User()
         {
             //Arrange
             var modelApi = new UserApiModel

@@ -20,12 +20,12 @@ using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
-using CoreServicesTemplate.StorageRoom.Api.Presenters;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using System.Collections.Generic;
-using CoreServicesTemplate.StorageRoom.Data.Presenters;
 using CoreServicesTemplate.Shared.Core.Consolidators;
+using CoreServicesTemplate.StorageRoom.Api.Consolidators;
+using CoreServicesTemplate.StorageRoom.Data.Consolidators;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {
@@ -67,17 +67,13 @@ namespace CoreServicesTemplate.StorageRoom.Api
 
             #endregion
 
-            #region Consolidator
+            #region ConsolidatorReverse
 
             services.AddTransient<ICustomMapper, CustomMapper>();
 
-            services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultConsolidator<,>));
-
-            // consolidator custom for Api layer
-            services.AddTransient(typeof(IConsolidators<UsersModel, UsersApiModel>), typeof(UsersApiCustomPresenter));
-
-            // consolidator custom for Data layer
-            services.AddTransient(typeof(IConsolidators<IEnumerable<User>, UsersModel>), typeof(UsersDataCustomPresenter));
+            services.AddTransient(typeof(IConsolidatorToData<,>), typeof(DefaultConsolidator<,>));
+            services.AddTransient(typeof(IConsolidatorToData<UserApiModel, UserModel>), typeof(UsersApiCustomConsolidator));
+            //services.AddTransient(typeof(IConsolidatorToData<UsersModel, IEnumerable<User>>), typeof(UsersDataCustomConsolidator));
 
             #endregion
 
@@ -124,7 +120,7 @@ namespace CoreServicesTemplate.StorageRoom.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHealthChecks("/health").RequireHost("www.coreservicestemplate.com:5000");
+                endpoints.MapHealthChecks("/health");
             });
         }
     }

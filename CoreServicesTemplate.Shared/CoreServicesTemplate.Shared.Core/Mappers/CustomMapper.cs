@@ -19,5 +19,10 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
         {
             return _mapper.Map<TOut>(model);
         }
+
+        public TIn ReverseMap<TOut, TIn>(TOut model)
+        {
+            return _mapper.Map<TIn>(model);
+        }
     }
 }
