@@ -8,7 +8,7 @@ using CoreServicesTemplate.StorageRoom.Data.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Consolidators
 {
-    public class UsersDataCustomConsolidator : AConsolidatorBase<UsersModel, IEnumerable<User>>,
+    public sealed class UsersDataCustomConsolidator : AConsolidatorBase<UsersModel, IEnumerable<User>>,
         IConsolidatorToResolve<UsersModel, IEnumerable<User>>,
         IConsolidatorToResolveReversing<UsersModel, IEnumerable<User>>
 

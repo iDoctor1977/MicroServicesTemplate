@@ -73,7 +73,7 @@ namespace CoreServicesTemplate.StorageRoom.Api
 
             services.AddTransient(typeof(IConsolidatorToData<,>), typeof(DefaultConsolidator<,>));
             services.AddTransient(typeof(IConsolidatorToData<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
-            //services.AddTransient(typeof(IConsolidatorToData<UsersModel, IEnumerable<User>>), typeof(UsersDataCustomConsolidator));
+            services.AddTransient(typeof(IConsolidatorToData<UsersModel, IEnumerable<User>>), typeof(UsersDataCustomConsolidator));
 
             #endregion
 

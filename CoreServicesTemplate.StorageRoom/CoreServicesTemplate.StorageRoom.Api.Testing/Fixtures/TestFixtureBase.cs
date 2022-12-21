@@ -13,8 +13,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures
     {
         public Mock<ILogger<ApiLogActionFilterAsync>> LoggerMock { get; private set; }
         public Mock<IAddUserDepot> AddUserDepotMock { get; private set; }
-        public Mock<IGetUserDepot> GetUserDepotMock { get; set; }
-        public Mock<IGetUsersDepot> GetUsersDepotMock { get; set; }
+        public Mock<IGetUserDepot> GetUserDepotMock { get; private set; }
+        public Mock<IGetUsersDepot> GetUsersDepotMock { get; private set; }
 
         public HttpClient GenerateClient(WebApplicationFactory<Startup> factory)
         {

@@ -7,7 +7,7 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Consolidators;
 
-public class UsersApiCustomConsolidator : AConsolidatorBase<UsersApiModel, UsersModel>,
+public sealed class UsersApiCustomConsolidator : AConsolidatorBase<UsersApiModel, UsersModel>,
     IConsolidatorToResolve<UsersApiModel, UsersModel>,
     IConsolidatorToResolveReversing<UsersApiModel, UsersModel>
 {
@@ -52,7 +52,7 @@ public class UsersApiCustomConsolidator : AConsolidatorBase<UsersApiModel, Users
         _usersApiModel = OutDataToInData(_usersModel);
 
         var modelList = new List<UserApiModel>();
-        foreach (var userModel in _usersModel.UsersModelList)
+        foreach (var userModel in @out.UsersModelList)
         {
             modelList.Add(_userConsolidator.ToDataReverse(userModel).Resolve());
         }

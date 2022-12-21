@@ -11,7 +11,7 @@ public sealed class DefaultConsolidator<TIn, TOut> : AConsolidatorBase<TIn, TOut
     private TIn _modelIn;
     private TOut _modelOut;
 
-    internal DefaultConsolidator(ICustomMapper customMapper) : base(customMapper) { }
+    public DefaultConsolidator(ICustomMapper customMapper) : base(customMapper) { }
 
     public override IConsolidatorToResolve<TIn, TOut> ToData(TIn @in)
     {
