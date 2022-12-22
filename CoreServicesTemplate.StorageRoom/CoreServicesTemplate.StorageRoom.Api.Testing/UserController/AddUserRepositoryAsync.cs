@@ -5,20 +5,20 @@ using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.Shared.Core.Resources;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
-using CoreServicesTemplate.StorageRoom.Common.Models;
+using CoreServicesTemplate.StorageRoom.Data.Entities;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
 using Xunit;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {
-    [Collection("BaseTest")]
-    public class AddUserAsync
+    [Collection("RepositoryTestBase")]
+    public class AddUserRepositoryAsync
     {
         private readonly HttpClient _client;
-        private readonly TestFixtureBase _fixture;
+        private readonly TestFixtureRepositories _fixture;
 
-        public AddUserAsync(WebApplicationFactory<Startup> factory, TestFixtureBase fixture)
+        public AddUserRepositoryAsync(WebApplicationFactory<Startup> factory, TestFixtureRepositories fixture)
         {
             _fixture = fixture;
             _client = _fixture.GenerateClient(factory);
@@ -35,13 +35,13 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                 Birth = DateTime.Now.AddDays(-14000)
             };
 
-            _fixture.AddUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserModel>()));
+            _fixture.UserRepositoryMock.Setup(repo => repo.AddEntity(It.IsAny<User>()));
 
             //Act
             await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostAddUserUrl}/{modelApi}", modelApi);
 
             //Assert
-            _fixture.AddUserDepotMock.Verify((c => c.HandleAsync(It.Is<UserModel>(arg => arg.Name == modelApi.Name))));
+            _fixture.UserRepositoryMock.Verify((repo => repo.AddEntity(It.Is<User>(arg => arg.Name == modelApi.Name))));
         }
     }
 }

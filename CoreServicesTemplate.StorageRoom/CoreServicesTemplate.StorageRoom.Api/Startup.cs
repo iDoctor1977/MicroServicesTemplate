@@ -9,12 +9,9 @@ using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Core.Features;
-using CoreServicesTemplate.StorageRoom.Data.DepotsEF;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using CoreServicesTemplate.StorageRoom.Data.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Data.Mocks;
-using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF;
-using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF.Interfaces;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
@@ -26,6 +23,10 @@ using System.Collections.Generic;
 using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.StorageRoom.Api.Consolidators;
 using CoreServicesTemplate.StorageRoom.Data.Consolidators;
+using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Depots;
+using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Repositories;
+using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework;
+using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.FactoryRepositories;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {
@@ -47,22 +48,19 @@ namespace CoreServicesTemplate.StorageRoom.Api
             services.AddTransient<IGetUserFeature, GetUserFeature>();
             services.AddTransient<IGetUsersFeature, GetUsersFeature>();
 
-            services.AddTransient<IAddUserDepot, AddUserDepotEF>();
-            services.AddTransient<IGetUserDepot, GetUserDepotEF>();
-            services.AddTransient<IGetUsersDepot, GetUsersDepotEF>();
+            services.AddTransient<IAddUserDepot, AddUserEfDepot>();
+            services.AddTransient<IGetUserDepot, GetUserEfDepot>();
+            services.AddTransient<IGetUsersDepot, GetUsersEfDepot>();
 
-            services.AddTransient<IRepositoryFactoryEF, RepositoryFactoryEF>();
-            services.AddTransient<IUserRepository, UserRepositoryEF>();
-
-            services.AddTransient<Lazy<DbContextProject>>();
+            services.AddTransient<Lazy<StorageRoomDbContext>>();
 
             if (Configuration["mocked"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
             {
-                services.AddTransient<IUserRepository, UserRepositoryEFMock>();
+                services.AddTransient<IUserRepository, UserEfRepositoryMock>();
             }
             else
             {
-                services.AddTransient<IUserRepository, UserRepositoryEF>();
+                services.AddTransient<IUserRepository, UserEfRepository>();
             }
 
             #endregion

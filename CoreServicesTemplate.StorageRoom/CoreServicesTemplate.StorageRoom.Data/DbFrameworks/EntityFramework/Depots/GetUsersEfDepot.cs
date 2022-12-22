@@ -4,26 +4,24 @@ using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models;
-using CoreServicesTemplate.StorageRoom.Data.Bases;
+using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
-using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF;
-using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF.Interfaces;
 
-namespace CoreServicesTemplate.StorageRoom.Data.DepotsEF
+namespace CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Depots
 {
-    public class GetUsersDepotEF : DepotBaseEF, IGetUsersDepot
+    public class GetUsersEfDepot : EfDepotBase, IGetUsersDepot
     {
         private readonly IUserRepository _userRepository;
         private readonly IConsolidatorToData<UsersModel, IEnumerable<User>> _usersConsolidator;
 
-        public GetUsersDepotEF(
-            Lazy<DbContextProject> dbContext,
-            IRepositoryFactoryEF repositoryFactory,
-            IConsolidatorToData<UsersModel, IEnumerable<User>> usersConsolidator) : base(dbContext)
+        public GetUsersEfDepot(
+            Lazy<StorageRoomDbContext> dbContext,
+            IConsolidatorToData<UsersModel, IEnumerable<User>> usersConsolidator, 
+            IUserRepository userRepository) : base(dbContext)
         {
-            _userRepository = repositoryFactory.CreateRepository<IUserRepository>(dbContext.Value);
             _usersConsolidator = usersConsolidator;
+            _userRepository = userRepository;
         }
 
         public async Task<UsersModel> HandleAsync()

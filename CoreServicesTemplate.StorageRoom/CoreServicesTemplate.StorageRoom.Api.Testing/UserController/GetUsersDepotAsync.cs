@@ -14,20 +14,20 @@ using Xunit;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {
-    [Collection("BaseTest")]
-    public class GetUsersAsync
+    [Collection("DepotTestBase")]
+    public class GetUsersDepotAsync
     {
         private readonly HttpClient _client;
-        private readonly TestFixtureBase _fixture;
+        private readonly TestFixtureDepots _fixture;
 
-        public GetUsersAsync(WebApplicationFactory<Startup> factory, TestFixtureBase fixture)
+        public GetUsersDepotAsync(WebApplicationFactory<Startup> factory, TestFixtureDepots fixture)
         {
             _fixture = fixture;
             _client = _fixture.GenerateClient(factory);
         }
 
         [Fact]
-        public async Task Should_ExecuteReadingUsers()
+        public async Task Should_Access_To_UserDepot_HandleAsync_At_Last_Once()
         {
             //Arrange
             var userBuilder = new UserModelBuilder();

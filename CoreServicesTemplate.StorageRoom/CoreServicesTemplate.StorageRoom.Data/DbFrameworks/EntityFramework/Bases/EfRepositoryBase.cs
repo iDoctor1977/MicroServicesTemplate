@@ -5,19 +5,20 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
-using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF;
+using CoreServicesTemplate.StorageRoom.Data.Bases;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreServicesTemplate.StorageRoom.Data.Bases
+namespace CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Bases
 {
-    public class RepositoryBaseEF<T> : IRepository<T> where T : EntityBase
+    public class EfRepositoryBase<T> : IRepository<T> where T : EntityBase
     {
-        protected RepositoryBaseEF (Lazy<DbContextProject> dbContext) {
-            DbContext = dbContext.Value;
-            EntitySet = DbContext.Set<T>();
+        protected EfRepositoryBase(Lazy<StorageRoomDbContext> dbContext)
+        {
+            StorageRoomDbContext = dbContext.Value;
+            EntitySet = StorageRoomDbContext.Set<T>();
         }
 
-        protected DbContextProject DbContext { get; }
+        private StorageRoomDbContext StorageRoomDbContext { get; }
         protected DbSet<T> EntitySet { get; }
 
         public T Get(Expression<Func<T, bool>> expression) => EntitySet.FirstOrDefault(expression);
@@ -26,19 +27,19 @@ namespace CoreServicesTemplate.StorageRoom.Data.Bases
 
         public IEnumerable<T> GetAll(Expression<Func<T, bool>> expression) => EntitySet.Where(expression).AsEnumerable();
 
-        public void Add(T entity) => DbContext.Add(entity);
+        public void Add(T entity) => StorageRoomDbContext.Add(entity);
 
-        public async Task AddAsync(T entity) => await DbContext.AddAsync(entity);
+        public async Task AddAsync(T entity) => await StorageRoomDbContext.AddAsync(entity);
 
-        public void AddRange(IEnumerable<T> entities) => DbContext.AddRange(entities);
+        public void AddRange(IEnumerable<T> entities) => StorageRoomDbContext.AddRange(entities);
 
-        public void Remove(T entity) => DbContext.Remove(entity);
+        public void Remove(T entity) => StorageRoomDbContext.Remove(entity);
 
-        public void RemoveRange(IEnumerable<T> entities) => DbContext.RemoveRange(entities);
+        public void RemoveRange(IEnumerable<T> entities) => StorageRoomDbContext.RemoveRange(entities);
 
-        public void Update(T entity) => DbContext.Update(entity);
+        public void Update(T entity) => StorageRoomDbContext.Update(entity);
 
-        public void UpdateRange(IEnumerable<T> entities) => DbContext.UpdateRange(entities);
+        public void UpdateRange(IEnumerable<T> entities) => StorageRoomDbContext.UpdateRange(entities);
 
         public async Task<T> GetAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default) => await EntitySet.FirstOrDefaultAsync(expression, cancellationToken);
 
@@ -46,11 +47,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.Bases
 
         public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default) => await EntitySet.Where(expression).ToListAsync(cancellationToken);
 
-        public async Task AddAsync(T entity, CancellationToken cancellationToken) => await DbContext.AddAsync(entity, cancellationToken);
-
         public Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
         {
-            DbContext.AddRange(entities);
+            StorageRoomDbContext.AddRange(entities);
             return Task.CompletedTask;
         }
     }

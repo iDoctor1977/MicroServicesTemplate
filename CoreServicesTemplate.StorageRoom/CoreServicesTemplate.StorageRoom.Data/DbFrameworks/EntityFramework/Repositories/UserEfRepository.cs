@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using CoreServicesTemplate.StorageRoom.Data.Bases;
+using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreServicesTemplate.StorageRoom.Data.RepositoriesEF
+namespace CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Repositories
 {
-    public class UserRepositoryEF : RepositoryBaseEF<User>, IUserRepository
+    public class UserEfRepository : EfRepositoryBase<User>, IUserRepository
     {
-        public UserRepositoryEF(Lazy<DbContextProject> dbContext) : base(dbContext) { }
+        public UserEfRepository(Lazy<StorageRoomDbContext> dbContext) : base(dbContext) { }
 
         public async Task UpdateEntity(User entity)
         {
             var updateEntity = await EntitySet.SingleOrDefaultAsync(e => e.Name == entity.Name);
-            
+
             try
             {
                 if (entity != null)

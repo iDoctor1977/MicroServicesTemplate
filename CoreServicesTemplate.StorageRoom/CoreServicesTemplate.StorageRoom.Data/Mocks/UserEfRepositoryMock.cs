@@ -6,24 +6,24 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using CoreServicesTemplate.StorageRoom.Data.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
+using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework;
+using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
-using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Mocks
 {
-    public class UserRepositoryEFMock : RepositoryBaseEF<User>, IUserRepository
+    public class UserEfRepositoryMock : EfRepositoryBase<User>, IUserRepository
     {
         private IConfiguration Configuration { get; }
         private readonly IMapper _mapper;
 
         private static readonly List<User> Entities = new List<User>();
 
-        public UserRepositoryEFMock(Lazy<DbContextProject> dbContext, IMapper mapper, IConfiguration configuration) : base(dbContext)
+        public UserEfRepositoryMock(Lazy<StorageRoomDbContext> dbContext, IMapper mapper, IConfiguration configuration) : base(dbContext)
         {
             Configuration = configuration;
             _mapper = mapper;

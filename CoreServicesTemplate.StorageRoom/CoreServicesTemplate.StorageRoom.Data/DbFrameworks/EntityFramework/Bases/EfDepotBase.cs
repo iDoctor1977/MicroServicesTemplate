@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF;
 
-namespace CoreServicesTemplate.StorageRoom.Data.Bases
+namespace CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Bases
 {
-    public class DepotBaseEF : IDisposable
+    public class EfDepotBase : IDisposable
     {
-        private readonly Lazy<DbContextProject> _dbContext;
+        private readonly Lazy<StorageRoomDbContext> _dbContext;
 
 
-        protected DepotBaseEF(Lazy<DbContextProject> dbContext)
+        protected EfDepotBase(Lazy<StorageRoomDbContext> dbContext)
         {
             _dbContext = dbContext;
         }

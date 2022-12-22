@@ -11,6 +11,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="DbFrameworks\EntityFramework\FactoryRepositories\EfRepositoryFactory.cs" />
+    <Compile Remove="DbFrameworks\EntityFramework\Interfaces\IEfRepositoryFactory.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="DbFrameworks\EntityFramework\Bases\DepotEfBase.cs~RFfff56dc.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.0" />
@@ -21,6 +30,15 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Common\CoreServicesTemplate.StorageRoom.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DbFrameworks\EntityFramework\Interfaces\" />
+    <Folder Include="DbFrameworks\OtherORM\Bases\" />
+    <Folder Include="DbFrameworks\OtherORM\Depots\" />
+    <Folder Include="DbFrameworks\OtherORM\Interfaces\" />
+    <Folder Include="DbFrameworks\OtherORM\FactoryRepositories\" />
+    <Folder Include="DbFrameworks\OtherORM\Repositories\" />
   </ItemGroup>
 
 </Project>

@@ -9,7 +9,7 @@ using Moq;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures
 {
-    public class TestFixtureBase
+    public class TestFixtureDepots
     {
         public Mock<ILogger<ApiLogActionFilterAsync>> LoggerMock { get; private set; }
         public Mock<IAddUserDepot> AddUserDepotMock { get; private set; }
@@ -18,20 +18,20 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures
 
         public HttpClient GenerateClient(WebApplicationFactory<Startup> factory)
         {
+            LoggerMock = new Mock<ILogger<ApiLogActionFilterAsync>>();
             AddUserDepotMock = new Mock<IAddUserDepot>();
             GetUserDepotMock = new Mock<IGetUserDepot>();
             GetUsersDepotMock = new Mock<IGetUsersDepot>();
-            LoggerMock = new Mock<ILogger<ApiLogActionFilterAsync>>();
 
             var client = factory.WithWebHostBuilder(hostBuilder =>
             {
                 //hostBuilder.UseStartup<Startup>();
                 hostBuilder.ConfigureServices(services =>
                 {
+                    services.AddTransient(provider => LoggerMock.Object);
                     services.Replace(new ServiceDescriptor(typeof(IAddUserDepot), AddUserDepotMock.Object));
                     services.Replace(new ServiceDescriptor(typeof(IGetUserDepot), GetUserDepotMock.Object));
                     services.Replace(new ServiceDescriptor(typeof(IGetUsersDepot), GetUsersDepotMock.Object));
-                    services.AddTransient(provider => LoggerMock.Object);
                 });
             }).CreateClient();
 

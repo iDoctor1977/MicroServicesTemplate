@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CoreServicesTemplate.Shared.Core.Models;
+using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Data.MapperProfiles
@@ -8,7 +8,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.MapperProfiles
     {
         public DataMappingProfile()
         {
-            CreateMap<User, UserApiModel>().ReverseMap();
+            CreateMap<UserModel, User>().ReverseMap();
         }
     }
 }

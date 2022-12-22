@@ -12,13 +12,13 @@ using Xunit;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
 {
-    [Collection("BaseTest")]
+    [Collection("DepotTestBase")]
     public class OnActionExecutionAsyncTests
     {
         private readonly HttpClient _client;
-        private readonly TestFixtureBase _fixture;
+        private readonly TestFixtureDepots _fixture;
 
-        public OnActionExecutionAsyncTests(WebApplicationFactory<Startup> factory, TestFixtureBase fixture)
+        public OnActionExecutionAsyncTests(WebApplicationFactory<Startup> factory, TestFixtureDepots fixture)
         {
             _fixture = fixture;
             _client = _fixture.GenerateClient(factory);

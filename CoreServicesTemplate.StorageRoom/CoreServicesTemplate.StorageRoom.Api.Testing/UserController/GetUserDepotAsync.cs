@@ -16,13 +16,13 @@ using System.Text;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {
-    [Collection("BaseTest")]
-    public class GetUserAsync
+    [Collection("DepotTestBase")]
+    public class GetUserDepotAsync
     {
         private readonly HttpClient _client;
-        private readonly TestFixtureBase _fixture;
+        private readonly TestFixtureDepots _fixture;
 
-        public GetUserAsync(WebApplicationFactory<Startup> factory, TestFixtureBase fixture)
+        public GetUserDepotAsync(WebApplicationFactory<Startup> factory, TestFixtureDepots fixture)
         {
             _fixture = fixture;
             _client = _fixture.GenerateClient(factory);
@@ -32,28 +32,29 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
         public async Task Should_Return_Specified_User()
         {
             //Arrange
-            var userBuilder = new UserModelBuilder();
-            var userApiBuilder = new UserApiModelBuilder();
+            var userModelBuilder = new UserModelBuilder();
+            var userApiModelBuilder = new UserApiModelBuilder();
 
             var usersApiModel = new UsersApiModel
             {
-                UsersApiModelList = userApiBuilder
+                UsersApiModelList = userApiModelBuilder
                     .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-123987))
                     .AddUser("Duffy", "Duck", DateTime.Now.AddDays(-187962))
                     .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-22897))
                     .Build()
             };
 
-            var users = new UsersModel
+            var usersModel = new UsersModel
             {
-                UsersModelList = userBuilder
+                UsersModelList = userModelBuilder
                     .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-123987))
                     .AddUser("Duffy", "Duck", DateTime.Now.AddDays(-187962))
                     .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-22897))
                     .Build()
             };
 
-            var modelMock = users.UsersModelList.ElementAtOrDefault(2);
+
+            var modelMock = usersModel.UsersModelList.ElementAtOrDefault(2);
             _fixture.GetUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserModel>())).Returns(Task.FromResult(modelMock));
 
             //Act
