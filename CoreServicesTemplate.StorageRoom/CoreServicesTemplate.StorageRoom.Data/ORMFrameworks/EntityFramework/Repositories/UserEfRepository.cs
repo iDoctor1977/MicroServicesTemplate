@@ -14,26 +14,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
     {
         public UserEfRepository(Lazy<StorageRoomDbContext> dbContext) : base(dbContext) { }
 
-        public async Task UpdateEntity(User entity)
-        {
-            var updateEntity = await EntitySet.SingleOrDefaultAsync(e => e.Name == entity.Name);
-
-            try
-            {
-                if (entity != null)
-                {
-                    updateEntity.Name = entity.Name;
-                    updateEntity.Surname = entity.Surname;
-                    updateEntity.Birth = entity.Birth;
-                }
-            }
-            catch (Exception exception)
-            {
-                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
-            }
-        }
-
-        public async Task<User> GetEntityByName(User entity)
+        public async Task<User> GetByNameAsync(User entity)
         {
             try
             {
@@ -52,7 +33,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             return await Task.FromResult<User>(null);
         }
 
-        public async Task AddEntity(User entity)
+        public async Task AddCustomAsync(User entity)
         {
             try
             {
@@ -70,7 +51,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             await Task.CompletedTask;
         }
 
-        public async Task<User> GetEntityByGuid(User entity)
+        public async Task<User> GetByGuidAsync(User entity)
         {
             try
             {
@@ -89,7 +70,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             return await Task.FromResult<User>(null);
         }
 
-        public async Task<User> GetEntityById(User entity)
+        public async Task<User> GetByIdAsync(User entity)
         {
             try
             {
@@ -108,7 +89,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             return await Task.FromResult<User>(null);
         }
 
-        public async Task DeleteEntity(User entity)
+        public async Task DeleteCustomAsync(User entity)
         {
             try
             {
@@ -125,7 +106,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             }
         }
 
-        public async Task<IEnumerable<User>> GetEntities()
+        public async Task<IEnumerable<User>> GetAllCustomAsync()
         {
             try
             {
@@ -142,6 +123,25 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             }
 
             return await Task.FromResult(Enumerable.Empty<User>());
+        }
+
+        public async Task UpdateCustomAsync(User entity)
+        {
+            var updateEntity = await EntitySet.SingleOrDefaultAsync(e => e.Name == entity.Name);
+
+            try
+            {
+                if (entity != null)
+                {
+                    updateEntity.Name = entity.Name;
+                    updateEntity.Surname = entity.Surname;
+                    updateEntity.Birth = entity.Birth;
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+            }
         }
     }
 }

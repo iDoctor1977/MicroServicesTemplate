@@ -27,7 +27,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
         {
             User entity = _userConsolidator.ToData(model).Resolve();
 
-            entity = await _userRepository.GetEntityByName(entity);
+            entity = await _userRepository.GetByNameAsync(entity);
 
             var modelResult = _userConsolidator.ToDataReverse(entity).Resolve();
 

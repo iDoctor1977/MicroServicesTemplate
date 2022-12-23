@@ -36,13 +36,13 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                 .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-22897))
                 .Build();
 
-            _fixture.UserRepositoryMock.Setup(depot => depot.GetEntities()).Returns(Task.FromResult(userEntities));
+            _fixture.UserRepositoryMock.Setup(depot => depot.GetAllCustomAsync()).Returns(Task.FromResult(userEntities));
 
             //Act
             var result = await _client.GetFromJsonAsync<UsersApiModel>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostGetUsersUrl}");
 
             //Assert
-            _fixture.UserRepositoryMock.Verify((c => c.GetEntities()), Times.Once());
+            _fixture.UserRepositoryMock.Verify((c => c.GetAllCustomAsync()), Times.Once());
             result.UsersApiModelList.Should().HaveCountGreaterThan(0);
         }
     }

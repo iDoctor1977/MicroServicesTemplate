@@ -19,6 +19,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Ba
         }
 
         private StorageRoomDbContext StorageRoomDbContext { get; }
+
         protected DbSet<T> EntitySet { get; }
 
         public T Get(Expression<Func<T, bool>> expression) => EntitySet.FirstOrDefault(expression);

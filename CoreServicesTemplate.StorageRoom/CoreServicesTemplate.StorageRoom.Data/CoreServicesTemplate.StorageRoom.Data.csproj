@@ -11,11 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="ORMFrameworks\EntityFramework\FactoryRepositories\EfRepositoryFactory.cs" />
-    <Compile Remove="ORMFrameworks\EntityFramework\Interfaces\IEfRepositoryFactory.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="ORMFrameworks\EntityFramework\Bases\DepotEfBase.cs~RFfff56dc.TMP" />
   </ItemGroup>
 
@@ -30,10 +25,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Common\CoreServicesTemplate.StorageRoom.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ORMFrameworks\EntityFramework\Interfaces\" />
   </ItemGroup>
 
 </Project>

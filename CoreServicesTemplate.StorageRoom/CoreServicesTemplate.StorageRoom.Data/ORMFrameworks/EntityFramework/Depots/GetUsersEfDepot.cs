@@ -26,7 +26,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
         public async Task<UsersModel> HandleAsync()
         {
-            var entity = await _userRepository.GetEntities();
+            var entity = await _userRepository.GetAllCustomAsync();
 
             var model = _usersConsolidator.ToDataReverse(entity).Resolve();
 

@@ -27,7 +27,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
         {
             var entity = _userModelConsolidator.ToData(model).Resolve();
 
-            await _userRepository.AddEntity(entity);
+            await _userRepository.AddCustomAsync(entity);
 
             await CommitAsync();
         }
