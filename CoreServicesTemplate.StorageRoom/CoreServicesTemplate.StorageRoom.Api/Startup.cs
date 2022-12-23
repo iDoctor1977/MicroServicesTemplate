@@ -23,10 +23,9 @@ using System.Collections.Generic;
 using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.StorageRoom.Api.Consolidators;
 using CoreServicesTemplate.StorageRoom.Data.Consolidators;
-using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Depots;
-using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Repositories;
-using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework;
-using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.FactoryRepositories;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {

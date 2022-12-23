@@ -2,7 +2,7 @@
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework
+namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework
 {
     public class StorageRoomDbContext : DbContext
     {

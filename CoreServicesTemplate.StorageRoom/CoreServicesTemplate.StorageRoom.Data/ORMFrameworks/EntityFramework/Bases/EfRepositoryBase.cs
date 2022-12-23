@@ -8,7 +8,7 @@ using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
 using CoreServicesTemplate.StorageRoom.Data.Bases;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Bases
+namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases
 {
     public class EfRepositoryBase<T> : IRepository<T> where T : EntityBase
     {

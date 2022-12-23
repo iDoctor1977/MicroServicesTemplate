@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Repositories
+namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories
 {
     public class UserEfRepository : EfRepositoryBase<User>, IUserRepository
     {

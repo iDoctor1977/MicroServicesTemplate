@@ -1,6 +1,6 @@
 ﻿using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
 
-namespace CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.FactoryRepositories
+namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.FactoryRepositories
 {
     public abstract class Creator
     {

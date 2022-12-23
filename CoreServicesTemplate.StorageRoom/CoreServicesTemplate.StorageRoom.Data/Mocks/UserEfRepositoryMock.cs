@@ -7,10 +7,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
-using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework;
-using CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Bases;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

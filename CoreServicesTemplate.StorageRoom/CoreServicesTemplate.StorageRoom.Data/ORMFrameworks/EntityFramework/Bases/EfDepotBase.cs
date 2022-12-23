@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.Bases
+namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases
 {
     public class EfDepotBase : IDisposable
     {

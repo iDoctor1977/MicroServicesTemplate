@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 
-namespace CoreServicesTemplate.StorageRoom.Data.DbFrameworks.EntityFramework.FactoryRepositories
+namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.FactoryRepositories
 {
     public class RepositoryFactoryCreator : Creator
     {

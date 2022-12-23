@@ -11,12 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="DbFrameworks\EntityFramework\FactoryRepositories\EfRepositoryFactory.cs" />
-    <Compile Remove="DbFrameworks\EntityFramework\Interfaces\IEfRepositoryFactory.cs" />
+    <Compile Remove="ORMFrameworks\EntityFramework\FactoryRepositories\EfRepositoryFactory.cs" />
+    <Compile Remove="ORMFrameworks\EntityFramework\Interfaces\IEfRepositoryFactory.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="DbFrameworks\EntityFramework\Bases\DepotEfBase.cs~RFfff56dc.TMP" />
+    <None Remove="ORMFrameworks\EntityFramework\Bases\DepotEfBase.cs~RFfff56dc.TMP" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,12 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DbFrameworks\EntityFramework\Interfaces\" />
-    <Folder Include="DbFrameworks\OtherORM\Bases\" />
-    <Folder Include="DbFrameworks\OtherORM\Depots\" />
-    <Folder Include="DbFrameworks\OtherORM\Interfaces\" />
-    <Folder Include="DbFrameworks\OtherORM\FactoryRepositories\" />
-    <Folder Include="DbFrameworks\OtherORM\Repositories\" />
+    <Folder Include="ORMFrameworks\EntityFramework\Interfaces\" />
   </ItemGroup>
 
 </Project>
