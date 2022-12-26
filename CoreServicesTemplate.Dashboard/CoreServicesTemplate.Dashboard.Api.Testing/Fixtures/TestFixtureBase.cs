@@ -1,9 +1,8 @@
-﻿using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
+﻿using CoreServicesTemplate.Dashboard.Common.Consolidators;
+using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Core.Features;
 using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
-using CoreServicesTemplate.Dashboard.Core.Presenters;
-using CoreServicesTemplate.Dashboard.Core.Receivers;
 using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
@@ -48,11 +47,8 @@ namespace CoreServicesTemplate.Dashboard.Api.Testing.Fixtures
 
             builder.Services.AddTransient<ICustomMapper, CustomMapper>();
 
-            builder.Services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultConsolidator<,>));
-
-            builder.Services.AddTransient(typeof(IConsolidators<UsersApiModel, UsersModel>), typeof(GetUsersCoreCustomReceiver));
-
-            builder.Services.AddTransient(typeof(IConsolidators<UsersModel, UsersApiModel>), typeof(GetUsersCoreCustomPresenter));
+            builder.Services.AddTransient(typeof(IConsolidatorToData<,>), typeof(DefaultConsolidator<,>));
+            builder.Services.AddTransient(typeof(IConsolidatorToData<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
 
             #endregion
 

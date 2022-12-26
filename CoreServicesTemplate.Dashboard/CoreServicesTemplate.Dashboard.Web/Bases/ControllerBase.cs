@@ -2,13 +2,13 @@
 using CoreServicesTemplate.Dashboard.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CoreServicesTemplate.Dashboard.Web.Controllers
+namespace CoreServicesTemplate.Dashboard.Web.Bases
 {
-    public class BaseController<T> : Controller where T : Controller
+    public class ControllerBase<T> : Controller where T : Controller
     {
         private readonly ILogger<T> _logger;
 
-        public BaseController(ILogger<T> logger)
+        public ControllerBase(ILogger<T> logger)
         {
             _logger = logger;
         }

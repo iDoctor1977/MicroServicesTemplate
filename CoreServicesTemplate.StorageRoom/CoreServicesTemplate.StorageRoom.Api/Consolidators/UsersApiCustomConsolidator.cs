@@ -7,34 +7,22 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Consolidators;
 
-public sealed class UsersApiCustomConsolidator : AConsolidatorBase<UsersApiModel, UsersModel>,
-    IConsolidatorToResolve<UsersApiModel, UsersModel>,
-    IConsolidatorToResolveReversing<UsersApiModel, UsersModel>
+public sealed class UsersApiCustomConsolidator : ACustomConsolidatorBase<UsersApiModel, UsersModel>
 {
     private readonly IConsolidatorToData<UserApiModel, UserModel> _userConsolidator;
-
-    private UsersApiModel _usersApiModel;
-    private UsersModel _usersModel;
 
     public UsersApiCustomConsolidator(ICustomMapper customMapper, IConsolidatorToData<UserApiModel, UserModel> userConsolidator) : base(customMapper)
     {
         _userConsolidator = userConsolidator;
 
-        _usersApiModel = new UsersApiModel
-        {
-            UsersApiModelList = new List<UserApiModel>()
-        };
-
-        _usersModel = new UsersModel
-        {
-            UsersModelList = new List<UserModel>()
-        };
+        ModelIn.UsersApiModelList = new List<UserApiModel>();
+        ModelOut.UsersModelList = new List<UserModel>();
     }
 
     public override IConsolidatorToResolve<UsersApiModel, UsersModel> ToData(UsersApiModel @in)
     {
-        _usersApiModel = @in;
-        _usersModel = InDataToOutData(@in);
+        ModelIn = @in;
+        ModelOut = InDataToOutData(@in);
 
         var modelList = new List<UserModel>();
         foreach (var modelIn in @in.UsersApiModelList)
@@ -42,14 +30,14 @@ public sealed class UsersApiCustomConsolidator : AConsolidatorBase<UsersApiModel
             modelList.Add(_userConsolidator.ToData(modelIn).Resolve());
         }
 
-        _usersModel.UsersModelList = modelList;
+        ModelOut.UsersModelList = modelList;
 
         return this;
     }
 
     public override IConsolidatorToResolveReversing<UsersApiModel, UsersModel> ToDataReverse(UsersModel @out)
     {
-        _usersApiModel = OutDataToInData(_usersModel);
+        ModelIn = OutDataToInData(ModelOut);
 
         var modelList = new List<UserApiModel>();
         foreach (var userModel in @out.UsersModelList)
@@ -57,18 +45,8 @@ public sealed class UsersApiCustomConsolidator : AConsolidatorBase<UsersApiModel
             modelList.Add(_userConsolidator.ToDataReverse(userModel).Resolve());
         }
 
-        _usersApiModel.UsersApiModelList = modelList;
+        ModelIn.UsersApiModelList = modelList;
 
         return this;
-    }
-
-    UsersModel IConsolidatorToResolve<UsersApiModel, UsersModel>.Resolve()
-    {
-        return _usersModel;
-    }
-
-    UsersApiModel IConsolidatorToResolveReversing<UsersApiModel, UsersModel>.Resolve()
-    {
-        return _usersApiModel;
     }
 }

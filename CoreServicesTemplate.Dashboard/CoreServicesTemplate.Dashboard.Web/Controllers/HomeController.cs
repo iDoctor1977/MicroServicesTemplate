@@ -1,31 +1,32 @@
 ﻿using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models;
+using CoreServicesTemplate.Dashboard.Web.Bases;
 using CoreServicesTemplate.Dashboard.Web.Models;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreServicesTemplate.Dashboard.Web.Controllers
 {
-    public class HomeController : BaseController<HomeController>
+    public class HomeController : ControllerBase<HomeController>
     {
-        private readonly IConsolidators<UserViewModel, UserModel> _createUserCustomReceiver;
-        private readonly IConsolidators<UsersModel, UsersViewModel> _readUsersCustomPresenter;
+        private readonly IConsolidatorToData<UserViewModel, UserModel> _userConsolidator;
+        private readonly IConsolidatorToData<UsersViewModel, UsersModel> _userCustomConsolidator;
 
         private readonly IAddUserFeature _addUserFeature;
         private readonly IGetUsersFeature _getUsersFeature;
 
         public HomeController(
-            IConsolidators<UserViewModel, UserModel> userReceiver,
-            IConsolidators<UsersModel, UsersViewModel> userPresenter,
+            IConsolidatorToData<UserViewModel, UserModel> userReceiver,
+            IConsolidatorToData<UsersViewModel, UsersModel> userCustomConsolidator,
             IAddUserFeature addUserFeature,
             IGetUsersFeature getUsersFeature,
             ILogger<HomeController> logger) : base(logger)
         {
-            _createUserCustomReceiver = userReceiver;
-            _readUsersCustomPresenter = userPresenter;
+            _userConsolidator = userReceiver;
 
             _addUserFeature = addUserFeature;
             _getUsersFeature = getUsersFeature;
+            _userCustomConsolidator = userCustomConsolidator;
         }
 
         public IActionResult Index()
@@ -46,7 +47,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<RedirectToActionResult> Add(UserViewModel viewModel)
         {
-            var model = _createUserCustomReceiver.ToData(viewModel);
+            var model = _userConsolidator.ToData(viewModel).Resolve();
 
             var responseMessage = new HttpResponseMessage();
             if (ModelState.IsValid)
@@ -62,7 +63,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
         {
             var model = await _getUsersFeature.HandleAsync();
 
-            var viewModel = _readUsersCustomPresenter.ToData(model);
+            var viewModel = _userCustomConsolidator.ToDataReverse(model).Resolve();
 
             return View(viewModel);
         }

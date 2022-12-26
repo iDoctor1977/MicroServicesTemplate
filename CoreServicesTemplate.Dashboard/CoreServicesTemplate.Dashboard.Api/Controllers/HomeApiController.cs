@@ -10,13 +10,13 @@ namespace CoreServicesTemplate.Dashboard.Api.Controllers
     [Route("Dashboard/[controller]/[action]")]
     public class HomeApiController : ControllerBase
     {
-        private readonly IConsolidators<UsersModel, UsersApiModel> _consolidators;
+        private readonly IConsolidatorToData<UsersApiModel, UsersModel> _consolidators;
         private readonly IGetUsersFeature _getUsersFeature;
         private readonly ILogger<HomeApiController> _logger;
 
         public HomeApiController(
             IGetUsersFeature getUsersFeature,
-            IConsolidators<UsersModel, UsersApiModel> consolidators,
+            IConsolidatorToData<UsersApiModel, UsersModel> consolidators,
             ILogger<HomeApiController> logger)
         {
             _logger = logger;
@@ -29,7 +29,7 @@ namespace CoreServicesTemplate.Dashboard.Api.Controllers
         {
             var model = await _getUsersFeature.HandleAsync();
 
-            var apiModel = _consolidators.ToData(model);
+            var apiModel = _consolidators.ToDataReverse(model).Resolve();
 
             return apiModel == null ? NotFound() : Ok(apiModel);
         }

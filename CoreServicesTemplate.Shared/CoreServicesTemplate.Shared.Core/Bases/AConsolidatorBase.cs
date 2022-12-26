@@ -12,16 +12,16 @@ public abstract class AConsolidatorBase<TIn, TOut> : IConsolidatorToData<TIn, TO
         _customMapper = customMapper;
     }
 
-    protected TOut InDataToOutData(TIn model)
+    protected TOut InDataToOutData(TIn @in)
     {
-        var valueMap = _customMapper.Map<TIn, TOut>(model);
+        var valueMap = _customMapper.Map<TIn, TOut>(@in);
 
         return valueMap;
     }
 
-    protected TIn OutDataToInData(TOut model)
+    protected TIn OutDataToInData(TOut @out)
     {
-        var valueMap = _customMapper.ReverseMap<TOut, TIn>(model);
+        var valueMap = _customMapper.ReverseMap<TOut, TIn>(@out);
 
         return valueMap;
     }

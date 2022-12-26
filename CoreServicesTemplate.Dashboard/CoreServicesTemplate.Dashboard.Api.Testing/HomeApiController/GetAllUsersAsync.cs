@@ -42,7 +42,7 @@ namespace CoreServicesTemplate.Dashboard.Api.Testing.HomeApiController
 
             var controller = new Controllers.HomeApiController(
                 _fixture.ServiceProvider.GetRequiredService<IGetUsersFeature>(),
-                _fixture.ServiceProvider.GetRequiredService<IConsolidators<UsersModel, UsersApiModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IConsolidatorToData<UsersApiModel, UsersModel>>(),
                 _fixture.LoggerMock.Object);
 
             //Act
