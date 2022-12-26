@@ -7,12 +7,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.Interfaces
 {
     public interface IUserRepository : IRepository<User>
     {
-        Task AddEntity(User entity);
-        Task<IEnumerable<User>> GetEntities();
-        Task UpdateEntity(User entity);
-        Task<User> GetEntityByName(User entity);
-        Task<User> GetEntityByGuid(User entity);
-        Task<User> GetEntityById(User entity);
-        Task DeleteEntity(User entity);
+        Task AddCustomAsync(User entity);
+        Task<IEnumerable<User>> GetAllCustomAsync();
+        Task<User> GetByNameAsync(User entity);
+        Task<User> GetByGuidAsync(User entity);
+        Task<User> GetByIdAsync(User entity);
+        Task UpdateCustomAsync(User entity);
+        Task DeleteCustomAsync(User entity);
     }
 }

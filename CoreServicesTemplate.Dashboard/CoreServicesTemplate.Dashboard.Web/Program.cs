@@ -1,18 +1,15 @@
+using CoreServicesTemplate.Dashboard.Common.Consolidators;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Core;
 using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
-using CoreServicesTemplate.Dashboard.Core.Presenters;
-using CoreServicesTemplate.Dashboard.Core.Receivers;
+using CoreServicesTemplate.Dashboard.Web.Consolidators;
 using CoreServicesTemplate.Dashboard.Web.MapperProfiles;
 using CoreServicesTemplate.Dashboard.Web.Models;
-using CoreServicesTemplate.Dashboard.Web.Presenters;
-using CoreServicesTemplate.Dashboard.Web.Receivers;
+using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.Shared.Core.Presenters;
-using CoreServicesTemplate.Shared.Core.Receivers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,16 +26,12 @@ CoreConfigureServices.InitializeDependencies(builder.Services);
 
 builder.Services.AddTransient<ICustomMapper, CustomMapper>();
 
-builder.Services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultReceiver<,>));
-builder.Services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultPresenter<,>));
+builder.Services.AddTransient(typeof(IConsolidatorToData<,>), typeof(DefaultConsolidator<,>));
 
-builder.Services.AddTransient(typeof(IConsolidators<UserViewModel, UserModel>), typeof(AddUserCustomReceiver));
-builder.Services.AddTransient(typeof(IConsolidators<UsersApiModel, UsersModel>), typeof(GetUsersCoreCustomReceiver));
+builder.Services.AddTransient(typeof(IConsolidatorToData<UserViewModel, UserModel>), typeof(UserWebCustomConsolidator));
+builder.Services.AddTransient(typeof(IConsolidatorToData<UsersViewModel, UsersModel>), typeof(UsersWebCustomConsolidator));
 
-builder.Services.AddTransient(typeof(IConsolidators<UserModel, UserViewModel>), typeof(GetUserWebCustomPresenter));
-builder.Services.AddTransient(typeof(IConsolidators<UsersModel, UsersViewModel>), typeof(GetUsersWebCustomPresenter));
-builder.Services.AddTransient(typeof(IConsolidators<UsersModel, UsersApiModel>), typeof(GetUsersCoreCustomPresenter));
-
+builder.Services.AddTransient(typeof(IConsolidatorToData<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
 
 #endregion
 

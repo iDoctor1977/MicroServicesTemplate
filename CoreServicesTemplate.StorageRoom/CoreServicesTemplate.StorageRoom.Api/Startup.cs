@@ -9,25 +9,23 @@ using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Core.Features;
-using CoreServicesTemplate.StorageRoom.Data.DepotsEF;
-using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using CoreServicesTemplate.StorageRoom.Data.MapperProfiles;
-using CoreServicesTemplate.StorageRoom.Data.Mocks;
-using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF;
-using CoreServicesTemplate.StorageRoom.Data.RepositoriesEF.Interfaces;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
-using CoreServicesTemplate.Shared.Core.Presenters;
-using CoreServicesTemplate.Shared.Core.Receivers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
-using CoreServicesTemplate.StorageRoom.Api.Presenters;
-using CoreServicesTemplate.StorageRoom.Api.Receivers;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using System.Collections.Generic;
-using CoreServicesTemplate.StorageRoom.Data.Presenters;
+using CoreServicesTemplate.Shared.Core.Consolidators;
+using CoreServicesTemplate.StorageRoom.Api.Consolidators;
+using CoreServicesTemplate.StorageRoom.Data.Consolidators;
+using CoreServicesTemplate.StorageRoom.Data.Interfaces;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mocks;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {
@@ -49,37 +47,30 @@ namespace CoreServicesTemplate.StorageRoom.Api
             services.AddTransient<IGetUserFeature, GetUserFeature>();
             services.AddTransient<IGetUsersFeature, GetUsersFeature>();
 
-            services.AddTransient<IAddUserDepot, AddUserDepotEF>();
-            services.AddTransient<IGetUserDepot, GetUserDepotEF>();
-            services.AddTransient<IGetUsersDepot, GetUsersDepotEF>();
+            services.AddTransient<IAddUserDepot, AddUserEfDepot>();
+            services.AddTransient<IGetUserDepot, GetUserEfDepot>();
+            services.AddTransient<IGetUsersDepot, GetUsersEfDepot>();
 
-            services.AddTransient<IRepositoryFactoryEF, RepositoryFactoryEF>();
-            services.AddTransient<IUserRepository, UserRepositoryEF>();
-
-            services.AddTransient<Lazy<DbContextProject>>();
+            services.AddTransient<Lazy<StorageRoomDbContext>>();
 
             if (Configuration["mocked"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
             {
-                services.AddTransient<IUserRepository, UserRepositoryEFMock>();
+                services.AddTransient<IUserRepository, UserEfRepositoryMock>();
             }
             else
             {
-                services.AddTransient<IUserRepository, UserRepositoryEF>();
+                services.AddTransient<IUserRepository, UserEfRepository>();
             }
 
             #endregion
 
-            #region Consolidator
+            #region ConsolidatorReverse
 
             services.AddTransient<ICustomMapper, CustomMapper>();
 
-            services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultReceiver<,>));
-            services.AddTransient(typeof(IConsolidators<,>), typeof(DefaultPresenter<,>));
-
-            services.AddTransient(typeof(IConsolidators<UsersApiModel, UsersModel>), typeof(GetUsersApiCustomReceiver));
-            
-            services.AddTransient(typeof(IConsolidators<UsersModel, UsersApiModel>), typeof(GetUsersApiCustomPresenter));
-            services.AddTransient(typeof(IConsolidators<IEnumerable<User>, UsersModel>), typeof(GetUsersDataCustomPresenter));
+            services.AddTransient(typeof(IConsolidatorToData<,>), typeof(DefaultConsolidator<,>));
+            services.AddTransient(typeof(IConsolidatorToData<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
+            services.AddTransient(typeof(IConsolidatorToData<UsersModel, IEnumerable<User>>), typeof(UsersDataCustomConsolidator));
 
             #endregion
 
@@ -94,7 +85,7 @@ namespace CoreServicesTemplate.StorageRoom.Api
 
             #region Automapper
 
-            services.AddAutoMapper(typeof(CoreMappingProfile), typeof(DataMappingProfile));
+            services.AddAutoMapper(typeof(ApiMappingProfile), typeof(DataMappingProfile));
 
             #endregion
 
@@ -126,7 +117,7 @@ namespace CoreServicesTemplate.StorageRoom.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHealthChecks("/health").RequireHost("www.coreservicestemplate.com:5000");
+                endpoints.MapHealthChecks("/health");
             });
         }
     }

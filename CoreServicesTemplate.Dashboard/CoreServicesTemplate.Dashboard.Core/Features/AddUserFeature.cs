@@ -10,9 +10,9 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
     public class AddUserFeature : IAddUserFeature
     {
         private readonly IStorageRoomService _storageRoomService;
-        private readonly IConsolidators<UserModel, UserApiModel> _consolidators;
+        private readonly IConsolidatorToData<UserModel, UserApiModel> _consolidators;
 
-        public AddUserFeature(IStorageRoomService storageRoomService, IConsolidators<UserModel, UserApiModel> consolidators) 
+        public AddUserFeature(IStorageRoomService storageRoomService, IConsolidatorToData<UserModel, UserApiModel> consolidators) 
         {
             _storageRoomService = storageRoomService;
             _consolidators = consolidators;
@@ -23,7 +23,7 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
             var aggregate = new UserAggregate(model);
             aggregate.SetGuid(Guid.NewGuid());
 
-            var apiModel = _consolidators.ToData(aggregate.ToModel());
+            var apiModel = _consolidators.ToData(aggregate.ToModel()).Resolve();
 
             var responseMessage = await _storageRoomService.AddUserAsync(apiModel);
 

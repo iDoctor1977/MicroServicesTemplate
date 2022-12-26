@@ -9,9 +9,9 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
     public class GetUsersFeature : IGetUsersFeature
     {
         private readonly IStorageRoomService _storageRoomService;
-        private readonly IConsolidators<UsersApiModel, UsersModel> _consolidators;
+        private readonly IConsolidatorToData<UsersApiModel, UsersModel> _consolidators;
 
-        public GetUsersFeature(IStorageRoomService storageRoomService, IConsolidators<UsersApiModel, UsersModel> consolidators)
+        public GetUsersFeature(IStorageRoomService storageRoomService, IConsolidatorToData<UsersApiModel, UsersModel> consolidators)
         {
             _storageRoomService = storageRoomService;
             _consolidators = consolidators;
@@ -21,7 +21,7 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
         {
             var apiModel = await _storageRoomService.GetUsersAsync();
 
-            var model = _consolidators.ToData(apiModel);
+            var model = _consolidators.ToData(apiModel).Resolve();
 
             return model;
         }

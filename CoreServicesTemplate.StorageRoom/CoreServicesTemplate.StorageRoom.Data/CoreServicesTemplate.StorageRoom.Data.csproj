@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Receivers\**" />
+    <EmbeddedResource Remove="Receivers\**" />
+    <None Remove="Receivers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ORMFrameworks\EntityFramework\Bases\DepotEfBase.cs~RFfff56dc.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.0" />
@@ -15,10 +25,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Common\CoreServicesTemplate.StorageRoom.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Receivers\" />
   </ItemGroup>
 
 </Project>

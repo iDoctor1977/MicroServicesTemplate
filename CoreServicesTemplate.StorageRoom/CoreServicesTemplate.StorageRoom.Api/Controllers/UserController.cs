@@ -5,8 +5,6 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 {
@@ -18,24 +16,21 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         private readonly IGetUserFeature _getUserFeature;
         private readonly IGetUsersFeature _getUsersFeature;
 
-        private readonly IConsolidators<UserApiModel, UserModel> _consolidatorsReceiver;
-        private readonly IConsolidators<UserModel, UserApiModel> _consolidatorsPresenter;
-        private readonly IConsolidators<UsersModel, UsersApiModel> _consolidatorsCustomPresenter;
+        private readonly IConsolidatorToData<UsersApiModel, UsersModel> _usersModelCustomPresenter;
+        private readonly IConsolidatorToData<UserApiModel, UserModel> _userModelConsolidator;
 
         public UserController(
             IAddUserFeature addUserFeature,
             IGetUserFeature getUserFeature,
             IGetUsersFeature getUsersFeature,
-            IConsolidators<UserApiModel, UserModel> consolidatorsReceiver,
-            IConsolidators<UserModel, UserApiModel> consolidatorsPresenter,
-            IConsolidators<UsersModel, UsersApiModel> consolidatorsCustomPresenter)
+            IConsolidatorToData<UsersApiModel, UsersModel> usersModelCustomPresenter,
+            IConsolidatorToData<UserApiModel, UserModel> userModelConsolidator)
         {
             _addUserFeature = addUserFeature;
             _getUserFeature = getUserFeature;
             _getUsersFeature = getUsersFeature;
-            _consolidatorsReceiver = consolidatorsReceiver;
-            _consolidatorsPresenter = consolidatorsPresenter;
-            _consolidatorsCustomPresenter = consolidatorsCustomPresenter;
+            _usersModelCustomPresenter = usersModelCustomPresenter;
+            _userModelConsolidator = userModelConsolidator;
         }
 
         // POST: StorageRoom/User/AddUser/{apiModel}
@@ -47,7 +42,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 return await Task.FromResult<ActionResult>(BadRequest());
             }
 
-            var model = _consolidatorsReceiver.ToData(apiModel);
+            //var model = _userModelReceiver.ToData(apiModel);
+            var model = _userModelConsolidator.ToData(apiModel).Resolve();
 
             await _addUserFeature.HandleAsync(model);
             
@@ -63,11 +59,11 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 return await Task.FromResult<ActionResult>(BadRequest());
             }
 
-            var model = _consolidatorsReceiver.ToData(apiModel);
+            var model = _userModelConsolidator.ToData(apiModel).Resolve();
 
             var resultModel = await _getUserFeature.HandleAsync(model);
 
-            var resultApiModel = _consolidatorsPresenter.ToData(resultModel);
+            var resultApiModel = _userModelConsolidator.ToDataReverse(resultModel).Resolve();
 
             return resultApiModel is null ? NoContent() : resultApiModel;
         }
@@ -78,7 +74,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         {
             var model = await _getUsersFeature.HandleAsync();
 
-            var apiModel = _consolidatorsCustomPresenter.ToData(model);
+            var apiModel = _usersModelCustomPresenter.ToDataReverse(model).Resolve();
 
             return apiModel is null ? NoContent() : apiModel;
         }
@@ -92,7 +88,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 return await Task.FromResult<ActionResult>(BadRequest());
             }
 
-            var model = _consolidatorsReceiver.ToData(apiModel);
+            var model = _userModelConsolidator.ToData(apiModel).Resolve();
 
             // var result = await _updateUserFeature.HandleAsync(model);
 
@@ -113,7 +109,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 return await Task.FromResult<ActionResult>(BadRequest());
             }
 
-            var model = _consolidatorsReceiver.ToData(apiModel);
+            var model = _userModelConsolidator.ToData(apiModel).Resolve();
 
             // var result = await _deleteUserFeature.HandleAsync(model);
 
@@ -122,7 +118,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             //    return await Task.FromResult<IActionResult>(NotFound());
             //}
 
-            return NoContent();
+            return await Task.FromResult<IActionResult>(NoContent());
         }
     }
 }

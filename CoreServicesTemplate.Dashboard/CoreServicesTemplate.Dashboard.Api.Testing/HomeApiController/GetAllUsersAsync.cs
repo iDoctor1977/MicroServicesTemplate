@@ -42,7 +42,7 @@ namespace CoreServicesTemplate.Dashboard.Api.Testing.HomeApiController
 
             var controller = new Controllers.HomeApiController(
                 _fixture.ServiceProvider.GetRequiredService<IGetUsersFeature>(),
-                _fixture.ServiceProvider.GetRequiredService<IConsolidators<UsersModel, UsersApiModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IConsolidatorToData<UsersApiModel, UsersModel>>(),
                 _fixture.LoggerMock.Object);
 
             //Act
@@ -50,7 +50,7 @@ namespace CoreServicesTemplate.Dashboard.Api.Testing.HomeApiController
 
             //Assert
             _fixture.StorageRoomServiceMock.Verify((method => method.GetUsersAsync()), Times.Once());
-            result.UsersApiModelList.Should().AllBeOfType<UserApiModel>().And.HaveCountGreaterThan(0);
+            result.Value?.UsersApiModelList.Should().AllBeOfType<UserApiModel>().And.HaveCountGreaterThan(0);
         }
     }
 }
