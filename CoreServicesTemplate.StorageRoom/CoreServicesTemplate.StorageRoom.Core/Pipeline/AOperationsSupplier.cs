@@ -33,18 +33,18 @@ namespace CoreServicesTemplate.StorageRoom.Core.Pipeline
 
         #region PIPELINE PROCEDURES
 
-        public Func<AddAggregate, Task<AddAggregate>> HandleAddAsync => PipeAdd;
-        protected abstract Task<AddAggregate> PipeAdd(AddAggregate aggregate);
+        public Func<UserAggregate, Task<UserAggregate>> HandleAddAsync => PipeAddDefinitionAsync;
+        protected abstract Task<UserAggregate> PipeAddDefinitionAsync(UserAggregate aggregate);
 
-        public Func<GetAggregate, Task<GetAggregate>> HandleGetAsync => PipeGet;
-        protected abstract Task<GetAggregate> PipeGet(GetAggregate aggregate);
+        public Func<UserAggregate, Task<UserAggregate>> HandleGetAsync => PipeGetDefinitionAsync;
+        protected abstract Task<UserAggregate> PipeGetDefinitionAsync(UserAggregate aggregate);
 
         #endregion
 
         #region FUNCTIONS
 
-        public Func<AddAggregate, Task<AddAggregate>> CalculateGuid => FuncCalculateGuid;
-        protected abstract Task<AddAggregate> FuncCalculateGuid(AddAggregate aggregate);
+        public Func<UserAggregate, Task<UserAggregate>> CalculateGuidAsync => FuncCalculateGuidAsync;
+        protected abstract Task<UserAggregate> FuncCalculateGuidAsync(UserAggregate aggregate);
 
         #endregion
     }

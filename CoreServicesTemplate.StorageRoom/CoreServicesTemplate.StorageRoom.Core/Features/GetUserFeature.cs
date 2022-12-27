@@ -22,7 +22,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
         public async Task<UserModel> HandleAsync(UserModel model)
         {
             // Attach model to your model domain logic
-            var aggregate = new GetAggregate(model);
+            var aggregate = new UserAggregate(model);
             aggregate.SetGuid(Guid.NewGuid());
 
             // execute interaction with repository if necessary
@@ -30,8 +30,8 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             // execute getUserFeature sub steps
             // this part is added only for features scalability 
-            var resultAggregate = new GetAggregate(resultModel);
-            resultAggregate.SetBirthDay(DateTime.Now);
+            var resultAggregate = new UserAggregate(resultModel);
+            resultAggregate.SetBirth(DateTime.Now);
             resultAggregate = await _operationsSupplier.HandleGetAsync(resultAggregate);
 
             return resultAggregate.ToModel();

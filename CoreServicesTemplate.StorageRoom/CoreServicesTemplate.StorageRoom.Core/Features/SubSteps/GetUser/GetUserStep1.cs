@@ -1,4 +1,5 @@
-﻿using CoreServicesTemplate.Shared.Core.Attributes;
+﻿using System.Threading.Tasks;
+using CoreServicesTemplate.Shared.Core.Attributes;
 using CoreServicesTemplate.Shared.Core.Builders;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates;
@@ -6,7 +7,7 @@ using CoreServicesTemplate.StorageRoom.Core.Aggregates;
 namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser
 {
     [Root]
-    public class GetUserStep1 : RootPipelineBuilder<GetAggregate, GetAggregate>
+    public class GetUserStep1 : RootPipelineBuilder<UserAggregate, UserAggregate>
     {
         private readonly IGetUserDepot _getUserDepot;
 
@@ -15,20 +16,16 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser
             _getUserDepot = getUserDepot;
         }
 
-        protected override GetAggregate ExecuteRootStep(GetAggregate aggregate)
+        protected override async Task<UserAggregate> HandleRootStepAsync(UserAggregate aggregate)
         {
-            // Read
-            var model = aggregate.ToModel();
-
-            // Do
-
-            var resultModel = _getUserDepot.HandleAsync(model);
-           
-            aggregate.SetName(resultModel.Result.Name);
-            aggregate.SetSurname(resultModel.Result.Surname);
-            aggregate.SetBirthDay(model.Birth);
-
-            // Write
+            // Do anything on Depot
+            // Example: var model = aggregate.ToModel();
+            //                      model.SetName("Alfred");
+            //
+            //                      var resultModel = _getUserDepot.HandleAsync(model);
+            //                      aggregate.SetName(resultModel.Result.Name);
+            //                      aggregate.SetSurname(resultModel.Result.Surname);
+            //                      aggregate.SetBirth(model.Birth);
 
             return aggregate;
         }

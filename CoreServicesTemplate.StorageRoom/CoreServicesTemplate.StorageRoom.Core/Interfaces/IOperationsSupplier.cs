@@ -9,16 +9,16 @@ public interface IOperationsSupplier
 {
     #region OPERATIONS
 
-    Func<AddAggregate, Task<AddAggregate>> HandleAddAsync { get; }
-    Func<GetAggregate, Task<GetAggregate>> HandleGetAsync { get; }
+    Func<UserAggregate, Task<UserAggregate>> HandleAddAsync { get; }
+    Func<UserAggregate, Task<UserAggregate>> HandleGetAsync { get; }
 
     #endregion
 
     #region FUNCTIONS
 
-    Func<AddAggregate, Task<AddAggregate>> CalculateGuid { get; }
+    Func<UserAggregate, Task<UserAggregate>> CalculateGuidAsync { get; }
 
     #endregion
 }
 
-public interface IAddUserPipe : ICommandHandler<AddAggregate> { }
+public interface IAddUserPipe : ICommandHandler<UserAggregate> { }

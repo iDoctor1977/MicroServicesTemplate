@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Attributes;
 
 namespace CoreServicesTemplate.Shared.Core.Builders
@@ -33,21 +34,21 @@ namespace CoreServicesTemplate.Shared.Core.Builders
             throw new Exception(newStep.GetType().Name + " it doesn't belong to the root " + GetType().Name + " or attribute was not found.");
         }
 
-        protected abstract TOut ExecuteRootStep(TIn aggregate);
+        protected abstract Task<TOut> HandleRootStepAsync(TIn aggregate);
 
-        public TOut Execute(TIn aggregate)
+        public Task<TOut> ExecuteAsync(TIn aggregate)
         {
-            _stepInput = ExecuteRootStep(aggregate);
+            _stepInput = HandleRootStepAsync(aggregate);
 
             if (_root.Count != 0)
             {
                 foreach (var step in _root)
                 {
-                    _stepInput = step.Execute((TIn)_stepInput);
+                    _stepInput = step.ExecuteAsync((TIn)_stepInput);
                 }
             }
 
-            return (TOut)_stepInput;
+            return Task.FromResult((TOut)_stepInput);
         }
     }
 
@@ -58,8 +59,8 @@ namespace CoreServicesTemplate.Shared.Core.Builders
 
     public interface IBuildStep<TIn, TOut> : IRootStep<TIn, TOut> { }
 
-    public interface ISubStep<in TIn, out TOut>
+    public interface ISubStep<in TIn, TOut>
     {
-        TOut Execute(TIn aggregate);
+        Task<TOut> ExecuteAsync(TIn aggregate);
     }
 }

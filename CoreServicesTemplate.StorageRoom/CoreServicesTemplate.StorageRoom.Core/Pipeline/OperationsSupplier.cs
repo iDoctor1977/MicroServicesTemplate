@@ -17,25 +17,25 @@ namespace CoreServicesTemplate.StorageRoom.Core.Pipeline
 
         #region PIPELINE PROCEDURES
 
-        protected override Task<AddAggregate> PipeAdd(AddAggregate aggregate)
+        protected override async Task<UserAggregate> PipeAddDefinitionAsync(UserAggregate aggregate)
         {
-            aggregate = AddUserStep1.AddSubStep(AddUserStep1SubStep1).AddSubStep(AddUserStep1SubStep2).Execute(aggregate);
+            aggregate = await AddUserStep1.AddSubStep(AddUserStep1SubStep1).AddSubStep(AddUserStep1SubStep2).ExecuteAsync(aggregate);
 
-            return Task.FromResult(aggregate);
+            return aggregate;
         }
 
-        protected override Task<GetAggregate> PipeGet(GetAggregate aggregate)
+        protected override async Task<UserAggregate> PipeGetDefinitionAsync(UserAggregate aggregate)
         {
-            aggregate = GetUserStep1.AddSubStep(GetUserStep1SubStep1).Execute(aggregate);
+            aggregate = await GetUserStep1.AddSubStep(GetUserStep1SubStep1).ExecuteAsync(aggregate);
 
-            return Task.FromResult(aggregate);
+            return aggregate;
         }
 
         #endregion
 
         #region FUNCTIONS
 
-        protected override Task<AddAggregate> FuncCalculateGuid(AddAggregate aggregate)
+        protected override Task<UserAggregate> FuncCalculateGuidAsync(UserAggregate aggregate)
         {
             var a = Guid.NewGuid();
 

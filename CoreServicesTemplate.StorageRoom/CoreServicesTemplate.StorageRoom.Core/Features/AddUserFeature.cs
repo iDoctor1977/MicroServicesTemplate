@@ -22,7 +22,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
         public async Task HandleAsync(UserModel model)
         {
             // Attach model to your model domain logic
-            var aggregate = new AddAggregate(model);
+            var aggregate = new UserAggregate(model);
             aggregate.SetGuid(Guid.NewGuid());
 
             // execute interaction with repository if necessary

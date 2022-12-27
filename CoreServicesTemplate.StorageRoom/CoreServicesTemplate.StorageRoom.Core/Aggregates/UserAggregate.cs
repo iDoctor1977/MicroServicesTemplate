@@ -4,9 +4,9 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates
 {
-    public class AddAggregate : AAggregateBase<UserModel>
+    public class UserAggregate : AAggregateBase<UserModel>
     {
-        public AddAggregate(UserModel model) : base(model) { }
+        public UserAggregate(UserModel model) : base(model) { }
 
         public void SetGuid(Guid guid)
         {
