@@ -32,7 +32,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             // this part is added only for features scalability 
             var resultAggregate = new GetAggregate(resultModel);
             resultAggregate.SetBirthDay(DateTime.Now);
-            resultAggregate = _operationsSupplier.ExecuteGetPipeline(resultAggregate);
+            resultAggregate = await _operationsSupplier.HandleGetAsync(resultAggregate);
 
             return resultAggregate.ToModel();
         }

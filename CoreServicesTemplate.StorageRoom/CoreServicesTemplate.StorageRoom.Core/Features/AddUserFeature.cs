@@ -30,7 +30,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             // execute addUserFeature sub steps
             // this part is added only for features scalability 
-            _operationsSupplier.ExecuteAddPipeline(aggregate);
+            await _operationsSupplier.HandleAddAsync(aggregate);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 using System;
+using System.Threading.Tasks;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
@@ -32,18 +33,18 @@ namespace CoreServicesTemplate.StorageRoom.Core.Pipeline
 
         #region PIPELINE PROCEDURES
 
-        public Func<AddAggregate, AddAggregate> ExecuteAddPipeline => PipeAdd;
-        protected abstract AddAggregate PipeAdd(AddAggregate aggregate);
+        public Func<AddAggregate, Task<AddAggregate>> HandleAddAsync => PipeAdd;
+        protected abstract Task<AddAggregate> PipeAdd(AddAggregate aggregate);
 
-        public Func<GetAggregate, GetAggregate> ExecuteGetPipeline => PipeGet;
-        protected abstract GetAggregate PipeGet(GetAggregate aggregate);
+        public Func<GetAggregate, Task<GetAggregate>> HandleGetAsync => PipeGet;
+        protected abstract Task<GetAggregate> PipeGet(GetAggregate aggregate);
 
         #endregion
 
         #region FUNCTIONS
 
-        public Func<AddAggregate, AddAggregate> CalculateGuid => FuncCalculateGuid;
-        protected abstract AddAggregate FuncCalculateGuid(AddAggregate aggregate);
+        public Func<AddAggregate, Task<AddAggregate>> CalculateGuid => FuncCalculateGuid;
+        protected abstract Task<AddAggregate> FuncCalculateGuid(AddAggregate aggregate);
 
         #endregion
     }

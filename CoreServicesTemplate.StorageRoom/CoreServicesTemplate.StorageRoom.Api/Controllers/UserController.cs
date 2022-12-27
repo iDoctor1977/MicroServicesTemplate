@@ -90,7 +90,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
             var model = _userModelConsolidator.ToData(apiModel).Resolve();
 
-            // var result = await _updateUserFeature.HandleAsync(model);
+            // var result = await _updateUserFeature.HandleAddAsync(model);
 
             //if (result is null)
             //{
@@ -111,7 +111,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
             var model = _userModelConsolidator.ToData(apiModel).Resolve();
 
-            // var result = await _deleteUserFeature.HandleAsync(model);
+            // var result = await _deleteUserFeature.HandleAddAsync(model);
 
             //if (result is null)
             //{

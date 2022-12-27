@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
@@ -16,31 +17,31 @@ namespace CoreServicesTemplate.StorageRoom.Core.Pipeline
 
         #region PIPELINE PROCEDURES
 
-        protected override AddAggregate PipeAdd(AddAggregate aggregate)
+        protected override Task<AddAggregate> PipeAdd(AddAggregate aggregate)
         {
             aggregate = AddUserStep1.AddSubStep(AddUserStep1SubStep1).AddSubStep(AddUserStep1SubStep2).Execute(aggregate);
 
-            return aggregate;
+            return Task.FromResult(aggregate);
         }
 
-        protected override GetAggregate PipeGet(GetAggregate aggregate)
+        protected override Task<GetAggregate> PipeGet(GetAggregate aggregate)
         {
             aggregate = GetUserStep1.AddSubStep(GetUserStep1SubStep1).Execute(aggregate);
 
-            return aggregate;
+            return Task.FromResult(aggregate);
         }
 
         #endregion
 
         #region FUNCTIONS
 
-        protected override AddAggregate FuncCalculateGuid(AddAggregate aggregate)
+        protected override Task<AddAggregate> FuncCalculateGuid(AddAggregate aggregate)
         {
             var a = Guid.NewGuid();
 
             aggregate.SetGuid(a);
 
-            return aggregate;
+            return Task.FromResult(aggregate);
         }
 
         #endregion
