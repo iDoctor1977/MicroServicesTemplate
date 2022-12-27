@@ -33,9 +33,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             _userModelConsolidator = userModelConsolidator;
         }
 
-        // POST: StorageRoom/User/AddUser/{apiModel}
+        // POST: StorageRoom/User/Add/{apiModel}
         [HttpPost("{apiModel}")]
-        public async Task<IActionResult> AddUser(UserApiModel apiModel)
+        public async Task<IActionResult> Add(UserApiModel apiModel)
         {
             if (apiModel is null)
             {
@@ -47,12 +47,12 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
             await _addUserFeature.HandleAsync(model);
             
-            return CreatedAtAction(nameof(AddUser), apiModel);
+            return CreatedAtAction(nameof(Add), apiModel);
         }
 
-        // GET: StorageRoom/User/GetUser
+        // GET: StorageRoom/User/Get
         [HttpGet]
-        public async Task<ActionResult<UserApiModel>> GetUser([FromBody] UserApiModel apiModel)
+        public async Task<ActionResult<UserApiModel>> Get([FromBody] UserApiModel apiModel)
         {
             if (apiModel is null || apiModel.Guid == Guid.Empty)
             {
@@ -68,9 +68,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             return resultApiModel is null ? NoContent() : resultApiModel;
         }
 
-        // GET: StorageRoom/User/GetUsers
+        // GET: StorageRoom/User/GetAll
         [HttpGet]
-        public async Task<ActionResult<UsersApiModel>> GetUsers()
+        public async Task<ActionResult<UsersApiModel>> GetAll()
         {
             var model = await _getUsersFeature.HandleAsync();
 
@@ -79,9 +79,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             return apiModel is null ? NoContent() : apiModel;
         }
 
-        // PUT: StorageRoom/User/UpdateUser/{apiModel}
+        // PUT: StorageRoom/User/Update/{apiModel}
         [HttpPut("{apiModel}")]
-        public async Task<IActionResult> UpdateUser(UserApiModel apiModel)
+        public async Task<IActionResult> Update(UserApiModel apiModel)
         {
             if (apiModel is null || apiModel.Guid == Guid.Empty)
             {
@@ -100,9 +100,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             return await Task.FromResult<IActionResult>(NoContent());
         }
 
-        // DELETE: StorageRoom/User/DeleteUser/{apiModel}
+        // DELETE: StorageRoom/User/Delete/{apiModel}
         [HttpDelete("{apiModel}")]
-        public async Task<IActionResult> DeleteUser(UserApiModel apiModel)
+        public async Task<IActionResult> Delete(UserApiModel apiModel)
         {
             if (apiModel is null || apiModel.Guid == Guid.Empty)
             {

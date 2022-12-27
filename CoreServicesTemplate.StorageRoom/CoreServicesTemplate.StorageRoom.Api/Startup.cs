@@ -20,12 +20,16 @@ using CoreServicesTemplate.StorageRoom.Data.Entities;
 using System.Collections.Generic;
 using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.StorageRoom.Api.Consolidators;
+using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
+using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
 using CoreServicesTemplate.StorageRoom.Data.Consolidators;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mocks;
+using CoreServicesTemplate.StorageRoom.Core.Interfaces;
+using CoreServicesTemplate.StorageRoom.Core.Pipeline;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {
@@ -86,6 +90,19 @@ namespace CoreServicesTemplate.StorageRoom.Api
             #region Automapper
 
             services.AddAutoMapper(typeof(ApiMappingProfile), typeof(DataMappingProfile));
+
+            #endregion
+
+            #region Pipeline Feature SubSteps
+
+            services.AddTransient<IOperationsSupplier, OperationsSupplier>();
+
+            services.AddTransient<AddUserStep1>();
+            services.AddTransient<AddUserStep1SubStep1>();
+            services.AddTransient<AddUserStep1SubStep2>();
+
+            services.AddTransient<GetUserStep1>();
+            services.AddTransient<GetUserStep1SubStep1>();
 
             #endregion
 
