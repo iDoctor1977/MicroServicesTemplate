@@ -121,7 +121,7 @@
     <value>http://localhost:33785/StorageRoom/User/Add</value>
   </data>
   <data name="StorageRoomUserControllerLocalhostDeleteUserUrl" xml:space="preserve">
-    <value>http://localhost:33785/StorageRoom/User/Delet</value>
+    <value>http://localhost:33785/StorageRoom/User/Delete</value>
   </data>
   <data name="StorageRoomUserControllerLocalhostGetUsersUrl" xml:space="preserve">
     <value>http://localhost:33785/StorageRoom/User/GetAll</value>

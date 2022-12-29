@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Interfaces;
@@ -20,5 +19,3 @@ public interface IOperationsSupplier
 
     #endregion
 }
-
-public interface IAddUserPipe : ICommandHandler<UserAggregate> { }

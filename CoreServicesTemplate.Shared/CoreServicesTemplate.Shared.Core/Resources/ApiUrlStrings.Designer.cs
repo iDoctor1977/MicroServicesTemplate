@@ -70,7 +70,7 @@ namespace CoreServicesTemplate.Shared.Core.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/Delet.
+        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/Delete.
         /// </summary>
         public static string StorageRoomUserControllerLocalhostDeleteUserUrl {
             get {

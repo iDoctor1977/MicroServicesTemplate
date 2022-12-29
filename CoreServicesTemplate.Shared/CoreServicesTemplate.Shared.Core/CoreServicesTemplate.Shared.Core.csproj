@@ -36,7 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\Bases\" />
     <Folder Include="Enums\" />
   </ItemGroup>
 

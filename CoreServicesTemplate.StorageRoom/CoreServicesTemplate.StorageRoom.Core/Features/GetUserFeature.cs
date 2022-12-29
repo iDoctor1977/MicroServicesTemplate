@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates;
 using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
-    public class GetUserFeature : IGetUserFeature
+    public class GetUserFeature : AFeatureQueryBase<UserAggregate, UserModel, UserModel>
     {
         private readonly IGetUserDepot _getUserDepot;
         private readonly IOperationsSupplier _operationsSupplier;
@@ -18,15 +18,22 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _getUserDepot = getUserDepot;
             _operationsSupplier = operationsSupplier;
         }
-
-        public async Task<UserModel> HandleAsync(UserModel model)
+        public override IQueryHandleAggregate<UserModel> SetAggregate(UserModel model)
         {
+            AggregateModel = new UserAggregate(model);
+
+            return this;
+        }
+
+        public override async Task<UserModel> HandleAsync()
+        {
+            var userAggregate = AggregateModel;
+
             // Attach model to your model domain logic
-            var aggregate = new UserAggregate(model);
-            aggregate.SetGuid(Guid.NewGuid());
+            userAggregate?.SetGuid(Guid.NewGuid());
 
             // execute interaction with repository if necessary
-            var resultModel = await _getUserDepot.HandleAsync(aggregate.ToModel());
+            var resultModel = await _getUserDepot.HandleAsync(AggregateModel.ToModel());
 
             // execute getUserFeature sub steps
             // this part is added only for features scalability 

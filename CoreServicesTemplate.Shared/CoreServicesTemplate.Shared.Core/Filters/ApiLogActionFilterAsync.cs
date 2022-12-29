@@ -19,7 +19,7 @@ namespace CoreServicesTemplate.Shared.Core.Filters
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             // Do something before the action executes.
-            var logApiModel = new LogApiModel
+            var logApiModel = new LogModel
             {
                 LogTime = DateTime.Now,
                 IpAddress = context.HttpContext.Connection.RemoteIpAddress?.ToString(),

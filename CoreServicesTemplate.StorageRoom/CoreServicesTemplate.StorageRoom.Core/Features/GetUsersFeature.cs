@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
-    public class GetUsersFeature : IGetUsersFeature
+    public class GetUsersFeature : AFeaturesQueryBase<UsersModel>
     {
         private readonly IGetUsersDepot _getUsersDepot;
 
@@ -13,7 +13,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _getUsersDepot = getUsersDepot;
         }
 
-        public async Task<UsersModel> HandleAsync()
+        public override async Task<UsersModel> HandleAsync()
         {
             var model = await _getUsersDepot.HandleAsync();
 

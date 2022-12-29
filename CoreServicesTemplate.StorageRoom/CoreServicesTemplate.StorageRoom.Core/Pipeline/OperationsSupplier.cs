@@ -37,9 +37,9 @@ namespace CoreServicesTemplate.StorageRoom.Core.Pipeline
 
         protected override Task<UserAggregate> FuncCalculateGuidAsync(UserAggregate aggregate)
         {
-            var a = Guid.NewGuid();
+            var guid = Guid.NewGuid();
 
-            aggregate.SetGuid(a);
+            aggregate.SetGuid(guid);
 
             return Task.FromResult(aggregate);
         }
