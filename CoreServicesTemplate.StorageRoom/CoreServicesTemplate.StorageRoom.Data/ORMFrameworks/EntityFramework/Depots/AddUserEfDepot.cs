@@ -12,12 +12,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
     public class AddUserEfDepot : EfDepotBase, IAddUserDepot
     {
         private readonly IUserRepository _userRepository;
-        private readonly IConsolidatorToData<UserModel, User> _userModelConsolidator;
+        private readonly IConsolidator<UserModel, User> _userModelConsolidator;
 
         public AddUserEfDepot(
             Lazy<StorageRoomDbContext> dbContext,
             IUserRepository userRepository,
-            IConsolidatorToData<UserModel, User> userModelConsolidator) : base(dbContext)
+            IConsolidator<UserModel, User> userModelConsolidator) : base(dbContext)
         {
             _userModelConsolidator = userModelConsolidator;
             _userRepository = userRepository;

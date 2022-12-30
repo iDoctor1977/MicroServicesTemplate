@@ -68,13 +68,13 @@ namespace CoreServicesTemplate.StorageRoom.Api
 
             #endregion
 
-            #region ConsolidatorReverse
+            #region Consolidator
 
             services.AddTransient<ICustomMapper, CustomMapper>();
 
-            services.AddTransient(typeof(IConsolidatorToData<,>), typeof(DefaultConsolidator<,>));
-            services.AddTransient(typeof(IConsolidatorToData<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
-            services.AddTransient(typeof(IConsolidatorToData<UsersModel, IEnumerable<User>>), typeof(UsersDataCustomConsolidator));
+            services.AddTransient(typeof(IConsolidator<,>), typeof(DefaultConsolidator<,>));
+            services.AddTransient(typeof(IConsolidator<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
+            services.AddTransient(typeof(IConsolidator<UsersModel, IEnumerable<User>>), typeof(UsersDataCustomConsolidator));
 
             #endregion
 

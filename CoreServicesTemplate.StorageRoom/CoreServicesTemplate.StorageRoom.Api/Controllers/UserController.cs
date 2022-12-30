@@ -16,15 +16,15 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         private readonly IFeatureQuery<UserModel, UserModel> _getUserFeature;
         private readonly IFeatureQuery<UsersModel> _getUsersFeature;
 
-        private readonly IConsolidatorToData<UsersApiModel, UsersModel> _usersModelCustomPresenter;
-        private readonly IConsolidatorToData<UserApiModel, UserModel> _userModelConsolidator;
+        private readonly IConsolidator<UsersApiModel, UsersModel> _usersModelCustomPresenter;
+        private readonly IConsolidator<UserApiModel, UserModel> _userModelConsolidator;
 
         public UserController(
             IFeatureCommand<UserModel> addUserFeature,
             IFeatureQuery<UserModel, UserModel> getUserFeature,
             IFeatureQuery<UsersModel> getUsersFeature,
-            IConsolidatorToData<UsersApiModel, UsersModel> usersModelCustomPresenter,
-            IConsolidatorToData<UserApiModel, UserModel> userModelConsolidator)
+            IConsolidator<UsersApiModel, UsersModel> usersModelCustomPresenter,
+            IConsolidator<UserApiModel, UserModel> userModelConsolidator)
         {
             _addUserFeature = addUserFeature;
             _getUserFeature = getUserFeature;

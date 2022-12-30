@@ -3,7 +3,7 @@ using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 
 namespace CoreServicesTemplate.Shared.Core.Bases;
 
-public abstract class AConsolidatorBase<TIn, TOut> : IConsolidatorToData<TIn, TOut>
+public abstract class AConsolidatorBase<TIn, TOut> : IConsolidator<TIn, TOut>
 {
     private readonly ICustomMapper _customMapper;
 
@@ -27,6 +27,5 @@ public abstract class AConsolidatorBase<TIn, TOut> : IConsolidatorToData<TIn, TO
     }
 
     public abstract IConsolidatorToResolve<TIn, TOut> ToData(TIn @in);
-
     public abstract IConsolidatorToResolveReversing<TIn, TOut> ToDataReverse(TOut @out);
 }
