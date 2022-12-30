@@ -22,7 +22,7 @@ namespace CoreServicesTemplate.Dashboard.Services
             return responseMessage;
         }
 
-        public async Task<UsersApiModel> GetUsersAsync()
+        public async Task<UsersApiModel?> GetUsersAsync()
         {
             //HTTP GET
             var apiModel = await _client.GetFromJsonAsync<UsersApiModel>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostGetUsersUrl}");
