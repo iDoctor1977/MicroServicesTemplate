@@ -5,7 +5,7 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
-    public class GetUsersFeature : AFeaturesQueryBase<UsersModel>
+    public class GetUsersFeature : AFeatureQueryBase<UsersModel>
     {
         private readonly IGetUsersDepot _getUsersDepot;
 
