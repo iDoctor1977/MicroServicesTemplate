@@ -1,5 +1,4 @@
 ﻿using CoreServicesTemplate.Dashboard.Common.Consolidators;
-using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Core.Features;
 using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
@@ -9,6 +8,7 @@ using CoreServicesTemplate.Dashboard.Web.Models;
 using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
@@ -41,8 +41,8 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.Fixtures
 
             #region Injection
 
-            builder.Services.AddTransient<IAddUserFeature, AddUserFeature>();
-            builder.Services.AddTransient<IGetUsersFeature, GetUsersFeature>();
+            builder.Services.AddTransient<IFeatureCommand<UserModel>, AddUserFeature>();
+            builder.Services.AddTransient<IFeatureQuery<UsersModel>, GetUsersFeature>();
             builder.Services.AddTransient(provider => StorageRoomServiceMock.Object);
             builder.Services.AddTransient(provider => LoggerMock.Object);
 
@@ -52,12 +52,12 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.Fixtures
 
             builder.Services.AddTransient<ICustomMapper, CustomMapper>();
 
-            builder.Services.AddTransient(typeof(IConsolidatorToData<,>), typeof(DefaultConsolidator<,>));
+            builder.Services.AddTransient(typeof(IConsolidator<,>), typeof(DefaultConsolidator<,>));
 
-            builder.Services.AddTransient(typeof(IConsolidatorToData<UserViewModel, UserModel>), typeof(UserWebCustomConsolidator));
-            builder.Services.AddTransient(typeof(IConsolidatorToData<UsersViewModel, UsersModel>), typeof(UsersWebCustomConsolidator));
+            builder.Services.AddTransient(typeof(IConsolidator<UserViewModel, UserModel>), typeof(UserWebCustomConsolidator));
+            builder.Services.AddTransient(typeof(IConsolidator<UsersViewModel, UsersModel>), typeof(UsersWebCustomConsolidator));
 
-            builder.Services.AddTransient(typeof(IConsolidatorToData<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
+            builder.Services.AddTransient(typeof(IConsolidator<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
 
             #endregion
 

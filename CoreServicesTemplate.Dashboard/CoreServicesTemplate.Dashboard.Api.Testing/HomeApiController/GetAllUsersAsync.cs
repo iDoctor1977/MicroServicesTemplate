@@ -1,8 +1,8 @@
 using CoreServicesTemplate.Dashboard.Api.Testing.Fixtures;
-using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Shared.Core.Builders;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.Shared.Core.Models;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,9 +40,9 @@ namespace CoreServicesTemplate.Dashboard.Api.Testing.HomeApiController
 
             _fixture.StorageRoomServiceMock.Setup(service => service.GetUsersAsync()).ReturnsAsync(model);
 
-            var controller = new Controllers.HomeApiController(
-                _fixture.ServiceProvider.GetRequiredService<IGetUsersFeature>(),
-                _fixture.ServiceProvider.GetRequiredService<IConsolidatorToData<UsersApiModel, UsersModel>>(),
+            var controller = new Controllers.UserApiController(
+                _fixture.ServiceProvider.GetRequiredService<IFeatureQuery<UsersModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IConsolidator<UsersApiModel, UsersModel>>(),
                 _fixture.LoggerMock.Object);
 
             //Act

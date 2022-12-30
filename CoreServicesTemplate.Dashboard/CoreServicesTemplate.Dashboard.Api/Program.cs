@@ -1,13 +1,16 @@
 using CoreServicesTemplate.Dashboard.Common.Consolidators;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
-using CoreServicesTemplate.Dashboard.Core;
 using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.Shared.Core.HealthChecks;
+using CoreServicesTemplate.Dashboard.Core.Features;
+using CoreServicesTemplate.Dashboard.Services;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
+using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +20,9 @@ builder.Services.AddControllers();
 
 #region Injections
 
-CoreConfigureServices.InitializeDependencies(builder.Services);
+builder.Services.AddTransient<IFeatureCommand<UserModel>, AddUserFeature>();
+builder.Services.AddTransient<IFeatureQuery<UsersModel>, GetUsersFeature>();
+builder.Services.AddTransient<IStorageRoomService, StorageRoomService>();
 
 builder.Services.AddHttpClient();
 
@@ -27,8 +32,8 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddTransient<ICustomMapper, CustomMapper>();
 
-builder.Services.AddTransient(typeof(IConsolidatorToData<,>), typeof(DefaultConsolidator<,>));
-builder.Services.AddTransient(typeof(IConsolidatorToData<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
+builder.Services.AddTransient(typeof(IConsolidator<,>), typeof(DefaultConsolidator<,>));
+builder.Services.AddTransient(typeof(IConsolidator<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
 
 #endregion
 

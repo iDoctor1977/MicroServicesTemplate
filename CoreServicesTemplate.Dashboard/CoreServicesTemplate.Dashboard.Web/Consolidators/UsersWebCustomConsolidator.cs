@@ -8,9 +8,9 @@ namespace CoreServicesTemplate.Dashboard.Web.Consolidators
 {
     public class UsersWebCustomConsolidator : ACustomConsolidatorBase<UsersViewModel, UsersModel>
     {
-        private readonly IConsolidatorToData<UserViewModel, UserModel> _userConsolidator;
+        private readonly IConsolidator<UserViewModel, UserModel> _userConsolidator;
 
-        public UsersWebCustomConsolidator(ICustomMapper customMapper, IConsolidatorToData<UserViewModel, UserModel> userConsolidator) : base(customMapper)
+        public UsersWebCustomConsolidator(ICustomMapper customMapper, IConsolidator<UserViewModel, UserModel> userConsolidator) : base(customMapper)
         {
             _userConsolidator = userConsolidator;
 

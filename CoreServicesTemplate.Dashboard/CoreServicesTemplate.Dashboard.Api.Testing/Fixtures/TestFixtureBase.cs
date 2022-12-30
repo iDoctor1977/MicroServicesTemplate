@@ -1,11 +1,11 @@
 ﻿using CoreServicesTemplate.Dashboard.Common.Consolidators;
-using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Core.Features;
 using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
 using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
@@ -20,13 +20,13 @@ namespace CoreServicesTemplate.Dashboard.Api.Testing.Fixtures
     {
         public IServiceProvider ServiceProvider { get; private set; }
         public Mock<IStorageRoomService> StorageRoomServiceMock { get; private set; }
-        public Mock<ILogger<Controllers.HomeApiController>> LoggerMock { get; private set; }
+        public Mock<ILogger<Controllers.UserApiController>> LoggerMock { get; private set; }
 
         public TestFixtureBase()
         {
             StorageRoomServiceMock = new Mock<IStorageRoomService>();
             ServiceProvider = null!;
-            LoggerMock = new Mock<ILogger<Controllers.HomeApiController>>();
+            LoggerMock = new Mock<ILogger<Controllers.UserApiController>>();
 
         }
 
@@ -36,8 +36,8 @@ namespace CoreServicesTemplate.Dashboard.Api.Testing.Fixtures
 
             #region Injections
 
-            builder.Services.AddTransient<IAddUserFeature, AddUserFeature>();
-            builder.Services.AddTransient<IGetUsersFeature, GetUsersFeature>();
+            builder.Services.AddTransient<IFeatureCommand<UserModel>, AddUserFeature>();
+            builder.Services.AddTransient<IFeatureQuery<UsersModel>, GetUsersFeature>();
             builder.Services.AddTransient(provider => StorageRoomServiceMock.Object);
             builder.Services.AddTransient(provider => LoggerMock.Object);
 
@@ -47,8 +47,8 @@ namespace CoreServicesTemplate.Dashboard.Api.Testing.Fixtures
 
             builder.Services.AddTransient<ICustomMapper, CustomMapper>();
 
-            builder.Services.AddTransient(typeof(IConsolidatorToData<,>), typeof(DefaultConsolidator<,>));
-            builder.Services.AddTransient(typeof(IConsolidatorToData<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
+            builder.Services.AddTransient(typeof(IConsolidator<,>), typeof(DefaultConsolidator<,>));
+            builder.Services.AddTransient(typeof(IConsolidator<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
 
             #endregion
 

@@ -1,9 +1,9 @@
 using System.Globalization;
-using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Web.Models;
 using CoreServicesTemplate.Dashboard.Web.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.Shared.Core.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -35,10 +35,10 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
             _fixture.StorageRoomServiceMock.Setup(service => service.AddUserAsync(It.IsAny<UserApiModel>()));
 
             var controller = new Controllers.HomeController(
-                _fixture.ServiceProvider.GetRequiredService<IConsolidatorToData<UserViewModel, UserModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<IConsolidatorToData<UsersViewModel, UsersModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<IAddUserFeature>(),
-                _fixture.ServiceProvider.GetRequiredService<IGetUsersFeature>(),
+                _fixture.ServiceProvider.GetRequiredService<IConsolidator<UserViewModel, UserModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IConsolidator<UsersViewModel, UsersModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IFeatureCommand<UserModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IFeatureQuery<UsersModel>>(),
                 _fixture.LoggerMock.Object);
 
             //Act

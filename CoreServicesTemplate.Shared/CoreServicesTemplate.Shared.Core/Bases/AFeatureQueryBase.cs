@@ -30,7 +30,7 @@ public abstract class AFeatureQueryBase<T1A, T2A, T1In, T2In, TOut> : IFeatureQu
     public abstract Task<TOut> HandleAsync();
 }
 
-public abstract class AFeaturesQueryBase<TOut> : IFeatureQuery<TOut> where TOut : IAppModel
+public abstract class AFeatureQueryBase<TOut> : IFeatureQuery<TOut> where TOut : IAppModel
 {
     public abstract Task<TOut> HandleAsync();
 }

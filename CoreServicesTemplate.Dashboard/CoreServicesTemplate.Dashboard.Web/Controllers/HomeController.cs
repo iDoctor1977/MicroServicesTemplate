@@ -1,25 +1,25 @@
-﻿using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.Dashboard.Common.Models;
+﻿using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Web.Bases;
 using CoreServicesTemplate.Dashboard.Web.Models;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreServicesTemplate.Dashboard.Web.Controllers
 {
     public class HomeController : ControllerBase<HomeController>
     {
-        private readonly IConsolidatorToData<UserViewModel, UserModel> _userConsolidator;
-        private readonly IConsolidatorToData<UsersViewModel, UsersModel> _userCustomConsolidator;
+        private readonly IConsolidator<UserViewModel, UserModel> _userConsolidator;
+        private readonly IConsolidator<UsersViewModel, UsersModel> _userCustomConsolidator;
 
-        private readonly IAddUserFeature _addUserFeature;
-        private readonly IGetUsersFeature _getUsersFeature;
+        private readonly IFeatureCommand<UserModel> _addUserFeature;
+        private readonly IFeatureQuery<UsersModel> _getUsersFeature;
 
         public HomeController(
-            IConsolidatorToData<UserViewModel, UserModel> userReceiver,
-            IConsolidatorToData<UsersViewModel, UsersModel> userCustomConsolidator,
-            IAddUserFeature addUserFeature,
-            IGetUsersFeature getUsersFeature,
+            IConsolidator<UserViewModel, UserModel> userReceiver,
+            IConsolidator<UsersViewModel, UsersModel> userCustomConsolidator,
+            IFeatureCommand<UserModel> addUserFeature,
+            IFeatureQuery<UsersModel> getUsersFeature,
             ILogger<HomeController> logger) : base(logger)
         {
             _userConsolidator = userReceiver;
@@ -49,13 +49,12 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
         {
             var model = _userConsolidator.ToData(viewModel).Resolve();
 
-            var responseMessage = new HttpResponseMessage();
             if (ModelState.IsValid)
             {
-                responseMessage = await _addUserFeature.HandleAsync(model);
+                await _addUserFeature.SetAggregate(model).HandleAsync();
             }
 
-            return RedirectToAction("Index", responseMessage);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

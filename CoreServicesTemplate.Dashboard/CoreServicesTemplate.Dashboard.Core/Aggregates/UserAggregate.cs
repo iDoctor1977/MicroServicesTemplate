@@ -45,7 +45,7 @@ namespace CoreServicesTemplate.Dashboard.Core.Aggregates
             return Model;
         }
 
-        protected override bool IsModelValid()
+        public override bool IsModelValid()
         {
             var value = !string.IsNullOrWhiteSpace(Model.Name);
             value = !string.IsNullOrWhiteSpace(Model.Surname);
