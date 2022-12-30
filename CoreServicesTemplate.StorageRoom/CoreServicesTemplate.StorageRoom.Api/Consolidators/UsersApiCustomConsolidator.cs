@@ -9,9 +9,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Consolidators;
 
 public sealed class UsersApiCustomConsolidator : ACustomConsolidatorBase<UsersApiModel, UsersModel>
 {
-    private readonly IConsolidatorToData<UserApiModel, UserModel> _userConsolidator;
+    private readonly IConsolidator<UserApiModel, UserModel> _userConsolidator;
 
-    public UsersApiCustomConsolidator(ICustomMapper customMapper, IConsolidatorToData<UserApiModel, UserModel> userConsolidator) : base(customMapper)
+    public UsersApiCustomConsolidator(ICustomMapper customMapper, IConsolidator<UserApiModel, UserModel> userConsolidator) : base(customMapper)
     {
         _userConsolidator = userConsolidator;
 

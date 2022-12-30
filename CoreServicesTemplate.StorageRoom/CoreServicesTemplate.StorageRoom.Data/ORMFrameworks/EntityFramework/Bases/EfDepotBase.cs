@@ -13,9 +13,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Ba
             _dbContext = dbContext;
         }
 
-        protected void Commit() => _dbContext.Value.SaveChanges();
+        public void Commit() => _dbContext.Value.SaveChanges();
 
-        protected async Task CommitAsync() => await _dbContext.Value.SaveChangesAsync();
+        public async Task CommitAsync() => await _dbContext.Value.SaveChangesAsync();
 
         public void Dispose() => _dbContext?.Value.Dispose();
 

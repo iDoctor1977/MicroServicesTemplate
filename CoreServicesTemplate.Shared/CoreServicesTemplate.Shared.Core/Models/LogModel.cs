@@ -1,8 +1,9 @@
 ﻿using System;
+using CoreServicesTemplate.Shared.Core.Interfaces.Models;
 
 namespace CoreServicesTemplate.Shared.Core.Models
 {
-    public class LogApiModel
+    public class LogModel : IAppModel
     {
         public DateTime? LogTime { get; set; }
         public string Body { get; set; }

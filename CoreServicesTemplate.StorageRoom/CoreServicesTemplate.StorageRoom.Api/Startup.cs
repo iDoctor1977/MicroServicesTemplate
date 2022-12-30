@@ -7,7 +7,6 @@ using Microsoft.OpenApi.Models;
 using System;
 using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Core.Features;
 using CoreServicesTemplate.StorageRoom.Data.MapperProfiles;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
@@ -19,13 +18,18 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using System.Collections.Generic;
 using CoreServicesTemplate.Shared.Core.Consolidators;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.StorageRoom.Api.Consolidators;
+using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
+using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
 using CoreServicesTemplate.StorageRoom.Data.Consolidators;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mocks;
+using CoreServicesTemplate.StorageRoom.Core.Interfaces;
+using CoreServicesTemplate.StorageRoom.Core.Pipeline;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {
@@ -43,9 +47,9 @@ namespace CoreServicesTemplate.StorageRoom.Api
         {
             #region Injections
 
-            services.AddTransient<IAddUserFeature, AddUserFeature>();
-            services.AddTransient<IGetUserFeature, GetUserFeature>();
-            services.AddTransient<IGetUsersFeature, GetUsersFeature>();
+            services.AddTransient<IFeatureCommand<UserModel>, AddUserFeature>();
+            services.AddTransient<IFeatureQuery<UserModel, UserModel>, GetUserFeature>();
+            services.AddTransient<IFeatureQuery<UsersModel>, GetUsersFeature>();
 
             services.AddTransient<IAddUserDepot, AddUserEfDepot>();
             services.AddTransient<IGetUserDepot, GetUserEfDepot>();
@@ -64,13 +68,13 @@ namespace CoreServicesTemplate.StorageRoom.Api
 
             #endregion
 
-            #region ConsolidatorReverse
+            #region Consolidator
 
             services.AddTransient<ICustomMapper, CustomMapper>();
 
-            services.AddTransient(typeof(IConsolidatorToData<,>), typeof(DefaultConsolidator<,>));
-            services.AddTransient(typeof(IConsolidatorToData<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
-            services.AddTransient(typeof(IConsolidatorToData<UsersModel, IEnumerable<User>>), typeof(UsersDataCustomConsolidator));
+            services.AddTransient(typeof(IConsolidator<,>), typeof(DefaultConsolidator<,>));
+            services.AddTransient(typeof(IConsolidator<UsersApiModel, UsersModel>), typeof(UsersApiCustomConsolidator));
+            services.AddTransient(typeof(IConsolidator<UsersModel, IEnumerable<User>>), typeof(UsersDataCustomConsolidator));
 
             #endregion
 
@@ -86,6 +90,19 @@ namespace CoreServicesTemplate.StorageRoom.Api
             #region Automapper
 
             services.AddAutoMapper(typeof(ApiMappingProfile), typeof(DataMappingProfile));
+
+            #endregion
+
+            #region Pipeline FeatureCommand SubSteps
+
+            services.AddTransient<IOperationsSupplier, OperationsSupplier>();
+
+            services.AddTransient<AddUserStep1>();
+            services.AddTransient<AddUserStep1SubStep1>();
+            services.AddTransient<AddUserStep1SubStep2>();
+
+            services.AddTransient<GetUserStep1>();
+            services.AddTransient<GetUserStep1SubStep1>();
 
             #endregion
 

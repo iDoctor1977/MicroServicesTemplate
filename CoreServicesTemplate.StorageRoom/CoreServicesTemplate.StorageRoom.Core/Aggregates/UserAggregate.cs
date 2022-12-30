@@ -4,9 +4,9 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates
 {
-    public class CreateAggregate : AAggregateBase<UserModel>
+    public class UserAggregate : AAggregateBase<UserModel>
     {
-        public CreateAggregate(UserModel model) : base(model) { }
+        public UserAggregate(UserModel model) : base(model) { }
 
         public void SetGuid(Guid guid)
         {
@@ -31,7 +31,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates
             return Model;
         }
 
-        protected override bool IsModelValid()
+        public override bool IsModelValid()
         {
             var value = !string.IsNullOrWhiteSpace(Model.Name);
             value = !string.IsNullOrWhiteSpace(Model.Surname);

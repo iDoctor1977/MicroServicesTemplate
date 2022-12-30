@@ -13,12 +13,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.Consolidators
         IConsolidatorToResolveReversing<UsersModel, IEnumerable<User>>
 
     {
-        private readonly IConsolidatorToData<UserModel, User> _userConsolidator;
+        private readonly IConsolidator<UserModel, User> _userConsolidator;
 
         private UsersModel _usersModel;
         private IEnumerable<User> _enumerableUsers;
 
-        public UsersDataCustomConsolidator(ICustomMapper customMapper, IConsolidatorToData<UserModel, User> userConsolidator) : base(customMapper)
+        public UsersDataCustomConsolidator(ICustomMapper customMapper, IConsolidator<UserModel, User> userConsolidator) : base(customMapper)
         {
             _userConsolidator = userConsolidator;
 

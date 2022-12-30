@@ -36,7 +36,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
             };
 
             //Act
-            await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostUrl}/AddUser/{apiModel}", apiModel);
+            await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostAddUserUrl}/{apiModel}", apiModel);
 
             //Assert
             _fixture.LoggerMock.Verify(x => x.Log(LogLevel.Information,

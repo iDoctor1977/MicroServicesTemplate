@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="StorageRoomUserControllerLocalhostAddUserUrl" xml:space="preserve">
-    <value>http://localhost:33785/StorageRoom/User/AddUser</value>
+    <value>http://localhost:33785/StorageRoom/User/Add</value>
   </data>
   <data name="StorageRoomUserControllerLocalhostDeleteUserUrl" xml:space="preserve">
-    <value>http://localhost:33785/StorageRoom/User/DeletUser</value>
+    <value>http://localhost:33785/StorageRoom/User/Delete</value>
   </data>
   <data name="StorageRoomUserControllerLocalhostGetUsersUrl" xml:space="preserve">
-    <value>http://localhost:33785/StorageRoom/User/GetUsers</value>
+    <value>http://localhost:33785/StorageRoom/User/GetAll</value>
   </data>
   <data name="StorageRoomUserControllerLocalhostGetUserUrl" xml:space="preserve">
-    <value>http://localhost:33785/StorageRoom/User/GetUser</value>
+    <value>http://localhost:33785/StorageRoom/User/Get</value>
   </data>
   <data name="StorageRoomUserControllerLocalhostUpdateUserUrl" xml:space="preserve">
-    <value>http://localhost:33785/StorageRoom/User/UpdateUser</value>
+    <value>http://localhost:33785/StorageRoom/User/Update</value>
   </data>
   <data name="StorageRoomUserControllerLocalhostUrl" xml:space="preserve">
     <value>http://localhost:33785/StorageRoom/User</value>

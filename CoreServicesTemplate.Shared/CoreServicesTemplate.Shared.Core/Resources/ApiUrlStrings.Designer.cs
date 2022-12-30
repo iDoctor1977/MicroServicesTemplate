@@ -61,7 +61,7 @@ namespace CoreServicesTemplate.Shared.Core.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/AddUser.
+        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/Add.
         /// </summary>
         public static string StorageRoomUserControllerLocalhostAddUserUrl {
             get {
@@ -70,7 +70,7 @@ namespace CoreServicesTemplate.Shared.Core.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/DeletUser.
+        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/Delete.
         /// </summary>
         public static string StorageRoomUserControllerLocalhostDeleteUserUrl {
             get {
@@ -79,7 +79,7 @@ namespace CoreServicesTemplate.Shared.Core.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/GetUsers.
+        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/GetAll.
         /// </summary>
         public static string StorageRoomUserControllerLocalhostGetUsersUrl {
             get {
@@ -88,7 +88,7 @@ namespace CoreServicesTemplate.Shared.Core.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/GetUser.
+        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/Get.
         /// </summary>
         public static string StorageRoomUserControllerLocalhostGetUserUrl {
             get {
@@ -97,7 +97,7 @@ namespace CoreServicesTemplate.Shared.Core.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/UpdateUser.
+        ///   Cerca una stringa localizzata simile a http://localhost:33785/StorageRoom/User/Update.
         /// </summary>
         public static string StorageRoomUserControllerLocalhostUpdateUserUrl {
             get {

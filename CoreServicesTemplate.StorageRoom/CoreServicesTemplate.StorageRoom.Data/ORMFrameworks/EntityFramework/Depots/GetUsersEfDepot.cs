@@ -13,11 +13,11 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
     public class GetUsersEfDepot : EfDepotBase, IGetUsersDepot
     {
         private readonly IUserRepository _userRepository;
-        private readonly IConsolidatorToData<UsersModel, IEnumerable<User>> _usersConsolidator;
+        private readonly IConsolidator<UsersModel, IEnumerable<User>> _usersConsolidator;
 
         public GetUsersEfDepot(
             Lazy<StorageRoomDbContext> dbContext,
-            IConsolidatorToData<UsersModel, IEnumerable<User>> usersConsolidator,
+            IConsolidator<UsersModel, IEnumerable<User>> usersConsolidator,
             IUserRepository userRepository) : base(dbContext)
         {
             _usersConsolidator = usersConsolidator;

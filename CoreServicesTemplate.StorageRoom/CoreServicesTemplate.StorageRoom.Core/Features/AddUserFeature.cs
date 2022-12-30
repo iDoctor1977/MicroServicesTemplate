@@ -1,26 +1,42 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using CoreServicesTemplate.Shared.Core.Bases;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates;
+using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
-    public class AddUserFeature : IAddUserFeature
+    public class AddUserFeature : AFeatureCommandBase<UserAggregate, UserModel>
     {
         private readonly IAddUserDepot _addUserDepot;
+        private readonly IOperationsSupplier _operationsSupplier;
 
-        public AddUserFeature(IAddUserDepot addUserDepot) {
+        public AddUserFeature(IAddUserDepot addUserDepot, IOperationsSupplier operationsSupplier)
+        {
             _addUserDepot = addUserDepot;
+            _operationsSupplier = operationsSupplier;
         }
 
-        public async Task HandleAsync(UserModel model)
+        public override async Task HandleAsync()
         {
-            var aggregate = new CreateAggregate(model);
-            aggregate.SetGuid(Guid.NewGuid());
+            // Attach model to your model domain logic
+            await _operationsSupplier.CalculateGuidAsync(Aggregate);
 
-            await _addUserDepot.HandleAsync(aggregate.ToModel());
+            // execute interaction with repository if necessary
+            await _addUserDepot.HandleAsync(Aggregate.ToModel());
+
+            // execute addUserFeature sub steps
+            // this part is added only for features scalability 
+            await _operationsSupplier.HandleAddAsync(Aggregate);
+        }
+
+        public override ICommandHandleAggregate SetAggregate(UserModel model)
+        {
+            Aggregate = new UserAggregate(model);
+
+            return this;
         }
     }
 }

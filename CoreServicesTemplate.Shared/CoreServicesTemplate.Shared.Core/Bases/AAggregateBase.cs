@@ -1,11 +1,13 @@
 ﻿using System;
+using CoreServicesTemplate.Shared.Core.Interfaces.IAggregates;
+using CoreServicesTemplate.Shared.Core.Interfaces.Models;
 using CoreServicesTemplate.Shared.Core.Resources;
 
 namespace CoreServicesTemplate.Shared.Core.Bases
 {
-    public abstract class AAggregateBase<T> where T : AAppModelBase
+    public abstract class AAggregateBase<T> : IAggregate<T> where T : IAppModel
     {
-        protected readonly T Model;
+        public T Model { get; set; }
 
         protected AAggregateBase(T model)
         {
@@ -18,6 +20,6 @@ namespace CoreServicesTemplate.Shared.Core.Bases
         }
 
         public abstract T ToModel();
-        protected abstract bool IsModelValid();
+        public abstract bool IsModelValid();
     }
 }
