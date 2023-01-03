@@ -1,30 +1,30 @@
 ﻿using System.Collections.Generic;
 using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Consolidators;
 
-public sealed class UsersApiCustomConsolidator : ACustomConsolidatorBase<UsersApiModel, UsersModel>
+public sealed class UsersApiCustomConsolidator : ACustomConsolidatorBase<UsersApiModel, UsersAppModel>
 {
-    private readonly IConsolidator<UserApiModel, UserModel> _userConsolidator;
+    private readonly IConsolidator<UserApiModel, UserAppModel> _userConsolidator;
 
-    public UsersApiCustomConsolidator(ICustomMapper customMapper, IConsolidator<UserApiModel, UserModel> userConsolidator) : base(customMapper)
+    public UsersApiCustomConsolidator(ICustomMapper customMapper, IConsolidator<UserApiModel, UserAppModel> userConsolidator) : base(customMapper)
     {
         _userConsolidator = userConsolidator;
 
         ModelIn.UsersApiModelList = new List<UserApiModel>();
-        ModelOut.UsersModelList = new List<UserModel>();
+        ModelOut.UsersModelList = new List<UserAppModel>();
     }
 
-    public override IConsolidatorToResolve<UsersApiModel, UsersModel> ToData(UsersApiModel @in)
+    public override IConsolidatorToResolve<UsersApiModel, UsersAppModel> ToData(UsersApiModel @in)
     {
         ModelIn = @in;
         ModelOut = InDataToOutData(@in);
 
-        var modelList = new List<UserModel>();
+        var modelList = new List<UserAppModel>();
         foreach (var modelIn in @in.UsersApiModelList)
         {
             modelList.Add(_userConsolidator.ToData(modelIn).Resolve());
@@ -35,7 +35,7 @@ public sealed class UsersApiCustomConsolidator : ACustomConsolidatorBase<UsersAp
         return this;
     }
 
-    public override IConsolidatorToResolveReversing<UsersApiModel, UsersModel> ToDataReverse(UsersModel @out)
+    public override IConsolidatorToResolveReversing<UsersApiModel, UsersAppModel> ToDataReverse(UsersAppModel @out)
     {
         ModelIn = OutDataToInData(ModelOut);
 

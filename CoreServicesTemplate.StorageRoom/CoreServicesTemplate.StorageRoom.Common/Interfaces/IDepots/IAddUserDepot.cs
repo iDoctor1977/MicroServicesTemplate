@@ -3,5 +3,5 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots
 {
-    public interface IAddUserDepot : ICommandHandlerCqrs<UserModel> { }
+    public interface IAddUserDepot : ICommandHandlerCqrs<UserAppModel> { }
 }

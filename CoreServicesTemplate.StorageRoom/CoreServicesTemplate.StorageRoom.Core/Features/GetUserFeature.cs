@@ -1,48 +1,55 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Bases;
+using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
-    public class GetUserFeature : AFeatureQueryBase<UserAggregate, UserModel, UserModel>
+    public class GetUserFeature : AFeatureQueryBase<UserAppModel, UserAppModel>
     {
+        private readonly IUserRoot _userAggregateRoot;
+        private readonly IConsolidator<UserAppModel, UserAggModel> _userModelConsolidator;
         private readonly IGetUserDepot _getUserDepot;
-        private readonly IOperationsSupplier _operationsSupplier;
+        private readonly ISubStepSupplier _subStepSupplier;
 
-        public GetUserFeature(IGetUserDepot getUserDepot, IOperationsSupplier operationsSupplier)
+        public GetUserFeature(
+            IUserRoot userAggregateRoot, 
+            IConsolidator<UserAppModel, UserAggModel> userModelConsolidator,
+            IGetUserDepot getUserDepot, 
+            ISubStepSupplier subStepSupplier)
         {
+            ModelAppIn = new UserAppModel();
+            ModelAppOut = new UserAppModel();
+
             _getUserDepot = getUserDepot;
-            _operationsSupplier = operationsSupplier;
+            _subStepSupplier = subStepSupplier;
+            _userAggregateRoot = userAggregateRoot;
+            _userModelConsolidator = userModelConsolidator;
         }
-        public override IQueryHandleAggregate<UserModel> SetAggregate(UserModel model)
+        public override IQueryHandleAggregate<UserAppModel> SetModel(UserAppModel model)
         {
-            AggregateModel = new UserAggregate(model);
+            ModelAppIn = model;
 
             return this;
         }
 
-        public override async Task<UserModel> HandleAsync()
+        public override async Task<UserAppModel> HandleAsync()
         {
-            var userAggregate = AggregateModel;
-
-            // Attach model to your model domain logic
-            userAggregate?.SetGuid(Guid.NewGuid());
-
             // execute interaction with repository if necessary
-            var resultModel = await _getUserDepot.HandleAsync(AggregateModel.ToModel());
+            ModelAppOut = await _getUserDepot.HandleAsync(ModelAppOut);
+
+            // Do something on User aggregate
 
             // execute getUserFeature sub steps
             // this part is added only for features scalability 
-            var resultAggregate = new UserAggregate(resultModel);
-            resultAggregate.SetBirth(DateTime.Now);
-            resultAggregate = await _operationsSupplier.HandleGetAsync(resultAggregate);
+            ModelAppOut = await _subStepSupplier.HandleGetAsync(ModelAppOut);
 
-            return resultAggregate.ToModel();
+            return ModelAppOut;
         }
     }
 }

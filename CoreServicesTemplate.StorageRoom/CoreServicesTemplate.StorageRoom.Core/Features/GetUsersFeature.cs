@@ -5,7 +5,7 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
-    public class GetUsersFeature : AFeatureQueryBase<UsersModel>
+    public class GetUsersFeature : AFeatureQueryBase<UsersAppModel>
     {
         private readonly IGetUsersDepot _getUsersDepot;
 
@@ -13,7 +13,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _getUsersDepot = getUsersDepot;
         }
 
-        public override async Task<UsersModel> HandleAsync()
+        public override async Task<UsersAppModel> HandleAsync()
         {
             var model = await _getUsersDepot.HandleAsync();
 

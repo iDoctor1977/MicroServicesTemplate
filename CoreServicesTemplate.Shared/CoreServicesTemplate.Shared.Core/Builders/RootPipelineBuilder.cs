@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Attributes;
+using CoreServicesTemplate.Shared.Core.Interfaces.Models;
 
 namespace CoreServicesTemplate.Shared.Core.Builders
 {
-    public abstract class RootPipelineBuilder<TIn, TOut> : IBuildStep<TIn, TOut>
+    public abstract class RootPipelineBuilder<TIn, TOut> : IBuildStep<TIn, TOut> where TIn : IAppModel where TOut : IAppModel
     {
         private readonly RootAttribute _localAttribute;
         private readonly List<ISubStep<TIn, TOut>> _root;
@@ -34,11 +35,11 @@ namespace CoreServicesTemplate.Shared.Core.Builders
             throw new Exception(newStep.GetType().Name + " it doesn't belong to the root " + GetType().Name + " or attribute was not found.");
         }
 
-        protected abstract Task<TOut> HandleRootStepAsync(TIn aggregate);
+        protected abstract Task<TOut> HandleRootStepAsync(TIn appModel);
 
-        public Task<TOut> ExecuteAsync(TIn aggregate)
+        public Task<TOut> ExecuteAsync(TIn modelApp)
         {
-            _stepInput = HandleRootStepAsync(aggregate);
+            _stepInput = HandleRootStepAsync(modelApp);
 
             if (_root.Count != 0)
             {
@@ -52,15 +53,15 @@ namespace CoreServicesTemplate.Shared.Core.Builders
         }
     }
 
-    public interface IRootStep<TIn, TOut> : ISubStep<TIn, TOut>
+    public interface IRootStep<TIn, TOut> : ISubStep<TIn, TOut> where TIn : IAppModel where TOut : IAppModel
     {
         IBuildStep<TIn, TOut> AddSubStep(ISubStep<TIn, TOut> newStep);
     }
 
-    public interface IBuildStep<TIn, TOut> : IRootStep<TIn, TOut> { }
+    public interface IBuildStep<TIn, TOut> : IRootStep<TIn, TOut> where TIn : IAppModel where TOut : IAppModel { }
 
-    public interface ISubStep<in TIn, TOut>
+    public interface ISubStep<in TIn, TOut> where TIn : IAppModel where TOut : IAppModel
     {
-        Task<TOut> ExecuteAsync(TIn aggregate);
+        Task<TOut> ExecuteAsync(TIn modelApp);
     }
 }

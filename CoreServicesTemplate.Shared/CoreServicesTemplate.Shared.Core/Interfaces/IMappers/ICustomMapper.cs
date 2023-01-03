@@ -1,4 +1,4 @@
-﻿namespace CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers
+﻿namespace CoreServicesTemplate.Shared.Core.Interfaces.IMappers
 {
     public interface ICustomMapper
     {

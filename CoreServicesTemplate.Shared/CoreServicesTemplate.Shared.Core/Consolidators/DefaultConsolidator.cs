@@ -1,6 +1,6 @@
 ﻿using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 
 namespace CoreServicesTemplate.Shared.Core.Consolidators;
 

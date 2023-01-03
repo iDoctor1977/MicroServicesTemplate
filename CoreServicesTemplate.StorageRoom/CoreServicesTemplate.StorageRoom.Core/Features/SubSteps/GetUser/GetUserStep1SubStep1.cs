@@ -1,21 +1,33 @@
-using System;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Attributes;
 using CoreServicesTemplate.Shared.Core.Builders;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates;
+using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
+using CoreServicesTemplate.StorageRoom.Common.Models;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser
 {
     [Leaf(nameof(GetUserStep1))]
-    public class GetUserStep1SubStep1 : ISubStep<UserAggregate, UserAggregate>
+    public class GetUserStep1SubStep1 : ISubStep<UserAppModel, UserAppModel>
     {
-        public GetUserStep1SubStep1(IServiceProvider service) { }
+        private readonly IUserRoot _userAggregateRoot;
+        private readonly IConsolidator<UserAppModel, UserAggModel> _userConsolidator;
+        private readonly IGetUserDepot _getUserDepot;
 
-        public async Task<UserAggregate> ExecuteAsync(UserAggregate aggregate)
+        public GetUserStep1SubStep1(IUserRoot userAggregateRoot, IConsolidator<UserAppModel, UserAggModel> userConsolidator, IGetUserDepot getUserDepot)
         {
-            aggregate.ToModel();
+            _userAggregateRoot = userAggregateRoot;
+            _userConsolidator = userConsolidator;
+            _getUserDepot = getUserDepot;
+        }
 
-            return aggregate;
+        public async Task<UserAppModel> ExecuteAsync(UserAppModel modelApp)
+        {
+            // Do anything on User aggregate
+
+            return modelApp;
         }
     }
 }

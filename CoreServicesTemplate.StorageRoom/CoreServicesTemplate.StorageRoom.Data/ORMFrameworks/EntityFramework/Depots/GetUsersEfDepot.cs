@@ -13,18 +13,18 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
     public class GetUsersEfDepot : EfDepotBase, IGetUsersDepot
     {
         private readonly IUserRepository _userRepository;
-        private readonly IConsolidator<UsersModel, IEnumerable<User>> _usersConsolidator;
+        private readonly IConsolidator<UsersAppModel, IEnumerable<User>> _usersConsolidator;
 
         public GetUsersEfDepot(
             Lazy<StorageRoomDbContext> dbContext,
-            IConsolidator<UsersModel, IEnumerable<User>> usersConsolidator,
+            IConsolidator<UsersAppModel, IEnumerable<User>> usersConsolidator,
             IUserRepository userRepository) : base(dbContext)
         {
             _usersConsolidator = usersConsolidator;
             _userRepository = userRepository;
         }
 
-        public async Task<UsersModel> HandleAsync()
+        public async Task<UsersAppModel> HandleAsync()
         {
             var entity = await _userRepository.GetAllCustomAsync();
 

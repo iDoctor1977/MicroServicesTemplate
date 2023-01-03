@@ -3,5 +3,5 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots
 {
-    public interface IGetUserDepot : IQueryHandlerCqrs<UserModel, UserModel> { }
+    public interface IGetUserDepot : IQueryHandlerCqrs<UserAppModel, UserAppModel> { }
 }

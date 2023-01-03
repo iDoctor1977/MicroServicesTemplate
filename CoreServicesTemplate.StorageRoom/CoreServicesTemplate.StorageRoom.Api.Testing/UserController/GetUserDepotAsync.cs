@@ -44,7 +44,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                     .Build()
             };
 
-            var usersModel = new UsersModel
+            var usersModel = new UsersAppModel
             {
                 UsersModelList = userModelBuilder
                     .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-123987))
@@ -55,7 +55,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 
 
             var modelMock = usersModel.UsersModelList.ElementAtOrDefault(2);
-            _fixture.GetUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserModel>())).Returns(Task.FromResult(modelMock));
+            _fixture.GetUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserAppModel>())).Returns(Task.FromResult(modelMock));
 
             //Act
             UserApiModel userApiModel = usersApiModel.UsersApiModelList.ElementAt(2);
@@ -71,7 +71,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             var result = await _client.SendAsync(request);
 
             //Assert
-            _fixture.GetUserDepotMock.Verify((c => c.HandleAsync(It.IsAny<UserModel>())), Times.Once());
+            _fixture.GetUserDepotMock.Verify((c => c.HandleAsync(It.IsAny<UserAppModel>())), Times.Once());
         }
     }
 }

@@ -12,24 +12,24 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     [Route("StorageRoom/[controller]/[action]", Name = "[controller]_[action]")]
     public class UserController : ControllerBase
     {
-        private readonly IFeatureCommand<UserModel> _addUserFeature;
-        private readonly IFeatureQuery<UserModel, UserModel> _getUserFeature;
-        private readonly IFeatureQuery<UsersModel> _getUsersFeature;
+        private readonly IFeatureCommand<UserAppModel> _addUserFeature;
+        private readonly IFeatureQuery<UserAppModel, UserAppModel> _getUserFeature;
+        private readonly IFeatureQuery<UsersAppModel> _getUsersFeature;
 
-        private readonly IConsolidator<UsersApiModel, UsersModel> _usersModelCustomPresenter;
-        private readonly IConsolidator<UserApiModel, UserModel> _userModelConsolidator;
+        private readonly IConsolidator<UsersApiModel, UsersAppModel> _usersModelCustomConsolidator;
+        private readonly IConsolidator<UserApiModel, UserAppModel> _userModelConsolidator;
 
         public UserController(
-            IFeatureCommand<UserModel> addUserFeature,
-            IFeatureQuery<UserModel, UserModel> getUserFeature,
-            IFeatureQuery<UsersModel> getUsersFeature,
-            IConsolidator<UsersApiModel, UsersModel> usersModelCustomPresenter,
-            IConsolidator<UserApiModel, UserModel> userModelConsolidator)
+            IFeatureCommand<UserAppModel> addUserFeature,
+            IFeatureQuery<UserAppModel, UserAppModel> getUserFeature,
+            IFeatureQuery<UsersAppModel> getUsersFeature,
+            IConsolidator<UsersApiModel, UsersAppModel> usersModelCustomConsolidator,
+            IConsolidator<UserApiModel, UserAppModel> userModelConsolidator)
         {
             _addUserFeature = addUserFeature;
             _getUserFeature = getUserFeature;
             _getUsersFeature = getUsersFeature;
-            _usersModelCustomPresenter = usersModelCustomPresenter;
+            _usersModelCustomConsolidator = usersModelCustomConsolidator;
             _userModelConsolidator = userModelConsolidator;
         }
 
@@ -46,7 +46,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             var model = _userModelConsolidator.ToData(apiModel).Resolve();
 
             // set model domain in to feature ad call handle method
-            await _addUserFeature.SetAggregate(model).HandleAsync();
+            await _addUserFeature.SetModel(model).HandleAsync();
             
             return CreatedAtAction(nameof(Add), apiModel);
         }
@@ -64,7 +64,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             var model = _userModelConsolidator.ToData(apiModel).Resolve();
 
             // set model domain in to feature ad call handle method
-            var resultModel = await _getUserFeature.SetAggregate(model).HandleAsync();
+            var resultModel = await _getUserFeature.SetModel(model).HandleAsync();
 
             // decoupling AppModel and map it in to ApiModel to return value.
             var resultApiModel = _userModelConsolidator.ToDataReverse(resultModel).Resolve();
@@ -80,7 +80,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             var model = await _getUsersFeature.HandleAsync();
 
             // decoupling AppModel and map it in to ApiModel to return value.
-            var apiModel = _usersModelCustomPresenter.ToDataReverse(model).Resolve();
+            var apiModel = _usersModelCustomConsolidator.ToDataReverse(model).Resolve();
 
             return apiModel is null ? NoContent() : apiModel;
         }
@@ -98,7 +98,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             var model = _userModelConsolidator.ToData(apiModel).Resolve();
 
             // set model domain in to feature ad call handle method.
-            // var result = await _updateUserFeature.SetAggregate(model).HandleAddAsync();
+            // var result = await _updateUserFeature.SetModel(model).HandleAddAsync();
 
             //if (result is null)
             //{
@@ -121,7 +121,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             var model = _userModelConsolidator.ToData(apiModel).Resolve();
 
             // set model domain in to feature ad call handle method.
-            // var result = await _deleteUserFeature.SetAggregate(model).HandleAddAsync();
+            // var result = await _deleteUserFeature.SetModel(model).HandleAddAsync();
 
             //if (result is null)
             //{
