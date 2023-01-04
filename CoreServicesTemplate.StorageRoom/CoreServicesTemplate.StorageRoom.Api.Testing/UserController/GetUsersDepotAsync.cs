@@ -31,7 +31,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
         {
             //Arrange
             var userBuilder = new UserModelBuilder();
-            var users = new UsersModel
+            var users = new UsersAppModel
             {
                 UsersModelList = userBuilder
                     .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-123987))

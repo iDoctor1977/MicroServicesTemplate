@@ -32,7 +32,14 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             {
                 Name = "Foo",
                 Surname = "Foo Foo",
-                Birth = DateTime.Now.AddDays(-14000)
+                Birth = DateTime.Now.AddDays(-14000),
+
+                AddressApiModel = new AddressApiModel
+                {
+                    Address1 = "Via Copparo, 208 int. 10",
+                    City = "Ferrara",
+                    PostalCode = "44123"
+                }
             };
 
             _fixture.UserRepositoryMock.Setup(repo => repo.AddCustomAsync(It.IsAny<User>()));

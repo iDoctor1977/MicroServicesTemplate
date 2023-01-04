@@ -12,18 +12,18 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
     public class GetUserEfDepot : EfDepotBase, IGetUserDepot
     {
         private readonly IUserRepository _userRepository;
-        private readonly IConsolidator<UserModel, User> _userConsolidator;
+        private readonly IConsolidator<UserAppModel, User> _userConsolidator;
 
         public GetUserEfDepot(
             Lazy<StorageRoomDbContext> dbContext,
-            IConsolidator<UserModel, User> userConsolidator,
+            IConsolidator<UserAppModel, User> userConsolidator,
             IUserRepository userRepository) : base(dbContext)
         {
             _userConsolidator = userConsolidator;
             _userRepository = userRepository;
         }
 
-        public async Task<UserModel> HandleAsync(UserModel model)
+        public async Task<UserAppModel> HandleAsync(UserAppModel model)
         {
             User entity = _userConsolidator.ToData(model).Resolve();
 

@@ -8,8 +8,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.MapperProfiles
     {
         public ApiMappingProfile()
         {
-            CreateMap<UserModel, UserApiModel>().ReverseMap();
-            CreateMap<UsersModel, UsersApiModel>().ReverseMap();
+            CreateMap<AddressAppModel, AddressApiModel>().ReverseMap();
+            CreateMap<UserAppModel, UserApiModel>().ReverseMap();
+            CreateMap<UsersAppModel, UsersApiModel>().ReverseMap();
         }
     }
 }

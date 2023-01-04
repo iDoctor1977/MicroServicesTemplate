@@ -8,8 +8,8 @@ namespace CoreServicesTemplate.Dashboard.Core.MapperProfiles
     {
         public CoreMappingProfile()
         {
-            CreateMap<UserModel, UserApiModel>().ReverseMap();
-            CreateMap<UsersModel, UsersApiModel>().ReverseMap();
+            CreateMap<UserAppModel, UserApiModel>().ReverseMap();
+            CreateMap<UsersAppModel, UsersApiModel>().ReverseMap();
         }
     }
 }

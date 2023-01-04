@@ -1,23 +1,23 @@
 using CoreServicesTemplate.Dashboard.Common.Models;
-using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Dashboard.Core.Features
 {
-    public class GetUsersFeature : AFeatureQueryBase<UsersModel>
+    public class GetUsersFeature : IFeatureQuery<UsersAppModel>
     {
         private readonly IStorageRoomService _storageRoomService;
-        private readonly IConsolidator<UsersApiModel, UsersModel> _consolidators;
+        private readonly IConsolidator<UsersApiModel, UsersAppModel> _consolidators;
 
-        public GetUsersFeature(IStorageRoomService storageRoomService, IConsolidator<UsersApiModel, UsersModel> consolidators)
+        public GetUsersFeature(IStorageRoomService storageRoomService, IConsolidator<UsersApiModel, UsersAppModel> consolidators)
         {
             _storageRoomService = storageRoomService;
             _consolidators = consolidators;
         }
 
-        public override async Task<UsersModel> HandleAsync()
+        public async Task<UsersAppModel> HandleAsync()
         {
             var apiModel = await _storageRoomService.GetUsersAsync();
 

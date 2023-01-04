@@ -8,7 +8,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.MapperProfiles
     {
         public DataMappingProfile()
         {
-            CreateMap<UserModel, User>().ReverseMap();
+            CreateMap<UserAppModel, User>().ReverseMap();
         }
     }
 }

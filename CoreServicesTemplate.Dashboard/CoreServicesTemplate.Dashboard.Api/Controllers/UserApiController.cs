@@ -10,17 +10,17 @@ namespace CoreServicesTemplate.Dashboard.Api.Controllers
     [Route("Dashboard/[controller]/[action]")]
     public class UserApiController : ControllerBase
     {
-        private readonly IConsolidator<UsersApiModel, UsersModel> _consolidators;
-        private readonly IFeatureQuery<UsersModel> _getUsersFeature;
+        private readonly IConsolidator<UsersApiModel, UsersAppModel> _userCustomConsolidators;
+        private readonly IFeatureQuery<UsersAppModel> _getUsersFeature;
         private readonly ILogger<UserApiController> _logger;
 
         public UserApiController(
-            IFeatureQuery<UsersModel> getUsersFeature,
-            IConsolidator<UsersApiModel, UsersModel> consolidators,
+            IFeatureQuery<UsersAppModel> getUsersFeature,
+            IConsolidator<UsersApiModel, UsersAppModel> userCustomConsolidators,
             ILogger<UserApiController> logger)
         {
             _logger = logger;
-            _consolidators = consolidators;
+            _userCustomConsolidators = userCustomConsolidators;
             _getUsersFeature = getUsersFeature;
         }
 
@@ -29,7 +29,7 @@ namespace CoreServicesTemplate.Dashboard.Api.Controllers
         {
             var model = await _getUsersFeature.HandleAsync();
 
-            var apiModel = _consolidators.ToDataReverse(model).Resolve();
+            var apiModel = _userCustomConsolidators.ToDataReverse(model).Resolve();
 
             return apiModel == null ? NotFound() : Ok(apiModel);
         }

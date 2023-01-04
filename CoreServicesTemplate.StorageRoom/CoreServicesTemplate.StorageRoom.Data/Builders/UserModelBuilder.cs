@@ -6,17 +6,16 @@ namespace CoreServicesTemplate.StorageRoom.Data.Builders
 {
     public class UserModelBuilder : IUserModelBuilder, IUserModelAdded
     {
-        private ICollection<UserModel> _users;
+        private ICollection<UserAppModel> _users;
 
         public UserModelBuilder() {
-            _users = new List<UserModel>();
+            _users = new List<UserAppModel>();
         }
 
-        private UserModel CreateUser(string name)
+        private UserAppModel CreateUser(string name)
         {
-            var user = new UserModel
+            var user = new UserAppModel
             {
-                Id = new Random().Next(1, 100),
                 Guid = Guid.NewGuid(),
                 Name = name,
             };
@@ -24,14 +23,14 @@ namespace CoreServicesTemplate.StorageRoom.Data.Builders
             return user;
         }
 
-        private UserModel CreateUser(string name, string surname)
+        private UserAppModel CreateUser(string name, string surname)
         {
             var user = CreateUser(name);
             user.Surname = surname;
 
             return user;
         }
-        private UserModel CreateUser(string name, string surname, DateTime birth)
+        private UserAppModel CreateUser(string name, string surname, DateTime birth)
         {
             var user = CreateUser(name);
             user.Surname = surname;
@@ -63,7 +62,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Builders
             return this;
         }
 
-        public IEnumerable<UserModel> Build()
+        public IEnumerable<UserAppModel> Build()
         {
             var result = _users;
             _users = null;
@@ -81,6 +80,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.Builders
 
     public interface IUserModelAdded : IUserModelBuilder
     {
-        IEnumerable<UserModel> Build();
+        IEnumerable<UserAppModel> Build();
     }
 }

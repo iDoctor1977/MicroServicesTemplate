@@ -2,35 +2,35 @@
 using System.Linq;
 using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.ICustomMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Consolidators
 {
-    public sealed class UsersDataCustomConsolidator : AConsolidatorBase<UsersModel, IEnumerable<User>>,
-        IConsolidatorToResolve<UsersModel, IEnumerable<User>>,
-        IConsolidatorToResolveReversing<UsersModel, IEnumerable<User>>
+    public sealed class UsersDataCustomConsolidator : AConsolidatorBase<UsersAppModel, IEnumerable<User>>,
+        IConsolidatorToResolve<UsersAppModel, IEnumerable<User>>,
+        IConsolidatorToResolveReversing<UsersAppModel, IEnumerable<User>>
 
     {
-        private readonly IConsolidator<UserModel, User> _userConsolidator;
+        private readonly IConsolidator<UserAppModel, User> _userConsolidator;
 
-        private UsersModel _usersModel;
+        private UsersAppModel _usersModel;
         private IEnumerable<User> _enumerableUsers;
 
-        public UsersDataCustomConsolidator(ICustomMapper customMapper, IConsolidator<UserModel, User> userConsolidator) : base(customMapper)
+        public UsersDataCustomConsolidator(ICustomMapper customMapper, IConsolidator<UserAppModel, User> userConsolidator) : base(customMapper)
         {
             _userConsolidator = userConsolidator;
 
-            _usersModel = new UsersModel
+            _usersModel = new UsersAppModel
             {
-                UsersModelList = new List<UserModel>()
+                UsersModelList = new List<UserAppModel>()
             };
 
             _enumerableUsers = new List<User>();
         }
         
-        public override IConsolidatorToResolve<UsersModel, IEnumerable<User>> ToData(UsersModel @in)
+        public override IConsolidatorToResolve<UsersAppModel, IEnumerable<User>> ToData(UsersAppModel @in)
         {
             _usersModel = @in;
             _enumerableUsers = InDataToOutData(@in);
@@ -46,9 +46,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.Consolidators
             return this;
         }
 
-        public override IConsolidatorToResolveReversing<UsersModel, IEnumerable<User>> ToDataReverse(IEnumerable<User> @out)
+        public override IConsolidatorToResolveReversing<UsersAppModel, IEnumerable<User>> ToDataReverse(IEnumerable<User> @out)
         {
-            var list = new List<UserModel>();
+            var list = new List<UserAppModel>();
             var enumerable = @out.ToList();
             foreach (var model in enumerable)
             {
@@ -60,12 +60,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.Consolidators
             return this;
         }
         
-        IEnumerable<User> IConsolidatorToResolve<UsersModel, IEnumerable<User>>.Resolve()
+        IEnumerable<User> IConsolidatorToResolve<UsersAppModel, IEnumerable<User>>.Resolve()
         {
             return _enumerableUsers;
         }
 
-        UsersModel IConsolidatorToResolveReversing<UsersModel, IEnumerable<User>>.Resolve()
+        UsersAppModel IConsolidatorToResolveReversing<UsersAppModel, IEnumerable<User>>.Resolve()
         {
             return _usersModel;
         }

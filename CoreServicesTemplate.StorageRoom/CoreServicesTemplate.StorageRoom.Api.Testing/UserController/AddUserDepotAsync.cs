@@ -32,16 +32,23 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             {
                 Name = "Foo",
                 Surname = "Foo Foo",
-                Birth = DateTime.Now.AddDays(-14000)
+                Birth = DateTime.Now.AddDays(-14000),
+
+                AddressApiModel = new AddressApiModel
+                {
+                    Address1 = "Via Copparo, 208 int. 10",
+                    PostalCode = "44123",
+                    City = "Ferrara"
+                }
             };
 
-            _fixture.AddUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserModel>()));
+            _fixture.AddUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserAppModel>()));
 
             //Act
             await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostAddUserUrl}/{modelApi}", modelApi);
 
             //Assert
-            _fixture.AddUserDepotMock.Verify((c => c.HandleAsync(It.Is<UserModel>(arg => arg.Name == modelApi.Name))));
+            _fixture.AddUserDepotMock.Verify((c => c.HandleAsync(It.Is<UserAppModel>(arg => arg.Name == modelApi.Name))));
         }
     }
 }

@@ -9,24 +9,24 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
 {
     public class HomeController : ControllerBase<HomeController>
     {
-        private readonly IConsolidator<UserViewModel, UserModel> _userConsolidator;
-        private readonly IConsolidator<UsersViewModel, UsersModel> _userCustomConsolidator;
+        private readonly IConsolidator<UserViewModel, UserAppModel> _userCustomConsolidator;
+        private readonly IConsolidator<UsersViewModel, UsersAppModel> _usersCustomConsolidator;
 
-        private readonly IFeatureCommand<UserModel> _addUserFeature;
-        private readonly IFeatureQuery<UsersModel> _getUsersFeature;
+        private readonly IFeatureCommand<UserAppModel> _addUserFeature;
+        private readonly IFeatureQuery<UsersAppModel> _getUsersFeature;
 
         public HomeController(
-            IConsolidator<UserViewModel, UserModel> userReceiver,
-            IConsolidator<UsersViewModel, UsersModel> userCustomConsolidator,
-            IFeatureCommand<UserModel> addUserFeature,
-            IFeatureQuery<UsersModel> getUsersFeature,
+            IConsolidator<UserViewModel, UserAppModel> userCustomConsolidator,
+            IConsolidator<UsersViewModel, UsersAppModel> usersCustomConsolidator,
+            IFeatureCommand<UserAppModel> addUserFeature,
+            IFeatureQuery<UsersAppModel> getUsersFeature,
             ILogger<HomeController> logger) : base(logger)
         {
-            _userConsolidator = userReceiver;
+            _userCustomConsolidator = userCustomConsolidator;
 
             _addUserFeature = addUserFeature;
             _getUsersFeature = getUsersFeature;
-            _userCustomConsolidator = userCustomConsolidator;
+            _usersCustomConsolidator = usersCustomConsolidator;
         }
 
         public IActionResult Index()
@@ -47,11 +47,11 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<RedirectToActionResult> Add(UserViewModel viewModel)
         {
-            var model = _userConsolidator.ToData(viewModel).Resolve();
+            var model = _userCustomConsolidator.ToData(viewModel).Resolve();
 
             if (ModelState.IsValid)
             {
-                await _addUserFeature.SetAggregate(model).HandleAsync();
+                await _addUserFeature.HandleAsync(model);
             }
 
             return RedirectToAction("Index");
@@ -62,7 +62,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
         {
             var model = await _getUsersFeature.HandleAsync();
 
-            var viewModel = _userCustomConsolidator.ToDataReverse(model).Resolve();
+            var viewModel = _usersCustomConsolidator.ToDataReverse(model).Resolve();
 
             return View(viewModel);
         }
