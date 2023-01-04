@@ -4,9 +4,9 @@ using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
 
-public interface IUserRoot : IAggregateRoot
+public interface IUserAggregateRoot : IAggregateRoot
 {
-    public Task<UserAggModel> CreateUser(UserAggModel userValueObject);
+    public Task<UserAggModel> CreateUser(UserAggModel userAggModel);
     public Task<string> UserToString();
     public Task<string> AddressToString();
 }

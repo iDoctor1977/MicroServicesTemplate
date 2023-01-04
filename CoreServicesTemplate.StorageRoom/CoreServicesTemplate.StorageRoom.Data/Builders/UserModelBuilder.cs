@@ -16,7 +16,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.Builders
         {
             var user = new UserAppModel
             {
-                Id = new Random().Next(1, 100),
                 Guid = Guid.NewGuid(),
                 Name = name,
             };

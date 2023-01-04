@@ -12,11 +12,14 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser
     [Leaf(nameof(AddUserStep1))]
     public class AddUserStep1SubStep2 : ISubStep<UserAppModel, UserAppModel>
     {
-        private readonly IUserRoot _userAggregateRoot;
+        private readonly IUserAggregateRoot _userAggregateRoot;
         private readonly IConsolidator<UserAppModel, UserAggModel> _userConsolidator;
         private readonly IAddUserDepot _addUserDepot;
 
-        public AddUserStep1SubStep2(IUserRoot userAggregateRoot, IConsolidator<UserAppModel, UserAggModel> userConsolidator, IAddUserDepot addUserDepot)
+        public AddUserStep1SubStep2(
+            IUserAggregateRoot userAggregateRoot, 
+            IConsolidator<UserAppModel, UserAggModel> userConsolidator, 
+            IAddUserDepot addUserDepot)
         {
             _userAggregateRoot = userAggregateRoot;
             _userConsolidator = userConsolidator;

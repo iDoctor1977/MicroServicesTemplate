@@ -13,11 +13,15 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser
     [Root]
     public class AddUserStep1 : RootPipelineBuilder<UserAppModel, UserAppModel>
     {
-        private readonly IUserRoot _userAggregateRoot;
+        private readonly IUserAggregateRoot _userAggregateRoot;
         private readonly IConsolidator<UserAppModel, UserAggModel> _userConsolidator;
         private readonly IAddUserDepot _addUserDepot;
 
-        public AddUserStep1(IAddUserDepot addUserDepot, ICustomMapper customMapper, IUserRoot userAggregateRoot, IConsolidator<UserAppModel, UserAggModel> userConsolidator)
+        public AddUserStep1(
+            IAddUserDepot addUserDepot, 
+            ICustomMapper customMapper, 
+            IUserAggregateRoot userAggregateRoot, 
+            IConsolidator<UserAppModel, UserAggModel> userConsolidator)
         {
             _addUserDepot = addUserDepot;
             _userAggregateRoot = userAggregateRoot;

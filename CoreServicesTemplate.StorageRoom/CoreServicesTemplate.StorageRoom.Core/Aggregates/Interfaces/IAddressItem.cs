@@ -1,6 +1,9 @@
-﻿namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
+﻿using System.Threading.Tasks;
+using CoreServicesTemplate.Shared.Core.Interfaces.IDomainEntities;
 
-public interface IAddressItem
+namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
+
+public interface IAddressItem : IAggregateEntity
 {
-    public string AddressToString();
+    Task<string> AddressToString();
 }

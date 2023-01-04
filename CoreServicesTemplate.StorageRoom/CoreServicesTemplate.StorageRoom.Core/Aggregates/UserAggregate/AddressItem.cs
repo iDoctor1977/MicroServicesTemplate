@@ -1,4 +1,5 @@
-﻿using CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
+﻿using System.Threading.Tasks;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate
 {
@@ -10,11 +11,11 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate
         public string State { get; set; }
         public string PostalCode { get; set; }
 
-        public string AddressToString()
+        public Task<string> AddressToString()
         {
             string address = $"{Address1} {Address2}, {PostalCode}, {City}, {State}";
 
-            return address;
+            return Task.FromResult(address);
         }
     }
 }

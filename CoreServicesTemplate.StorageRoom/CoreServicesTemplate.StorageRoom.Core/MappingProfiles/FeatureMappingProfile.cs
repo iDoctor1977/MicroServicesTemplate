@@ -9,6 +9,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.MappingProfiles
         public FeatureMappingProfile()
         {
             CreateMap<UserAppModel, UserAggModel>().ReverseMap();
+            CreateMap<AddressAppModel, AddressAggModel>().ReverseMap();
         }
     }
 }

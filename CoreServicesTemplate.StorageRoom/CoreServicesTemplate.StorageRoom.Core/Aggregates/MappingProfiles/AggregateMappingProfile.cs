@@ -8,8 +8,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.MappingProfiles
     {
         public AggregateMappingProfile()
         {
-            CreateMap<UserAggModel, UserItem>().ReverseMap();
-            CreateMap<UserAggModel, AddressItem>().ReverseMap();
+            CreateMap<AddressItem, AddressAggModel>().ReverseMap();
         }
     }
 }

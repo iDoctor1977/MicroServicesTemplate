@@ -1,16 +1,14 @@
 ﻿using System;
 using CoreServicesTemplate.Shared.Core.Interfaces.Models;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.Bases;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 
-public class UserAggModel : IAggModel
+public class UserAggModel : AggModelBase, IAggModel
 {
     public string Name { get; set; }
     public string Surname { get; set; }
     public DateTime Birth { get; set; }
-    public string Address1 { get; set; }
-    public string Address2 { get; set; }
-    public string City { get; set; }
-    public string State { get; set; }
-    public string PostalCode { get; set; }
+
+    public AddressAggModel AddressAggModel { get; set; }
 }

@@ -3,7 +3,7 @@ using CoreServicesTemplate.Shared.Core.Interfaces.Models;
 
 namespace CoreServicesTemplate.Shared.Core.Bases
 {
-    public abstract class AApiModelBase : IApiModel
+    public class ApiModelBase : IApiModel
     {
         public Guid Guid { get; set; }
     }

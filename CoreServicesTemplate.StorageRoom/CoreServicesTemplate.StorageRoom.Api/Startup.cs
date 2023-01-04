@@ -31,8 +31,11 @@ using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 using CoreServicesTemplate.StorageRoom.Core;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.MappingProfiles;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate;
+using CoreServicesTemplate.StorageRoom.Core.Consolidators;
 using CoreServicesTemplate.StorageRoom.Core.MappingProfiles;
+using CoreServicesTemplate.StorageRoom.Data.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {
@@ -73,8 +76,7 @@ namespace CoreServicesTemplate.StorageRoom.Api
 
             #region Domain Aggregates
 
-            services.AddTransient<IUserRoot, UserRoot>();
-            services.AddTransient<IUserItem, UserItem>();
+            services.AddTransient<IUserAggregateRoot, UserAggregateRoot>();
             services.AddTransient<IAddressItem, AddressItem>();
 
             #endregion
@@ -82,8 +84,12 @@ namespace CoreServicesTemplate.StorageRoom.Api
             #region Consolidator
 
             services.AddTransient(typeof(IConsolidator<,>), typeof(DefaultConsolidator<,>));
+            services.AddTransient(typeof(IConsolidator<UserApiModel, UserAppModel>), typeof(UserApiCustomConsolidator));
             services.AddTransient(typeof(IConsolidator<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomConsolidator));
-            services.AddTransient(typeof(IConsolidator<UsersAppModel, IEnumerable<UserRoot>>), typeof(UsersDataCustomConsolidator));
+
+            services.AddTransient(typeof(IConsolidator<UserAppModel, UserAggModel>), typeof(UserCoreCustomConsolidator));
+
+            services.AddTransient(typeof(IConsolidator<UsersAppModel, IEnumerable<User>>), typeof(UsersDataCustomConsolidator));
 
             #endregion
 
@@ -103,7 +109,7 @@ namespace CoreServicesTemplate.StorageRoom.Api
 
             #endregion
 
-            #region Pipeline FeatureCommand SubSteps
+            #region Pipeline FeatureCommand Sub Steps
 
             services.AddTransient<ISubStepSupplier, SubStepSupplier>();
 

@@ -12,11 +12,14 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser
     [Root]
     public class GetUserStep1 : RootPipelineBuilder<UserAppModel, UserAppModel>
     {
-        private readonly IUserRoot _userAggregateRoot;
+        private readonly IUserAggregateRoot _userAggregateRoot;
         private readonly IConsolidator<UserAppModel, UserAggModel> _userConsolidator;
         private readonly IGetUserDepot _getUserDepot;
 
-        public GetUserStep1(IGetUserDepot getUserDepot, IConsolidator<UserAppModel, UserAggModel> userConsolidator, IUserRoot userAggregateRoot)
+        public GetUserStep1(
+            IGetUserDepot getUserDepot, 
+            IConsolidator<UserAppModel, UserAggModel> userConsolidator, 
+            IUserAggregateRoot userAggregateRoot)
         {
             _getUserDepot = getUserDepot;
             _userConsolidator = userConsolidator;
