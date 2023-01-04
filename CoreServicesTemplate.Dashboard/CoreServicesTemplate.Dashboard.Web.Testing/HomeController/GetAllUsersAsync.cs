@@ -41,10 +41,10 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
             _fixture.StorageRoomServiceMock.Setup(service => service.GetUsersAsync()).ReturnsAsync(model);
 
             var controller = new Controllers.HomeController(
-                _fixture.ServiceProvider.GetRequiredService<IConsolidator<UserViewModel, UserModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<IConsolidator<UsersViewModel, UsersModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<IFeatureCommand<UserModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<IFeatureQuery<UsersModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IConsolidator<UserViewModel, UserAppModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IConsolidator<UsersViewModel, UsersAppModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IFeatureCommand<UserAppModel>>(),
+                _fixture.ServiceProvider.GetRequiredService<IFeatureQuery<UsersAppModel>>(),
                 _fixture.LoggerMock.Object);
 
             //Act

@@ -1,6 +1,4 @@
 ﻿using CoreServicesTemplate.Dashboard.Common.Models;
-using CoreServicesTemplate.Dashboard.Core.Aggregates;
-using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
@@ -8,29 +6,20 @@ using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Dashboard.Core.Features
 {
-    public class AddUserFeature : AFeatureCommandBase<UserAggregate, UserModel>
+    public class AddUserFeature : IFeatureCommand<UserAppModel>
     {
         private readonly IStorageRoomService _storageRoomService;
-        private readonly IConsolidator<UserModel, UserApiModel> _consolidators;
+        private readonly IConsolidator<UserAppModel, UserApiModel> _consolidators;
 
-        public AddUserFeature(IStorageRoomService storageRoomService, IConsolidator<UserModel, UserApiModel> consolidators) 
+        public AddUserFeature(IStorageRoomService storageRoomService, IConsolidator<UserAppModel, UserApiModel> consolidators) 
         {
             _storageRoomService = storageRoomService;
             _consolidators = consolidators;
         }
 
-        public override ICommandHandleAggregate SetAggregate(UserModel model)
+        public async Task HandleAsync(UserAppModel @in)
         {
-            Aggregate = new UserAggregate(model);
-
-            return this;
-        }
-
-        public override async Task HandleAsync()
-        {
-            Aggregate.SetGuid(Guid.NewGuid());
-
-            var apiModel = _consolidators.ToData(Aggregate.ToModel()).Resolve();
+            var apiModel = _consolidators.ToData(@in).Resolve();
 
             var responseMessage = await _storageRoomService.AddUserAsync(apiModel);
         }
