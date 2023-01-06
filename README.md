@@ -1,4 +1,4 @@
-# MicroServicesTemplate
+# Micro Services Template
 Net Core microservices template 
 
 # Base guideline to create Web App and Web Api Domain Driven projects.
