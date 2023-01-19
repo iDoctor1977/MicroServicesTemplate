@@ -49,7 +49,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
 
             //Assert
             //_factory.StorageRoomServiceMock.Verify((method => method.AddUserAsync(It.Is<UserApiModel>(arg => arg.Name == userViewModel.Name))));
-            _factory.StorageRoomServiceMock.Verify((method => method.AddUserAsync(new UserApiModel{ Guid = Guid.NewGuid() })), Times.Once());
+            _factory.StorageRoomServiceMock.Verify((method => method.AddUserAsync(new UserApiModel())), Times.Once());
         }
     }
 }
