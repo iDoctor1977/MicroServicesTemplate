@@ -7,16 +7,11 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="7.0.2" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\ApiUrlStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ApiUrlStrings.resx</DependentUpon>
-    </Compile>
     <Compile Update="Resources\ErrorMessages.Designer.cs">
       <DependentUpon>ErrorMessages.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -25,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\ApiUrlStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ApiUrlStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\ErrorMessages.resx">
       <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>

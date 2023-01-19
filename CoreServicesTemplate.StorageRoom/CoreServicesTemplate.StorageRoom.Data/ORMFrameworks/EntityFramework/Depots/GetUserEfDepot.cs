@@ -33,5 +33,10 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
             return modelResult;
         }
+
+        public UserAppModel Handle(UserAppModel model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

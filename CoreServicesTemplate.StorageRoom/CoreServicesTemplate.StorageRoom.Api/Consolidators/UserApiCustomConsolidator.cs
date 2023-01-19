@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CoreServicesTemplate.Shared.Core.Bases;
+﻿using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models;

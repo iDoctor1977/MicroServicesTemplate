@@ -40,7 +40,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<User>().ToTable("Users").Property(i => i.Id).UseHiLo();
         }
     }
 }

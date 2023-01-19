@@ -25,11 +25,27 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
         public async Task HandleAsync(UserAppModel model)
         {
-            var entity = _userModelConsolidator.ToData(model).Resolve();
+            var entity = MapUserEntity(model);
 
             await _userRepository.AddCustomAsync(entity);
 
             await CommitAsync();
+        }
+
+        public void Handle(UserAppModel model)
+        {
+            var entity = MapUserEntity(model);
+
+            _userRepository.Add(entity);
+
+            Commit();
+        }
+
+        private User MapUserEntity(UserAppModel model)
+        {
+            var entity = _userModelConsolidator.ToData(model).Resolve();
+
+            return entity;
         }
     }
 }

@@ -6,11 +6,12 @@ namespace CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles
     public interface IFeatureQuery<TOut> where TOut : IAppModel
     {
         public Task<TOut> HandleAsync();
+        public TOut Handle();
     }
 
     public interface IFeatureQuery<in TIn, TOut> where TIn : IAppModel where TOut : IAppModel
     {
         public Task<TOut> HandleAsync(TIn @in);
+        public TOut Handle(TIn @in);
     }
-
 }

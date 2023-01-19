@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.Shared.Core.Resources;
+using CoreServicesTemplate.Shared.Core.Services;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
 using FluentAssertions;
@@ -39,7 +39,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             _fixture.UserRepositoryMock.Setup(depot => depot.GetAllCustomAsync()).Returns(Task.FromResult(userEntities));
 
             //Act
-            var result = await _client.GetFromJsonAsync<UsersApiModel>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostGetUsersUrl}");
+            var url = API.StorageRoom.GetAllUserToStorageRoomUrl();
+            var result = await _client.GetFromJsonAsync<UsersApiModel>(url);
 
             //Assert
             _fixture.UserRepositoryMock.Verify((c => c.GetAllCustomAsync()), Times.Once());

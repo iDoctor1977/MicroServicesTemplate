@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.Shared.Core.Resources;
+using CoreServicesTemplate.Shared.Core.Services;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
@@ -43,7 +43,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             _fixture.GetUsersDepotMock.Setup(depot => depot.HandleAsync()).Returns(Task.FromResult(users));
 
             //Act
-            var result = await _client.GetFromJsonAsync<UsersApiModel>($"{ApiUrlStrings.StorageRoomUserControllerLocalhostGetUsersUrl}");
+            var url = API.StorageRoom.GetAllUserToStorageRoomUrl();
+            var result = await _client.GetFromJsonAsync<UsersApiModel>(url);
 
             //Assert
             _fixture.GetUsersDepotMock.Verify((c => c.HandleAsync()), Times.Once());

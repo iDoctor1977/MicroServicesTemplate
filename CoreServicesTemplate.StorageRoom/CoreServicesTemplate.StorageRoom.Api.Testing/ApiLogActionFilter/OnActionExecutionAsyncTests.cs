@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.Shared.Core.Resources;
+using CoreServicesTemplate.Shared.Core.Services;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Logging;
@@ -36,7 +36,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
             };
 
             //Act
-            await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostAddUserUrl}/{apiModel}", apiModel);
+            var url = API.StorageRoom.AddUserToStorageRoomUrl();
+            await _client.PostAsJsonAsync($"{url}/{apiModel}", apiModel);
 
             //Assert
             _fixture.LoggerMock.Verify(x => x.Log(LogLevel.Information,

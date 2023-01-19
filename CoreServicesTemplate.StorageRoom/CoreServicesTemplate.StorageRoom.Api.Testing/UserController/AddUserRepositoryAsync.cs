@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.Shared.Core.Resources;
+using CoreServicesTemplate.Shared.Core.Services;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -45,7 +45,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             _fixture.UserRepositoryMock.Setup(repo => repo.AddCustomAsync(It.IsAny<User>()));
 
             //Act
-            await _client.PostAsJsonAsync($"{ApiUrlStrings.StorageRoomUserControllerLocalhostAddUserUrl}/{modelApi}", modelApi);
+            var url = API.StorageRoom.AddUserToStorageRoomUrl();
+            await _client.PostAsJsonAsync($"{url}/{modelApi}", modelApi);
 
             //Assert
             _fixture.UserRepositoryMock.Verify((repo => repo.AddCustomAsync(It.Is<User>(arg => arg.Name == modelApi.Name))));

@@ -5,5 +5,5 @@ namespace CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 
 public interface IFeatureCommand<in TIn> where TIn : IAppModel
 {
-    public abstract Task HandleAsync(TIn @in);
+    public Task HandleAsync(TIn @in);
 }

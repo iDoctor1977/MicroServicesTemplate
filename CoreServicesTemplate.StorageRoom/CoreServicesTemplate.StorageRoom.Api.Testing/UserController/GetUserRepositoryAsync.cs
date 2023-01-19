@@ -1,5 +1,4 @@
 ﻿using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.Shared.Core.Resources;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -13,6 +12,7 @@ using Newtonsoft.Json;
 using Xunit;
 using System.Text;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
+using CoreServicesTemplate.Shared.Core.Services;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {
@@ -56,10 +56,11 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             UserApiModel userApiModel = usersApiModel.UsersApiModelList.ElementAt(2);
 
             var serializedObject = JsonConvert.SerializeObject(userApiModel);
+            var url = API.StorageRoom.GetUserToStorageRoomUrl();
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{ApiUrlStrings.StorageRoomUserControllerLocalhostGetUserUrl}"),
+                RequestUri = new Uri(url),
                 Content = new StringContent(serializedObject, Encoding.Default, "application/json")
             };
 

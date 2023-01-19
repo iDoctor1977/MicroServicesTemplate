@@ -41,5 +41,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             return modelAppOut;
         }
+
+        public UserAppModel Handle(UserAppModel @in)
+        {
+            var appModel = _getUserDepot.Handle(@in);
+
+            return appModel;
+        }
     }
 }

@@ -9,7 +9,7 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 {
     [ApiController]
-    [Route("StorageRoom/[controller]/[action]", Name = "[controller]_[action]")]
+    [Route("storageroom/[controller]/[action]", Name = "[controller]_[action]")]
     public class UserController : ControllerBase
     {
         private readonly IFeatureCommand<UserAppModel> _addUserFeature;
@@ -33,7 +33,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             _userCustomConsolidator = userCustomConsolidator;
         }
 
-        // POST: StorageRoom/User/Add/{apiModel}
         [HttpPost("{apiModel}")]
         public async Task<IActionResult> Add(UserApiModel apiModel)
         {
@@ -50,7 +49,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             return CreatedAtAction(nameof(Add), apiModel);
         }
 
-        // GET: StorageRoom/User/Get
         [HttpGet]
         public async Task<ActionResult<UserApiModel>> Get([FromBody] UserApiModel apiModel)
         {
@@ -70,7 +68,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             return resultApiModel is null ? NoContent() : resultApiModel;
         }
 
-        // GET: StorageRoom/User/GetAll
         [HttpGet]
         public async Task<ActionResult<UsersApiModel>> GetAll()
         {
@@ -82,7 +79,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             return apiModel is null ? NoContent() : apiModel;
         }
 
-        // PUT: StorageRoom/User/Update/{apiModel}
         [HttpPut("{apiModel}")]
         public async Task<IActionResult> Update(UserApiModel apiModel)
         {
@@ -104,7 +100,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             return await Task.FromResult<IActionResult>(NoContent());
         }
 
-        // DELETE: StorageRoom/User/Delete/{apiModel}
         [HttpDelete("{apiModel}")]
         public async Task<IActionResult> Delete(UserApiModel apiModel)
         {

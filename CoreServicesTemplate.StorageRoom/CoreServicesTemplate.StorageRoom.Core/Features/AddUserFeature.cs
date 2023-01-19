@@ -31,7 +31,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
         public async Task HandleAsync(UserAppModel @in)
         {
             // decoupling and map modelApp to modelAgg 
-            var aggregationModel = _userConsolidator.ToData(@in).Resolve();
+            var aggregationModel = ToData(@in);
 
             // execute method to aggregate root domain
             aggregationModel = await _userAggregateRoot.CreateUser(aggregationModel);
@@ -39,7 +39,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             await _userAggregateRoot.AddressToString();
 
             // decoupling and map modelAgg to modelApp
-            var appModel = _userConsolidator.ToDataReverse(aggregationModel).Resolve();
+            var appModel = ToReverseData(aggregationModel);
 
             // execute consolidation with repository (if necessary)
             await _addUserDepot.HandleAsync(appModel);
@@ -48,6 +48,25 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             // this part is added only for features scalability 
             // Ex.: await _subStepSupplier.AddHandleAsync(appModel);
             await _subStepSupplier.AddHandleAsync(appModel);
+        }
+
+        public void Handle(UserAppModel @in)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private UserAggModel ToData(UserAppModel @in)
+        {
+            var aggModel = _userConsolidator.ToData(@in).Resolve();
+
+            return aggModel;
+        }
+
+        private UserAppModel ToReverseData(UserAggModel @in)
+        {
+            var appModel = _userConsolidator.ToDataReverse(@in).Resolve();
+
+            return appModel;
         }
     }
 }
