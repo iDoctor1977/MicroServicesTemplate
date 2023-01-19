@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CoreServicesTemplate.Dashboard.Api.Controllers
 {
     [ApiController]
-    [Route("Dashboard/[controller]/[action]")]
+    [Route("dashboard/api/[controller]/[action]")]
     public class UserApiController : ControllerBase
     {
         private readonly IConsolidator<UsersApiModel, UsersAppModel> _userCustomConsolidators;

@@ -45,7 +45,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             _fixture.UserRepositoryMock.Setup(repo => repo.AddCustomAsync(It.IsAny<User>()));
 
             //Act
-            var url = API.StorageRoom.AddUserToStorageRoomUrl();
+            var url = API.StorageRoom.User.AddUserToStorageRoomUrl();
             await _client.PostAsJsonAsync($"{url}/{modelApi}", modelApi);
 
             //Assert

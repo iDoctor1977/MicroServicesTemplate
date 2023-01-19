@@ -25,5 +25,14 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
 
             return model;
         }
+
+        public UsersAppModel Handle()
+        {
+            var apiModel = _storageRoomService.GetUsers();
+
+            var model = _consolidators.ToData(apiModel).Resolve();
+
+            return model;
+        }
     }
 }

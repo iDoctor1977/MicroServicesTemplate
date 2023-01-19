@@ -9,7 +9,7 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 {
     [ApiController]
-    [Route("storageroom/[controller]/[action]", Name = "[controller]_[action]")]
+    [Route("storageroom/api/[controller]/[action]", Name = "[controller]_[action]")]
     public class UserController : ControllerBase
     {
         private readonly IFeatureCommand<UserAppModel> _addUserFeature;

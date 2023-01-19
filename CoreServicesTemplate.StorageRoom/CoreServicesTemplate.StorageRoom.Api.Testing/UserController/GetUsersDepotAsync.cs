@@ -43,7 +43,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             _fixture.GetUsersDepotMock.Setup(depot => depot.HandleAsync()).Returns(Task.FromResult(users));
 
             //Act
-            var url = API.StorageRoom.GetAllUserToStorageRoomUrl();
+            var url = API.StorageRoom.User.GetAllUserToStorageRoomUrl();
             var result = await _client.GetFromJsonAsync<UsersApiModel>(url);
 
             //Assert
