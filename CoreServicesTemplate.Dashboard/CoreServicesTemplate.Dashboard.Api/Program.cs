@@ -68,3 +68,6 @@ app.MapHealthChecks("/health");
 app.MapControllers();
 
 app.Run();
+
+// Use only for xUnit tests
+public partial class Program { }

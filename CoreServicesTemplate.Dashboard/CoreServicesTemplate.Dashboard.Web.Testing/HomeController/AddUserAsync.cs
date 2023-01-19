@@ -5,20 +5,25 @@ using CoreServicesTemplate.Dashboard.Web.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.Shared.Core.Models;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
 {
-    [Collection("BaseTest")]
-    public class AddUserAsync
+    public class AddUserAsync : IClassFixture<WebCustomWebApplicationFactory<Program>>
     {
-        private readonly TestFixtureBase _fixture;
+        private readonly HttpClient _client;
+        private readonly WebCustomWebApplicationFactory<Program> _factory;
 
-        public AddUserAsync(TestFixtureBase fixture)
+        public AddUserAsync(WebCustomWebApplicationFactory<Program> factory)
         {
-            _fixture = fixture;
-            _fixture.GenerateHost();
+            _factory = factory;
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            {
+                AllowAutoRedirect = false
+            });
         }
 
         [Fact]
@@ -32,20 +37,19 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
                 Birth = DateTime.Now.AddDays(-26985).ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)
             };
 
-            _fixture.StorageRoomServiceMock.Setup(service => service.AddUserAsync(It.IsAny<UserApiModel>()));
-
             var controller = new Controllers.HomeController(
-                _fixture.ServiceProvider.GetRequiredService<IConsolidator<UserViewModel, UserAppModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<IConsolidator<UsersViewModel, UsersAppModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<IFeatureCommand<UserAppModel>>(),
-                _fixture.ServiceProvider.GetRequiredService<IFeatureQuery<UsersAppModel>>(),
-                _fixture.LoggerMock.Object);
+                _factory.Services.GetRequiredService<IConsolidator<UserViewModel, UserAppModel>>(),
+                _factory.Services.GetRequiredService<IConsolidator<UsersViewModel, UsersAppModel>>(),
+                _factory.Services.GetRequiredService<IFeatureCommand<UserAppModel>>(),
+                _factory.Services.GetRequiredService<IFeatureQuery<UsersAppModel>>(),
+                _factory.Services.GetRequiredService<ILogger<Controllers.HomeController>>());
 
             //Act
             await controller.Add(userViewModel);
 
             //Assert
-            _fixture.StorageRoomServiceMock.Verify((c => c.AddUserAsync(It.Is<UserApiModel>(arg => arg.Name == userViewModel.Name))));
+            //_factory.StorageRoomServiceMock.Verify((method => method.AddUserAsync(It.Is<UserApiModel>(arg => arg.Name == userViewModel.Name))));
+            _factory.StorageRoomServiceMock.Verify((method => method.AddUserAsync(new UserApiModel{ Guid = Guid.NewGuid() })), Times.Once());
         }
     }
 }

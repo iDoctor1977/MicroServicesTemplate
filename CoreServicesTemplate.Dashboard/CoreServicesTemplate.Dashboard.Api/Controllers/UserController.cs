@@ -8,16 +8,16 @@ namespace CoreServicesTemplate.Dashboard.Api.Controllers
 {
     [ApiController]
     [Route("dashboard/api/[controller]/[action]")]
-    public class UserApiController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IConsolidator<UsersApiModel, UsersAppModel> _userCustomConsolidators;
         private readonly IFeatureQuery<UsersAppModel> _getUsersFeature;
-        private readonly ILogger<UserApiController> _logger;
+        private readonly ILogger<UserController> _logger;
 
-        public UserApiController(
+        public UserController(
             IFeatureQuery<UsersAppModel> getUsersFeature,
             IConsolidator<UsersApiModel, UsersAppModel> userCustomConsolidators,
-            ILogger<UserApiController> logger)
+            ILogger<UserController> logger)
         {
             _logger = logger;
             _userCustomConsolidators = userCustomConsolidators;

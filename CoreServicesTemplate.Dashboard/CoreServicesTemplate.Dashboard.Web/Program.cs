@@ -68,3 +68,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+// Use only for xUnit tests
+public partial class Program { }
