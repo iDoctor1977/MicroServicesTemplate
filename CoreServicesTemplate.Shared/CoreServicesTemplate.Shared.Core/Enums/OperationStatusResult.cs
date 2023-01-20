@@ -12,5 +12,5 @@ public class OperationStatusResult : Enumeration
     public static readonly OperationStatusResult Updated = new OperationStatusResult(4, "Updated");
     public static readonly OperationStatusResult NotFound = new OperationStatusResult(5, "NotFound");
 
-    public OperationStatusResult(int id, string name) : base(id, name) {}
+    private OperationStatusResult(int id, string name) : base(id, name) {}
 }
