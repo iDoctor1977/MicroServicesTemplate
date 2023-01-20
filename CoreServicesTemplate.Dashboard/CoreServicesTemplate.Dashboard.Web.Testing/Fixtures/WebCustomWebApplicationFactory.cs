@@ -1,4 +1,5 @@
-﻿using CoreServicesTemplate.Shared.Core.Builders;
+﻿using System.Net;
+using CoreServicesTemplate.Shared.Core.Builders;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +34,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.Fixtures
                 UsersApiModelList = users
             };
 
-            StorageRoomServiceMock.Setup(service => service.AddUserAsync(It.IsAny<UserApiModel>()));
+            StorageRoomServiceMock.Setup(service => service.AddUserAsync(It.IsAny<UserApiModel>())).ReturnsAsync(new HttpResponseMessage { StatusCode = HttpStatusCode.OK });
             StorageRoomServiceMock.Setup(service => service.GetUsersAsync()).ReturnsAsync(model);
 
             builder.ConfigureServices(services =>
