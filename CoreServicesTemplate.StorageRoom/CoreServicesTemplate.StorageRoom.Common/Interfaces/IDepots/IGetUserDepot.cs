@@ -1,4 +1,4 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.ICqrs;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.ICqrsHandlers;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots

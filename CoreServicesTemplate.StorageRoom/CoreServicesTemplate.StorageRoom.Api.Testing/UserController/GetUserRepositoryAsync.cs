@@ -11,8 +11,8 @@ using CoreServicesTemplate.Shared.Core.Builders;
 using Newtonsoft.Json;
 using Xunit;
 using System.Text;
+using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
-using CoreServicesTemplate.Shared.Core.Services;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {

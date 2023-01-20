@@ -1,5 +1,5 @@
 ﻿using System;
-using CoreServicesTemplate.Shared.Core.Interfaces.Models;
+using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 
 namespace CoreServicesTemplate.Shared.Core.Models
 {

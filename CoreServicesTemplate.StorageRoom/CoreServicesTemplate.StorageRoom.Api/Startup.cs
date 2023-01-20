@@ -16,7 +16,8 @@ using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using System.Collections.Generic;
 using CoreServicesTemplate.Shared.Core.Consolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
+using CoreServicesTemplate.Shared.Core.Enums;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Api.Consolidators;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
@@ -53,9 +54,9 @@ namespace CoreServicesTemplate.StorageRoom.Api
         {
             #region Injections
 
-            services.AddTransient<IFeatureCommand<UserAppModel>, AddUserFeature>();
-            services.AddTransient<IFeatureQuery<UserAppModel, UserAppModel>, GetUserFeature>();
-            services.AddTransient<IFeatureQuery<UsersAppModel>, GetUsersFeature>();
+            services.AddTransient<IQueryHandlerFeature<UserAppModel, OperationStatusResult>, AddUserFeature>();
+            services.AddTransient<IQueryHandlerFeature<UserAppModel, UserAppModel>, GetUserFeature>();
+            services.AddTransient<IQueryHandlerFeature<UsersAppModel>, GetUsersFeature>();
 
             services.AddTransient<IAddUserDepot, AddUserEfDepot>();
             services.AddTransient<IGetUserDepot, GetUserEfDepot>();

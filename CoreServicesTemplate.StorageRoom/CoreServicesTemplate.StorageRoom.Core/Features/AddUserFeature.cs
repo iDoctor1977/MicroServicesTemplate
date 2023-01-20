@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
+using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
@@ -9,7 +10,7 @@ using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
-    public class AddUserFeature : IFeatureCommand<UserAppModel>
+    public class AddUserFeature : IQueryHandlerFeature<UserAppModel, OperationStatusResult>
     {
         private readonly IUserAggregateRoot _userAggregateRoot;
         private readonly IConsolidator<UserAppModel, UserAggModel> _userConsolidator;
@@ -28,7 +29,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _userConsolidator = userConsolidator;
         }
 
-        public async Task HandleAsync(UserAppModel @in)
+        public async Task<OperationStatusResult> HandleAsync(UserAppModel @in)
         {
             // decoupling and map modelApp to modelAgg 
             var aggregationModel = ToData(@in);
@@ -42,15 +43,17 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             var appModel = ToReverseData(aggregationModel);
 
             // execute consolidation with repository (if necessary)
-            await _addUserDepot.HandleAsync(appModel);
+            var result = await _addUserDepot.HandleAsync(appModel);
 
             // execute addUserFeature sub steps
             // this part is added only for features scalability 
             // Ex.: await _subStepSupplier.AddHandleAsync(appModel);
             await _subStepSupplier.AddHandleAsync(appModel);
+
+            return result;
         }
 
-        public void Handle(UserAppModel @in)
+        public OperationStatusResult Handle(UserAppModel @in)
         {
             throw new System.NotImplementedException();
         }

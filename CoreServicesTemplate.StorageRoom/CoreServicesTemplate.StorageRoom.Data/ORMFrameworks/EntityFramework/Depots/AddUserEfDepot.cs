@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models;
@@ -9,7 +10,7 @@ using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots
 {
-    public class AddUserEfDepot : EfDepotBase, IAddUserDepot
+    public class AddUserEfDepot : EfUnitOfWork, IAddUserDepot
     {
         private readonly IUserRepository _userRepository;
         private readonly IConsolidator<UserAppModel, User> _userModelConsolidator;
@@ -23,22 +24,26 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
             _userRepository = userRepository;
         }
 
-        public async Task HandleAsync(UserAppModel model)
+        public async Task<OperationStatusResult> HandleAsync(UserAppModel model)
         {
             var entity = MapUserEntity(model);
 
-            await _userRepository.AddCustomAsync(entity);
+            var result = await _userRepository.AddCustomAsync(entity);
 
             await CommitAsync();
+
+            return result;
         }
 
-        public void Handle(UserAppModel model)
+        public OperationStatusResult Handle(UserAppModel model)
         {
             var entity = MapUserEntity(model);
 
             _userRepository.Add(entity);
 
             Commit();
+
+            return OperationStatusResult.Created;
         }
 
         private User MapUserEntity(UserAppModel model)

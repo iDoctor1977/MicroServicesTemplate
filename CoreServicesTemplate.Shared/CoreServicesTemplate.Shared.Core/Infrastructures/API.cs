@@ -1,4 +1,4 @@
-﻿namespace CoreServicesTemplate.Shared.Core.Services;
+﻿namespace CoreServicesTemplate.Shared.Core.Infrastructures;
 
 public static class API
 {

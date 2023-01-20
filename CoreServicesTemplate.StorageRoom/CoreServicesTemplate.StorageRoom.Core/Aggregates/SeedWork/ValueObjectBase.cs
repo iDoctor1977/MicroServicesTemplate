@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CoreServicesTemplate.Shared.Core.Interfaces.Models;
+using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.SeedWork
 {

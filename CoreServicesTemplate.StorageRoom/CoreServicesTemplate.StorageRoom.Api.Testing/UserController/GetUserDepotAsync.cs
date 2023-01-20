@@ -12,7 +12,7 @@ using CoreServicesTemplate.Shared.Core.Builders;
 using Newtonsoft.Json;
 using Xunit;
 using System.Text;
-using CoreServicesTemplate.Shared.Core.Services;
+using CoreServicesTemplate.Shared.Core.Infrastructures;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {

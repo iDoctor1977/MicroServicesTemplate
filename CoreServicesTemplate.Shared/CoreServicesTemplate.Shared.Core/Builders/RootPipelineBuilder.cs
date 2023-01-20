@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Attributes;
-using CoreServicesTemplate.Shared.Core.Interfaces.Models;
+using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 
 namespace CoreServicesTemplate.Shared.Core.Builders
 {

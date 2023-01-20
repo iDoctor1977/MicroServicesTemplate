@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
@@ -31,11 +32,11 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mo
             }
         }
 
-        public Task AddCustomAsync(User entity)
+        public Task<OperationStatusResult> AddCustomAsync(User entity)
         {
             Entities.Add(entity);
 
-            return Task.CompletedTask;
+            return Task.FromResult(OperationStatusResult.Created);
         }
 
         public Task<IEnumerable<User>> GetAllCustomAsync()
@@ -43,9 +44,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mo
             return Task.FromResult<IEnumerable<User>>(Entities);
         }
 
-        public Task UpdateCustomAsync(User entity)
+        public Task<OperationStatusResult> UpdateCustomAsync(User entity)
         {
-            return Task.CompletedTask;
+            return Task.FromResult(OperationStatusResult.Updated);
         }
 
         public Task<User> GetByNameAsync(User entity)
@@ -91,9 +92,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mo
             return await Task.FromResult<User>(null);
         }
 
-        public Task DeleteCustomAsync(User entity)
+        public Task<OperationStatusResult> DeleteCustomAsync(User entity)
         {
-            return Task.CompletedTask;
+            return Task.FromResult(OperationStatusResult.Deleted);
         }
     }
 }

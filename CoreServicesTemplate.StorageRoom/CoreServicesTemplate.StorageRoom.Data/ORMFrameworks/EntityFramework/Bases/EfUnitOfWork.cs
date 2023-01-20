@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases
 {
-    public class EfDepotBase : IDisposable
+    public class EfUnitOfWork : IDisposable
     {
         private readonly Lazy<StorageRoomDbContext> _dbContext;
 
 
-        protected EfDepotBase(Lazy<StorageRoomDbContext> dbContext)
+        protected EfUnitOfWork(Lazy<StorageRoomDbContext> dbContext)
         {
             _dbContext = dbContext;
         }

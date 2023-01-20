@@ -9,7 +9,7 @@ using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots
 {
-    public class GetUserEfDepot : EfDepotBase, IGetUserDepot
+    public class GetUserEfDepot : EfUnitOfWork, IGetUserDepot
     {
         private readonly IUserRepository _userRepository;
         private readonly IConsolidator<UserAppModel, User> _userConsolidator;

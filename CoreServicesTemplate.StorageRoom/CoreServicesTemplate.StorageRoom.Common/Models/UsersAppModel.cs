@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CoreServicesTemplate.Shared.Core.Interfaces.Models;
+using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Models
 {
