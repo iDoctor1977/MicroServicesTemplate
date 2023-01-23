@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using CoreServicesTemplate.Shared.Core.Infrastructures;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
@@ -21,7 +22,7 @@ namespace CoreServicesTemplate.Shared.Core.HealthChecks
         public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
             var httpClient = _clientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(_configuration["StorageRoomApiUrl"]);
+            httpClient.BaseAddress = new Uri(ApiUrl.StorageRoom.User.GeHealthyToStorageRoom());
 
             try
             {
@@ -34,17 +35,17 @@ namespace CoreServicesTemplate.Shared.Core.HealthChecks
 
                     if (contents.Equals("healthy", StringComparison.OrdinalIgnoreCase))
                     {
-                        return HealthCheckResult.Healthy("StorageRoom API endpoint is healthy");
+                        return HealthCheckResult.Healthy("StorageRoom ApiUrl endpoint is healthy");
                     }
                 }
 
-                return HealthCheckResult.Degraded("StorageRoom API endpoint is degraded");
+                return HealthCheckResult.Degraded("StorageRoom ApiUrl endpoint is degraded");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
 
-                return HealthCheckResult.Degraded("StorageRoom API endpoint is unhealthy");
+                return HealthCheckResult.Degraded("StorageRoom ApiUrl endpoint is unhealthy");
             }
         }
     }

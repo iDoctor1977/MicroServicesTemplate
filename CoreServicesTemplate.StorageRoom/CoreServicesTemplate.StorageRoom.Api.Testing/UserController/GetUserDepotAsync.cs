@@ -61,7 +61,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             UserApiModel userApiModel = usersApiModel.UsersApiModelList.ElementAt(2);
 
             var serializedObject = JsonConvert.SerializeObject(userApiModel);
-            var url = API.StorageRoom.User.GetUserToStorageRoomUrl();
+            var url = ApiUrl.StorageRoom.User.GetUserToStorageRoom();
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,

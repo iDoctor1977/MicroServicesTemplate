@@ -39,7 +39,7 @@ public class UserController : ControllerBase
     [HttpPost("{apiModel}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Add(UserApiModel apiModel)
+    public async Task<ActionResult> Add(UserApiModel apiModel)
     {
         if (apiModel is null)
         {
@@ -51,7 +51,8 @@ public class UserController : ControllerBase
 
         var result = await _addUserFeature.HandleAsync(model);
 
-        return result.Equals(OperationStatusResult.Created) ? Created(API.StorageRoom.User.IndexFromUserToStorageRoomUrl(), result) : BadRequest();
+        var location = ApiUrl.StorageRoom.User.IndexFromUserToStorageRoom();
+        return result.Equals(OperationStatusResult.Created) ? Created(location, result) : BadRequest();
     }
 
     [HttpGet]
@@ -87,10 +88,10 @@ public class UserController : ControllerBase
         return apiModel is null ? NoContent() : apiModel;
     }
 
-    [HttpPut("{apiModel}")]
+    [HttpPut("{guid}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> Update(UserApiModel apiModel)
+    public async Task<ActionResult> Update(Guid guid, [FromBody] UserApiModel apiModel)
     {
         if (apiModel is null || apiModel.Guid == Guid.Empty)
         {
@@ -113,7 +114,7 @@ public class UserController : ControllerBase
     [HttpDelete("{apiModel}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> Delete(UserApiModel apiModel)
+    public async Task<ActionResult> Delete(UserApiModel apiModel)
     {
         if (apiModel is null || apiModel.Guid == Guid.Empty)
         {
@@ -132,4 +133,7 @@ public class UserController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpGet("error")]
+    public IActionResult GetError() => Problem("Something went wrong.");
 }

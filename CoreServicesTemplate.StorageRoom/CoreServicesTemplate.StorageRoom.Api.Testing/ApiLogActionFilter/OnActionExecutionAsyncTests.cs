@@ -36,7 +36,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
             };
 
             //Act
-            var url = API.StorageRoom.User.AddUserToStorageRoomUrl();
+            var url = ApiUrl.StorageRoom.User.AddUserToStorageRoom();
             await _client.PostAsJsonAsync($"{url}/{apiModel}", apiModel);
 
             //Assert
