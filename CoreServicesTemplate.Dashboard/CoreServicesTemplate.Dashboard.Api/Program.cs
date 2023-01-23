@@ -8,9 +8,9 @@ using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.Shared.Core.HealthChecks;
 using CoreServicesTemplate.Dashboard.Core.Features;
 using CoreServicesTemplate.Dashboard.Services;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +20,8 @@ builder.Services.AddControllers();
 
 #region Injections
 
-builder.Services.AddTransient<IFeatureCommand<UserAppModel>, AddUserFeature>();
-builder.Services.AddTransient<IFeatureQuery<UsersAppModel>, GetUsersFeature>();
+builder.Services.AddTransient<ICommandHandlerFeature<UserAppModel>, AddUserFeature>();
+builder.Services.AddTransient<IQueryHandlerFeature<UsersAppModel>, GetUsersFeature>();
 builder.Services.AddTransient<IStorageRoomService, StorageRoomService>();
 
 builder.Services.AddHttpClient();

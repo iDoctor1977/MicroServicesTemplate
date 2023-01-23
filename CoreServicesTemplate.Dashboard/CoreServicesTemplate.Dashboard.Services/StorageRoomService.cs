@@ -1,7 +1,7 @@
 using System.Net.Http.Json;
+using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.Shared.Core.Services;
 
 namespace CoreServicesTemplate.Dashboard.Services
 {
@@ -17,7 +17,7 @@ namespace CoreServicesTemplate.Dashboard.Services
         public async Task<HttpResponseMessage> AddUserAsync(UserApiModel apiModel)
         {
             //HTTP POST
-            var url = API.StorageRoom.User.AddUserToStorageRoomUrl();
+            var url = ApiUrl.StorageRoom.User.AddUserToStorageRoom();
             var responseMessage = await _client.PostAsJsonAsync($"{url}/{apiModel}", apiModel);
 
             return responseMessage;
@@ -31,7 +31,7 @@ namespace CoreServicesTemplate.Dashboard.Services
         public async Task<UsersApiModel?> GetUsersAsync()
         {
             //HTTP GET
-            var url = API.StorageRoom.User.GetAllUserToStorageRoomUrl();
+            var url = ApiUrl.StorageRoom.User.GetAllUserToStorageRoom();
             var apiModel = await _client.GetFromJsonAsync<UsersApiModel>(url);
 
             return apiModel;

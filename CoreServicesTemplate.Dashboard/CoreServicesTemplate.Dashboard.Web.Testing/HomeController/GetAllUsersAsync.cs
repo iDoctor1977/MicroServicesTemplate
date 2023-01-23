@@ -2,7 +2,7 @@ using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Web.Models;
 using CoreServicesTemplate.Dashboard.Web.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -31,8 +31,8 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
             var controller = new Controllers.HomeController(
                 _factory.Services.GetRequiredService<IConsolidator<UserViewModel, UserAppModel>>(),
                 _factory.Services.GetRequiredService<IConsolidator<UsersViewModel, UsersAppModel>>(),
-                _factory.Services.GetRequiredService<IFeatureCommand<UserAppModel>>(),
-                _factory.Services.GetRequiredService<IFeatureQuery<UsersAppModel>>(),
+                _factory.Services.GetRequiredService<ICommandHandlerFeature<UserAppModel>>(),
+                _factory.Services.GetRequiredService<IQueryHandlerFeature<UsersAppModel>>(),
                 _factory.Services.GetRequiredService<ILogger<Controllers.HomeController>>());
 
             //Act

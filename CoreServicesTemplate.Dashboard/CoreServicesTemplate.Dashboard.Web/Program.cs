@@ -8,7 +8,7 @@ using CoreServicesTemplate.Dashboard.Web.MapperProfiles;
 using CoreServicesTemplate.Dashboard.Web.Models;
 using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Mappers;
@@ -21,8 +21,8 @@ builder.Services.AddControllersWithViews();
 
 #region Injection
 
-builder.Services.AddTransient<IFeatureCommand<UserAppModel>, AddUserFeature>();
-builder.Services.AddTransient<IFeatureQuery<UsersAppModel>, GetUsersFeature>();
+builder.Services.AddTransient<ICommandHandlerFeature<UserAppModel>, AddUserFeature>();
+builder.Services.AddTransient<IQueryHandlerFeature<UsersAppModel>, GetUsersFeature>();
 builder.Services.AddTransient<IStorageRoomService, StorageRoomService>();
 
 #endregion

@@ -2,7 +2,7 @@
 using CoreServicesTemplate.Dashboard.Web.Bases;
 using CoreServicesTemplate.Dashboard.Web.Models;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreServicesTemplate.Dashboard.Web.Controllers
@@ -12,14 +12,14 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
         private readonly IConsolidator<UserViewModel, UserAppModel> _userCustomConsolidator;
         private readonly IConsolidator<UsersViewModel, UsersAppModel> _usersCustomConsolidator;
 
-        private readonly IFeatureCommand<UserAppModel> _addUserFeature;
-        private readonly IFeatureQuery<UsersAppModel> _getUsersFeature;
+        private readonly ICommandHandlerFeature<UserAppModel> _addUserFeature;
+        private readonly IQueryHandlerFeature<UsersAppModel> _getUsersFeature;
 
         public HomeController(
             IConsolidator<UserViewModel, UserAppModel> userCustomConsolidator,
             IConsolidator<UsersViewModel, UsersAppModel> usersCustomConsolidator,
-            IFeatureCommand<UserAppModel> addUserFeature,
-            IFeatureQuery<UsersAppModel> getUsersFeature,
+            ICommandHandlerFeature<UserAppModel> addUserFeature,
+            IQueryHandlerFeature<UsersAppModel> getUsersFeature,
             ILogger<HomeController> logger) : base(logger)
         {
             _userCustomConsolidator = userCustomConsolidator;

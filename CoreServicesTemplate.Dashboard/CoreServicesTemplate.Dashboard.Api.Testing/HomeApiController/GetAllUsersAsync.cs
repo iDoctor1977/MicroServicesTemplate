@@ -2,7 +2,7 @@ using CoreServicesTemplate.Dashboard.Api.Controllers;
 using CoreServicesTemplate.Dashboard.Api.Testing.Fixtures;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandles;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
 using CoreServicesTemplate.Shared.Core.Models;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -33,7 +33,7 @@ namespace CoreServicesTemplate.Dashboard.Api.Testing.HomeApiController
             //client.PostAsJsonAsync();
 
             var controller = new UserController(
-                _factory.Services.GetRequiredService<IFeatureQuery<UsersAppModel>>(),
+                _factory.Services.GetRequiredService<IQueryHandlerFeature<UsersAppModel>>(),
                 _factory.Services.GetRequiredService<IConsolidator<UsersApiModel, UsersAppModel>>(),
                 _factory.Services.GetRequiredService<ILogger<UserController>>());
 
