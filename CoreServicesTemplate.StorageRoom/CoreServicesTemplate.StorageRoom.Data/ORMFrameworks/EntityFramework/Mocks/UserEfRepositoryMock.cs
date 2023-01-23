@@ -15,7 +15,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mo
     {
         private static readonly List<User> Entities = new List<User>();
 
-        public UserEfRepositoryMock(Lazy<StorageRoomDbContext> dbContext) : base(dbContext)
+        public UserEfRepositoryMock(StorageRoomDbContext dbContext) : base(dbContext)
         {
             var builder = new UserEntityBuilder();
 

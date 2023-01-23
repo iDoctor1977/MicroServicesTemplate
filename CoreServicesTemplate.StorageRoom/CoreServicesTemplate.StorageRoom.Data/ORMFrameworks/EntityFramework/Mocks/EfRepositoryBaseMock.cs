@@ -11,9 +11,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mo
 {
     public class EfRepositoryBaseMock<T> : IRepository<T> where T : EntityBase
     {
-        protected EfRepositoryBaseMock(Lazy<StorageRoomDbContext> dbContext)
+        protected EfRepositoryBaseMock(StorageRoomDbContext dbContext)
         {
-            StorageRoomDbContext = dbContext.Value;
+            StorageRoomDbContext = dbContext;
             EntitySet = StorageRoomDbContext.Set<T>();
         }
 

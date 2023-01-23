@@ -12,9 +12,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Ba
 {
     public class EfRepositoryBase<T> : IRepository<T> where T : EntityBase
     {
-        protected EfRepositoryBase(Lazy<StorageRoomDbContext> dbContext)
+        protected EfRepositoryBase(StorageRoomDbContext dbContext)
         {
-            StorageRoomDbContext = dbContext.Value;
+            StorageRoomDbContext = dbContext;
             EntitySet = StorageRoomDbContext.Set<T>();
         }
 

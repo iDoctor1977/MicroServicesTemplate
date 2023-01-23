@@ -37,6 +37,7 @@ using CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate;
 using CoreServicesTemplate.StorageRoom.Core.Consolidators;
 using CoreServicesTemplate.StorageRoom.Core.MappingProfiles;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Api
 {
@@ -62,7 +63,7 @@ namespace CoreServicesTemplate.StorageRoom.Api
             services.AddTransient<IGetUserDepot, GetUserEfDepot>();
             services.AddTransient<IGetUsersDepot, GetUsersEfDepot>();
 
-            services.AddTransient<Lazy<StorageRoomDbContext>>();
+            services.AddDbContext<StorageRoomDbContext>();
 
             if (Configuration["mocked"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
             {

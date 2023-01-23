@@ -13,7 +13,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
 {
     public class UserEfRepository : EfRepositoryBase<User>, IUserRepository
     {
-        public UserEfRepository(Lazy<StorageRoomDbContext> dbContext) : base(dbContext) { }
+        public UserEfRepository(StorageRoomDbContext dbContext) : base(dbContext) { }
 
         public async Task<User> GetByNameAsync(User entity)
         {

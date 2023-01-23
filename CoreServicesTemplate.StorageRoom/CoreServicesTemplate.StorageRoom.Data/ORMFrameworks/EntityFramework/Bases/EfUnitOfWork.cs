@@ -5,20 +5,20 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Ba
 {
     public class EfUnitOfWork : IDisposable
     {
-        private readonly Lazy<StorageRoomDbContext> _dbContext;
+        private readonly StorageRoomDbContext _dbContext;
 
 
-        protected EfUnitOfWork(Lazy<StorageRoomDbContext> dbContext)
+        protected EfUnitOfWork(StorageRoomDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public void Commit() => _dbContext.Value.SaveChanges();
+        public void Commit() => _dbContext.SaveChanges();
 
-        public async Task CommitAsync() => await _dbContext.Value.SaveChangesAsync();
+        public async Task CommitAsync() => await _dbContext.SaveChangesAsync();
 
-        public void Dispose() => _dbContext?.Value.Dispose();
+        public void Dispose() => _dbContext?.Dispose();
 
-        public async Task DisposeAsync() => await _dbContext.Value.DisposeAsync();
+        public async Task DisposeAsync() => await _dbContext.DisposeAsync();
     }
 }
