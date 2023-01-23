@@ -13,7 +13,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework
 
         public StorageRoomDbContext()
         {
-            _dbName = "StorageRoomDB";
+            _dbName = "StorageRoomDb";
             _connectionStringName = CreateConnectionStringPath();
         }
 
@@ -35,7 +35,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseInMemoryDatabase(_dbName);
-            optionsBuilder.UseLazyLoadingProxies().UseSqlServer(_connectionStringName);
+            optionsBuilder.UseLazyLoadingProxies().UseSqlite(_connectionStringName);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

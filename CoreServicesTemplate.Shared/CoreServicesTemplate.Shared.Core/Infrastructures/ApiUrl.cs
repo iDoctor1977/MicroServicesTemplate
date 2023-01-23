@@ -1,7 +1,4 @@
-﻿using CoreServicesTemplate.Shared.Core.Models;
-using System;
-
-namespace CoreServicesTemplate.Shared.Core.Infrastructures;
+﻿namespace CoreServicesTemplate.Shared.Core.Infrastructures;
 
 public static class ApiUrl
 {

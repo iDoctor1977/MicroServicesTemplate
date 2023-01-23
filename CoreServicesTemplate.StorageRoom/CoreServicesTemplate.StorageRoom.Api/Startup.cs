@@ -63,7 +63,16 @@ namespace CoreServicesTemplate.StorageRoom.Api
             services.AddTransient<IGetUserDepot, GetUserEfDepot>();
             services.AddTransient<IGetUsersDepot, GetUsersEfDepot>();
 
-            services.AddDbContext<StorageRoomDbContext>();
+            if (Configuration["DBProvider"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
+            {
+                // only for SQLite
+                services.AddDbContext<StorageRoomDbContext>();
+            }
+            else
+            {
+                // only for SQLServer
+                services.AddDbContext<StorageRoomDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("StorageRoomDB")));
+            }
 
             if (Configuration["mocked"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
             {
