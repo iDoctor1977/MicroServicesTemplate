@@ -1,6 +1,6 @@
 using System.Net.Http.Json;
+using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
-using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Dashboard.Services

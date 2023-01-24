@@ -3,7 +3,6 @@ using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Web.Models;
 using CoreServicesTemplate.Dashboard.Web.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

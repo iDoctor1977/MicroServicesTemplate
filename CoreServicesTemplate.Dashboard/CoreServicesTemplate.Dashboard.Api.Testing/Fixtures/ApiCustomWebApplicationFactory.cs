@@ -1,5 +1,5 @@
-﻿using CoreServicesTemplate.Shared.Core.Builders;
-using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
+﻿using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
+using CoreServicesTemplate.Shared.Core.Builders;
 using CoreServicesTemplate.Shared.Core.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;

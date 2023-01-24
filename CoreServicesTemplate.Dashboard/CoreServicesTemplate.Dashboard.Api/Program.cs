@@ -1,5 +1,6 @@
 using CoreServicesTemplate.Dashboard.Common.Consolidators;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Core.Features;
 using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
@@ -8,7 +9,6 @@ using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.Shared.Core.HealthChecks;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
-using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
 

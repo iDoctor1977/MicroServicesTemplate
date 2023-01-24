@@ -1,8 +1,6 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using CoreServicesTemplate.Shared.Core.Models;
+﻿using CoreServicesTemplate.Shared.Core.Models;
 
-namespace CoreServicesTemplate.Shared.Core.Interfaces.IServices
+namespace CoreServicesTemplate.Dashboard.Common.Interfaces.IServices
 {
     public interface IStorageRoomService
     {
