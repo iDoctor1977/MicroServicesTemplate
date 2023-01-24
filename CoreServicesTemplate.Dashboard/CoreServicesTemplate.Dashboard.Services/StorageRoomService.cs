@@ -28,7 +28,7 @@ namespace CoreServicesTemplate.Dashboard.Services
             throw new NotImplementedException();
         }
 
-        public async Task<UsersApiModel?> GetUsersAsync()
+        public async Task<UsersApiModel> GetUsersAsync()
         {
             //HTTP GET
             var url = ApiUrl.StorageRoom.User.GetAllUserToStorageRoom();

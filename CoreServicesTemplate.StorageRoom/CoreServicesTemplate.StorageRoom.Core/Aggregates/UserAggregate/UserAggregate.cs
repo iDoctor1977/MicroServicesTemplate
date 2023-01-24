@@ -7,7 +7,7 @@ using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate
 {
-    public class UserAggregateRoot : AggEntityBase, IUserAggregateRoot
+    public class UserAggregate : AggEntityBase, IUserAggregateRoot
     {
         private readonly IConsolidator<AddressAggModel, AddressItem> _addressConsolidator;
 
@@ -17,7 +17,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate
 
         private IAddressItem _addressItem;
 
-        public UserAggregateRoot(
+        public UserAggregate(
             IConsolidator<AddressAggModel, AddressItem> addressConsolidator,
             IAddressItem addressItem)
         {
@@ -31,10 +31,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate
             Surname = userAggModel.Surname;
             Birth = userAggModel.Birth;
 
+            // decoupling from external model
             _addressItem = _addressConsolidator.ToData(userAggModel.AddressAggModel).Resolve();
 
             // do something
 
+            // coupling with external model
             userAggModel.AddressAggModel = _addressConsolidator.ToDataReverse((AddressItem)_addressItem).Resolve();
 
             return Task.FromResult(userAggModel);

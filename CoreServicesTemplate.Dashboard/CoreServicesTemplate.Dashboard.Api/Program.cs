@@ -1,16 +1,16 @@
 using CoreServicesTemplate.Dashboard.Common.Consolidators;
+using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models;
-using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
-using CoreServicesTemplate.Shared.Core.Consolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Mappers;
-using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.Shared.Core.HealthChecks;
 using CoreServicesTemplate.Dashboard.Core.Features;
+using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
 using CoreServicesTemplate.Dashboard.Services;
+using CoreServicesTemplate.Shared.Core.Consolidators;
+using CoreServicesTemplate.Shared.Core.HealthChecks;
+using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Interfaces.IServices;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
+using CoreServicesTemplate.Shared.Core.Mappers;
+using CoreServicesTemplate.Shared.Core.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +20,8 @@ builder.Services.AddControllers();
 
 #region Injections
 
-builder.Services.AddTransient<ICommandHandlerFeature<UserAppModel>, AddUserFeature>();
-builder.Services.AddTransient<IQueryHandlerFeature<UsersAppModel>, GetUsersFeature>();
+builder.Services.AddTransient<IAddUserFeature, AddUserFeature>();
+builder.Services.AddTransient<IGetUsersFeature, GetUsersFeature>();
 builder.Services.AddTransient<IStorageRoomService, StorageRoomService>();
 
 builder.Services.AddHttpClient();
@@ -70,4 +70,7 @@ app.MapControllers();
 app.Run();
 
 // Use only for xUnit tests
-public partial class Program { }
+namespace CoreServicesTemplate.Dashboard.Api
+{
+    public partial class Program { }
+}

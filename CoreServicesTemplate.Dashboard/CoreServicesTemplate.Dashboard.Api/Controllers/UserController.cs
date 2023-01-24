@@ -1,6 +1,6 @@
-﻿using CoreServicesTemplate.Dashboard.Common.Models;
+﻿using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
 using CoreServicesTemplate.Shared.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,17 +10,17 @@ namespace CoreServicesTemplate.Dashboard.Api.Controllers
     [Route("dashboard/api/[controller]/[action]")]
     public class UserController : ControllerBase
     {
-        private readonly IConsolidator<UsersApiModel, UsersAppModel> _userCustomConsolidators;
-        private readonly IQueryHandlerFeature<UsersAppModel> _getUsersFeature;
+        private readonly IConsolidator<UsersApiModel, UsersAppModel> _usersCustomConsolidators;
+        private readonly IGetUsersFeature _getUsersFeature;
         private readonly ILogger<UserController> _logger;
 
         public UserController(
-            IQueryHandlerFeature<UsersAppModel> getUsersFeature,
-            IConsolidator<UsersApiModel, UsersAppModel> userCustomConsolidators,
+            IGetUsersFeature getUsersFeature,
+            IConsolidator<UsersApiModel, UsersAppModel> usersCustomConsolidators,
             ILogger<UserController> logger)
         {
             _logger = logger;
-            _userCustomConsolidators = userCustomConsolidators;
+            _usersCustomConsolidators = usersCustomConsolidators;
             _getUsersFeature = getUsersFeature;
         }
 
@@ -29,7 +29,7 @@ namespace CoreServicesTemplate.Dashboard.Api.Controllers
         {
             var model = await _getUsersFeature.HandleAsync();
 
-            var apiModel = _userCustomConsolidators.ToDataReverse(model).Resolve();
+            var apiModel = _usersCustomConsolidators.ToDataReverse(model).Resolve();
 
             return apiModel == null ? NotFound() : Ok(apiModel);
         }

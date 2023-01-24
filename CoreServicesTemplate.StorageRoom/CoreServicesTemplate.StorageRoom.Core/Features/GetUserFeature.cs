@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
+using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
@@ -9,7 +9,7 @@ using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
-    public class GetUserFeature : IQueryHandlerFeature<UserAppModel, UserAppModel>
+    public class GetUserFeature : IGetUserFeature
     {
         private readonly IUserAggregateRoot _userAggregateRoot;
         private readonly IConsolidator<UserAppModel, UserAggModel> _userModelConsolidator;

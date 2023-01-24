@@ -16,10 +16,9 @@ using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using System.Collections.Generic;
 using CoreServicesTemplate.Shared.Core.Consolidators;
-using CoreServicesTemplate.Shared.Core.Enums;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Api.Consolidators;
+using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
 using CoreServicesTemplate.StorageRoom.Data.Consolidators;
@@ -55,24 +54,13 @@ namespace CoreServicesTemplate.StorageRoom.Api
         {
             #region Injections
 
-            services.AddTransient<IQueryHandlerFeature<UserAppModel, OperationStatusResult>, AddUserFeature>();
-            services.AddTransient<IQueryHandlerFeature<UserAppModel, UserAppModel>, GetUserFeature>();
-            services.AddTransient<IQueryHandlerFeature<UsersAppModel>, GetUsersFeature>();
+            services.AddTransient<IAddUserFeature, AddUserFeature>();
+            services.AddTransient<IGetUserFeature, GetUserFeature>();
+            services.AddTransient<IGetUsersFeature, GetUsersFeature>();
 
             services.AddTransient<IAddUserDepot, AddUserEfDepot>();
             services.AddTransient<IGetUserDepot, GetUserEfDepot>();
             services.AddTransient<IGetUsersDepot, GetUsersEfDepot>();
-
-            if (Configuration["DBProvider"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
-            {
-                // only for SQLite
-                services.AddDbContext<StorageRoomDbContext>();
-            }
-            else
-            {
-                // only for SQLServer
-                services.AddDbContext<StorageRoomDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("StorageRoomDB")));
-            }
 
             if (Configuration["mocked"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
             {
@@ -85,9 +73,24 @@ namespace CoreServicesTemplate.StorageRoom.Api
 
             #endregion
 
+            #region Db provider connection string
+
+            if (Configuration["DBProvider"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
+            {
+                // only for SQLite
+                services.AddDbContext<StorageRoomDbContext>();
+            }
+            else
+            {
+                // only for SQLServer
+                services.AddDbContext<StorageRoomDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("StorageRoomDB")));
+            }
+
+            #endregion
+
             #region Domain Aggregates
 
-            services.AddTransient<IUserAggregateRoot, UserAggregateRoot>();
+            services.AddTransient<IUserAggregateRoot, UserAggregate>();
             services.AddTransient<IAddressItem, AddressItem>();
 
             #endregion

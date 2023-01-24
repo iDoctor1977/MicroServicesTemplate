@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
 using CoreServicesTemplate.Shared.Core.Models;
+using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using Microsoft.AspNetCore.Http;
 
@@ -15,17 +15,17 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers;
 [Route("storageroom/api/[controller]/[action]", Name = "[controller]_[action]")]
 public class UserController : ControllerBase
 {
-    private readonly IQueryHandlerFeature<UserAppModel, OperationStatusResult> _addUserFeature;
-    private readonly IQueryHandlerFeature<UserAppModel, UserAppModel> _getUserFeature;
-    private readonly IQueryHandlerFeature<UsersAppModel> _getUsersFeature;
+    private readonly IAddUserFeature _addUserFeature;
+    private readonly IGetUserFeature _getUserFeature;
+    private readonly IGetUsersFeature _getUsersFeature;
 
     private readonly IConsolidator<UserApiModel, UserAppModel> _userCustomConsolidator;
     private readonly IConsolidator<UsersApiModel, UsersAppModel> _usersCustomConsolidator;
 
     public UserController(
-        IQueryHandlerFeature<UserAppModel, OperationStatusResult> addUserFeature,
-        IQueryHandlerFeature<UserAppModel, UserAppModel> getUserFeature,
-        IQueryHandlerFeature<UsersAppModel> getUsersFeature,
+        IAddUserFeature addUserFeature,
+        IGetUserFeature getUserFeature,
+        IGetUsersFeature getUsersFeature,
         IConsolidator<UsersApiModel, UsersAppModel> usersCustomConsolidator,
         IConsolidator<UserApiModel, UserAppModel> userCustomConsolidator)
     {
