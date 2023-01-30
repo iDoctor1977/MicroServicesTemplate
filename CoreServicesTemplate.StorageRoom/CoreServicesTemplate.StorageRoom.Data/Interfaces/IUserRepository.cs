@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CoreServicesTemplate.Shared.Core.Enums;
+﻿using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 

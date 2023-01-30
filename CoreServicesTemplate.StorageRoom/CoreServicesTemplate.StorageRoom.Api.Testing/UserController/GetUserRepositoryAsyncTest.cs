@@ -1,31 +1,28 @@
 ﻿using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
-using System;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Builders;
 using Newtonsoft.Json;
-using Xunit;
 using System.Text;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
+using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {
-    [Collection("RepositoryTestBase")]
-    public class GetUserRepositoryAsync
+    public class GetUserRepositoryAsyncTest : IClassFixture<ApiRepositoryCustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
-        private readonly TestFixtureRepositories _fixture;
+        private readonly ApiRepositoryCustomWebApplicationFactory<Program> _factory;
 
-        public GetUserRepositoryAsync(WebApplicationFactory<Startup> factory, TestFixtureRepositories fixture)
+        public GetUserRepositoryAsyncTest(ApiRepositoryCustomWebApplicationFactory<Program> factory)
         {
-            _fixture = fixture;
-            _client = _fixture.GenerateClient(factory);
+            _factory = factory;
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            {
+                AllowAutoRedirect = false
+            });
         }
 
         [Fact]
@@ -50,7 +47,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                 .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-22897))
                 .Build();
 
-            _fixture.UserRepositoryMock.Setup(repo => repo.GetByNameAsync(It.IsAny<User>())).Returns(Task.FromResult(userEntity.ElementAtOrDefault(2)));
+            _factory.UserRepositoryMock.Setup(repo => repo.GetByNameAsync(It.IsAny<User>())).Returns(Task.FromResult(userEntity.ElementAtOrDefault(2)));
 
             //Act
             UserApiModel userApiModel = usersApiModel.UsersApiModelList.ElementAt(2);
@@ -67,7 +64,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             var result = await _client.SendAsync(request);
 
             //Assert
-            _fixture.UserRepositoryMock.Verify((repo => repo.GetByNameAsync(It.IsAny<User>())), Times.Once());
+            _factory.UserRepositoryMock.Verify((repo => repo.GetByNameAsync(It.IsAny<User>())), Times.Once());
         }
     }
 }

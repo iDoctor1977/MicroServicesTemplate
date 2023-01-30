@@ -1,29 +1,27 @@
-using System;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
+using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
-using Xunit;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {
-    [Collection("DepotTestBase")]
-    public class GetUsersDepotAsync
+    public class GetUsersDepotAsyncTest : IClassFixture<ApiDepotCustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
-        private readonly TestFixtureDepots _fixture;
+        private readonly ApiDepotCustomWebApplicationFactory<Program> _factory;
 
-        public GetUsersDepotAsync(WebApplicationFactory<Startup> factory, TestFixtureDepots fixture)
+        public GetUsersDepotAsyncTest(ApiDepotCustomWebApplicationFactory<Program> factory)
         {
-            _fixture = fixture;
-            _client = _fixture.GenerateClient(factory);
+            _factory = factory;
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            {
+                AllowAutoRedirect = false
+            });
         }
 
         [Fact]
@@ -40,14 +38,14 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                     .Build()
             };
 
-            _fixture.GetUsersDepotMock.Setup(depot => depot.HandleAsync()).Returns(Task.FromResult(users));
+            _factory.GetUsersDepotMock.Setup(depot => depot.HandleAsync()).Returns(Task.FromResult(users));
 
             //Act
             var url = ApiUrl.StorageRoom.User.GetAllUserToStorageRoom();
             var result = await _client.GetFromJsonAsync<UsersApiModel>(url);
 
             //Assert
-            _fixture.GetUsersDepotMock.Verify((c => c.HandleAsync()), Times.Once());
+            _factory.GetUsersDepotMock.Verify((c => c.HandleAsync()), Times.Once());
             result.UsersApiModelList.Should().HaveCountGreaterThan(0);
         }
     }

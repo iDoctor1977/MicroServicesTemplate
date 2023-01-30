@@ -1,27 +1,26 @@
-﻿using System;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
+﻿using System.Net.Http.Json;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
+using CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter.Fixtures;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Xunit;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
 {
     [Collection("DepotTestBase")]
-    public class OnActionExecutionAsyncTests
+    public class OnActionExecutionAsyncTests : IClassFixture<ApiLogCustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
-        private readonly TestFixtureDepots _fixture;
+        private readonly ApiLogCustomWebApplicationFactory<Program> _factory;
 
-        public OnActionExecutionAsyncTests(WebApplicationFactory<Startup> factory, TestFixtureDepots fixture)
+        public OnActionExecutionAsyncTests(ApiLogCustomWebApplicationFactory<Program> factory)
         {
-            _fixture = fixture;
-            _client = _fixture.GenerateClient(factory);
+            _factory = factory;
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            {
+                AllowAutoRedirect = false
+            });
         }
 
         [Fact]
@@ -40,7 +39,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
             await _client.PostAsJsonAsync($"{url}/{apiModel}", apiModel);
 
             //Assert
-            _fixture.LoggerMock.Verify(x => x.Log(LogLevel.Information,
+            _factory.LoggerMock.Verify(x => x.Log(LogLevel.Information,
                     It.IsAny<EventId>(),
                     It.IsAny<It.IsAnyType>(),
                     It.IsAny<Exception>(),

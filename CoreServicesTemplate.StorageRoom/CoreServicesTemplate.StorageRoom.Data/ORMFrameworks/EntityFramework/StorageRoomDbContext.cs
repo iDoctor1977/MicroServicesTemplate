@@ -1,5 +1,4 @@
-﻿using System;
-using CoreServicesTemplate.StorageRoom.Data.Entities;
+﻿using CoreServicesTemplate.StorageRoom.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework

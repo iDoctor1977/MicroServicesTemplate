@@ -1,27 +1,25 @@
-using System;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
+using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
-using Xunit;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {
-    [Collection("RepositoryTestBase")]
-    public class AddUserRepositoryAsync
+    public class AddUserRepositoryAsyncTest : IClassFixture<ApiRepositoryCustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
-        private readonly TestFixtureRepositories _fixture;
+        private readonly ApiRepositoryCustomWebApplicationFactory<Program> _factory;
 
-        public AddUserRepositoryAsync(WebApplicationFactory<Startup> factory, TestFixtureRepositories fixture)
+        public AddUserRepositoryAsyncTest(ApiRepositoryCustomWebApplicationFactory<Program> factory)
         {
-            _fixture = fixture;
-            _client = _fixture.GenerateClient(factory);
+            _factory = factory;
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            {
+                AllowAutoRedirect = false
+            });
         }
 
         [Fact]
@@ -42,14 +40,14 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                 }
             };
 
-            _fixture.UserRepositoryMock.Setup(repo => repo.AddCustomAsync(It.IsAny<User>()));
+            _factory.UserRepositoryMock.Setup(repo => repo.AddCustomAsync(It.IsAny<User>()));
 
             //Act
             var url = ApiUrl.StorageRoom.User.AddUserToStorageRoom();
             await _client.PostAsJsonAsync($"{url}/{modelApi}", modelApi);
 
             //Assert
-            _fixture.UserRepositoryMock.Verify((repo => repo.AddCustomAsync(It.Is<User>(arg => arg.Name == modelApi.Name))));
+            _factory.UserRepositoryMock.Verify((repo => repo.AddCustomAsync(It.Is<User>(arg => arg.Name == modelApi.Name))));
         }
     }
 }

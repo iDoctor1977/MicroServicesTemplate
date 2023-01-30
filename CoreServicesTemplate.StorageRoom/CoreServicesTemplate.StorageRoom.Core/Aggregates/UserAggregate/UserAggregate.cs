@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Bases;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
@@ -7,53 +6,56 @@ using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate
 {
-    public class UserAggregate : AggEntityBase, IUserAggregateRoot
+    public class UserAggregate : AggregateBase, IUserAggregate
     {
         private readonly IConsolidator<AddressAggModel, AddressItem> _addressConsolidator;
 
-        private string Name { get; set; }
-        private string Surname { get; set; }
-        private DateTime Birth { get; set; }
+        public string Name { get; private set; }
+        public string Surname { get; private set; }
+        public DateTime Birth { get; private set; }
 
-        private IAddressItem _addressItem;
+        public AddressItem AddressItem { get; private set; }
 
         public UserAggregate(
-            IConsolidator<AddressAggModel, AddressItem> addressConsolidator,
-            IAddressItem addressItem)
+            IMapper mapper, 
+            IConsolidator<AddressAggModel, AddressItem> addressConsolidator, 
+            UserAggModel aggModel)
         {
             _addressConsolidator = addressConsolidator;
-            _addressItem = addressItem;
+
+            mapper.Map(aggModel, this);
+            AddressItem = _addressConsolidator.ToData(aggModel.AddressAggModel).Resolve();
         }
 
-        public Task<UserAggModel> CreateUser(UserAggModel userAggModel)
+        public UserAggModel CreateUser(UserAggModel userAggModel)
         {
+            // decoupling from external aggModel
+            Guid = userAggModel.Guid;
             Name = userAggModel.Name;
             Surname = userAggModel.Surname;
             Birth = userAggModel.Birth;
-
-            // decoupling from external model
-            _addressItem = _addressConsolidator.ToData(userAggModel.AddressAggModel).Resolve();
+            AddressItem = _addressConsolidator.ToData(userAggModel.AddressAggModel).Resolve();
 
             // do something
 
-            // coupling with external model
-            userAggModel.AddressAggModel = _addressConsolidator.ToDataReverse((AddressItem)_addressItem).Resolve();
+            // coupling with external aggModel
+            userAggModel.AddressAggModel = _addressConsolidator.ToDataReverse(AddressItem).Resolve();
 
-            return Task.FromResult(userAggModel);
+            return userAggModel;
         }
 
-        public Task<string> UserToString()
+        public string UserToString()
         {
-            var user = $"{Name} {Surname}, {Birth}, {_addressItem.AddressToString()}";
+            var user = $"{Name} {Surname}, {Birth}, {AddressItem.AddressToString()}";
 
-            return Task.FromResult(user);
+            return user;
         }
 
-        public Task<string> AddressToString()
+        public string AddressToString()
         {
-            var address = $"{_addressItem.AddressToString()}";
+            var address = $"{AddressItem.AddressToString()}";
 
-            return Task.FromResult(address);
+            return address;
         }
     }
 }

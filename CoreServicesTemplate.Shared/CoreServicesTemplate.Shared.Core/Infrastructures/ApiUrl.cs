@@ -4,7 +4,7 @@ public static class ApiUrl
 {
     public static class StorageRoom
     {
-        private static readonly string StorageRoomRoot = "http://localhost:33785/storageroom/api";
+        private static readonly string StorageRoomRoot = "http://localhost:32001/api/storageroom";
 
         public static class User 
         {
@@ -21,7 +21,7 @@ public static class ApiUrl
 
     public static class Dashboard
     {
-        private static readonly string DashboardRoot = "http://localhost:31753/dashboard/api";
+        private static readonly string DashboardRoot = "http://localhost:31753/api/dashboard";
 
         public static class User
         {

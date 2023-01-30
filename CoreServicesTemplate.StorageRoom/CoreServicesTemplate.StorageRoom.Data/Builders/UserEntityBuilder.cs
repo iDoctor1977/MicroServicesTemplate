@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CoreServicesTemplate.StorageRoom.Data.Entities;
+﻿using CoreServicesTemplate.StorageRoom.Data.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Builders
 {

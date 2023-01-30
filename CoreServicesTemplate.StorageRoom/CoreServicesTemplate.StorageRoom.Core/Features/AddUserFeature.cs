@@ -1,46 +1,52 @@
-﻿using System.Threading.Tasks;
-using CoreServicesTemplate.Shared.Core.Enums;
+﻿using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.SeedWork;
 using CoreServicesTemplate.StorageRoom.Core.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class AddUserFeature : IAddUserFeature
     {
-        private readonly IUserAggregateRoot _userAggregateRoot;
         private readonly IConsolidator<UserAppModel, UserAggModel> _userConsolidator;
         private readonly IAddUserDepot _addUserDepot;
         private readonly ISubStepSupplier _subStepSupplier;
+        private readonly IAggregateFactory _aggregateFactory;
+        private readonly ILogger<AddUserFeature> _logger;
 
         public AddUserFeature(
-            IUserAggregateRoot userAggregateRoot,
             IConsolidator<UserAppModel, UserAggModel> userConsolidator,
             IAddUserDepot addUserDepot, 
-            ISubStepSupplier subStepSupplier)
+            ISubStepSupplier subStepSupplier,
+            IAggregateFactory aggregateFactory,
+            ILogger<AddUserFeature> logger)
         {
-            _userAggregateRoot = userAggregateRoot;
             _addUserDepot = addUserDepot;
             _subStepSupplier = subStepSupplier;
+            _aggregateFactory = aggregateFactory;
+            _logger = logger;
             _userConsolidator = userConsolidator;
         }
 
         public async Task<OperationStatusResult> HandleAsync(UserAppModel @in)
         {
             // decoupling and map modelApp to modelAgg 
-            var aggregationModel = ToData(@in);
+            var aggModel = ToData(@in);
 
             // execute method to aggregate root domain
-            aggregationModel = await _userAggregateRoot.CreateUser(aggregationModel);
-            await _userAggregateRoot.UserToString();
-            await _userAggregateRoot.AddressToString();
+            var userAggregate = _aggregateFactory.GenerateAggregate<UserAggModel, IUserAggregate>(aggModel);
+            userAggregate.UserToString();
+            userAggregate.AddressToString();
 
             // decoupling and map modelAgg to modelApp
-            var appModel = ToReverseData(aggregationModel);
+            var appModel = ToReverseData(aggModel);
+
+            _logger.LogInformation("----- Creating User - User: {@User}", appModel);
 
             // execute consolidation with repository (if necessary)
             var result = await _addUserDepot.HandleAsync(appModel);

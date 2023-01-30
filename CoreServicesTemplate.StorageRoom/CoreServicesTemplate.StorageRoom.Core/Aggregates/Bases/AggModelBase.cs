@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.Bases;
+﻿namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.Bases;
 
 public class AggModelBase
 {

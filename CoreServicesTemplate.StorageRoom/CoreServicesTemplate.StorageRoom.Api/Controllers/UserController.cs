@@ -1,18 +1,15 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers;
 
 [ApiController]
-[Route("storageroom/api/[controller]/[action]", Name = "[controller]_[action]")]
+[Route("api/storageroom/[controller]/[action]", Name = "[controller]_[action]")]
 public class UserController : ControllerBase
 {
     private readonly IAddUserFeature _addUserFeature;

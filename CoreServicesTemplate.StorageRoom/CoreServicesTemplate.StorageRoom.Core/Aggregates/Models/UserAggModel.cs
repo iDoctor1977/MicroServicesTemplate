@@ -1,5 +1,4 @@
-﻿using System;
-using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Bases;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
 using CoreServicesTemplate.StorageRoom.Data.Bases;
 using Microsoft.EntityFrameworkCore;

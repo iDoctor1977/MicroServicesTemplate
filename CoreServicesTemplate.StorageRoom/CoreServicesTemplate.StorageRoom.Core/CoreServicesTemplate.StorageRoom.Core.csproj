@@ -2,11 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Common\CoreServicesTemplate.StorageRoom.Common.csproj" />
+    <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Data\CoreServicesTemplate.StorageRoom.Data.csproj" />
   </ItemGroup>
 
 </Project>

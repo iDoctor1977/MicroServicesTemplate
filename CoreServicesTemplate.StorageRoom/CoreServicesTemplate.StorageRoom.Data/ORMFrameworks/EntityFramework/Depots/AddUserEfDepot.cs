@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using CoreServicesTemplate.Shared.Core.Enums;
+﻿using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models;

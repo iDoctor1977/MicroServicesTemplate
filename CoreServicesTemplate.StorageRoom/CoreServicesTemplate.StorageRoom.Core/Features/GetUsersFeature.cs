@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
+﻿using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 

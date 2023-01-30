@@ -1,31 +1,28 @@
 ﻿using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
-using System;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Builders;
 using Newtonsoft.Json;
-using Xunit;
 using System.Text;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
+using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {
-    [Collection("DepotTestBase")]
-    public class GetUserDepotAsync
+    public class GetUserDepotAsyncTest : IClassFixture<ApiDepotCustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
-        private readonly TestFixtureDepots _fixture;
+        private readonly ApiDepotCustomWebApplicationFactory<Program> _factory;
 
-        public GetUserDepotAsync(WebApplicationFactory<Startup> factory, TestFixtureDepots fixture)
+        public GetUserDepotAsyncTest(ApiDepotCustomWebApplicationFactory<Program> factory)
         {
-            _fixture = fixture;
-            _client = _fixture.GenerateClient(factory);
+            _factory = factory;
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            {
+                AllowAutoRedirect = false
+            });
         }
 
         [Fact]
@@ -55,7 +52,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 
 
             var modelMock = usersModel.UsersModelList.ElementAtOrDefault(2);
-            _fixture.GetUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserAppModel>())).Returns(Task.FromResult(modelMock));
+            _factory.GetUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserAppModel>())).Returns(Task.FromResult(modelMock));
 
             //Act
             UserApiModel userApiModel = usersApiModel.UsersApiModelList.ElementAt(2);
@@ -72,7 +69,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             var result = await _client.SendAsync(request);
 
             //Assert
-            _fixture.GetUserDepotMock.Verify((c => c.HandleAsync(It.IsAny<UserAppModel>())), Times.Once());
+            _factory.GetUserDepotMock.Verify((c => c.HandleAsync(It.IsAny<UserAppModel>())), Times.Once());
         }
     }
 }

@@ -1,27 +1,25 @@
-using System;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
+using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
-using Xunit;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {
-    [Collection("DepotTestBase")]
-    public class AddUserDepotAsync
+    public class AddUserDepotAsyncTest : IClassFixture<ApiDepotCustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
-        private readonly TestFixtureDepots _fixture;
+        private readonly ApiDepotCustomWebApplicationFactory<Program> _factory;
 
-        public AddUserDepotAsync(WebApplicationFactory<Startup> factory, TestFixtureDepots fixture)
+        public AddUserDepotAsyncTest(ApiDepotCustomWebApplicationFactory<Program> factory)
         {
-            _fixture = fixture;
-            _client = _fixture.GenerateClient(factory);
+            _factory = factory;
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            {
+                AllowAutoRedirect = false
+            });
         }
 
         [Fact]
@@ -42,14 +40,14 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                 }
             };
 
-            _fixture.AddUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserAppModel>()));
+            _factory.AddUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserAppModel>()));
 
             //Act
             var url = ApiUrl.StorageRoom.User.AddUserToStorageRoom();
             await _client.PostAsJsonAsync($"{url}/{modelApi}", modelApi);
 
             //Assert
-            _fixture.AddUserDepotMock.Verify((c => c.HandleAsync(It.Is<UserAppModel>(arg => arg.Name == modelApi.Name))));
+            _factory.AddUserDepotMock.Verify((c => c.HandleAsync(It.Is<UserAppModel>(arg => arg.Name == modelApi.Name))));
         }
     }
 }

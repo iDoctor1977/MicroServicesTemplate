@@ -1,5 +1,4 @@
-﻿using System;
-using CoreServicesTemplate.StorageRoom.Data.Bases;
+﻿using CoreServicesTemplate.StorageRoom.Data.Bases;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Entities
 {

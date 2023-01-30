@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases
+﻿namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases
 {
     public class EfUnitOfWork : IDisposable
     {
