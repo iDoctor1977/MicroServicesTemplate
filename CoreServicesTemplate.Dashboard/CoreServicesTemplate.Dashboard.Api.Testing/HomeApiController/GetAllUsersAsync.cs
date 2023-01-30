@@ -2,6 +2,7 @@ using CoreServicesTemplate.Dashboard.Api.Controllers;
 using CoreServicesTemplate.Dashboard.Api.Testing.Fixtures;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models;
+using CoreServicesTemplate.Shared.Core.Builders;
 using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Models;
 using FluentAssertions;
@@ -30,6 +31,21 @@ namespace CoreServicesTemplate.Dashboard.Api.Testing.HomeApiController
         public async Task Should_Execute_Read_Users()
         {
             //Arrange
+            var userBuilder = new UserApiModelBuilder();
+            var users = userBuilder
+                .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-12369))
+                .AddUser("Matt", "Daemon", DateTime.Now.AddDays(-36982))
+                .AddUser("Duffy", "Duck", DateTime.Now.AddDays(-11023))
+                .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-693983))
+                .Build();
+
+            var model = new UsersApiModel()
+            {
+                UsersApiModelList = users
+            };
+
+            _factory.StorageRoomServiceMock.Setup(service => service.GetUsersAsync()).ReturnsAsync(model);
+
             //client.PostAsJsonAsync();
 
             var controller = new UserController(

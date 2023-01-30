@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Net;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Web.Models;
@@ -43,6 +44,8 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
                 _factory.Services.GetRequiredService<IAddUserFeature>(),
                 _factory.Services.GetRequiredService<IGetUsersFeature>(),
                 _factory.Services.GetRequiredService<ILogger<Controllers.HomeController>>());
+
+            _factory.StorageRoomServiceMock.Setup(service => service.AddUserAsync(It.IsAny<UserApiModel>())).ReturnsAsync(new HttpResponseMessage { StatusCode = HttpStatusCode.OK });
 
             //Act
             await controller.Add(userViewModel);
