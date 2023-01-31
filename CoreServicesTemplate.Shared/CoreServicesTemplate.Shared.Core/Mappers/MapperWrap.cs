@@ -1,25 +1,18 @@
 ﻿using AutoMapper;
-using CoreServicesTemplate.Shared.Core.Interfaces.IAggregates;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
-using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 
 namespace CoreServicesTemplate.Shared.Core.Mappers
 {
     /// <summary>
     /// Wrapper class for external mapping tool.
     /// </summary>
-    public class CustomMapper : ICustomMapper
+    public class MapperWrap : IMapperWrap
     {
         private readonly IMapper _mapper;
 
-        public CustomMapper(IMapper mapper)
+        public MapperWrap(IMapper mapper)
         {
             _mapper = mapper;
-        }
-
-        public void MapAggregate(IAggModel aggModel, IAggregate aggClass)
-        {
-            _mapper.Map(aggModel, aggClass);
         }
 
         public TOut Map<TIn ,TOut>(TIn model)
@@ -27,9 +20,9 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
             return _mapper.Map<TOut>(model);
         }
 
-        public TIn ReverseMap<TOut, TIn>(TOut model)
+        public TOut Map<TIn, TOut>(TIn modelIn, TOut modelOut)
         {
-            return _mapper.Map<TIn>(model);
+            return _mapper.Map(modelIn, modelOut);
         }
     }
 }

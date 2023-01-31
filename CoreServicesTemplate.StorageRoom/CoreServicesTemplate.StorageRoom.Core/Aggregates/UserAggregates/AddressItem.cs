@@ -1,4 +1,4 @@
-﻿namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate
+﻿namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
 {
     public class AddressItem
     {

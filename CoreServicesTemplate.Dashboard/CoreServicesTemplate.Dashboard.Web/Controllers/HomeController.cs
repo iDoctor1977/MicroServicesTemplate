@@ -2,31 +2,31 @@
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Web.Bases;
 using CoreServicesTemplate.Dashboard.Web.Models;
-using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreServicesTemplate.Dashboard.Web.Controllers
 {
     public class HomeController : ControllerBase<HomeController>
     {
-        private readonly IConsolidator<UserViewModel, UserAppModel> _userCustomConsolidator;
-        private readonly IConsolidator<UsersViewModel, UsersAppModel> _usersCustomConsolidator;
+        private readonly IMapping<UserViewModel, UserAppModel> _userCustomMapper;
+        private readonly IMapping<UsersViewModel, UsersAppModel> _usersCustomMapper;
 
         private readonly IAddUserFeature _addUserFeature;
         private readonly IGetUsersFeature _getUsersFeature;
 
         public HomeController(
-            IConsolidator<UserViewModel, UserAppModel> userCustomConsolidator,
-            IConsolidator<UsersViewModel, UsersAppModel> usersCustomConsolidator,
+            IMapping<UserViewModel, UserAppModel> userCustomMapper,
+            IMapping<UsersViewModel, UsersAppModel> usersCustomMapper,
             IAddUserFeature addUserFeature,
             IGetUsersFeature getUsersFeature,
             ILogger<HomeController> logger) : base(logger)
         {
-            _userCustomConsolidator = userCustomConsolidator;
+            _userCustomMapper = userCustomMapper;
 
             _addUserFeature = addUserFeature;
             _getUsersFeature = getUsersFeature;
-            _usersCustomConsolidator = usersCustomConsolidator;
+            _usersCustomMapper = usersCustomMapper;
         }
 
         public IActionResult Index()
@@ -47,7 +47,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<RedirectToActionResult> Add(UserViewModel viewModel)
         {
-            var model = _userCustomConsolidator.ToData(viewModel).Resolve();
+            var model = _userCustomMapper.Map(viewModel);
 
             if (ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
         {
             var model = await _getUsersFeature.HandleAsync();
 
-            var viewModel = _usersCustomConsolidator.ToDataReverse(model).Resolve();
+            var viewModel = _usersCustomMapper.Map(model);
 
             return View(viewModel);
         }

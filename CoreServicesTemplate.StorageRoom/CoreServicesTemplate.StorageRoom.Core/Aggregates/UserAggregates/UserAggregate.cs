@@ -1,14 +1,13 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IAggregates;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
-using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Bases;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 
-namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate
+namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
 {
     public class UserAggregate : AggregateBase, IAggregate
     {
-        private readonly IResolveMapper<AddressAggModel, AddressItem> _addressConsolidator;
+        private readonly IMapping<AddressAggModel, AddressItem> _addressMapper;
 
         public string Name { get; private set; }
         public string Surname { get; private set; }
@@ -17,14 +16,14 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate
         public AddressItem AddressItem { get; private set; }
 
         public UserAggregate(
-            IResolveMapper<AddressAggModel, AddressItem> addressConsolidator, 
-            UserAggModel aggModel, 
-            ICustomMapper customMapper)
+            IMapping<AddressAggModel, AddressItem> addressMapper,
+            IMapping<UserAggModel, UserAggregate> userMapper, 
+            UserAggModel aggModel)
         {
-            _addressConsolidator = addressConsolidator;
+            _addressMapper = addressMapper;
 
-            customMapper.MapAggregate(aggModel, this);
-            AddressItem = _addressConsolidator.ToData(aggModel.AddressAggModel).Resolve();
+            userMapper.Map(aggModel, this);
+            AddressItem = addressMapper.Map(aggModel.AddressAggModel);
         }
 
         public UserAggModel CreateUser(UserAggModel userAggModel)
@@ -34,12 +33,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate
             Name = userAggModel.Name;
             Surname = userAggModel.Surname;
             Birth = userAggModel.Birth;
-            AddressItem = _addressConsolidator.ToData(userAggModel.AddressAggModel).Resolve();
+            AddressItem = _addressMapper.Map(userAggModel.AddressAggModel);
 
             // do something
 
             // coupling with external aggModel
-            userAggModel.AddressAggModel = _addressConsolidator.ToDataReverse(AddressItem).Resolve();
+            userAggModel.AddressAggModel = _addressMapper.Map(AddressItem);
 
             return userAggModel;
         }

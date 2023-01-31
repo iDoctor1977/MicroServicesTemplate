@@ -3,7 +3,7 @@ using CoreServicesTemplate.Dashboard.Api.Testing.Fixtures;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Shared.Core.Builders;
-using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -50,7 +50,7 @@ namespace CoreServicesTemplate.Dashboard.Api.Testing.HomeApiController
 
             var controller = new UserController(
                 _factory.Services.GetRequiredService<IGetUsersFeature>(),
-                _factory.Services.GetRequiredService<IConsolidator<UsersApiModel, UsersAppModel>>(),
+                _factory.Services.GetRequiredService<IMapping<UsersApiModel, UsersAppModel>>(),
                 _factory.Services.GetRequiredService<ILogger<UserController>>());
 
             //Act

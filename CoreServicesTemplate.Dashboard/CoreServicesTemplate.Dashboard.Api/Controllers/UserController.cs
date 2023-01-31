@@ -1,26 +1,26 @@
 ﻿using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models;
-using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreServicesTemplate.Dashboard.Api.Controllers
 {
     [ApiController]
-    [Route("dashboard/api/[controller]/[action]")]
+    [Route("api/dashboard/[controller]/[action]")]
     public class UserController : ControllerBase
     {
-        private readonly IConsolidator<UsersApiModel, UsersAppModel> _usersCustomConsolidators;
+        private readonly IMapping<UsersApiModel, UsersAppModel> _usersCustomMapper;
         private readonly IGetUsersFeature _getUsersFeature;
         private readonly ILogger<UserController> _logger;
 
         public UserController(
             IGetUsersFeature getUsersFeature,
-            IConsolidator<UsersApiModel, UsersAppModel> usersCustomConsolidators,
+            IMapping<UsersApiModel, UsersAppModel> usersCustomMapper,
             ILogger<UserController> logger)
         {
             _logger = logger;
-            _usersCustomConsolidators = usersCustomConsolidators;
+            _usersCustomMapper = usersCustomMapper;
             _getUsersFeature = getUsersFeature;
         }
 
@@ -29,7 +29,7 @@ namespace CoreServicesTemplate.Dashboard.Api.Controllers
         {
             var model = await _getUsersFeature.HandleAsync();
 
-            var apiModel = _usersCustomConsolidators.ToDataReverse(model).Resolve();
+            var apiModel = _usersCustomMapper.Map(model);
 
             return apiModel == null ? NotFound() : Ok(apiModel);
         }

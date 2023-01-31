@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.MappingProfiles
 {
@@ -8,8 +8,8 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.MappingProfiles
     {
         public AggregateMappingProfile()
         {
-            CreateMap<UserAggModel, UserAggregate.UserAggregate>().ReverseMap();
-            CreateMap<AddressItem, AddressAggModel>().ReverseMap();
+            CreateMap<UserAggModel, UserAggregate>().ReverseMap();
+            CreateMap<AddressAggModel, AddressItem>().ReverseMap();
         }
     }
 }
