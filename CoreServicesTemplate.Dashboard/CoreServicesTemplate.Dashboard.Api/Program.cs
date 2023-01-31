@@ -1,13 +1,11 @@
-using CoreServicesTemplate.Dashboard.Common.Consolidators;
+using CoreServicesTemplate.Dashboard.Common.CustomMappers;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Core.Features;
 using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
 using CoreServicesTemplate.Dashboard.Services;
-using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.Shared.Core.HealthChecks;
-using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
@@ -28,18 +26,17 @@ builder.Services.AddHttpClient();
 
 #endregion
 
-#region Consolidator
+#region Mapper
 
-builder.Services.AddTransient<ICustomMapper, CustomMapper>();
-
-builder.Services.AddTransient(typeof(IConsolidator<,>), typeof(DefaultConsolidator<,>));
-builder.Services.AddTransient(typeof(IConsolidator<UserApiModel, UserAppModel>), typeof(UserApiCustomConsolidator));
-builder.Services.AddTransient(typeof(IConsolidator<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomConsolidator));
+builder.Services.AddTransient(typeof(IMapping<,>), typeof(DefaultMapper<,>));
+builder.Services.AddTransient(typeof(IMapping<UserApiModel, UserAppModel>), typeof(UserApiCustomConsolidator));
+builder.Services.AddTransient(typeof(IMapping<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomConsolidator));
 
 #endregion
 
 #region Automapper
 
+builder.Services.AddTransient<IMapperWrap, MapperWrap>();
 builder.Services.AddAutoMapper(typeof(CoreMappingProfile));
 
 #endregion

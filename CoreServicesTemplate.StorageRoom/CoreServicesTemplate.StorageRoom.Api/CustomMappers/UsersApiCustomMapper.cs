@@ -46,6 +46,16 @@ public sealed class UsersApiCustomMapper : ACustomMapperBase<UsersApiModel, User
 
     public override UsersAppModel Map(UsersApiModel @in, UsersAppModel @out)
     {
-        throw new NotImplementedException();
+        var appModel = ToDataOut(@in, @out);
+
+        var modelList = new List<UserAppModel>();
+        foreach (var modelIn in @in.UsersApiModelList)
+        {
+            modelList.Add(_userMapper.Map(modelIn));
+        }
+
+        appModel.UsersModelList = modelList;
+
+        return appModel;
     }
 }

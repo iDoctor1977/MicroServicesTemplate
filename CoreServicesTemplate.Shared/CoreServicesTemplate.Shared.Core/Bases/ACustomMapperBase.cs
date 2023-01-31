@@ -4,29 +4,29 @@ namespace CoreServicesTemplate.Shared.Core.Bases;
 
 public abstract class ACustomMapperBase<TIn, TOut> : IMapping<TIn, TOut>
 {
-    private readonly IMapperWrap _mapper;
+    private readonly IMapperWrap _mapperWrap;
 
-    protected ACustomMapperBase(IMapperWrap mapper)
+    protected ACustomMapperBase(IMapperWrap mapperWrap)
     {
-        _mapper = mapper;
+        _mapperWrap = mapperWrap;
     }
 
     protected TOut DataInToDataOut(TIn @in)
     {
-        var tOut = _mapper.Map<TIn, TOut>(@in);
+        var tOut = _mapperWrap.Map<TIn, TOut>(@in);
 
         return tOut;
     }
     protected TIn DataOutToDataIn(TOut @out)
     {
-        var tIn = _mapper.Map<TOut, TIn>(@out);
+        var tIn = _mapperWrap.Map<TOut, TIn>(@out);
 
         return tIn;
     }
 
     protected TOut ToDataOut(TIn @in, TOut @out)
     {
-        var tOut = _mapper.Map(@in, @out);
+        var tOut = _mapperWrap.Map(@in, @out);
 
         return tOut;
     }

@@ -1,15 +1,13 @@
-using CoreServicesTemplate.Dashboard.Common.Consolidators;
+using CoreServicesTemplate.Dashboard.Common.CustomMappers;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Core.Features;
 using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
 using CoreServicesTemplate.Dashboard.Services;
-using CoreServicesTemplate.Dashboard.Web.Consolidators;
+using CoreServicesTemplate.Dashboard.Web.CustomMappers;
 using CoreServicesTemplate.Dashboard.Web.MapperProfiles;
 using CoreServicesTemplate.Dashboard.Web.Models;
-using CoreServicesTemplate.Shared.Core.Consolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
@@ -27,21 +25,20 @@ builder.Services.AddTransient<IStorageRoomService, StorageRoomService>();
 
 #endregion
 
-#region Consolidator
+#region Mapper
 
-builder.Services.AddTransient<ICustomMapper, CustomMapper>();
+builder.Services.AddTransient(typeof(IMapping<,>), typeof(DefaultMapper<,>));
 
-builder.Services.AddTransient(typeof(IConsolidator<,>), typeof(DefaultConsolidator<,>));
+builder.Services.AddTransient(typeof(IMapping<UserViewModel, UserAppModel>), typeof(UserWebCustomMapper));
+builder.Services.AddTransient(typeof(IMapping<UsersViewModel, UsersAppModel>), typeof(UsersWebCustomMapper));
 
-builder.Services.AddTransient(typeof(IConsolidator<UserViewModel, UserAppModel>), typeof(UserWebCustomConsolidator));
-builder.Services.AddTransient(typeof(IConsolidator<UsersViewModel, UsersAppModel>), typeof(UsersWebCustomConsolidator));
-
-builder.Services.AddTransient(typeof(IConsolidator<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomConsolidator));
+builder.Services.AddTransient(typeof(IMapping<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomConsolidator));
 
 #endregion
 
 #region Automapper
 
+builder.Services.AddTransient<IMapperWrap, MapperWrap>();
 builder.Services.AddAutoMapper(typeof(WebMappingProfile), typeof(CoreMappingProfile));
 
 #endregion
