@@ -1,11 +1,11 @@
 ﻿using CoreServicesTemplate.Shared.Core.Enums;
-using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.SeedWork;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates;
 using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -13,14 +13,14 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class AddUserFeature : IAddUserFeature
     {
-        private readonly IResolveMapper<UserAppModel, UserAggModel> _userConsolidator;
+        private readonly IDefaultMapper<UserAppModel, UserAggModel> _userMapper;
         private readonly IAddUserDepot _addUserDepot;
         private readonly ISubStepSupplier _subStepSupplier;
         private readonly IAggregateFactory _aggregateFactory;
         private readonly ILogger<AddUserFeature> _logger;
 
         public AddUserFeature(
-            IResolveMapper<UserAppModel, UserAggModel> userConsolidator,
+            IDefaultMapper<UserAppModel, UserAggModel> userMapper,
             IAddUserDepot addUserDepot, 
             ISubStepSupplier subStepSupplier,
             IAggregateFactory aggregateFactory,
@@ -30,13 +30,13 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _subStepSupplier = subStepSupplier;
             _aggregateFactory = aggregateFactory;
             _logger = logger;
-            _userConsolidator = userConsolidator;
+            _userMapper = userMapper;
         }
 
         public async Task<OperationStatusResult> HandleAsync(UserAppModel @in)
         {
             // decoupling and map modelApp to modelAgg 
-            var aggModel = ToData(@in);
+            var aggModel = _userMapper.Map(@in);
 
             // execute method to aggregate root domain
             var userAggregate = _aggregateFactory.GenerateAggregate<UserAggModel, UserAggregate>(aggModel);
@@ -44,7 +44,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             Console.WriteLine(userAggregate.AddressToString());
 
             // decoupling and map modelAgg to modelApp
-            var appModel = ToReverseData(aggModel);
+            var appModel = _userMapper.Map(aggModel);
 
             _logger.LogInformation("----- Creating User - User: {@User}", appModel);
 
@@ -61,21 +61,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
         public OperationStatusResult Handle(UserAppModel @in)
         {
-            throw new System.NotImplementedException();
-        }
-
-        private UserAggModel ToData(UserAppModel @in)
-        {
-            var aggModel = _userConsolidator.ToData(@in).Resolve();
-
-            return aggModel;
-        }
-
-        private UserAppModel ToReverseData(UserAggModel @in)
-        {
-            var appModel = _userConsolidator.ToDataReverse(@in).Resolve();
-
-            return appModel;
+            throw new NotImplementedException();
         }
     }
 }

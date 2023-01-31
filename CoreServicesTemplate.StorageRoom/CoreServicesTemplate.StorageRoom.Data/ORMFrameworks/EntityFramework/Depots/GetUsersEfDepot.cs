@@ -1,4 +1,4 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
@@ -10,14 +10,14 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
     public class GetUsersEfDepot : EfUnitOfWork, IGetUsersDepot
     {
         private readonly IUserRepository _userRepository;
-        private readonly IResolveMapper<UsersAppModel, IEnumerable<User>> _usersConsolidator;
+        private readonly IDefaultMapper<UsersAppModel, IEnumerable<User>> _usersMapper;
 
         public GetUsersEfDepot(
             StorageRoomDbContext dbContext,
-            IResolveMapper<UsersAppModel, IEnumerable<User>> usersConsolidator,
+            IDefaultMapper<UsersAppModel, IEnumerable<User>> usersMapper,
             IUserRepository userRepository) : base(dbContext)
         {
-            _usersConsolidator = usersConsolidator;
+            _usersMapper = usersMapper;
             _userRepository = userRepository;
         }
 
@@ -25,7 +25,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
         {
             var entity = await _userRepository.GetAllCustomAsync();
 
-            var model = _usersConsolidator.ToDataReverse(entity).Resolve();
+            var model = _usersMapper.Map(entity);
 
             return model;
         }

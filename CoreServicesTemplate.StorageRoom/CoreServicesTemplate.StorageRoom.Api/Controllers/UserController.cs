@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
-using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
@@ -16,21 +16,21 @@ public class UserController : ControllerBase
     private readonly IGetUserFeature _getUserFeature;
     private readonly IGetUsersFeature _getUsersFeature;
 
-    private readonly IResolveMapper<UserApiModel, UserAppModel> _userCustomConsolidator;
-    private readonly IResolveMapper<UsersApiModel, UsersAppModel> _usersCustomConsolidator;
+    private readonly IDefaultMapper<UserApiModel, UserAppModel> _userCustomMapper;
+    private readonly IDefaultMapper<UsersApiModel, UsersAppModel> _usersCustomMapper;
 
     public UserController(
         IAddUserFeature addUserFeature,
         IGetUserFeature getUserFeature,
         IGetUsersFeature getUsersFeature,
-        IResolveMapper<UsersApiModel, UsersAppModel> usersCustomConsolidator,
-        IResolveMapper<UserApiModel, UserAppModel> userCustomConsolidator)
+        IDefaultMapper<UsersApiModel, UsersAppModel> usersCustomMapper,
+        IDefaultMapper<UserApiModel, UserAppModel> userCustomMapper)
     {
         _addUserFeature = addUserFeature;
         _getUserFeature = getUserFeature;
         _getUsersFeature = getUsersFeature;
-        _usersCustomConsolidator = usersCustomConsolidator;
-        _userCustomConsolidator = userCustomConsolidator;
+        _usersCustomMapper = usersCustomMapper;
+        _userCustomMapper = userCustomMapper;
     }
 
     [HttpPost("{apiModel}")]
@@ -44,7 +44,7 @@ public class UserController : ControllerBase
         }
 
         // decoupling ApiModel and map it in to AppModel.
-        var model = _userCustomConsolidator.ToData(apiModel).Resolve();
+        var model = _userCustomMapper.Map(apiModel);
 
         var result = await _addUserFeature.HandleAsync(model);
 
@@ -63,12 +63,12 @@ public class UserController : ControllerBase
         }
 
         // decoupling ApiModel and map it in to AppModel.
-        var model = _userCustomConsolidator.ToData(apiModel).Resolve();
+        var model = _userCustomMapper.Map(apiModel);
 
         var resultModel = await _getUserFeature.HandleAsync(model);
 
         // decoupling AppModel and map it in to ApiModel to return value.
-        var resultApiModel = _userCustomConsolidator.ToDataReverse(resultModel).Resolve();
+        var resultApiModel = _userCustomMapper.Map(resultModel);
 
         return resultApiModel is null ? NoContent() : resultApiModel;
     }
@@ -80,7 +80,7 @@ public class UserController : ControllerBase
         var model = await _getUsersFeature.HandleAsync();
 
         // decoupling AppModel and map it in to ApiModel to return value.
-        var apiModel = _usersCustomConsolidator.ToDataReverse(model).Resolve();
+        var apiModel = _usersCustomMapper.Map(model);
 
         return apiModel is null ? NoContent() : apiModel;
     }
@@ -96,7 +96,7 @@ public class UserController : ControllerBase
         }
 
         // decoupling ApiModel and map it in to AppModel.
-        var model = _userCustomConsolidator.ToData(apiModel).Resolve();
+        var model = _userCustomMapper.Map(apiModel);
 
         // var result = await _updateUserFeature.AddHandleAsync(model);
 
@@ -119,7 +119,7 @@ public class UserController : ControllerBase
         }
 
         // decoupling ApiModel and map it in to AppModel.
-        var model = _userCustomConsolidator.ToData(apiModel).Resolve();
+        var model = _userCustomMapper.Map(apiModel);
 
         // var result = await _deleteUserFeature.AddHandleAsync(model);
 

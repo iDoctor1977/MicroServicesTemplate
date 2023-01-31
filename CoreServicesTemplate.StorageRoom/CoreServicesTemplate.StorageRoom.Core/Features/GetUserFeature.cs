@@ -1,4 +1,4 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
@@ -9,18 +9,18 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class GetUserFeature : IGetUserFeature
     {
-        private readonly IResolveMapper<UserAppModel, UserAggModel> _userModelConsolidator;
+        private readonly IDefaultMapper<UserAppModel, UserAggModel> _userMapper;
         private readonly IGetUserDepot _getUserDepot;
         private readonly ISubStepSupplier _subStepSupplier;
 
         public GetUserFeature(
-            IResolveMapper<UserAppModel, UserAggModel> userModelConsolidator,
+            IDefaultMapper<UserAppModel, UserAggModel> userMapper,
             IGetUserDepot getUserDepot, 
             ISubStepSupplier subStepSupplier)
         {
             _getUserDepot = getUserDepot;
             _subStepSupplier = subStepSupplier;
-            _userModelConsolidator = userModelConsolidator;
+            _userMapper = userMapper;
         }
 
         public async Task<UserAppModel> HandleAsync(UserAppModel @in)
