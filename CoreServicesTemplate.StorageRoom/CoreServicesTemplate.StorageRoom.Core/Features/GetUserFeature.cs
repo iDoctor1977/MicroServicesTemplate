@@ -9,12 +9,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class GetUserFeature : IGetUserFeature
     {
-        private readonly IDefaultMapper<UserAppModel, UserAggModel> _userMapper;
+        private readonly IMapping<UserAppModel, UserAggModel> _userMapper;
         private readonly IGetUserDepot _getUserDepot;
         private readonly ISubStepSupplier _subStepSupplier;
 
         public GetUserFeature(
-            IDefaultMapper<UserAppModel, UserAggModel> userMapper,
+            IMapping<UserAppModel, UserAggModel> userMapper,
             IGetUserDepot getUserDepot, 
             ISubStepSupplier subStepSupplier)
         {

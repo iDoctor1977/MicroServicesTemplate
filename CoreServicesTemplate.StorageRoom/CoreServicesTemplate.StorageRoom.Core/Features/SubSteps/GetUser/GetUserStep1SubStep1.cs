@@ -10,11 +10,11 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser
     [Leaf(nameof(GetUserStep1))]
     public class GetUserStep1SubStep1 : ISubStep<UserAppModel, UserAppModel>
     {
-        private readonly IDefaultMapper<UserAppModel, UserAggModel> _userMapper;
+        private readonly IMapping<UserAppModel, UserAggModel> _userMapper;
         private readonly IGetUserDepot _getUserDepot;
 
         public GetUserStep1SubStep1(
-            IDefaultMapper<UserAppModel, UserAggModel> userMapper, 
+            IMapping<UserAppModel, UserAggModel> userMapper, 
             IGetUserDepot getUserDepot)
         {
             _userMapper = userMapper;

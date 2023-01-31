@@ -6,7 +6,7 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
     /// <summary>
     /// Wrapper class for external mapping tool.
     /// </summary>
-    public class MapperWrap : IMapperStandard
+    public class MapperWrap : IMapperWrap
     {
         private readonly IMapper _mapper;
 

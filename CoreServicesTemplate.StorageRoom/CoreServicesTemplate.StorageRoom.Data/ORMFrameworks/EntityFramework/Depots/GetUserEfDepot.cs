@@ -10,11 +10,11 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
     public class GetUserEfDepot : EfUnitOfWork, IGetUserDepot
     {
         private readonly IUserRepository _userRepository;
-        private readonly IDefaultMapper<UserAppModel, User> _userConsolidator;
+        private readonly IMapping<UserAppModel, User> _userConsolidator;
 
         public GetUserEfDepot(
             StorageRoomDbContext dbContext,
-            IDefaultMapper<UserAppModel, User> userConsolidator,
+            IMapping<UserAppModel, User> userConsolidator,
             IUserRepository userRepository) : base(dbContext)
         {
             _userConsolidator = userConsolidator;

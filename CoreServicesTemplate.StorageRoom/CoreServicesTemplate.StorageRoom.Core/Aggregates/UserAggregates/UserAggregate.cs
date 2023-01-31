@@ -7,7 +7,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
 {
     public class UserAggregate : AggregateBase, IAggregate
     {
-        private readonly IDefaultMapper<AddressAggModel, AddressItem> _addressMapper;
+        private readonly IMapping<AddressAggModel, AddressItem> _addressMapper;
 
         public string Name { get; private set; }
         public string Surname { get; private set; }
@@ -16,8 +16,8 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
         public AddressItem AddressItem { get; private set; }
 
         public UserAggregate(
-            IDefaultMapper<AddressAggModel, AddressItem> addressMapper,
-            IDefaultMapper<UserAggModel, UserAggregate> userMapper, 
+            IMapping<AddressAggModel, AddressItem> addressMapper,
+            IMapping<UserAggModel, UserAggregate> userMapper, 
             UserAggModel aggModel)
         {
             _addressMapper = addressMapper;

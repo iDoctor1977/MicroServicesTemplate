@@ -2,11 +2,11 @@
 
 namespace CoreServicesTemplate.Shared.Core.Bases;
 
-public abstract class ACustomMapperBase<TIn, TOut> : IDefaultMapper<TIn, TOut>
+public abstract class ACustomMapperBase<TIn, TOut> : IMapping<TIn, TOut>
 {
-    private readonly IMapperStandard _mapper;
+    private readonly IMapperWrap _mapper;
 
-    protected ACustomMapperBase(IMapperStandard mapper)
+    protected ACustomMapperBase(IMapperWrap mapper)
     {
         _mapper = mapper;
     }

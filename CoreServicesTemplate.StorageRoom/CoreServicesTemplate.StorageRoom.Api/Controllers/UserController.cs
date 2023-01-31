@@ -16,15 +16,15 @@ public class UserController : ControllerBase
     private readonly IGetUserFeature _getUserFeature;
     private readonly IGetUsersFeature _getUsersFeature;
 
-    private readonly IDefaultMapper<UserApiModel, UserAppModel> _userCustomMapper;
-    private readonly IDefaultMapper<UsersApiModel, UsersAppModel> _usersCustomMapper;
+    private readonly IMapping<UserApiModel, UserAppModel> _userCustomMapper;
+    private readonly IMapping<UsersApiModel, UsersAppModel> _usersCustomMapper;
 
     public UserController(
         IAddUserFeature addUserFeature,
         IGetUserFeature getUserFeature,
         IGetUsersFeature getUsersFeature,
-        IDefaultMapper<UsersApiModel, UsersAppModel> usersCustomMapper,
-        IDefaultMapper<UserApiModel, UserAppModel> userCustomMapper)
+        IMapping<UsersApiModel, UsersAppModel> usersCustomMapper,
+        IMapping<UserApiModel, UserAppModel> userCustomMapper)
     {
         _addUserFeature = addUserFeature;
         _getUserFeature = getUserFeature;

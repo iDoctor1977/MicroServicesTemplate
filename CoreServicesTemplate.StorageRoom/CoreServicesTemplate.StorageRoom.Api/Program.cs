@@ -69,13 +69,13 @@ else
 
 #region Mappers
 
-builder.Services.AddTransient(typeof(IDefaultMapper<,>), typeof(DefaultMapper<,>));
-builder.Services.AddTransient(typeof(IDefaultMapper<UserApiModel, UserAppModel>), typeof(UserApiCustomMapper));
-builder.Services.AddTransient(typeof(IDefaultMapper<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomMapper));
+builder.Services.AddTransient(typeof(IMapping<,>), typeof(DefaultMapper<,>));
+builder.Services.AddTransient(typeof(IMapping<UserApiModel, UserAppModel>), typeof(UserApiCustomMapper));
+builder.Services.AddTransient(typeof(IMapping<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomMapper));
 
-builder.Services.AddTransient(typeof(IDefaultMapper<UserAppModel, UserAggModel>), typeof(UserCoreCustomMapper));
+builder.Services.AddTransient(typeof(IMapping<UserAppModel, UserAggModel>), typeof(UserCoreCustomMapper));
 
-builder.Services.AddTransient(typeof(IDefaultMapper<UsersAppModel, IEnumerable<User>>), typeof(UsersDataCustomMapper));
+builder.Services.AddTransient(typeof(IMapping<UsersAppModel, IEnumerable<User>>), typeof(UsersDataCustomMapper));
 
 #endregion
 
@@ -90,7 +90,7 @@ builder.Services.AddControllers(options =>
 
 #region Automapper
 
-builder.Services.AddTransient<IMapperStandard, MapperWrap>();
+builder.Services.AddTransient<IMapperWrap, MapperWrap>();
 builder.Services.AddAutoMapper(typeof(ApiMappingProfile), typeof(DataMappingProfile), typeof(FeatureMappingProfile), typeof(AggregateMappingProfile));
 
 #endregion
