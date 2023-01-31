@@ -1,11 +1,11 @@
 ﻿using CoreServicesTemplate.Shared.Core.Enums;
-using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.SeedWork;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate;
 using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -13,14 +13,14 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class AddUserFeature : IAddUserFeature
     {
-        private readonly IConsolidator<UserAppModel, UserAggModel> _userConsolidator;
+        private readonly IResolveMapper<UserAppModel, UserAggModel> _userConsolidator;
         private readonly IAddUserDepot _addUserDepot;
         private readonly ISubStepSupplier _subStepSupplier;
         private readonly IAggregateFactory _aggregateFactory;
         private readonly ILogger<AddUserFeature> _logger;
 
         public AddUserFeature(
-            IConsolidator<UserAppModel, UserAggModel> userConsolidator,
+            IResolveMapper<UserAppModel, UserAggModel> userConsolidator,
             IAddUserDepot addUserDepot, 
             ISubStepSupplier subStepSupplier,
             IAggregateFactory aggregateFactory,
@@ -39,9 +39,9 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             var aggModel = ToData(@in);
 
             // execute method to aggregate root domain
-            var userAggregate = _aggregateFactory.GenerateAggregate<UserAggModel, IUserAggregate>(aggModel);
-            userAggregate.UserToString();
-            userAggregate.AddressToString();
+            var userAggregate = _aggregateFactory.GenerateAggregate<UserAggModel, UserAggregate>(aggModel);
+            Console.WriteLine(userAggregate.UserToString());
+            Console.WriteLine(userAggregate.AddressToString());
 
             // decoupling and map modelAgg to modelApp
             var appModel = ToReverseData(aggModel);

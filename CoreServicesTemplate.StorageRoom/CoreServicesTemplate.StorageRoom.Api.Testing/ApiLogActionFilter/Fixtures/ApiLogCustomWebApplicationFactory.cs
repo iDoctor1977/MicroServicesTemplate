@@ -9,7 +9,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter.Fixtur
 {
     public class ApiLogCustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
     {
-        public Mock<ILogger<ApiLogActionFilterAsync>> LoggerMock { get; private set; }
+        public Mock<ILogger<ApiLogActionFilterAsync>> LoggerMock { get; }
 
         public ApiLogCustomWebApplicationFactory()
         {

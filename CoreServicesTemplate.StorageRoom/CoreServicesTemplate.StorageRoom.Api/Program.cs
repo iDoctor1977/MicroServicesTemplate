@@ -1,25 +1,24 @@
-using CoreServicesTemplate.Shared.Core.Consolidators;
 using CoreServicesTemplate.Shared.Core.Filters;
-using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.StorageRoom.Api.Consolidators;
+using CoreServicesTemplate.Shared.Core.ResolveMappers;
 using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
+using CoreServicesTemplate.StorageRoom.Api.ResolveMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
-using CoreServicesTemplate.StorageRoom.Core;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.MappingProfiles;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.SeedWork;
-using CoreServicesTemplate.StorageRoom.Core.Consolidators;
 using CoreServicesTemplate.StorageRoom.Core.Features;
+using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
 using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 using CoreServicesTemplate.StorageRoom.Core.MappingProfiles;
-using CoreServicesTemplate.StorageRoom.Data.Consolidators;
+using CoreServicesTemplate.StorageRoom.Core.ResolveMappers;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using CoreServicesTemplate.StorageRoom.Data.MapperProfiles;
@@ -27,8 +26,8 @@ using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mocks;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories;
+using CoreServicesTemplate.StorageRoom.Data.ResolveMappers;
 using Microsoft.EntityFrameworkCore;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,13 +71,13 @@ else
 
 #region Consolidator
 
-builder.Services.AddTransient(typeof(IConsolidator<,>), typeof(DefaultConsolidator<,>));
-builder.Services.AddTransient(typeof(IConsolidator<UserApiModel, UserAppModel>), typeof(UserApiCustomConsolidator));
-builder.Services.AddTransient(typeof(IConsolidator<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomConsolidator));
+builder.Services.AddTransient(typeof(IResolveMapper<,>), typeof(DefaultResolveMapper<,>));
+builder.Services.AddTransient(typeof(IResolveMapper<UserApiModel, UserAppModel>), typeof(UserApiCustomResolveMapper));
+builder.Services.AddTransient(typeof(IResolveMapper<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomResolveMapper));
 
-builder.Services.AddTransient(typeof(IConsolidator<UserAppModel, UserAggModel>), typeof(UserCoreCustomConsolidator));
+builder.Services.AddTransient(typeof(IResolveMapper<UserAppModel, UserAggModel>), typeof(UserCoreCustomResolveMapper));
 
-builder.Services.AddTransient(typeof(IConsolidator<UsersAppModel, IEnumerable<User>>), typeof(UsersDataCustomConsolidator));
+builder.Services.AddTransient(typeof(IResolveMapper<UsersAppModel, IEnumerable<User>>), typeof(UsersDataCustomResolveMapper));
 
 #endregion
 
@@ -138,4 +137,7 @@ app.MapControllers();
 app.Run();
 
 // only for tests
-public partial class Program { }
+namespace CoreServicesTemplate.StorageRoom.Api
+{
+    public partial class Program { }
+}

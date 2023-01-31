@@ -1,5 +1,4 @@
-﻿using System;
-using CoreServicesTemplate.Shared.Core.Bases;
+﻿using CoreServicesTemplate.Shared.Core.Bases;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Models;
 

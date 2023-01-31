@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
-using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
@@ -16,15 +16,15 @@ public class UserController : ControllerBase
     private readonly IGetUserFeature _getUserFeature;
     private readonly IGetUsersFeature _getUsersFeature;
 
-    private readonly IConsolidator<UserApiModel, UserAppModel> _userCustomConsolidator;
-    private readonly IConsolidator<UsersApiModel, UsersAppModel> _usersCustomConsolidator;
+    private readonly IResolveMapper<UserApiModel, UserAppModel> _userCustomConsolidator;
+    private readonly IResolveMapper<UsersApiModel, UsersAppModel> _usersCustomConsolidator;
 
     public UserController(
         IAddUserFeature addUserFeature,
         IGetUserFeature getUserFeature,
         IGetUsersFeature getUsersFeature,
-        IConsolidator<UsersApiModel, UsersAppModel> usersCustomConsolidator,
-        IConsolidator<UserApiModel, UserAppModel> userCustomConsolidator)
+        IResolveMapper<UsersApiModel, UsersAppModel> usersCustomConsolidator,
+        IResolveMapper<UserApiModel, UserAppModel> userCustomConsolidator)
     {
         _addUserFeature = addUserFeature;
         _getUserFeature = getUserFeature;

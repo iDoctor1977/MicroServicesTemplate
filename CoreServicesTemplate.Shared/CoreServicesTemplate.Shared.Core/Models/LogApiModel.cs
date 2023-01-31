@@ -3,7 +3,7 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 
 namespace CoreServicesTemplate.Shared.Core.Models
 {
-    public class LogModel : IAppModel
+    public class LogApiModel : IAppModel
     {
         public DateTime? LogTime { get; set; }
         public string Body { get; set; }

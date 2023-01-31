@@ -1,4 +1,4 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
@@ -9,12 +9,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class GetUserFeature : IGetUserFeature
     {
-        private readonly IConsolidator<UserAppModel, UserAggModel> _userModelConsolidator;
+        private readonly IResolveMapper<UserAppModel, UserAggModel> _userModelConsolidator;
         private readonly IGetUserDepot _getUserDepot;
         private readonly ISubStepSupplier _subStepSupplier;
 
         public GetUserFeature(
-            IConsolidator<UserAppModel, UserAggModel> userModelConsolidator,
+            IResolveMapper<UserAppModel, UserAggModel> userModelConsolidator,
             IGetUserDepot getUserDepot, 
             ISubStepSupplier subStepSupplier)
         {

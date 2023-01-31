@@ -1,14 +1,14 @@
-﻿using AutoMapper;
-using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IAggregates;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Bases;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.Interfaces;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate
 {
-    public class UserAggregate : AggregateBase, IUserAggregate
+    public class UserAggregate : AggregateBase, IAggregate
     {
-        private readonly IConsolidator<AddressAggModel, AddressItem> _addressConsolidator;
+        private readonly IResolveMapper<AddressAggModel, AddressItem> _addressConsolidator;
 
         public string Name { get; private set; }
         public string Surname { get; private set; }
@@ -17,13 +17,13 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregate
         public AddressItem AddressItem { get; private set; }
 
         public UserAggregate(
-            IMapper mapper, 
-            IConsolidator<AddressAggModel, AddressItem> addressConsolidator, 
-            UserAggModel aggModel)
+            IResolveMapper<AddressAggModel, AddressItem> addressConsolidator, 
+            UserAggModel aggModel, 
+            ICustomMapper customMapper)
         {
             _addressConsolidator = addressConsolidator;
 
-            mapper.Map(aggModel, this);
+            customMapper.MapAggregate(aggModel, this);
             AddressItem = _addressConsolidator.ToData(aggModel.AddressAggModel).Resolve();
         }
 

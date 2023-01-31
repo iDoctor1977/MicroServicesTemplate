@@ -9,7 +9,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures
 {
     public class ApiRepositoryCustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
     {
-        public Mock<IUserRepository> UserRepositoryMock { get; private set; }
+        public Mock<IUserRepository> UserRepositoryMock { get; }
 
         public ApiRepositoryCustomWebApplicationFactory()
         {

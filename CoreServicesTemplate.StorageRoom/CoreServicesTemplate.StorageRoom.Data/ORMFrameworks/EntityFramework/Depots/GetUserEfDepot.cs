@@ -1,4 +1,4 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
@@ -10,11 +10,11 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
     public class GetUserEfDepot : EfUnitOfWork, IGetUserDepot
     {
         private readonly IUserRepository _userRepository;
-        private readonly IConsolidator<UserAppModel, User> _userConsolidator;
+        private readonly IResolveMapper<UserAppModel, User> _userConsolidator;
 
         public GetUserEfDepot(
             StorageRoomDbContext dbContext,
-            IConsolidator<UserAppModel, User> userConsolidator,
+            IResolveMapper<UserAppModel, User> userConsolidator,
             IUserRepository userRepository) : base(dbContext)
         {
             _userConsolidator = userConsolidator;

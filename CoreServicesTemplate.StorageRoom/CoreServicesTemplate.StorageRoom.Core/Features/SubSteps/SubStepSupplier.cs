@@ -2,7 +2,7 @@
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
 
-namespace CoreServicesTemplate.StorageRoom.Core
+namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps
 {
     public sealed class SubStepSupplier : ASubStepSupplier
     {

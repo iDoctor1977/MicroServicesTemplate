@@ -1,16 +1,16 @@
 ﻿using CoreServicesTemplate.Shared.Core.Bases;
-using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 
-namespace CoreServicesTemplate.StorageRoom.Api.Consolidators;
+namespace CoreServicesTemplate.StorageRoom.Api.ResolveMappers;
 
-public sealed class UserApiCustomConsolidator : ACustomConsolidatorBase<UserApiModel, UserAppModel>
+public sealed class UserApiCustomResolveMapper : ACustomResolveMapperBase<UserApiModel, UserAppModel>
 {
-    private readonly IConsolidator<AddressApiModel, AddressAppModel> _addressConsolidator;
+    private readonly IResolveMapper<AddressApiModel, AddressAppModel> _addressConsolidator;
 
-    public UserApiCustomConsolidator(ICustomMapper customMapper, IConsolidator<AddressApiModel, AddressAppModel> addressConsolidator) : base(customMapper)
+    public UserApiCustomResolveMapper(ICustomMapper customMapper, IResolveMapper<AddressApiModel, AddressAppModel> addressConsolidator) : base(customMapper)
     {
         _addressConsolidator = addressConsolidator;
 
@@ -18,7 +18,7 @@ public sealed class UserApiCustomConsolidator : ACustomConsolidatorBase<UserApiM
         ModelOut = new UserAppModel();
     }
 
-    public override IConsolidatorToResolve<UserApiModel, UserAppModel> ToData(UserApiModel @in)
+    public override IResolveMapperToResolve<UserApiModel, UserAppModel> ToData(UserApiModel @in)
     {
         ModelIn = @in;
         ModelIn.AddressApiModel = @in.AddressApiModel;
@@ -29,7 +29,7 @@ public sealed class UserApiCustomConsolidator : ACustomConsolidatorBase<UserApiM
         return this;
     }
 
-    public override IConsolidatorToResolveReversing<UserApiModel, UserAppModel> ToDataReverse(UserAppModel @out)
+    public override IResolveMapperToResolveReversing<UserApiModel, UserAppModel> ToDataReverse(UserAppModel @out)
     {
         ModelIn = OutDataToInData(ModelOut);
         ModelIn.AddressApiModel = _addressConsolidator.ToDataReverse(ModelOut.AddressAppModel).Resolve();

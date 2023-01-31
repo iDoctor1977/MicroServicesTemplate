@@ -11,10 +11,10 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures
 {
     public class ApiDepotCustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
     {
-        public Mock<ILogger<ApiLogActionFilterAsync>> LoggerMock { get; private set; }
-        public Mock<IAddUserDepot> AddUserDepotMock { get; private set; }
-        public Mock<IGetUserDepot> GetUserDepotMock { get; private set; }
-        public Mock<IGetUsersDepot> GetUsersDepotMock { get; private set; }
+        public Mock<ILogger<ApiLogActionFilterAsync>> LoggerMock { get; }
+        public Mock<IAddUserDepot> AddUserDepotMock { get; }
+        public Mock<IGetUserDepot> GetUserDepotMock { get; }
+        public Mock<IGetUsersDepot> GetUsersDepotMock { get; }
 
         public ApiDepotCustomWebApplicationFactory()
         {

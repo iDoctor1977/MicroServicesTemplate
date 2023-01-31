@@ -1,16 +1,16 @@
 ﻿using CoreServicesTemplate.Shared.Core.Bases;
-using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 
-namespace CoreServicesTemplate.StorageRoom.Api.Consolidators;
+namespace CoreServicesTemplate.StorageRoom.Api.ResolveMappers;
 
-public sealed class UsersApiCustomConsolidator : ACustomConsolidatorBase<UsersApiModel, UsersAppModel>
+public sealed class UsersApiCustomResolveMapper : ACustomResolveMapperBase<UsersApiModel, UsersAppModel>
 {
-    private readonly IConsolidator<UserApiModel, UserAppModel> _userConsolidator;
+    private readonly IResolveMapper<UserApiModel, UserAppModel> _userConsolidator;
 
-    public UsersApiCustomConsolidator(ICustomMapper customMapper, IConsolidator<UserApiModel, UserAppModel> userConsolidator) : base(customMapper)
+    public UsersApiCustomResolveMapper(ICustomMapper customMapper, IResolveMapper<UserApiModel, UserAppModel> userConsolidator) : base(customMapper)
     {
         _userConsolidator = userConsolidator;
 
@@ -18,7 +18,7 @@ public sealed class UsersApiCustomConsolidator : ACustomConsolidatorBase<UsersAp
         ModelOut.UsersModelList = new List<UserAppModel>();
     }
 
-    public override IConsolidatorToResolve<UsersApiModel, UsersAppModel> ToData(UsersApiModel @in)
+    public override IResolveMapperToResolve<UsersApiModel, UsersAppModel> ToData(UsersApiModel @in)
     {
         ModelIn = @in;
         ModelOut = InDataToOutData(@in);
@@ -34,7 +34,7 @@ public sealed class UsersApiCustomConsolidator : ACustomConsolidatorBase<UsersAp
         return this;
     }
 
-    public override IConsolidatorToResolveReversing<UsersApiModel, UsersAppModel> ToDataReverse(UsersAppModel @out)
+    public override IResolveMapperToResolveReversing<UsersApiModel, UsersAppModel> ToDataReverse(UsersAppModel @out)
     {
         ModelIn = OutDataToInData(ModelOut);
 

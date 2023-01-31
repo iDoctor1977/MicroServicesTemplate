@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using CoreServicesTemplate.Shared.Core.Interfaces.IAggregates;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 
 namespace CoreServicesTemplate.Shared.Core.Mappers
 {
@@ -13,6 +15,11 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
         public CustomMapper(IMapper mapper)
         {
             _mapper = mapper;
+        }
+
+        public void MapAggregate(IAggModel aggModel, IAggregate aggClass)
+        {
+            _mapper.Map(aggModel, aggClass);
         }
 
         public TOut Map<TIn ,TOut>(TIn model)

@@ -1,13 +1,13 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IConsolidators;
-using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IResolveMappers;
 
 namespace CoreServicesTemplate.Shared.Core.Bases;
 
-public abstract class AConsolidatorBase<TIn, TOut> : IConsolidator<TIn, TOut>
+public abstract class AResolveMapperBase<TIn, TOut> : IResolveMapper<TIn, TOut>
 {
     private readonly ICustomMapper _customMapper;
 
-    protected AConsolidatorBase(ICustomMapper customMapper)
+    protected AResolveMapperBase(ICustomMapper customMapper)
     {
         _customMapper = customMapper;
     }
@@ -26,6 +26,6 @@ public abstract class AConsolidatorBase<TIn, TOut> : IConsolidator<TIn, TOut>
         return valueMap;
     }
 
-    public abstract IConsolidatorToResolve<TIn, TOut> ToData(TIn @in);
-    public abstract IConsolidatorToResolveReversing<TIn, TOut> ToDataReverse(TOut @out);
+    public abstract IResolveMapperToResolve<TIn, TOut> ToData(TIn @in);
+    public abstract IResolveMapperToResolveReversing<TIn, TOut> ToDataReverse(TOut @out);
 }
