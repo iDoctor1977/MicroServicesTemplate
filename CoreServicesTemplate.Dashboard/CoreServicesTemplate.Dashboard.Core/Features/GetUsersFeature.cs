@@ -17,7 +17,7 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
             _mapper = mapper;
         }
 
-        public async Task<UsersAppModel> HandleAsync()
+        public async Task<UsersAppModel> ExecuteAsync()
         {
             var apiModel = await _storageRoomService.GetUsersAsync();
 
@@ -26,7 +26,7 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
             return model;
         }
 
-        public UsersAppModel Handle()
+        public UsersAppModel Execute()
         {
             var apiModel = _storageRoomService.GetUsers();
 

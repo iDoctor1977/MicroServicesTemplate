@@ -22,7 +22,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
             _userRepository = userRepository;
         }
 
-        public async Task<OperationStatusResult> HandleAsync(UserAppModel model)
+        public async Task<OperationStatusResult> ExecuteAsync(UserAppModel model)
         {
             var entity = MapUserEntity(model);
 

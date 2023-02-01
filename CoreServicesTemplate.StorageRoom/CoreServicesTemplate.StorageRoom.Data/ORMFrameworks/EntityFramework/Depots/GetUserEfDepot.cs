@@ -21,7 +21,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
             _userRepository = userRepository;
         }
 
-        public async Task<UserAppModel> HandleAsync(UserAppModel model)
+        public async Task<UserAppModel> ExecuteAsync(UserAppModel model)
         {
             User entity = _userConsolidator.Map(model);
 

@@ -27,7 +27,7 @@ namespace CoreServicesTemplate.Dashboard.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<UsersApiModel>> GetAll()
         {
-            var model = await _getUsersFeature.HandleAsync();
+            var model = await _getUsersFeature.ExecuteAsync();
 
             var apiModel = _usersCustomMapper.Map(model);
 

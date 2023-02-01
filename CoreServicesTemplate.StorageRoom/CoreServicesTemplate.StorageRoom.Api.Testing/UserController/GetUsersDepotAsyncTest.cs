@@ -38,14 +38,14 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                     .Build()
             };
 
-            _factory.GetUsersDepotMock.Setup(depot => depot.HandleAsync()).Returns(Task.FromResult(users));
+            _factory.GetUsersDepotMock.Setup(depot => depot.ExecuteAsync()).Returns(Task.FromResult(users));
 
             //Act
             var url = ApiUrl.StorageRoom.User.GetAllUserToStorageRoom();
             var result = await _client.GetFromJsonAsync<UsersApiModel>(url);
 
             //Assert
-            _factory.GetUsersDepotMock.Verify((c => c.HandleAsync()), Times.Once());
+            _factory.GetUsersDepotMock.Verify((c => c.ExecuteAsync()), Times.Once());
             result.UsersApiModelList.Should().HaveCountGreaterThan(0);
         }
     }

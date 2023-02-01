@@ -12,9 +12,9 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _getUsersDepot = getUsersDepot;
         }
 
-        public async Task<UsersAppModel> HandleAsync()
+        public async Task<UsersAppModel> ExecuteAsync()
         {
-            var model = await _getUsersDepot.HandleAsync();
+            var model = await _getUsersDepot.ExecuteAsync();
 
             return model;
         }

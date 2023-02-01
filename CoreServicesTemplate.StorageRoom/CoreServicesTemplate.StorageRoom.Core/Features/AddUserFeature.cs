@@ -33,7 +33,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _userMapper = userMapper;
         }
 
-        public async Task<OperationStatusResult> HandleAsync(UserAppModel @in)
+        public async Task<OperationStatusResult> ExecuteAsync(UserAppModel @in)
         {
             // decoupling and map modelApp to modelAgg 
             var aggModel = _userMapper.Map(@in);
@@ -50,7 +50,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _logger.LogInformation("----- Creating User: {@User} {Dt}", appModel.Name, DateTime.UtcNow.ToLongTimeString());
 
             // execute consolidation with repository (if necessary)
-            var result = await _addUserDepot.HandleAsync(appModel);
+            var result = await _addUserDepot.ExecuteAsync(appModel);
 
             // execute addUserFeature sub steps
             // this part is added only for features scalability 

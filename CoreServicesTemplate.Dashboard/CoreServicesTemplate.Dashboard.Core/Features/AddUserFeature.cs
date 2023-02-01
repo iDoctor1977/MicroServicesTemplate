@@ -17,11 +17,16 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
             _mapper = mapper;
         }
 
-        public async Task HandleAsync(UserAppModel @in)
+        public async Task ExecuteAsync(UserAppModel @in)
         {
             var apiModel = _mapper.Map(@in);
 
             var responseMessage = await _storageRoomService.AddUserAsync(apiModel);
+        }
+
+        public void Execute(UserAppModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

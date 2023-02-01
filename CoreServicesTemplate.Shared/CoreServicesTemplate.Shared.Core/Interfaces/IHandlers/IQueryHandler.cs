@@ -4,12 +4,12 @@ namespace CoreServicesTemplate.Shared.Core.Interfaces.IHandlers;
 
 public interface IQueryHandler<in TIn, TOut> where TIn : class where TOut : class
 {
-    Task<TOut> HandleAsync(TIn model);
+    Task<TOut> ExecuteAsync(TIn model);
     TOut Handle(TIn model);
 }
 
 public interface IQueryHandler<TOut>
 {
-    Task<TOut> HandleAsync();
-    TOut Handle();
+    Task<TOut> ExecuteAsync();
+    TOut Execute();
 }

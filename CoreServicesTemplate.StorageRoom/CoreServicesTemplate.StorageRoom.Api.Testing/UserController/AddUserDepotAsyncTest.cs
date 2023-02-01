@@ -42,14 +42,14 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                 }
             };
 
-            _factory.AddUserDepotMock.Setup(depot => depot.HandleAsync(It.IsAny<UserAppModel>()));
+            _factory.AddUserDepotMock.Setup(depot => depot.ExecuteAsync(It.IsAny<UserAppModel>()));
 
             //Act
             var url = ApiUrl.StorageRoom.User.AddUserToStorageRoom();
             await _client.PostAsJsonAsync($"{url}/{modelApi}", modelApi);
 
             //Assert
-            _factory.AddUserDepotMock.Verify((c => c.HandleAsync(It.Is<UserAppModel>(arg => arg.Name == modelApi.Name))));
+            _factory.AddUserDepotMock.Verify((c => c.ExecuteAsync(It.Is<UserAppModel>(arg => arg.Name == modelApi.Name))));
         }
     }
 }

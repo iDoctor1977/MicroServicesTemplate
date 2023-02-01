@@ -46,7 +46,7 @@ public class UserController : ControllerBase
         // decoupling ApiModel and map it in to AppModel.
         var model = _userCustomMapper.Map(apiModel);
 
-        var result = await _addUserFeature.HandleAsync(model);
+        var result = await _addUserFeature.ExecuteAsync(model);
 
         var location = ApiUrl.StorageRoom.User.IndexFromUserToStorageRoom();
         return result.Equals(OperationStatusResult.Created) ? Created(location, result) : BadRequest();
@@ -65,7 +65,7 @@ public class UserController : ControllerBase
         // decoupling ApiModel and map it in to AppModel.
         var model = _userCustomMapper.Map(apiModel);
 
-        var resultModel = await _getUserFeature.HandleAsync(model);
+        var resultModel = await _getUserFeature.ExecuteAsync(model);
 
         // decoupling AppModel and map it in to ApiModel to return value.
         var resultApiModel = _userCustomMapper.Map(resultModel);
@@ -77,7 +77,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult<UsersApiModel>> GetAll()
     {
-        var model = await _getUsersFeature.HandleAsync();
+        var model = await _getUsersFeature.ExecuteAsync();
 
         // decoupling AppModel and map it in to ApiModel to return value.
         var apiModel = _usersCustomMapper.Map(model);

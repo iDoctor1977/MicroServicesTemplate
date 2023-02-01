@@ -1,6 +1,6 @@
 ﻿using CoreServicesTemplate.Dashboard.Common.Models;
-using CoreServicesTemplate.Shared.Core.Interfaces.IFeatureHandlers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IHandlers;
 
 namespace CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 
-public interface IAddUserFeature : ICommandHandlerFeature<UserAppModel> { }
+public interface IAddUserFeature : ICommandHandler<UserAppModel> { }

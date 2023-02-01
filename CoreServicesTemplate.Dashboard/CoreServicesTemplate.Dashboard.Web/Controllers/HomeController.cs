@@ -51,7 +51,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                await _addUserFeature.HandleAsync(model);
+                await _addUserFeature.ExecuteAsync(model);
             }
 
             return RedirectToAction("Index");
@@ -60,7 +60,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
         [HttpGet]
         public async Task<ViewResult> GetAll()
         {
-            var model = await _getUsersFeature.HandleAsync();
+            var model = await _getUsersFeature.ExecuteAsync();
 
             var viewModel = _usersCustomMapper.Map(model);
 

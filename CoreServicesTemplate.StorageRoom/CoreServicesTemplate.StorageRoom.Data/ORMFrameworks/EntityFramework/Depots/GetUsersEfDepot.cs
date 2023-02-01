@@ -21,7 +21,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
             _userRepository = userRepository;
         }
 
-        public async Task<UsersAppModel> HandleAsync()
+        public async Task<UsersAppModel> ExecuteAsync()
         {
             var entity = await _userRepository.GetAllCustomAsync();
 

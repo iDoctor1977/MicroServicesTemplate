@@ -23,10 +23,10 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _userMapper = userMapper;
         }
 
-        public async Task<UserAppModel> HandleAsync(UserAppModel @in)
+        public async Task<UserAppModel> ExecuteAsync(UserAppModel @in)
         {
             // execute interaction with repository if necessary
-            var modelAppOut = await _getUserDepot.HandleAsync(@in);
+            var modelAppOut = await _getUserDepot.ExecuteAsync(@in);
 
             // Do something on User aggregate if necessary
 
