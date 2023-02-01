@@ -23,7 +23,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
 
         public string AddressToString()
         {
-            string address = $"{Address1} {Address2}, {PostalCode}, {City}, {State}";
+            string address = $"{Address1}, {Address2}, {PostalCode}, {City}, {State}";
 
             return address;
         }

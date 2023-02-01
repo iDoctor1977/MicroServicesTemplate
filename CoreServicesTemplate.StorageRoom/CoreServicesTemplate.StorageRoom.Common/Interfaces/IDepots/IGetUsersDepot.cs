@@ -1,7 +1,7 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.ICqrsHandlers;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IHandlers;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots
 {
-    public interface IGetUsersDepot : IQueryHandlerCqrs<UsersAppModel> { }
+    public interface IGetUsersDepot : IQueryHandler<UsersAppModel> { }
 }

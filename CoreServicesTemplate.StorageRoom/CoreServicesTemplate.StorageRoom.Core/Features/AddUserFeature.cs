@@ -38,15 +38,16 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             // decoupling and map modelApp to modelAgg 
             var aggModel = _userMapper.Map(@in);
 
-            // execute method to aggregate root domain
+            // generate aggregate instance and execute method on aggregate root domain
             var userAggregate = _aggregateFactory.GenerateAggregate<UserAggModel, UserAggregate>(aggModel);
             Console.WriteLine(userAggregate.UserToString());
             Console.WriteLine(userAggregate.AddressToString());
+            aggModel = userAggregate.CreateUser(aggModel);
 
             // decoupling and map modelAgg to modelApp
             var appModel = _userMapper.Map(aggModel);
 
-            _logger.LogInformation("----- Creating User - User: {@User}", appModel);
+            _logger.LogInformation("----- Creating User: {@User} {Dt}", appModel.Name, DateTime.UtcNow.ToLongTimeString());
 
             // execute consolidation with repository (if necessary)
             var result = await _addUserDepot.HandleAsync(appModel);

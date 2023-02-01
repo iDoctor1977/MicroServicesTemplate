@@ -35,8 +35,10 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                 AddressApiModel = new AddressApiModel
                 {
                     Address1 = "Via Copparo, 208 int. 10",
+                    Address2 = "Boara (FE)",
                     PostalCode = "44123",
-                    City = "Ferrara"
+                    City = "Ferrara",
+                    State = "Italy"
                 }
             };
 
