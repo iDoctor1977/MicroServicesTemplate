@@ -36,7 +36,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
         {
             // decoupling from external aggModel
             _userMapper.Map(userAggModel, this);
-            AddressItem = _addressMapper.Map(userAggModel.AddressAggModel);
+            AddressItem = _addressMapper.Map(userAggModel.AddressAggModel, AddressItem); // AddressItem same to this
 
             // do something
             Guid = Guid.NewGuid();

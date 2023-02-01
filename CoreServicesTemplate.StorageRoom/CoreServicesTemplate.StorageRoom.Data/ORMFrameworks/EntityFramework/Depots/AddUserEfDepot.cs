@@ -24,7 +24,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
         public async Task<OperationStatusResult> ExecuteAsync(UserAppModel model)
         {
-            var entity = MapUserEntity(model);
+            var entity = _userMapper.Map(model);
 
             var result = await _userRepository.AddCustomAsync(entity);
 
@@ -33,22 +33,15 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
             return result;
         }
 
-        public OperationStatusResult Handle(UserAppModel model)
+        public OperationStatusResult Execute(UserAppModel model)
         {
-            var entity = MapUserEntity(model);
+            var entity = _userMapper.Map(model);
 
             _userRepository.Add(entity);
 
             Commit();
 
             return OperationStatusResult.Created;
-        }
-
-        private User MapUserEntity(UserAppModel model)
-        {
-            var entity = _userMapper.Map(model);
-
-            return entity;
         }
     }
 }

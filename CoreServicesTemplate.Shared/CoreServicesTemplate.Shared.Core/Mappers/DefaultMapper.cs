@@ -13,21 +13,21 @@ public class DefaultMapper<TIn, TOut> : IMapperService<TIn, TOut>
 
     public TOut Map(TIn @in)
     {
-        var valueMap = _mapper.Map<TIn, TOut>(@in);
+        TOut valueMap = _mapper.Map<TIn, TOut>(@in);
 
         return valueMap;
     }
 
     public TIn Map(TOut @out)
     {
-        var valueMap = _mapper.Map<TOut, TIn>(@out);
+        TIn valueMap = _mapper.Map<TOut, TIn>(@out);
 
         return valueMap;
     }
 
     public TOut Map(TIn @in, TOut @out)
     {
-        var valueMap = _mapper.Map(@in, @out);
+        TOut valueMap = _mapper.Map(@in, @out);
 
         return valueMap;
     }

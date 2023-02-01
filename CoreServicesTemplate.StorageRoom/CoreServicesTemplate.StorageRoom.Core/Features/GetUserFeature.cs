@@ -37,9 +37,9 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             return modelAppOut;
         }
 
-        public UserAppModel Handle(UserAppModel @in)
+        public UserAppModel Execute(UserAppModel @in)
         {
-            var appModel = _getUserDepot.Handle(@in);
+            var appModel = _getUserDepot.Execute(@in);
 
             return appModel;
         }

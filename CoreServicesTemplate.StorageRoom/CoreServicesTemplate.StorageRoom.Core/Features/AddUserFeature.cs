@@ -55,12 +55,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             // execute addUserFeature sub steps
             // this part is added only for features scalability 
             // Ex.: await _subStepSupplier.AddHandleAsync(appModel);
-            await _subStepSupplier.AddHandleAsync(appModel);
+            //await _subStepSupplier.AddHandleAsync(appModel);
 
             return result;
         }
 
-        public OperationStatusResult Handle(UserAppModel @in)
+        public OperationStatusResult Execute(UserAppModel @in)
         {
             throw new NotImplementedException();
         }
