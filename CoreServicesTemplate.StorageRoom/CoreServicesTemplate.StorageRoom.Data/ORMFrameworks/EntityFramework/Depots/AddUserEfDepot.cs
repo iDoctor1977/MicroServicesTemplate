@@ -11,12 +11,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
     public class AddUserEfDepot : EfUnitOfWork, IAddUserDepot
     {
         private readonly IUserRepository _userRepository;
-        private readonly IMapping<UserAppModel, User> _userMapper;
+        private readonly IMapperService<UserAppModel, User> _userMapper;
 
         public AddUserEfDepot(
             StorageRoomDbContext dbContext,
             IUserRepository userRepository,
-            IMapping<UserAppModel, User> userMapper) : base(dbContext)
+            IMapperService<UserAppModel, User> userMapper) : base(dbContext)
         {
             _userMapper = userMapper;
             _userRepository = userRepository;

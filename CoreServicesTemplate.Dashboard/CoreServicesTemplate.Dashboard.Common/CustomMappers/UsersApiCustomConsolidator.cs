@@ -7,9 +7,9 @@ namespace CoreServicesTemplate.Dashboard.Common.CustomMappers
 {
     public class UsersApiCustomConsolidator : ACustomMapperBase<UsersApiModel, UsersAppModel>
     {
-        private readonly IMapping<UserApiModel, UserAppModel> _userMapper;
+        private readonly IMapperService<UserApiModel, UserAppModel> _userMapper;
 
-        public UsersApiCustomConsolidator(IMapperWrap mapperWrap, IMapping<UserApiModel, UserAppModel> userMapper) : base(mapperWrap)
+        public UsersApiCustomConsolidator(IMapperWrap mapperWrap, IMapperService<UserApiModel, UserAppModel> userMapper) : base(mapperWrap)
         {
             _userMapper = userMapper;
         }

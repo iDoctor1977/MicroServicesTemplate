@@ -10,12 +10,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser
     [Root]
     public class GetUserStep1 : RootPipelineBuilder<UserAppModel, UserAppModel>
     {
-        private readonly IMapping<UserAppModel, UserAggModel> _userMapper;
+        private readonly IMapperService<UserAppModel, UserAggModel> _userMapper;
         private readonly IGetUserDepot _getUserDepot;
 
         public GetUserStep1(
             IGetUserDepot getUserDepot, 
-            IMapping<UserAppModel, UserAggModel> userMapper)
+            IMapperService<UserAppModel, UserAggModel> userMapper)
         {
             _getUserDepot = getUserDepot;
             _userMapper = userMapper;

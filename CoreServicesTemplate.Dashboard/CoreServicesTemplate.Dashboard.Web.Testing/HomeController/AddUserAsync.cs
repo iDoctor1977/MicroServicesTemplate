@@ -39,8 +39,8 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
             };
 
             var controller = new Controllers.HomeController(
-                _factory.Services.GetRequiredService<IMapping<UserViewModel, UserAppModel>>(),
-                _factory.Services.GetRequiredService<IMapping<UsersViewModel, UsersAppModel>>(),
+                _factory.Services.GetRequiredService<IMapperService<UserViewModel, UserAppModel>>(),
+                _factory.Services.GetRequiredService<IMapperService<UsersViewModel, UsersAppModel>>(),
                 _factory.Services.GetRequiredService<IAddUserFeature>(),
                 _factory.Services.GetRequiredService<IGetUsersFeature>(),
                 _factory.Services.GetRequiredService<ILogger<Controllers.HomeController>>());

@@ -2,12 +2,15 @@
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Bases;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.SeedWork;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
 {
     public class UserAggregate : AggregateBase, IAggregate
     {
-        private readonly IMapping<AddressAggModel, AddressItem> _addressMapper;
+        private readonly IAggregateFactory _aggregateFactory;
+        private readonly IMapperService<UserAggModel,UserAggregate>_userMapper;
+        private readonly IMapperService<AddressAggModel, AddressItem> _addressMapper;
 
         public string Name { get; private set; }
         public string Surname { get; private set; }
@@ -16,26 +19,27 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
         public AddressItem AddressItem { get; private set; }
 
         public UserAggregate(
-            IMapping<AddressAggModel, AddressItem> addressMapper,
-            IMapping<UserAggModel, UserAggregate> userMapper, 
+            IAggregateFactory aggregateFactory,
+            IMapperService<UserAggModel, UserAggregate> userMapper,
+            IMapperService<AddressAggModel, AddressItem> addressMapper,
             UserAggModel aggModel)
         {
+            _aggregateFactory = aggregateFactory;
+            _userMapper = userMapper;
             _addressMapper = addressMapper;
 
-            userMapper.Map(aggModel, this);
-            AddressItem = addressMapper.Map(aggModel.AddressAggModel);
+            _userMapper.Map(aggModel, this);
+            AddressItem = _aggregateFactory.GenerateAggregate<AddressAggModel, AddressItem>(aggModel.AddressAggModel);
         }
 
         public UserAggModel CreateUser(UserAggModel userAggModel)
         {
             // decoupling from external aggModel
-            Guid = userAggModel.Guid;
-            Name = userAggModel.Name;
-            Surname = userAggModel.Surname;
-            Birth = userAggModel.Birth;
+            _userMapper.Map(userAggModel, this);
             AddressItem = _addressMapper.Map(userAggModel.AddressAggModel);
 
             // do something
+            Guid = Guid.NewGuid();
 
             // coupling with external aggModel
             userAggModel.AddressAggModel = _addressMapper.Map(AddressItem);

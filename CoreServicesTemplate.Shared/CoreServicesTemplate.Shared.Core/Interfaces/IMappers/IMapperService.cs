@@ -1,6 +1,6 @@
 ﻿namespace CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 
-public interface IMapping<TIn, TOut>
+public interface IMapperService<TIn, TOut>
 {
     TOut Map(TIn @in);
     TIn Map(TOut @out);

@@ -10,11 +10,11 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser
     [Leaf(nameof(AddUserStep1))]
     public class AddUserStep1SubStep1 : ISubStep<UserAppModel, UserAppModel>
     {
-        private readonly IMapping<UserAppModel, UserAggModel> _userMapper;
+        private readonly IMapperService<UserAppModel, UserAggModel> _userMapper;
         private readonly IAddUserDepot _addUserDepot;
 
         public AddUserStep1SubStep1(
-            IMapping<UserAppModel, UserAggModel> userMapper, 
+            IMapperService<UserAppModel, UserAggModel> userMapper, 
             IAddUserDepot addUserDepot)
         {
             _userMapper = userMapper;

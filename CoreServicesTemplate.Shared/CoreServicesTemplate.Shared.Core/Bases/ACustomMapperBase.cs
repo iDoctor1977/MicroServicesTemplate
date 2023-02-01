@@ -2,7 +2,7 @@
 
 namespace CoreServicesTemplate.Shared.Core.Bases;
 
-public abstract class ACustomMapperBase<TIn, TOut> : IMapping<TIn, TOut>
+public abstract class ACustomMapperBase<TIn, TOut> : IMapperService<TIn, TOut>
 {
     private readonly IMapperWrap _mapperWrap;
 

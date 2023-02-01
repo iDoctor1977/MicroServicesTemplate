@@ -7,9 +7,9 @@ namespace CoreServicesTemplate.Dashboard.Web.CustomMappers
 {
     public class UsersWebCustomMapper : ACustomMapperBase<UsersViewModel, UsersAppModel>
     {
-        private readonly IMapping<UserViewModel, UserAppModel> _userMapper;
+        private readonly IMapperService<UserViewModel, UserAppModel> _userMapper;
 
-        public UsersWebCustomMapper(IMapperWrap mapperWrap, IMapping<UserViewModel, UserAppModel> userMapper) : base(mapperWrap)
+        public UsersWebCustomMapper(IMapperWrap mapperWrap, IMapperService<UserViewModel, UserAppModel> userMapper) : base(mapperWrap)
         {
             _userMapper = userMapper;
         }

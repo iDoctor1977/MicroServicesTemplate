@@ -2,7 +2,7 @@
 
 namespace CoreServicesTemplate.Shared.Core.Mappers;
 
-public class DefaultMapper<TIn, TOut> : IMapping<TIn, TOut>
+public class DefaultMapper<TIn, TOut> : IMapperService<TIn, TOut>
 {
     private readonly IMapperWrap _mapper;
 

@@ -7,12 +7,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.CustomMappers
 {
     public sealed class UsersDataCustomMapper : ACustomMapperBase<UsersAppModel, IEnumerable<User>>
     {
-        private readonly IMapping<UserAppModel, User> _userMapper;
+        private readonly IMapperService<UserAppModel, User> _userMapper;
 
         private UsersAppModel _usersModel;
         private IEnumerable<User> _enumerableUsers;
 
-        public UsersDataCustomMapper(IMapperWrap mapper, IMapping<UserAppModel, User> userMapper) : base(mapper)
+        public UsersDataCustomMapper(IMapperWrap mapper, IMapperService<UserAppModel, User> userMapper) : base(mapper)
         {
             _userMapper = userMapper;
 

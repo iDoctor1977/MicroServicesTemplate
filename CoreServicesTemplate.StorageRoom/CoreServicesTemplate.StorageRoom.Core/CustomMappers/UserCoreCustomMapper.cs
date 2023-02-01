@@ -7,9 +7,9 @@ namespace CoreServicesTemplate.StorageRoom.Core.CustomMappers;
 
 public sealed class UserCoreCustomMapper : ACustomMapperBase<UserAppModel, UserAggModel>
 {
-    private readonly IMapping<AddressAppModel, AddressAggModel> _addressMapper;
+    private readonly IMapperService<AddressAppModel, AddressAggModel> _addressMapper;
 
-    public UserCoreCustomMapper(IMapperWrap mapper, IMapping<AddressAppModel, AddressAggModel> addressMapper) : base(mapper)
+    public UserCoreCustomMapper(IMapperWrap mapper, IMapperService<AddressAppModel, AddressAggModel> addressMapper) : base(mapper)
     {
         _addressMapper = addressMapper;
     }

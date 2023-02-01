@@ -27,12 +27,12 @@ builder.Services.AddTransient<IStorageRoomService, StorageRoomService>();
 
 #region Mapper
 
-builder.Services.AddTransient(typeof(IMapping<,>), typeof(DefaultMapper<,>));
+builder.Services.AddTransient(typeof(IMapperService<,>), typeof(DefaultMapper<,>));
 
-builder.Services.AddTransient(typeof(IMapping<UserViewModel, UserAppModel>), typeof(UserWebCustomMapper));
-builder.Services.AddTransient(typeof(IMapping<UsersViewModel, UsersAppModel>), typeof(UsersWebCustomMapper));
+builder.Services.AddTransient(typeof(IMapperService<UserViewModel, UserAppModel>), typeof(UserWebCustomMapper));
+builder.Services.AddTransient(typeof(IMapperService<UsersViewModel, UsersAppModel>), typeof(UsersWebCustomMapper));
 
-builder.Services.AddTransient(typeof(IMapping<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomConsolidator));
+builder.Services.AddTransient(typeof(IMapperService<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomConsolidator));
 
 #endregion
 

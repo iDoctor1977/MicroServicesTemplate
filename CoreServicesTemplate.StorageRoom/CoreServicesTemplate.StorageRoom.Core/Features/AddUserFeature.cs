@@ -13,14 +13,14 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class AddUserFeature : IAddUserFeature
     {
-        private readonly IMapping<UserAppModel, UserAggModel> _userMapper;
+        private readonly IMapperService<UserAppModel, UserAggModel> _userMapper;
         private readonly IAddUserDepot _addUserDepot;
         private readonly ISubStepSupplier _subStepSupplier;
         private readonly IAggregateFactory _aggregateFactory;
         private readonly ILogger<AddUserFeature> _logger;
 
         public AddUserFeature(
-            IMapping<UserAppModel, UserAggModel> userMapper,
+            IMapperService<UserAppModel, UserAggModel> userMapper,
             IAddUserDepot addUserDepot, 
             ISubStepSupplier subStepSupplier,
             IAggregateFactory aggregateFactory,
