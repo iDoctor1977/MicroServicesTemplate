@@ -1,38 +1,41 @@
-﻿using CoreServicesTemplate.Shared.Core.Bases;
-using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Api.CustomMappers;
 
-public class UserApiCustomMapper : ACustomMapperBase<UserApiModel, UserAppModel>
+public class UserApiCustomMapper : ICustomMapper<UserApiModel, UserAppModel>
 {
-    private readonly IMapperService<AddressApiModel, AddressAppModel> _addressMapper;
+    private readonly IDefaultMapper<UserApiModel, UserAppModel> _userMapper;
+    private readonly IDefaultMapper<AddressApiModel, AddressAppModel> _addressMapper;
 
-    public UserApiCustomMapper(IMapperWrap mapper, IMapperService<AddressApiModel, AddressAppModel> addressMapper) : base(mapper)
+    public UserApiCustomMapper(
+        IDefaultMapper<AddressApiModel, AddressAppModel> addressMapper,
+        IDefaultMapper<UserApiModel, UserAppModel> userMapper)
     {
         _addressMapper = addressMapper;
+        _userMapper = userMapper;
     }
 
-    public override UserAppModel Map(UserApiModel @in)
+    public UserAppModel Map(UserApiModel @in)
     {
-        var appModel = DataInToDataOut(@in);
+        var appModel = _userMapper.Map(@in);
         appModel.AddressAppModel = _addressMapper.Map(@in.AddressApiModel);
 
         return appModel;
     }
 
-    public override UserApiModel Map(UserAppModel @out)
+    public UserApiModel Map(UserAppModel @out)
     {
-        var appModel = DataOutToDataIn(@out);
+        var appModel = _userMapper.Map(@out);
         appModel.AddressApiModel = _addressMapper.Map(@out.AddressAppModel);
 
         return appModel;
     }
 
-    public override UserAppModel Map(UserApiModel @in, UserAppModel @out)
+    public UserAppModel Map(UserApiModel @in, UserAppModel @out)
     {
-        var appModel = ToDataOut(@in, @out);
+        var appModel = _userMapper.Map(@in, @out);
         appModel.AddressAppModel = _addressMapper.Map(@in.AddressApiModel, appModel.AddressAppModel);
 
         return appModel;

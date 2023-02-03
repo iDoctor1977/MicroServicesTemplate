@@ -4,8 +4,10 @@ using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Web.Models;
 using CoreServicesTemplate.Dashboard.Web.Testing.Fixtures;
+using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,12 +15,12 @@ using Moq;
 
 namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
 {
-    public class AddUserAsync : IClassFixture<WebCustomWebApplicationFactory<Program>>
+    public class AddUserAsyncTest : IClassFixture<WebCustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
         private readonly WebCustomWebApplicationFactory<Program> _factory;
 
-        public AddUserAsync(WebCustomWebApplicationFactory<Program> factory)
+        public AddUserAsyncTest(WebCustomWebApplicationFactory<Program> factory)
         {
             _factory = factory;
             _client = factory.CreateClient(new WebApplicationFactoryClientOptions
@@ -48,7 +50,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
             _factory.StorageRoomServiceMock.Setup(service => service.AddUserAsync(It.IsAny<UserApiModel>())).ReturnsAsync(new HttpResponseMessage { StatusCode = HttpStatusCode.OK });
 
             //Act
-            await controller.Add(userViewModel);
+            var responseMessage = await controller.Add(userViewModel);
 
             //Assert
             _factory.StorageRoomServiceMock.Verify(method => method.AddUserAsync(It.IsAny<UserApiModel>()), Times.Once);

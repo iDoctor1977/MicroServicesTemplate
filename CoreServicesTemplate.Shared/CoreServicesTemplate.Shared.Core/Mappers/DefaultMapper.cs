@@ -1,34 +1,33 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using AutoMapper;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 
-namespace CoreServicesTemplate.Shared.Core.Mappers;
-
-public class DefaultMapper<TIn, TOut> : IMapperService<TIn, TOut>
+namespace CoreServicesTemplate.Shared.Core.Mappers
 {
-    private readonly IMapperWrap _mapper;
-
-    public DefaultMapper(IMapperWrap mapper)
+    /// <summary>
+    /// Wrapper class for external mapping tool.
+    /// </summary>
+    public class DefaultMapper<TIn, TOut> : IDefaultMapper<TIn, TOut>
     {
-        _mapper = mapper;
-    }
+        private readonly IMapper _mapper;
 
-    public TOut Map(TIn @in)
-    {
-        TOut valueMap = _mapper.Map<TIn, TOut>(@in);
+        public DefaultMapper(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
 
-        return valueMap;
-    }
+        public TOut Map(TIn @in)
+        {
+            return _mapper.Map<TOut>(@in);
+        }
 
-    public TIn Map(TOut @out)
-    {
-        TIn valueMap = _mapper.Map<TOut, TIn>(@out);
+        public TIn Map(TOut @out)
+        {
+            return _mapper.Map<TIn>(@out);
+        }
 
-        return valueMap;
-    }
-
-    public TOut Map(TIn @in, TOut @out)
-    {
-        TOut valueMap = _mapper.Map(@in, @out);
-
-        return valueMap;
+        public TOut Map(TIn @in, TOut @out)
+        {
+            return _mapper.Map(@in, @out);
+        }
     }
 }

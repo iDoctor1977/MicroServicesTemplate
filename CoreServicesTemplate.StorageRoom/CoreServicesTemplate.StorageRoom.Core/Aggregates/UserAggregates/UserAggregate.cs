@@ -9,8 +9,8 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
     public class UserAggregate : AggregateBase, IAggregate
     {
         private readonly IAggregateFactory _aggregateFactory;
-        private readonly IMapperService<UserAggModel,UserAggregate>_userMapper;
-        private readonly IMapperService<AddressAggModel, AddressItem> _addressMapper;
+        private readonly IDefaultMapper<UserAggModel,UserAggregate>_userMapper;
+        private readonly IDefaultMapper<AddressAggModel, AddressItem> _addressMapper;
 
         public string Name { get; private set; }
         public string Surname { get; private set; }
@@ -20,8 +20,8 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
 
         public UserAggregate(
             IAggregateFactory aggregateFactory,
-            IMapperService<UserAggModel, UserAggregate> userMapper,
-            IMapperService<AddressAggModel, AddressItem> addressMapper,
+            IDefaultMapper<UserAggModel, UserAggregate> userMapper,
+            IDefaultMapper<AddressAggModel, AddressItem> addressMapper,
             UserAggModel aggModel)
         {
             _aggregateFactory = aggregateFactory;

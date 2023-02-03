@@ -10,14 +10,14 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
     public class GetUsersEfDepot : EfUnitOfWork, IGetUsersDepot
     {
         private readonly IUserRepository _userRepository;
-        private readonly IMapperService<UsersAppModel, IEnumerable<User>> _usersMapper;
+        private readonly ICustomMapper<UsersAppModel, IEnumerable<User>> _usersCustomMapper;
 
         public GetUsersEfDepot(
             StorageRoomDbContext dbContext,
-            IMapperService<UsersAppModel, IEnumerable<User>> usersMapper,
+            ICustomMapper<UsersAppModel, IEnumerable<User>> usersCustomMapper,
             IUserRepository userRepository) : base(dbContext)
         {
-            _usersMapper = usersMapper;
+            _usersCustomMapper = usersCustomMapper;
             _userRepository = userRepository;
         }
 
@@ -25,7 +25,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
         {
             var entity = await _userRepository.GetAllCustomAsync();
 
-            var model = _usersMapper.Map(entity);
+            var model = _usersCustomMapper.Map(entity);
 
             return model;
         }

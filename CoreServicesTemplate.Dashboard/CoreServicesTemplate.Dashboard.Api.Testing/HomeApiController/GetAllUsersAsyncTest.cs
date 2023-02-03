@@ -13,12 +13,12 @@ using Moq;
 
 namespace CoreServicesTemplate.Dashboard.Api.Testing.HomeApiController
 {
-    public class GetAllUsersAsync : IClassFixture<ApiCustomWebApplicationFactory<Program>>
+    public class GetAllUsersAsyncTest : IClassFixture<ApiCustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
         private readonly ApiCustomWebApplicationFactory<Program> _factory;
 
-        public GetAllUsersAsync(ApiCustomWebApplicationFactory<Program> factory)
+        public GetAllUsersAsyncTest(ApiCustomWebApplicationFactory<Program> factory)
         {
             _factory = factory;
             _client = factory.CreateClient(new WebApplicationFactoryClientOptions

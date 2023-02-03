@@ -9,18 +9,18 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class GetUserFeature : IGetUserFeature
     {
-        private readonly IMapperService<UserAppModel, UserAggModel> _userMapper;
+        private readonly ICustomMapper<UserAppModel, UserAggModel> _userCustomMapper;
         private readonly IGetUserDepot _getUserDepot;
         private readonly ISubStepSupplier _subStepSupplier;
 
         public GetUserFeature(
-            IMapperService<UserAppModel, UserAggModel> userMapper,
+            ICustomMapper<UserAppModel, UserAggModel> userCustomMapper,
             IGetUserDepot getUserDepot, 
             ISubStepSupplier subStepSupplier)
         {
             _getUserDepot = getUserDepot;
             _subStepSupplier = subStepSupplier;
-            _userMapper = userMapper;
+            _userCustomMapper = userCustomMapper;
         }
 
         public async Task<UserAppModel> ExecuteAsync(UserAppModel @in)

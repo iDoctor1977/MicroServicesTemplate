@@ -12,12 +12,12 @@ using Moq;
 
 namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
 {
-    public class GetAllUsersAsync : IClassFixture<WebCustomWebApplicationFactory<Program>>
+    public class GetAllUsersAsyncTest : IClassFixture<WebCustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
         private readonly WebCustomWebApplicationFactory<Program> _factory;
 
-        public GetAllUsersAsync(WebCustomWebApplicationFactory<Program> factory)
+        public GetAllUsersAsyncTest(WebCustomWebApplicationFactory<Program> factory)
         {
             _factory = factory;
             _client = factory.CreateClient(new WebApplicationFactoryClientOptions

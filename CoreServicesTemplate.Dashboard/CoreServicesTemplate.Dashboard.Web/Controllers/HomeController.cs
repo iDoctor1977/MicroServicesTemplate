@@ -38,20 +38,16 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
         {
             return View();
         }
-        public IActionResult Add()
-        {
-            return View();
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<RedirectToActionResult> Add(UserViewModel viewModel)
         {
-            var model = _userCustomMapper.Map(viewModel);
+            var appModel = _userCustomMapper.Map(viewModel);
 
             if (ModelState.IsValid)
             {
-                await _addUserFeature.ExecuteAsync(model);
+                await _addUserFeature.ExecuteAsync(appModel);
             }
 
             return RedirectToAction("Index");
@@ -60,9 +56,9 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
         [HttpGet]
         public async Task<ViewResult> GetAll()
         {
-            var model = await _getUsersFeature.ExecuteAsync();
+            var appModel = await _getUsersFeature.ExecuteAsync();
 
-            var viewModel = _usersCustomMapper.Map(model);
+            var viewModel = _usersCustomMapper.Map(appModel);
 
             return View(viewModel);
         }

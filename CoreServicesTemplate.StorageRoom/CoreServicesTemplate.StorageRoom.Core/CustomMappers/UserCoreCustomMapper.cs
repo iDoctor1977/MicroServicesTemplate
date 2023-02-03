@@ -1,36 +1,39 @@
-﻿using CoreServicesTemplate.Shared.Core.Bases;
-using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.CustomMappers;
 
-public sealed class UserCoreCustomMapper : ACustomMapperBase<UserAppModel, UserAggModel>
+public sealed class UserCoreCustomMapper : ICustomMapper<UserAppModel, UserAggModel>
 {
-    private readonly IMapperService<AddressAppModel, AddressAggModel> _addressMapper;
+    private readonly IDefaultMapper<UserAppModel, UserAggModel> _userMapper;
+    private readonly IDefaultMapper<AddressAppModel, AddressAggModel> _addressMapper;
 
-    public UserCoreCustomMapper(IMapperWrap mapper, IMapperService<AddressAppModel, AddressAggModel> addressMapper) : base(mapper)
+    public UserCoreCustomMapper(
+        IDefaultMapper<UserAppModel, UserAggModel> userMapper, 
+        IDefaultMapper<AddressAppModel, AddressAggModel> addressMapper)
     {
+        _userMapper = userMapper;
         _addressMapper = addressMapper;
     }
 
-    public override UserAggModel Map(UserAppModel @in)
+    public UserAggModel Map(UserAppModel @in)
     {
-        var aggModel = DataInToDataOut(@in);
+        var aggModel = _userMapper.Map(@in);
         aggModel.AddressAggModel = _addressMapper.Map(@in.AddressAppModel);
 
         return aggModel;
     }
 
-    public override UserAppModel Map(UserAggModel @out)
+    public UserAppModel Map(UserAggModel @out)
     {
-        var appModel = DataOutToDataIn(@out);
+        var appModel = _userMapper.Map(@out);
         appModel.AddressAppModel = _addressMapper.Map(@out.AddressAggModel);
 
         return appModel;
     }
 
-    public override UserAggModel Map(UserAppModel @in, UserAggModel @out)
+    public  UserAggModel Map(UserAppModel @in, UserAggModel @out)
     {
         throw new NotImplementedException();
     }

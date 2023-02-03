@@ -13,14 +13,14 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class AddUserFeature : IAddUserFeature
     {
-        private readonly IMapperService<UserAppModel, UserAggModel> _userMapper;
+        private readonly ICustomMapper<UserAppModel, UserAggModel> _userCustomMapper;
         private readonly IAddUserDepot _addUserDepot;
         private readonly ISubStepSupplier _subStepSupplier;
         private readonly IAggregateFactory _aggregateFactory;
         private readonly ILogger<AddUserFeature> _logger;
 
         public AddUserFeature(
-            IMapperService<UserAppModel, UserAggModel> userMapper,
+            ICustomMapper<UserAppModel, UserAggModel> userCustomMapper,
             IAddUserDepot addUserDepot, 
             ISubStepSupplier subStepSupplier,
             IAggregateFactory aggregateFactory,
@@ -30,13 +30,13 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _subStepSupplier = subStepSupplier;
             _aggregateFactory = aggregateFactory;
             _logger = logger;
-            _userMapper = userMapper;
+            _userCustomMapper = userCustomMapper;
         }
 
         public async Task<OperationStatusResult> ExecuteAsync(UserAppModel @in)
         {
             // decoupling and map modelApp to modelAgg 
-            var aggModel = _userMapper.Map(@in);
+            var aggModel = _userCustomMapper.Map(@in);
 
             // generate aggregate instance and execute method on aggregate root domain
             var userAggregate = _aggregateFactory.GenerateAggregate<UserAggModel, UserAggregate>(aggModel);
@@ -45,7 +45,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             aggModel = userAggregate.CreateUser(aggModel);
 
             // decoupling and map modelAgg to modelApp
-            var appModel = _userMapper.Map(aggModel);
+            var appModel = _userCustomMapper.Map(aggModel);
 
             _logger.LogInformation("----- Creating User: {@User} {Dt}", appModel.Name, DateTime.UtcNow.ToLongTimeString());
 
