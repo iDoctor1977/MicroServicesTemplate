@@ -1,22 +1,25 @@
 ﻿using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Web.Models;
-using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 
 namespace CoreServicesTemplate.Dashboard.Web.CustomMappers
 {
-    public class UsersWebCustomMapper : ACustomMapperBase<UsersViewModel, UsersAppModel>
+    public class UsersWebCustomMapper : ICustomMapper<UsersViewModel, UsersAppModel>
     {
-        private readonly IMapperService<UserViewModel, UserAppModel> _userMapper;
+        private readonly IDefaultMapper<UsersViewModel, UsersAppModel> _usersMapper;
+        private readonly IDefaultMapper<UserViewModel, UserAppModel> _userMapper;
 
-        public UsersWebCustomMapper(IMapperWrap mapperWrap, IMapperService<UserViewModel, UserAppModel> userMapper) : base(mapperWrap)
+        public UsersWebCustomMapper(
+            IDefaultMapper<UserViewModel, UserAppModel> userMapper, 
+            IDefaultMapper<UsersViewModel, UsersAppModel> usersMapper)
         {
+            _usersMapper = usersMapper;
             _userMapper = userMapper;
         }
 
-        public override UsersAppModel Map(UsersViewModel @in)
+        public UsersAppModel Map(UsersViewModel @in)
         {
-            var appModel = DataInToDataOut(@in);
+            var appModel = _usersMapper.Map(@in);
 
             var modelList = new List<UserAppModel>();
             foreach (var modelIn in @in.UsersViewModelList)
@@ -29,9 +32,9 @@ namespace CoreServicesTemplate.Dashboard.Web.CustomMappers
             return appModel;
         }
 
-        public override UsersViewModel Map(UsersAppModel @out)
+        public UsersViewModel Map(UsersAppModel @out)
         {
-            var viewModel = DataOutToDataIn(@out);
+            var viewModel = _usersMapper.Map(@out);
 
             var modelList = new List<UserViewModel>();
             foreach (var userModel in @out.UsersModelList)
@@ -44,7 +47,7 @@ namespace CoreServicesTemplate.Dashboard.Web.CustomMappers
             return viewModel;
         }
 
-        public override UsersAppModel Map(UsersViewModel @in, UsersAppModel @out)
+        public UsersAppModel Map(UsersViewModel @in, UsersAppModel @out)
         {
             throw new NotImplementedException();
         }

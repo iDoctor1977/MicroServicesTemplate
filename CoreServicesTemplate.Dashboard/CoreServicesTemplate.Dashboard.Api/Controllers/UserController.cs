@@ -10,13 +10,13 @@ namespace CoreServicesTemplate.Dashboard.Api.Controllers
     [Route("api/dashboard/[controller]/[action]")]
     public class UserController : ControllerBase
     {
-        private readonly IMapperService<UsersApiModel, UsersAppModel> _usersCustomMapper;
+        private readonly ICustomMapper<UsersApiModel, UsersAppModel> _usersCustomMapper;
         private readonly IGetUsersFeature _getUsersFeature;
         private readonly ILogger<UserController> _logger;
 
         public UserController(
             IGetUsersFeature getUsersFeature,
-            IMapperService<UsersApiModel, UsersAppModel> usersCustomMapper,
+            ICustomMapper<UsersApiModel, UsersAppModel> usersCustomMapper,
             ILogger<UserController> logger)
         {
             _logger = logger;

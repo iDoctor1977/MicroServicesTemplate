@@ -9,9 +9,9 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
     public class GetUsersFeature : IGetUsersFeature
     {
         private readonly IStorageRoomService _storageRoomService;
-        private readonly IMapperService<UsersApiModel, UsersAppModel> _mapper;
+        private readonly ICustomMapper<UsersApiModel, UsersAppModel> _mapper;
 
-        public GetUsersFeature(IStorageRoomService storageRoomService, IMapperService<UsersApiModel, UsersAppModel> mapper)
+        public GetUsersFeature(IStorageRoomService storageRoomService, ICustomMapper<UsersApiModel, UsersAppModel> mapper)
         {
             _storageRoomService = storageRoomService;
             _mapper = mapper;

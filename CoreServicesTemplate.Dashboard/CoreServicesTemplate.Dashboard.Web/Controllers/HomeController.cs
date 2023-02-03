@@ -9,15 +9,15 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
 {
     public class HomeController : ControllerBase<HomeController>
     {
-        private readonly IMapperService<UserViewModel, UserAppModel> _userCustomMapper;
-        private readonly IMapperService<UsersViewModel, UsersAppModel> _usersCustomMapper;
+        private readonly ICustomMapper<UserViewModel, UserAppModel> _userCustomMapper;
+        private readonly ICustomMapper<UsersViewModel, UsersAppModel> _usersCustomMapper;
 
         private readonly IAddUserFeature _addUserFeature;
         private readonly IGetUsersFeature _getUsersFeature;
 
         public HomeController(
-            IMapperService<UserViewModel, UserAppModel> userCustomMapper,
-            IMapperService<UsersViewModel, UsersAppModel> usersCustomMapper,
+            ICustomMapper<UserViewModel, UserAppModel> userCustomMapper,
+            ICustomMapper<UsersViewModel, UsersAppModel> usersCustomMapper,
             IAddUserFeature addUserFeature,
             IGetUsersFeature getUsersFeature,
             ILogger<HomeController> logger) : base(logger)

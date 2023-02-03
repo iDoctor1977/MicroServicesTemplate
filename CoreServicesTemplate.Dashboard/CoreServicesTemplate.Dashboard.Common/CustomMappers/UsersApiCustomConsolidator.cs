@@ -1,22 +1,25 @@
 ﻿using CoreServicesTemplate.Dashboard.Common.Models;
-using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Dashboard.Common.CustomMappers
 {
-    public class UsersApiCustomConsolidator : ACustomMapperBase<UsersApiModel, UsersAppModel>
+    public class UsersApiCustomConsolidator : ICustomMapper<UsersApiModel, UsersAppModel>
     {
-        private readonly IMapperService<UserApiModel, UserAppModel> _userMapper;
+        private readonly IDefaultMapper<UsersApiModel, UsersAppModel> _usersMapper;
+        private readonly IDefaultMapper<UserApiModel, UserAppModel> _userMapper;
 
-        public UsersApiCustomConsolidator(IMapperWrap mapperWrap, IMapperService<UserApiModel, UserAppModel> userMapper) : base(mapperWrap)
+        public UsersApiCustomConsolidator(
+            IDefaultMapper<UserApiModel, UserAppModel> userMapper, 
+            IDefaultMapper<UsersApiModel, UsersAppModel> usersMapper)
         {
             _userMapper = userMapper;
+            _usersMapper = usersMapper;
         }
 
-        public override UsersAppModel Map(UsersApiModel @in)
+        public UsersAppModel Map(UsersApiModel @in)
         {
-            var appModel = DataInToDataOut(@in);
+            var appModel = _usersMapper.Map(@in);
 
             var modelList = new List<UserAppModel>();
             foreach (var modelIn in @in.UsersApiModelList)
@@ -29,9 +32,9 @@ namespace CoreServicesTemplate.Dashboard.Common.CustomMappers
             return appModel;
         }
 
-        public override UsersApiModel Map(UsersAppModel @out)
+        public UsersApiModel Map(UsersAppModel @out)
         {
-            var apiModel = DataOutToDataIn(@out);
+            var apiModel = _usersMapper.Map(@out);
 
             var modelList = new List<UserApiModel>();
             foreach (var userModel in @out.UsersModelList)
@@ -44,9 +47,9 @@ namespace CoreServicesTemplate.Dashboard.Common.CustomMappers
             return apiModel;
         }
 
-        public override UsersAppModel Map(UsersApiModel @in, UsersAppModel @out)
+        public UsersAppModel Map(UsersApiModel @in, UsersAppModel @out)
         {
-            var appModel = ToDataOut(@in, @out);
+            var appModel = _usersMapper.Map(@in, @out);
 
             var modelList = new List<UserAppModel>();
             foreach (var modelIn in @in.UsersApiModelList)

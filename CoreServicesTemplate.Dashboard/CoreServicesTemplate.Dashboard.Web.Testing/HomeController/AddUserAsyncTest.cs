@@ -4,10 +4,8 @@ using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Web.Models;
 using CoreServicesTemplate.Dashboard.Web.Testing.Fixtures;
-using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models;
-using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -41,8 +39,8 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
             };
 
             var controller = new Controllers.HomeController(
-                _factory.Services.GetRequiredService<IMapperService<UserViewModel, UserAppModel>>(),
-                _factory.Services.GetRequiredService<IMapperService<UsersViewModel, UsersAppModel>>(),
+                _factory.Services.GetRequiredService<ICustomMapper<UserViewModel, UserAppModel>>(),
+                _factory.Services.GetRequiredService<ICustomMapper<UsersViewModel, UsersAppModel>>(),
                 _factory.Services.GetRequiredService<IAddUserFeature>(),
                 _factory.Services.GetRequiredService<IGetUsersFeature>(),
                 _factory.Services.GetRequiredService<ILogger<Controllers.HomeController>>());

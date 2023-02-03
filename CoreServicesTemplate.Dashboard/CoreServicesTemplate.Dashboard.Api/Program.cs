@@ -28,15 +28,14 @@ builder.Services.AddHttpClient();
 
 #region Mapper
 
-builder.Services.AddTransient(typeof(IMapperService<,>), typeof(DefaultMapper<,>));
-builder.Services.AddTransient(typeof(IMapperService<UserApiModel, UserAppModel>), typeof(UserApiCustomConsolidator));
-builder.Services.AddTransient(typeof(IMapperService<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomConsolidator));
+builder.Services.AddTransient(typeof(IDefaultMapper<,>), typeof(DefaultMapper<,>));
+builder.Services.AddTransient(typeof(ICustomMapper<UserApiModel, UserAppModel>), typeof(UserApiCustomConsolidator));
+builder.Services.AddTransient(typeof(ICustomMapper<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomConsolidator));
 
 #endregion
 
 #region Automapper
 
-builder.Services.AddTransient<IMapperWrap, MapperWrap>();
 builder.Services.AddAutoMapper(typeof(CoreMappingProfile));
 
 #endregion

@@ -1,40 +1,43 @@
 ﻿using System.Globalization;
 using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Web.Models;
-using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Extensions;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 
 namespace CoreServicesTemplate.Dashboard.Web.CustomMappers
 {
-    public class UserWebCustomMapper : ACustomMapperBase<UserViewModel, UserAppModel>
+    public class UserWebCustomMapper : ICustomMapper<UserViewModel, UserAppModel>
     {
-        private readonly IMapperService<AddressViewModel, AddressAppModel> _addressMapper;
+        private readonly IDefaultMapper<UserViewModel, UserAppModel> _userMapper;
+        private readonly IDefaultMapper<AddressViewModel, AddressAppModel> _addressMapper;
 
-        public UserWebCustomMapper(IMapperWrap mapperWrap, IMapperService<AddressViewModel, AddressAppModel> addressMapper) : base(mapperWrap)
+        public UserWebCustomMapper(
+            IDefaultMapper<AddressViewModel, AddressAppModel> addressMapper,
+            IDefaultMapper<UserViewModel, UserAppModel> userMapper)
         {
+            _userMapper = userMapper;
             _addressMapper = addressMapper;
         }
 
-        public override UserAppModel Map(UserViewModel @in)
+        public  UserAppModel Map(UserViewModel @in)
         {
-            var appModel = DataInToDataOut(@in);
+            var appModel = _userMapper.Map(@in);
             appModel.Birth = DateTime.ParseExact(@in.Birth, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             appModel.AddressAppModel = _addressMapper.Map(@in.AddressViewModel);
 
             return appModel;
         }
 
-        public override UserViewModel Map(UserAppModel @out)
+        public  UserViewModel Map(UserAppModel @out)
         {
-            var viewModel = DataOutToDataIn(@out);
+            var viewModel = _userMapper.Map(@out);
             viewModel.Birth = @out.Birth.ToStandardString();
             viewModel.AddressViewModel = _addressMapper.Map(@out.AddressAppModel);
 
             return viewModel;
         }
 
-        public override UserAppModel Map(UserViewModel @in, UserAppModel @out)
+        public  UserAppModel Map(UserViewModel @in, UserAppModel @out)
         {
             throw new NotImplementedException();
         }

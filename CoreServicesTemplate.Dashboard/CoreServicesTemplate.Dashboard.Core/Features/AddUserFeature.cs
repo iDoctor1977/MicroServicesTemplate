@@ -9,17 +9,17 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
     public class AddUserFeature : IAddUserFeature
     {
         private readonly IStorageRoomService _storageRoomService;
-        private readonly IMapperService<UserAppModel, UserApiModel> _mapper;
+        private readonly IDefaultMapper<UserAppModel, UserApiModel> _userMapper;
 
-        public AddUserFeature(IStorageRoomService storageRoomService, IMapperService<UserAppModel, UserApiModel> mapper) 
+        public AddUserFeature(IStorageRoomService storageRoomService, IDefaultMapper<UserAppModel, UserApiModel> userMapper) 
         {
             _storageRoomService = storageRoomService;
-            _mapper = mapper;
+            _userMapper = userMapper;
         }
 
         public async Task ExecuteAsync(UserAppModel @in)
         {
-            var apiModel = _mapper.Map(@in);
+            var apiModel = _userMapper.Map(@in);
 
             var responseMessage = await _storageRoomService.AddUserAsync(apiModel);
         }

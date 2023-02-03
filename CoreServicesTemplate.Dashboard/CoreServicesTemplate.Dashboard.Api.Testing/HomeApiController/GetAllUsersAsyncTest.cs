@@ -50,7 +50,7 @@ namespace CoreServicesTemplate.Dashboard.Api.Testing.HomeApiController
 
             var controller = new UserController(
                 _factory.Services.GetRequiredService<IGetUsersFeature>(),
-                _factory.Services.GetRequiredService<IMapperService<UsersApiModel, UsersAppModel>>(),
+                _factory.Services.GetRequiredService<ICustomMapper<UsersApiModel, UsersAppModel>>(),
                 _factory.Services.GetRequiredService<ILogger<UserController>>());
 
             //Act
