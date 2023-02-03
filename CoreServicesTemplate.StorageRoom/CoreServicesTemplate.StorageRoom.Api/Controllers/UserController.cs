@@ -36,7 +36,7 @@ public class UserController : ControllerBase
     [HttpPost("{apiModel}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> Add(UserApiModel apiModel)
+    public async Task<ActionResult> Add(UserApiModel? apiModel)
     {
         if (apiModel is null)
         {
@@ -88,7 +88,7 @@ public class UserController : ControllerBase
     [HttpPut("{guid}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> Update(Guid guid, [FromBody] UserApiModel apiModel)
+    public async Task<ActionResult> Update(Guid guid, [FromBody] UserApiModel? apiModel)
     {
         if (apiModel is null || apiModel.Guid == Guid.Empty)
         {
@@ -111,7 +111,7 @@ public class UserController : ControllerBase
     [HttpDelete("{apiModel}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> Delete(UserApiModel apiModel)
+    public async Task<ActionResult> Delete(UserApiModel? apiModel)
     {
         if (apiModel is null || apiModel.Guid == Guid.Empty)
         {
