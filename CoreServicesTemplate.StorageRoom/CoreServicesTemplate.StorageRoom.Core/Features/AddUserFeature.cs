@@ -49,13 +49,13 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             _logger.LogInformation("----- Creating User: {@User} {Dt}", appModel.Name, DateTime.UtcNow.ToLongTimeString());
 
-            // execute consolidation with repository (if necessary)
-            var result = await _addUserDepot.ExecuteAsync(appModel);
-
             // execute addUserFeature sub steps
             // this part is added only for features scalability 
             // Ex.: await _subStepSupplier.AddHandleAsync(appModel);
-            //await _subStepSupplier.AddHandleAsync(appModel);
+            appModel = _subStepSupplier.AddHandleAsync(appModel);
+
+            // execute consolidation with repository (if necessary)
+            var result = await _addUserDepot.ExecuteAsync(appModel);
 
             return result;
         }

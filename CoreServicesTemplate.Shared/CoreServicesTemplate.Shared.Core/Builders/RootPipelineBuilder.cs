@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Attributes;
 using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 
@@ -35,11 +34,11 @@ namespace CoreServicesTemplate.Shared.Core.Builders
             throw new Exception(newStep.GetType().Name + " it doesn't belong to the root " + GetType().Name + " or attribute was not found.");
         }
 
-        protected abstract Task<TOut> HandleRootStepAsync(TIn appModel);
+        protected abstract TOut ExecuteRootStepAsync(TIn appModel);
 
-        public Task<TOut> ExecuteAsync(TIn modelApp)
+        public TOut ExecuteAsync(TIn modelApp)
         {
-            _stepInput = HandleRootStepAsync(modelApp);
+            _stepInput = ExecuteRootStepAsync(modelApp);
 
             if (_root.Count != 0)
             {
@@ -49,7 +48,7 @@ namespace CoreServicesTemplate.Shared.Core.Builders
                 }
             }
 
-            return Task.FromResult((TOut)_stepInput);
+            return (TOut)_stepInput;
         }
     }
 
@@ -60,8 +59,8 @@ namespace CoreServicesTemplate.Shared.Core.Builders
 
     public interface IBuildStep<TIn, TOut> : IRootStep<TIn, TOut> where TIn : IAppModel where TOut : IAppModel { }
 
-    public interface ISubStep<in TIn, TOut> where TIn : IAppModel where TOut : IAppModel
+    public interface ISubStep<in TIn, out TOut> where TIn : IAppModel where TOut : IAppModel
     {
-        Task<TOut> ExecuteAsync(TIn modelApp);
+        TOut ExecuteAsync(TIn modelApp);
     }
 }

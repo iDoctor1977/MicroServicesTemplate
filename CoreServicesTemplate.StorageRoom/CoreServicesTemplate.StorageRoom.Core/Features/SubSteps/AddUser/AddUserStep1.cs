@@ -21,7 +21,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser
             _userMapper = userMapper;
         }
 
-        protected override async Task<UserAppModel> HandleRootStepAsync(UserAppModel appModel)
+        protected override UserAppModel ExecuteRootStepAsync(UserAppModel appModel)
         {
             // Do anything on User aggregate
 

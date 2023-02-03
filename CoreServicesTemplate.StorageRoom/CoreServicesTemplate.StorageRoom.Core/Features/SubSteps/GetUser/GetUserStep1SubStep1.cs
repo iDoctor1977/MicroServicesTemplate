@@ -21,7 +21,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser
             _getUserDepot = getUserDepot;
         }
 
-        public async Task<UserAppModel> ExecuteAsync(UserAppModel modelApp)
+        public UserAppModel ExecuteAsync(UserAppModel modelApp)
         {
             // Do anything on User aggregate
 

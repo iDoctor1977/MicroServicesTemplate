@@ -29,10 +29,10 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps
             GetUserStep1SubStep1 = getUserStep1SubStep1;
         }
 
-        public Func<UserAppModel, Task<UserAppModel>> AddHandleAsync => PipeAddDefinitionAsync;
-        protected abstract Task<UserAppModel> PipeAddDefinitionAsync(UserAppModel aggregate);
+        public Func<UserAppModel, UserAppModel> AddHandleAsync => PipeAddDefinitionAsync;
+        protected abstract UserAppModel PipeAddDefinitionAsync(UserAppModel aggregate);
 
-        public Func<UserAppModel, Task<UserAppModel>> GetHandleAsync => PipeGetDefinitionAsync;
-        protected abstract Task<UserAppModel> PipeGetDefinitionAsync(UserAppModel aggregate);
+        public Func<UserAppModel, UserAppModel> GetHandleAsync => PipeGetDefinitionAsync;
+        protected abstract UserAppModel PipeGetDefinitionAsync(UserAppModel aggregate);
     }
 }
