@@ -37,4 +37,9 @@ public sealed class UserCoreCustomMapper : ICustomMapper<UserAppModel, UserAggMo
     {
         throw new NotImplementedException();
     }
+
+    public UserAppModel Map(UserAggModel @out, UserAppModel @in)
+    {
+        throw new NotImplementedException();
+    }
 }

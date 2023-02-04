@@ -98,7 +98,7 @@ public class UserController : ControllerBase
         // decoupling ApiModel and map it in to AppModel.
         var model = _userCustomMapper.Map(apiModel);
 
-        // var result = await _updateUserFeature.AddHandleAsync(model);
+        // var result = await _updateUserFeature.ExecuteAddAsync(model);
 
         //if (result is null)
         //{
@@ -121,7 +121,7 @@ public class UserController : ControllerBase
         // decoupling ApiModel and map it in to AppModel.
         var model = _userCustomMapper.Map(apiModel);
 
-        // var result = await _deleteUserFeature.AddHandleAsync(model);
+        // var result = await _deleteUserFeature.ExecuteAddAsync(model);
 
         //if (result is null)
         //{

@@ -4,6 +4,6 @@ namespace CoreServicesTemplate.StorageRoom.Core.Interfaces;
 
 public interface ISubStepSupplier
 {
-    Func<UserAppModel, UserAppModel> AddHandleAsync { get; }
-    Func<UserAppModel, UserAppModel> GetHandleAsync { get; }
+    Func<UserAppModel, UserAppModel> ExecuteAddAsync { get; }
+    Func<UserAppModel, UserAppModel> ExecuteGetAsync { get; }
 }

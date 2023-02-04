@@ -5,4 +5,5 @@ public interface IDefaultMapper<TIn, TOut>
     TOut Map(TIn @in);
     TIn Map(TOut @out);
     TOut Map(TIn @in, TOut @out);
+    TIn Map(TOut @out, TIn @in);
 }

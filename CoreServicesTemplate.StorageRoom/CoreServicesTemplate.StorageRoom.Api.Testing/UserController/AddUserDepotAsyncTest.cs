@@ -1,13 +1,11 @@
 using System.Net;
 using System.Net.Http.Json;
-using System.Security.Cryptography;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
 

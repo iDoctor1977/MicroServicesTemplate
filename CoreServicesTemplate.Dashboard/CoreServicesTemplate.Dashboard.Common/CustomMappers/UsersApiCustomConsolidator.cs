@@ -61,5 +61,10 @@ namespace CoreServicesTemplate.Dashboard.Common.CustomMappers
 
             return appModel;
         }
+
+        public UsersApiModel Map(UsersAppModel @out, UsersApiModel @in)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

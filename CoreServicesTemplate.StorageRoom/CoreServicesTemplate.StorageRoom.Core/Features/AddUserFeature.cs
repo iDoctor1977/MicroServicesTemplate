@@ -40,9 +40,9 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             // generate aggregate instance and execute method on aggregate root domain
             var userAggregate = _aggregateFactory.GenerateAggregate<UserAggModel, UserAggregate>(aggModel);
+            aggModel = userAggregate.CreateUser(aggModel);
             Console.WriteLine(userAggregate.UserToString());
             Console.WriteLine(userAggregate.AddressToString());
-            aggModel = userAggregate.CreateUser(aggModel);
 
             // decoupling and map modelAgg to modelApp
             var appModel = _userCustomMapper.Map(aggModel);
@@ -51,10 +51,9 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             // execute addUserFeature sub steps
             // this part is added only for features scalability 
-            // Ex.: await _subStepSupplier.AddHandleAsync(appModel);
-            appModel = _subStepSupplier.AddHandleAsync(appModel);
+            appModel = _subStepSupplier.ExecuteAddAsync(appModel);
 
-            // execute consolidation with repository (if necessary)
+            // execute consolidation to repository
             var result = await _addUserDepot.ExecuteAsync(appModel);
 
             return result;

@@ -32,7 +32,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             // execute getUserFeature sub steps
             // this part is added only for features scalability 
-            modelAppOut = _subStepSupplier.GetHandleAsync(modelAppOut);
+            modelAppOut = _subStepSupplier.ExecuteGetAsync(modelAppOut);
 
             return modelAppOut;
         }

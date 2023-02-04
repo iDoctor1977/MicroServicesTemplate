@@ -35,5 +35,10 @@ namespace CoreServicesTemplate.Dashboard.Common.CustomMappers
         {
             throw new NotImplementedException();
         }
+
+        public UserApiModel Map(UserAppModel @out, UserApiModel @in)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

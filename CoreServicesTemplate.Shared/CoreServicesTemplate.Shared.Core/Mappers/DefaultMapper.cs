@@ -17,17 +17,30 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
 
         public TOut Map(TIn @in)
         {
-            return _mapper.Map<TOut>(@in);
+            var result = _mapper.Map<TOut>(@in);
+
+            return result;
         }
 
         public TIn Map(TOut @out)
         {
-            return _mapper.Map<TIn>(@out);
+            var result = _mapper.Map<TIn>(@out);
+
+            return result;
         }
 
         public TOut Map(TIn @in, TOut @out)
         {
-            return _mapper.Map(@in, @out);
+            TOut result = _mapper.Map(@in, @out);
+
+            return result;
+        }
+
+        public TIn Map(TOut @out, TIn @in)
+        {
+            TIn result = _mapper.Map(@out, @in);
+
+            return result;
         }
     }
 }

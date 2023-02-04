@@ -42,6 +42,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
             Guid = Guid.NewGuid();
 
             // coupling with external aggModel
+            userAggModel = _userMapper.Map(this);
             userAggModel.AddressAggModel = _addressMapper.Map(AddressItem);
 
             return userAggModel;

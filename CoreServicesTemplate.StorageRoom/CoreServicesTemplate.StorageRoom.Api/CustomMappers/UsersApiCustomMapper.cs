@@ -61,4 +61,9 @@ public sealed class UsersApiCustomMapper : ICustomMapper<UsersApiModel, UsersApp
 
         return appModel;
     }
+
+    public UsersApiModel Map(UsersAppModel @out, UsersApiModel @in)
+    {
+        throw new NotImplementedException();
+    }
 }

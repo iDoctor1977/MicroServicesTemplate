@@ -40,4 +40,12 @@ public class UserApiCustomMapper : ICustomMapper<UserApiModel, UserAppModel>
 
         return appModel;
     }
+
+    public UserApiModel Map(UserAppModel @out, UserApiModel @in)
+    {
+        var apiModel = _userMapper.Map(@out, @in);
+        apiModel.AddressApiModel = _addressMapper.Map(@out.AddressAppModel, apiModel.AddressApiModel);
+
+        return apiModel;
+    }
 }

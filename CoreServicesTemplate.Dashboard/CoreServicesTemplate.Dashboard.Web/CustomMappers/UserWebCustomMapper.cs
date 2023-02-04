@@ -41,5 +41,10 @@ namespace CoreServicesTemplate.Dashboard.Web.CustomMappers
         {
             throw new NotImplementedException();
         }
+
+        public UserViewModel Map(UserAppModel @out, UserViewModel @in)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

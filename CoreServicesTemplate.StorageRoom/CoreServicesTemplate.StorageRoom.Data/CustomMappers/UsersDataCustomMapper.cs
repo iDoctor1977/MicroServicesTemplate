@@ -61,5 +61,10 @@ namespace CoreServicesTemplate.StorageRoom.Data.CustomMappers
         {
             throw new NotImplementedException();
         }
+
+        public UsersAppModel Map(IEnumerable<User> @out, UsersAppModel @in)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
