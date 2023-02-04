@@ -15,6 +15,12 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Execute a mapping from the source object to a new destination object.
+        /// The source type is inferred from the source object.
+        /// </summary>
+        /// <param name="in">Source object to map from</param>
+        /// <returns>Mapped destination object</returns>
         public TOut Map(TIn @in)
         {
             var result = _mapper.Map<TOut>(@in);
@@ -22,6 +28,12 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
             return result;
         }
 
+        /// <summary>
+        /// Execute a mapping from the source object to a new destination object.
+        /// The source type is inferred from the source object.
+        /// </summary>
+        /// <param name="out">Source object to map from</param>
+        /// <returns>Mapped destination object</returns>
         public TIn Map(TOut @out)
         {
             var result = _mapper.Map<TIn>(@out);
@@ -29,6 +41,12 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
             return result;
         }
 
+        /// <summary>
+        /// Execute a mapping from the source object to the existing destination object.
+        /// </summary>
+        /// <param name="in">Source type to use</param>
+        /// <param name="out">Destination type</param>
+        /// <returns>Mapped destination object</returns>
         public TOut Map(TIn @in, TOut @out)
         {
             TOut result = _mapper.Map(@in, @out);
@@ -36,6 +54,12 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
             return result;
         }
 
+        /// <summary>
+        /// Execute a mapping from the source object to the existing destination object.
+        /// </summary>
+        /// <param name="out">Source type to use</param>
+        /// <param name="in">Destination type</param>
+        /// <returns>Mapped destination object</returns>
         public TIn Map(TOut @out, TIn @in)
         {
             TIn result = _mapper.Map(@out, @in);
