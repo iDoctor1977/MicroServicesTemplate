@@ -2,10 +2,16 @@
 
 public static class ApiUrl
 {
+    /// <summary>
+    /// Url project references
+    /// </summary>
     public static class StorageRoom
     {
         private static readonly string StorageRoomRoot = "http://localhost:32001/api/storageroom";
 
+        /// <summary>
+        /// Url project controller references
+        /// </summary>
         public static class User 
         {
             public static string IndexFromUserToStorageRoom() => $"{StorageRoomRoot}/user/index";
@@ -19,10 +25,16 @@ public static class ApiUrl
         }
     }
 
+    /// <summary>
+    /// Url project references
+    /// </summary>
     public static class Dashboard
     {
         private static readonly string DashboardRoot = "http://localhost:31753/api/dashboard";
 
+        /// <summary>
+        /// Url project controller references
+        /// </summary>
         public static class User
         {
             public static string IndexFromDashboardUser() => $"{DashboardRoot}/user/index";
