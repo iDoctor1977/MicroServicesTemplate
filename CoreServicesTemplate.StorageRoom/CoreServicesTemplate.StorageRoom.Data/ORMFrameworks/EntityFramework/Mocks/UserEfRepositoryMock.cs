@@ -15,7 +15,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mo
         {
             var builder = new UserEntityBuilder();
 
-            if (Entities is null || !Entities.Any())
+            if (!Entities.Any())
             {
                 var users = builder
                     .AddUser("Donald", "Duck", DateTime.Now.AddDays(-13698))
@@ -45,12 +45,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mo
             return Task.FromResult(OperationStatusResult.Updated);
         }
 
-        public Task<User> GetByNameAsync(User entity)
+        public Task<User> GetByNameAsync(User? entity)
         {
             return Task.FromResult(Entities.FirstOrDefault(r => r.Name == entity.Name));
         }
 
-        public async Task<User> GetByGuidAsync(User entity)
+        public async Task<User> GetByGuidAsync(User? entity)
         {
             try
             {
@@ -63,13 +63,13 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mo
             }
             catch (Exception exception)
             {
-                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod()?.Name, exception);
             }
 
-            return await Task.FromResult<User>(null);
+            return await Task.FromResult(new User());
         }
 
-        public async Task<User> GetByIdAsync(User entity)
+        public async Task<User> GetByIdAsync(User? entity)
         {
             try
             {
@@ -82,10 +82,10 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mo
             }
             catch (Exception exception)
             {
-                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod()?.Name, exception);
             }
 
-            return await Task.FromResult<User>(null);
+            return await Task.FromResult(new User());
         }
 
         public Task<OperationStatusResult> DeleteCustomAsync(User entity)

@@ -1,4 +1,5 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
@@ -13,9 +14,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
         private readonly ICustomMapper<UsersAppModel, IEnumerable<User>> _usersCustomMapper;
 
         public GetUsersEfDepot(
-            StorageRoomDbContext dbContext,
+            IDbContextWrap dbContextWrap,
             ICustomMapper<UsersAppModel, IEnumerable<User>> usersCustomMapper,
-            IUserRepository userRepository) : base(dbContext)
+            IUserRepository userRepository) : base(dbContextWrap)
         {
             _usersCustomMapper = usersCustomMapper;
             _userRepository = userRepository;

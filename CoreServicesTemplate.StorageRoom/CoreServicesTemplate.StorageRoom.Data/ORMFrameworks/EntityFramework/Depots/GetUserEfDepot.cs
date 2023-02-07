@@ -1,4 +1,5 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
@@ -13,9 +14,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
         private readonly IDefaultMapper<UserAppModel, User> _userConsolidator;
 
         public GetUserEfDepot(
-            StorageRoomDbContext dbContext,
+            IDbContextWrap dbContextWrap,
             IDefaultMapper<UserAppModel, User> userConsolidator,
-            IUserRepository userRepository) : base(dbContext)
+            IUserRepository userRepository) : base(dbContextWrap)
         {
             _userConsolidator = userConsolidator;
             _userRepository = userRepository;

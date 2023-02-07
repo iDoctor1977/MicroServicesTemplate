@@ -4,6 +4,7 @@ using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.CustomMappers;
 using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
+using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
@@ -37,11 +38,13 @@ builder.Services.AddTransient<IGetUsersFeature, GetUsersFeature>();
 
 builder.Services.AddTransient<IAggregateFactory, AggregateFactory>();
 
+builder.Services.AddTransient<IDbContextWrap, EfDbContextWrap>();
+
 builder.Services.AddTransient<IAddUserDepot, AddUserEfDepot>();
 builder.Services.AddTransient<IGetUserDepot, GetUserEfDepot>();
 builder.Services.AddTransient<IGetUsersDepot, GetUsersEfDepot>();
 
-if (builder.Configuration["mocked"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
+if (builder.Configuration["repositoryMocked"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
 {
     builder.Services.AddTransient<IUserRepository, UserEfRepositoryMock>();
 }
@@ -56,7 +59,6 @@ else
 
 if (builder.Configuration["DBProvider"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
 {
-    // only for SQLite
     builder.Services.AddDbContext<StorageRoomDbContext>();
 }
 else
@@ -134,4 +136,7 @@ app.MapControllers();
 app.Run();
 
 // only for tests
-public partial class Program { }
+namespace CoreServicesTemplate.StorageRoom.Api
+{
+    public partial class Program { }
+}

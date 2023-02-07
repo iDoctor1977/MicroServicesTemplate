@@ -1,21 +1,23 @@
-﻿namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases
+﻿using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
+
+namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases
 {
     public class EfUnitOfWork : IDisposable
     {
-        private readonly StorageRoomDbContext _dbContext;
+        private readonly IDbContextWrap _dbContextWrap;
 
 
-        protected EfUnitOfWork(StorageRoomDbContext dbContext)
+        protected EfUnitOfWork(IDbContextWrap dbContextWrap)
         {
-            _dbContext = dbContext;
+            _dbContextWrap = dbContextWrap;
         }
 
-        protected void Commit() => _dbContext.SaveChanges();
+        protected void Commit() => _dbContextWrap.SaveChanges();
 
-        protected async Task CommitAsync() => await _dbContext.SaveChangesAsync();
+        protected async Task CommitAsync() => await _dbContextWrap.SaveChangesAsync();
 
-        public void Dispose() => _dbContext.Dispose();
+        public void Dispose() => _dbContextWrap.Dispose();
 
-        public async Task DisposeAsync() => await _dbContext.DisposeAsync();
+        public async Task DisposeAsync() => await _dbContextWrap.DisposeAsync();
     }
 }
