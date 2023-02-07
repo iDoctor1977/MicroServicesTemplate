@@ -88,11 +88,11 @@ public class UserController : ControllerBase
     [HttpPut("{guid}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> Update(Guid guid, [FromBody] UserApiModel? apiModel)
+    public Task<IActionResult> Update(Guid guid, [FromBody] UserApiModel? apiModel)
     {
         if (apiModel is null || apiModel.Guid == Guid.Empty)
         {
-            return BadRequest();
+            return Task.FromResult<IActionResult>(BadRequest());
         }
 
         // decoupling ApiModel and map it in to AppModel.
@@ -105,17 +105,17 @@ public class UserController : ControllerBase
         //    return await Task.FromResult<IActionResult>(NotFound());
         //}
 
-        return NoContent();
+        return Task.FromResult<IActionResult>(NoContent());
     }
 
     [HttpDelete("{apiModel}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> Delete(UserApiModel? apiModel)
+    public Task<ActionResult> Delete(UserApiModel? apiModel)
     {
         if (apiModel is null || apiModel.Guid == Guid.Empty)
         {
-            return BadRequest();
+            return Task.FromResult<ActionResult>(BadRequest());
         }
 
         // decoupling ApiModel and map it in to AppModel.
@@ -128,7 +128,7 @@ public class UserController : ControllerBase
         //    return await Task.FromResult<IActionResult>(NotFound());
         //}
 
-        return NoContent();
+        return Task.FromResult<ActionResult>(NoContent());
     }
 
     [HttpGet("error")]

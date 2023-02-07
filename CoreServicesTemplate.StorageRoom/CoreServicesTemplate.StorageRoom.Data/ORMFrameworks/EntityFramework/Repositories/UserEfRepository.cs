@@ -11,11 +11,11 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
     {
         public UserEfRepository(StorageRoomDbContext dbContext) : base(dbContext) { }
 
-        public async Task<User> GetByNameAsync(User entity)
+        public async Task<User> GetByNameAsync(User? entity)
         {
             try
             {
-                entity = EntitySet.SingleOrDefault(e => e.Name == entity.Name);
+                entity = EntitySet.SingleOrDefault(e => entity != null && e.Name == entity.Name);
 
                 if (entity != null)
                 {
@@ -24,13 +24,13 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             }
             catch (Exception exception)
             {
-                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod()?.Name, exception);
             }
 
-            return await Task.FromResult<User>(null);
+            return await Task.FromResult(new User());
         }
 
-        public async Task<OperationStatusResult> AddCustomAsync(User entity)
+        public async Task<OperationStatusResult> AddCustomAsync(User? entity)
         {
             try
             {
@@ -42,17 +42,17 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             }
             catch (Exception exception)
             {
-                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod()?.Name, exception);
             }
 
             return await Task.FromResult(OperationStatusResult.Created);
         }
 
-        public async Task<User> GetByGuidAsync(User entity)
+        public async Task<User> GetByGuidAsync(User? entity)
         {
             try
             {
-                entity = await EntitySet.SingleOrDefaultAsync(e => e.Guid == entity.Guid);
+                entity = await EntitySet.SingleOrDefaultAsync(e => entity != null && e.Guid == entity.Guid);
 
                 if (entity != null)
                 {
@@ -61,17 +61,17 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             }
             catch (Exception exception)
             {
-                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod()?.Name, exception);
             }
 
-            return await Task.FromResult<User>(null);
+            return await Task.FromResult(new User());
         }
 
-        public async Task<User> GetByIdAsync(User entity)
+        public async Task<User> GetByIdAsync(User? entity)
         {
             try
             {
-                entity = await EntitySet.SingleOrDefaultAsync(e => e.Id == entity.Id);
+                entity = await EntitySet.SingleOrDefaultAsync(e => entity != null && e.Id == entity.Id);
 
                 if (entity != null)
                 {
@@ -80,26 +80,29 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             }
             catch (Exception exception)
             {
-                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod()?.Name, exception);
             }
 
-            return await Task.FromResult<User>(null);
+            return await Task.FromResult(new User());
         }
 
-        public async Task<OperationStatusResult> DeleteCustomAsync(User entity)
+        public async Task<OperationStatusResult> DeleteCustomAsync(User? entity)
         {
             try
             {
-                entity = await EntitySet.FindAsync(entity.Guid);
-
                 if (entity != null)
                 {
-                    EntitySet.Remove(entity);
+                    entity = await EntitySet.FindAsync(entity.Guid);
+
+                    if (entity != null)
+                    {
+                        EntitySet.Remove(entity);
+                    }
                 }
             }
             catch (Exception exception)
             {
-                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod()?.Name, exception);
             }
 
             return await Task.FromResult(OperationStatusResult.Deleted);
@@ -118,19 +121,19 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             }
             catch (Exception exception)
             {
-                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod()?.Name, exception);
             }
 
             return await Task.FromResult(Enumerable.Empty<User>());
         }
 
-        public async Task<OperationStatusResult> UpdateCustomAsync(User entity)
+        public async Task<OperationStatusResult> UpdateCustomAsync(User? entity)
         {
-            var updateEntity = await EntitySet.SingleOrDefaultAsync(e => e.Name == entity.Name);
+            var updateEntity = await EntitySet.SingleOrDefaultAsync(e => entity != null && e.Name == entity.Name);
 
             try
             {
-                if (entity != null)
+                if (entity != null && updateEntity != null)
                 {
                     updateEntity.Name = entity.Name;
                     updateEntity.Surname = entity.Surname;
@@ -139,7 +142,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             }
             catch (Exception exception)
             {
-                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod().Name, exception);
+                throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod()?.Name, exception);
             }
 
             return await Task.FromResult(OperationStatusResult.Updated);

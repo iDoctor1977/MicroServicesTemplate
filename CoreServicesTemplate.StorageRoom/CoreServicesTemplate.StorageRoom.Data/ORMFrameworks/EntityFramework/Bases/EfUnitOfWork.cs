@@ -10,11 +10,11 @@
             _dbContext = dbContext;
         }
 
-        public void Commit() => _dbContext.SaveChanges();
+        protected void Commit() => _dbContext.SaveChanges();
 
-        public async Task CommitAsync() => await _dbContext.SaveChangesAsync();
+        protected async Task CommitAsync() => await _dbContext.SaveChangesAsync();
 
-        public void Dispose() => _dbContext?.Dispose();
+        public void Dispose() => _dbContext.Dispose();
 
         public async Task DisposeAsync() => await _dbContext.DisposeAsync();
     }

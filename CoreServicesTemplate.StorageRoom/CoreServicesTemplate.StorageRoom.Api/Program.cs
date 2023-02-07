@@ -134,7 +134,4 @@ app.MapControllers();
 app.Run();
 
 // only for tests
-namespace CoreServicesTemplate.StorageRoom.Api
-{
-    public partial class Program { }
-}
+public partial class Program { }

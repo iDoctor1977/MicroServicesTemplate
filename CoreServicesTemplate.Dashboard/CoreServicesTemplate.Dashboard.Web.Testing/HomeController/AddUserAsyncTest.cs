@@ -38,14 +38,14 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
                 Birth = DateTime.Now.AddDays(-26985).ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)
             };
 
+            _factory.StorageRoomServiceMock.Setup(service => service.AddUserAsync(It.IsAny<UserApiModel>())).ReturnsAsync(new HttpResponseMessage { StatusCode = HttpStatusCode.OK });
+
             var controller = new Controllers.HomeController(
                 _factory.Services.GetRequiredService<ICustomMapper<UserViewModel, UserAppModel>>(),
                 _factory.Services.GetRequiredService<ICustomMapper<UsersViewModel, UsersAppModel>>(),
                 _factory.Services.GetRequiredService<IAddUserFeature>(),
                 _factory.Services.GetRequiredService<IGetUsersFeature>(),
                 _factory.Services.GetRequiredService<ILogger<Controllers.HomeController>>());
-
-            _factory.StorageRoomServiceMock.Setup(service => service.AddUserAsync(It.IsAny<UserApiModel>())).ReturnsAsync(new HttpResponseMessage { StatusCode = HttpStatusCode.OK });
 
             //Act
             var responseMessage = await controller.Add(userViewModel);

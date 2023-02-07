@@ -15,8 +15,8 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
         public AddUserEfDepot(
             StorageRoomDbContext dbContext,
-            IUserRepository userRepository,
-            IDefaultMapper<UserAppModel, User> userMapper) : base(dbContext)
+            IDefaultMapper<UserAppModel, User> userMapper,
+            IUserRepository userRepository) : base(dbContext)
         {
             _userMapper = userMapper;
             _userRepository = userRepository;
