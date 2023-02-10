@@ -4,9 +4,9 @@ using CoreServicesTemplate.Shared.Core.Models;
 
 namespace CoreServicesTemplate.Dashboard.Core.MapperProfiles
 {
-    public class CoreMappingProfile : Profile
+    public class CoreMapperProfile : Profile
     {
-        public CoreMappingProfile()
+        public CoreMapperProfile()
         {
             CreateMap<UserAppModel, UserApiModel>().ReverseMap();
             CreateMap<UsersAppModel, UsersApiModel>().ReverseMap();

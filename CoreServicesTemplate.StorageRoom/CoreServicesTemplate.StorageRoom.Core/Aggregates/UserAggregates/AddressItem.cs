@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using CoreServicesTemplate.Shared.Core.Interfaces.IAggregates;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IAggregates;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 

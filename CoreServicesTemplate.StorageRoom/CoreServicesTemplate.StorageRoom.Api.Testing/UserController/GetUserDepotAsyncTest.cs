@@ -52,7 +52,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 
 
             var modelMock = usersModel.UsersModelList.ElementAtOrDefault(2);
-            _factory.GetUserDepotMock.Setup(depot => depot.ExecuteAsync(It.IsAny<UserAppModel>())).Returns(Task.FromResult(modelMock));
+            _factory.GetUserDepotMock.Setup(depot => depot.ExecuteAsync(It.IsAny<UserAppModel>())).Returns(Task.FromResult(modelMock)!);
 
             //Act
             UserApiModel userApiModel = usersApiModel.UsersApiModelList.ElementAt(2);

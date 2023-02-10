@@ -4,9 +4,9 @@ using CoreServicesTemplate.Dashboard.Web.Models;
 
 namespace CoreServicesTemplate.Dashboard.Web.MapperProfiles
 {
-    public class WebMappingProfile : Profile
+    public class WebMapperProfile : Profile
     {
-        public WebMappingProfile()
+        public WebMapperProfile()
         {
             CreateMap<UserViewModel, UserAppModel>().ReverseMap();
             CreateMap<UsersViewModel, UsersAppModel>().ReverseMap();

@@ -38,7 +38,7 @@ builder.Services.AddTransient(typeof(ICustomMapper<UsersApiModel, UsersAppModel>
 
 #region Automapper
 
-builder.Services.AddAutoMapper(typeof(WebMappingProfile), typeof(CoreMappingProfile));
+builder.Services.AddAutoMapper(typeof(WebMapperProfile), typeof(CoreMapperProfile));
 
 #endregion
 

@@ -4,9 +4,9 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Api.MapperProfiles
 {
-    public class ApiMappingProfile : Profile
+    public class ApiMapperProfile : Profile
     {
-        public ApiMappingProfile()
+        public ApiMapperProfile()
         {
             CreateMap<AddressAppModel, AddressApiModel>().ReverseMap();
             CreateMap<UserAppModel, UserApiModel>().ReverseMap();

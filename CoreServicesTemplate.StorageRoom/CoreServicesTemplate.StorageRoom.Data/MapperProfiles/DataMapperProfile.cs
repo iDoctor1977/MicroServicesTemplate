@@ -4,9 +4,9 @@ using CoreServicesTemplate.StorageRoom.Data.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Data.MapperProfiles
 {
-    public class DataMappingProfile : Profile
+    public class DataMapperProfile : Profile
     {
-        public DataMappingProfile()
+        public DataMapperProfile()
         {
             CreateMap<UserAppModel, User>().ReverseMap();
         }

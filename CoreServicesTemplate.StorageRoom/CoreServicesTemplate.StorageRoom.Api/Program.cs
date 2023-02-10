@@ -8,17 +8,15 @@ using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.MappingProfiles;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.SeedWork;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates;
 using CoreServicesTemplate.StorageRoom.Core.CustomMappers;
 using CoreServicesTemplate.StorageRoom.Core.Features;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
 using CoreServicesTemplate.StorageRoom.Core.Interfaces;
-using CoreServicesTemplate.StorageRoom.Core.MappingProfiles;
+using CoreServicesTemplate.StorageRoom.Core.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Data.CustomMappers;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
@@ -92,7 +90,7 @@ builder.Services.AddControllers(options =>
 
 #region Automapper
 
-builder.Services.AddAutoMapper(typeof(ApiMappingProfile), typeof(DataMappingProfile), typeof(FeatureMappingProfile), typeof(AggregateMappingProfile));
+builder.Services.AddAutoMapper(typeof(ApiMapperProfile), typeof(DataMapperProfile), typeof(CoreMapperProfile));
 
 #endregion
 

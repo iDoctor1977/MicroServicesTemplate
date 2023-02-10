@@ -12,6 +12,6 @@ public class UserApiModel : ApiModelBase
     public string Surname { get; set; }
     [Required]
     public DateTime Birth { get; set; }
-    [Required]
+
     public AddressApiModel AddressApiModel { get; set; }
 }
