@@ -39,7 +39,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                 {
                     Address1 = "Via Copparo, 208 int. 10",
                     City = "Ferrara",
-                    PostalCode = "44123"
+                    PostalCode = "44123",
+                    State = "Italy"
                 }
             };
 

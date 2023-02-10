@@ -11,6 +11,7 @@ using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.MappingProfiles;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.SeedWork;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates;
 using CoreServicesTemplate.StorageRoom.Core.CustomMappers;
 using CoreServicesTemplate.StorageRoom.Core.Features;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps;
@@ -59,11 +60,10 @@ else
 
 if (builder.Configuration["DBProvider"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
 {
-    builder.Services.AddDbContext<StorageRoomDbContext>();
+    builder.Services.AddDbContext<StorageRoomDbContext>(options => options.UseSqlite());
 }
 else
 {
-    // only for SQLServer
     builder.Services.AddDbContext<StorageRoomDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("StorageRoomDB")));
 }
 

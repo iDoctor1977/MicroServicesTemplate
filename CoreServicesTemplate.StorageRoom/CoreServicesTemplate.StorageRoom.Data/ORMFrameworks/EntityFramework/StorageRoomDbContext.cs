@@ -5,8 +5,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework
 {
     public class StorageRoomDbContext : DbContext
     {
-        private const string USERS = "Users";
-
         public DbSet<User> Users { get; set; }
 
         private readonly string _dbName;

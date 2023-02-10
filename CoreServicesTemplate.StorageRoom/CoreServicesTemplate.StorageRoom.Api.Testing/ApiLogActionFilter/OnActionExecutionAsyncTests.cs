@@ -8,7 +8,6 @@ using Moq;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
 {
-    [Collection("DepotTestBase")]
     public class OnActionExecutionAsyncTests : IClassFixture<ApiLogCustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;

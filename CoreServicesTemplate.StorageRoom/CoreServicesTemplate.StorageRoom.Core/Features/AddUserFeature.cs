@@ -40,9 +40,9 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             // generate aggregate instance and execute method on aggregate root domain
             var userAggregate = _aggregateFactory.GenerateAggregate<UserAggModel, UserAggregate>(aggModel);
-            aggModel = userAggregate.CreateUser(aggModel);
             Console.WriteLine(userAggregate.UserToString());
             Console.WriteLine(userAggregate.AddressToString());
+            aggModel = userAggregate.ToModel();
 
             // decoupling and map modelAgg to modelApp
             var appModel = _userCustomMapper.Map(aggModel);

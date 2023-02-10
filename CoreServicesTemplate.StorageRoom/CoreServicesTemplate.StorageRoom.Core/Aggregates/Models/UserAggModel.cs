@@ -1,10 +1,10 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.Bases;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 
-public class UserAggModel : AggModelBase, IAggModel
+public class UserAggModel : IAggModel
 {
+    public Guid Guid { get; set; }
     public string Name { get; set; }
     public string Surname { get; set; }
     public DateTime Birth { get; set; }

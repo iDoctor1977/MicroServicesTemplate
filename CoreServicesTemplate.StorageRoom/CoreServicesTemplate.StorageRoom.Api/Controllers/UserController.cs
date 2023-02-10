@@ -36,9 +36,9 @@ public class UserController : ControllerBase
     [HttpPost("{apiModel}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> Add(UserApiModel? apiModel)
+    public async Task<ActionResult> Add(UserApiModel apiModel)
     {
-        if (apiModel is null)
+        if (!ModelState.IsValid)
         {
             return BadRequest();
         }
@@ -57,7 +57,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult<UserApiModel>> Get([FromBody] UserApiModel apiModel)
     {
-        if (apiModel is null || apiModel.Guid == Guid.Empty)
+        if (!ModelState.IsValid || apiModel.Guid == Guid.Empty)
         {
             return BadRequest();
         }
@@ -88,9 +88,9 @@ public class UserController : ControllerBase
     [HttpPut("{guid}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public Task<IActionResult> Update(Guid guid, [FromBody] UserApiModel? apiModel)
+    public Task<IActionResult> Update(Guid guid, [FromBody] UserApiModel apiModel)
     {
-        if (apiModel is null || apiModel.Guid == Guid.Empty)
+        if (!ModelState.IsValid || apiModel.Guid == Guid.Empty)
         {
             return Task.FromResult<IActionResult>(BadRequest());
         }
@@ -111,9 +111,9 @@ public class UserController : ControllerBase
     [HttpDelete("{apiModel}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public Task<ActionResult> Delete(UserApiModel? apiModel)
+    public Task<ActionResult> Delete(UserApiModel apiModel)
     {
-        if (apiModel is null || apiModel.Guid == Guid.Empty)
+        if (!ModelState.IsValid || apiModel.Guid == Guid.Empty)
         {
             return Task.FromResult<ActionResult>(BadRequest());
         }

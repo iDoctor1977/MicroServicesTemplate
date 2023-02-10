@@ -1,17 +1,15 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IAggregates;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.Bases;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.SeedWork;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
 {
-    public class UserAggregate : AggregateBase, IAggregate
+    public class UserAggregate : IAggregate
     {
-        private readonly IAggregateFactory _aggregateFactory;
-        private readonly IDefaultMapper<UserAggModel,UserAggregate>_userMapper;
-        private readonly IDefaultMapper<AddressAggModel, AddressItem> _addressMapper;
+        private readonly IDefaultMapper<UserAggModel,UserAggregate> _userMapper;
 
+        public Guid Guid { get; private set; }
         public string Name { get; private set; }
         public string Surname { get; private set; }
         public DateTime Birth { get; private set; }
@@ -21,32 +19,37 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
         public UserAggregate(
             IAggregateFactory aggregateFactory,
             IDefaultMapper<UserAggModel, UserAggregate> userMapper,
-            IDefaultMapper<AddressAggModel, AddressItem> addressMapper,
             UserAggModel aggModel)
         {
-            _aggregateFactory = aggregateFactory;
             _userMapper = userMapper;
-            _addressMapper = addressMapper;
 
-            _userMapper.Map(aggModel, this);
-            AddressItem = _aggregateFactory.GenerateAggregate<AddressAggModel, AddressItem>(aggModel.AddressAggModel);
+            if (aggModel is { Name: { }, Surname: { }, AddressAggModel: { } } && aggModel.Birth != DateTime.MinValue)
+            {
+                _userMapper.Map(aggModel, this);
+
+                AddressItem = aggregateFactory.GenerateAggregate<AddressAggModel, AddressItem>(aggModel.AddressAggModel);
+
+                if (Guid == Guid.Empty)
+                {
+                    Guid = Guid.NewGuid();
+                }
+            }
+            else
+            {
+                throw new Exception("One or more properties in not valid.");
+            }
         }
 
-        public UserAggModel CreateUser(UserAggModel userAggModel)
-        {
-            // decoupling from external aggModel
-            _userMapper.Map(userAggModel, this);
-            AddressItem = _addressMapper.Map(userAggModel.AddressAggModel, AddressItem); // AddressItem same to this
+        //public void SomeMethod()
+        //{
+        //    PropertyA, PropertyB, PropertyC ecc.. are property not check in class controller
+        //    if (PropertyA != hisType && PropertyB != hisType && PropertyC ... )
+        //    {
 
-            // do something
-            Guid = Guid.NewGuid();
+        //    }
 
-            // coupling with external aggModel
-            userAggModel = _userMapper.Map(this);
-            userAggModel.AddressAggModel = _addressMapper.Map(AddressItem);
-
-            return userAggModel;
-        }
+        //    throw new Exception("One or more properties in not valid.");
+        //}
 
         public string UserToString()
         {
@@ -60,6 +63,14 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
             var address = $"{AddressItem.AddressToString()}";
 
             return address;
+        }
+
+        public UserAggModel ToModel()
+        {
+            var toModel = _userMapper.Map(this);
+            toModel.AddressAggModel = AddressItem.ToModel();
+
+            return toModel;
         }
     }
 }
