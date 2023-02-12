@@ -7,9 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Aggregates\Bases\**" />
     <Compile Remove="Aggregates\CustomMappers\**" />
+    <Compile Remove="Aggregates\Interfaces\**" />
+    <EmbeddedResource Remove="Aggregates\Bases\**" />
     <EmbeddedResource Remove="Aggregates\CustomMappers\**" />
+    <EmbeddedResource Remove="Aggregates\Interfaces\**" />
+    <None Remove="Aggregates\Bases\**" />
     <None Remove="Aggregates\CustomMappers\**" />
+    <None Remove="Aggregates\Interfaces\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,11 +26,6 @@
     <ProjectReference Include="..\..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Common\CoreServicesTemplate.StorageRoom.Common.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Data\CoreServicesTemplate.StorageRoom.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Aggregates\Bases\" />
-    <Folder Include="Aggregates\Interfaces\" />
   </ItemGroup>
 
 </Project>
