@@ -1,23 +1,22 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using CoreServicesTemplate.Shared.Core.Bases;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Data.CustomMappers
 {
-    public sealed class UsersDataCustomMapper : ICustomMapper<UsersAppModel, IEnumerable<User>>
+    public sealed class UsersDataCustomMapper : CustomMapperBase<UsersAppModel, IEnumerable<User>>
     {
         private readonly IDefaultMapper<UserAppModel, User> _userMapper;
-        private readonly IDefaultMapper<UsersAppModel, IEnumerable<User>> _userEntityMapper;
 
         private UsersAppModel _usersModel;
         private IEnumerable<User> _enumerableUsers;
 
         public UsersDataCustomMapper(
-            IDefaultMapper<UserAppModel, User> userMapper, 
-            IDefaultMapper<UsersAppModel, IEnumerable<User>> userEntityMapper)
+            IDefaultMapper<UsersAppModel, IEnumerable<User>> userEntityMapper,
+            IDefaultMapper<UserAppModel, User> userMapper) : base(userEntityMapper)
         {
             _userMapper = userMapper;
-            _userEntityMapper = userEntityMapper;
 
             _usersModel = new UsersAppModel
             {
@@ -27,10 +26,10 @@ namespace CoreServicesTemplate.StorageRoom.Data.CustomMappers
             _enumerableUsers = new List<User>();
         }
         
-        public IEnumerable<User> Map(UsersAppModel @in)
+        public override IEnumerable<User> Map(UsersAppModel @in)
         {
             _usersModel = @in;
-            _enumerableUsers = _userEntityMapper.Map(@in);
+            _enumerableUsers = base.Map(@in);
 
             var list = new List<User>();
             foreach (var modelIn in @in.UsersModelList)
@@ -43,7 +42,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.CustomMappers
             return _enumerableUsers;
         }
 
-        public UsersAppModel Map(IEnumerable<User> @out)
+        public override UsersAppModel Map(IEnumerable<User> @out)
         {
             var list = new List<UserAppModel>();
             var enumerable = @out.ToList();
@@ -55,16 +54,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.CustomMappers
             _usersModel.UsersModelList = list;
 
             return _usersModel;
-        }
-
-        public IEnumerable<User> Map(UsersAppModel @in, IEnumerable<User> @out)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UsersAppModel Map(IEnumerable<User> @out, UsersAppModel @in)
-        {
-            throw new NotImplementedException();
         }
     }
 }

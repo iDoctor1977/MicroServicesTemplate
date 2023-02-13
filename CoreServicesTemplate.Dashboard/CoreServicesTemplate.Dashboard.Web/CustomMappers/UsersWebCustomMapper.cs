@@ -1,25 +1,24 @@
 ﻿using CoreServicesTemplate.Dashboard.Common.Models;
 using CoreServicesTemplate.Dashboard.Web.Models;
+using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 
 namespace CoreServicesTemplate.Dashboard.Web.CustomMappers
 {
-    public class UsersWebCustomMapper : ICustomMapper<UsersViewModel, UsersAppModel>
+    public class UsersWebCustomMapper : CustomMapperBase<UsersViewModel, UsersAppModel>
     {
-        private readonly IDefaultMapper<UsersViewModel, UsersAppModel> _usersMapper;
         private readonly IDefaultMapper<UserViewModel, UserAppModel> _userMapper;
 
         public UsersWebCustomMapper(
-            IDefaultMapper<UserViewModel, UserAppModel> userMapper, 
-            IDefaultMapper<UsersViewModel, UsersAppModel> usersMapper)
+            IDefaultMapper<UsersViewModel, UsersAppModel> usersMapper, 
+            IDefaultMapper<UserViewModel, UserAppModel> userMapper) : base(usersMapper)
         {
-            _usersMapper = usersMapper;
             _userMapper = userMapper;
         }
 
-        public UsersAppModel Map(UsersViewModel @in)
+        public override UsersAppModel Map(UsersViewModel @in)
         {
-            var appModel = _usersMapper.Map(@in);
+            var appModel = base.Map(@in);
 
             var modelList = new List<UserAppModel>();
             foreach (var modelIn in @in.UsersViewModelList)
@@ -32,9 +31,9 @@ namespace CoreServicesTemplate.Dashboard.Web.CustomMappers
             return appModel;
         }
 
-        public UsersViewModel Map(UsersAppModel @out)
+        public override UsersViewModel Map(UsersAppModel @out)
         {
-            var viewModel = _usersMapper.Map(@out);
+            var viewModel = base.Map(@out);
 
             var modelList = new List<UserViewModel>();
             foreach (var userModel in @out.UsersModelList)
@@ -47,14 +46,5 @@ namespace CoreServicesTemplate.Dashboard.Web.CustomMappers
             return viewModel;
         }
 
-        public UsersAppModel Map(UsersViewModel @in, UsersAppModel @out)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UsersViewModel Map(UsersAppModel @out, UsersViewModel @in)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

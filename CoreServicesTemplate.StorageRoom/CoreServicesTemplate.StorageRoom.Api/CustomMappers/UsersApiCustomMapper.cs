@@ -1,25 +1,24 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using CoreServicesTemplate.Shared.Core.Bases;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Api.CustomMappers;
 
-public sealed class UsersApiCustomMapper : ICustomMapper<UsersApiModel, UsersAppModel>
+public sealed class UsersApiCustomMapper : CustomMapperBase<UsersApiModel, UsersAppModel>
 {
-    private readonly IDefaultMapper<UsersApiModel, UsersAppModel> _usersMapper;
     private readonly IDefaultMapper<UserApiModel, UserAppModel> _userMapper;
 
     public UsersApiCustomMapper(
         IDefaultMapper<UsersApiModel, UsersAppModel> usersMapper, 
-        IDefaultMapper<UserApiModel, UserAppModel> userMapper)
+        IDefaultMapper<UserApiModel, UserAppModel> userMapper) : base(usersMapper)
     {
-        _usersMapper = usersMapper;
         _userMapper = userMapper;
     }
 
-    public UsersAppModel Map(UsersApiModel @in)
+    public override UsersAppModel Map(UsersApiModel @in)
     {
-        var appModel = _usersMapper.Map(@in);
+        var appModel = base.Map(@in);
 
         var modelList = new List<UserAppModel>();
         foreach (var modelIn in @in.UsersApiModelList)
@@ -32,9 +31,9 @@ public sealed class UsersApiCustomMapper : ICustomMapper<UsersApiModel, UsersApp
         return appModel;
     }
 
-    public UsersApiModel Map(UsersAppModel @out)
+    public override UsersApiModel Map(UsersAppModel @out)
     {
-        var apiModel = _usersMapper.Map(@out);
+        var apiModel = base.Map(@out);
 
         var modelList = new List<UserApiModel>();
         foreach (var userModel in @out.UsersModelList)
@@ -47,9 +46,9 @@ public sealed class UsersApiCustomMapper : ICustomMapper<UsersApiModel, UsersApp
         return apiModel;
     }
 
-    public UsersAppModel Map(UsersApiModel @in, UsersAppModel @out)
+    public override UsersAppModel Map(UsersApiModel @in, UsersAppModel @out)
     {
-        var appModel = _usersMapper.Map(@in, @out);
+        var appModel = base.Map(@in, @out);
 
         var modelList = new List<UserAppModel>();
         foreach (var modelIn in @in.UsersApiModelList)
@@ -60,10 +59,5 @@ public sealed class UsersApiCustomMapper : ICustomMapper<UsersApiModel, UsersApp
         appModel.UsersModelList = modelList;
 
         return appModel;
-    }
-
-    public UsersApiModel Map(UsersAppModel @out, UsersApiModel @in)
-    {
-        throw new NotImplementedException();
     }
 }

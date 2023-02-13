@@ -1,49 +1,48 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using CoreServicesTemplate.Shared.Core.Bases;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Api.CustomMappers;
 
-public class UserApiCustomMapper : ICustomMapper<UserApiModel, UserAppModel>
+public class UserApiCustomMapper : CustomMapperBase<UserApiModel, UserAppModel>
 {
-    private readonly IDefaultMapper<UserApiModel, UserAppModel> _userMapper;
     private readonly IDefaultMapper<AddressApiModel, AddressAppModel> _addressMapper;
 
     public UserApiCustomMapper(
         IDefaultMapper<AddressApiModel, AddressAppModel> addressMapper,
-        IDefaultMapper<UserApiModel, UserAppModel> userMapper)
+        IDefaultMapper<UserApiModel, UserAppModel> userMapper) : base(userMapper)
     {
         _addressMapper = addressMapper;
-        _userMapper = userMapper;
     }
 
-    public UserAppModel Map(UserApiModel @in)
+    public override UserAppModel Map(UserApiModel @in)
     {
-        var appModel = _userMapper.Map(@in);
+        var appModel = base.Map(@in);
         appModel.AddressAppModel = _addressMapper.Map(@in.AddressApiModel);
 
         return appModel;
     }
 
-    public UserApiModel Map(UserAppModel @out)
+    public override UserApiModel Map(UserAppModel @out)
     {
-        var appModel = _userMapper.Map(@out);
+        var appModel = base.Map(@out);
         appModel.AddressApiModel = _addressMapper.Map(@out.AddressAppModel);
 
         return appModel;
     }
 
-    public UserAppModel Map(UserApiModel @in, UserAppModel @out)
+    public override UserAppModel Map(UserApiModel @in, UserAppModel @out)
     {
-        var appModel = _userMapper.Map(@in, @out);
+        var appModel = base.Map(@in, @out);
         appModel.AddressAppModel = _addressMapper.Map(@in.AddressApiModel, appModel.AddressAppModel);
 
         return appModel;
     }
 
-    public UserApiModel Map(UserAppModel @out, UserApiModel @in)
+    public override UserApiModel Map(UserAppModel @out, UserApiModel @in)
     {
-        var apiModel = _userMapper.Map(@out, @in);
+        var apiModel = base.Map(@out, @in);
         apiModel.AddressApiModel = _addressMapper.Map(@out.AddressAppModel, apiModel.AddressApiModel);
 
         return apiModel;
