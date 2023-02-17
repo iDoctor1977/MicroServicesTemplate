@@ -2,15 +2,15 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Data.Common;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
-using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures
 {
-    public class DataCustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram>, IDisposable where TProgram : class
+    public class DataCustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
     {
         private readonly DbConnection _connection;
         private readonly DbContextOptions<StorageRoomDbContext> _contextOptions;
@@ -32,42 +32,45 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures
         {
             using var context = CreateContext();
 
-            var createCommand = _connection.CreateCommand();
-            createCommand.CommandText =
-                @"
-                    CREATE TABLE Users (
-                	    Id INTEGER PRIMARY KEY,
-                	    Guid GUID,
-                	    Name TEXT,
-                	    Surname TEXT,
-                	    Birth TEXT,
-                	    IsDeleted INTEGER,
-                	    DeletedBy TEXT,
-                	    DeletedDate INTEGER
-                    );
-                ";
-            createCommand.ExecuteNonQuery();
+            if (context.Database.EnsureCreated())
+            {
+                //var createCommand = _connection.CreateCommand();
+                //createCommand.CommandText =
+                //    @"
+                //    CREATE TABLE Users (
+                //	    Id INTEGER PRIMARY KEY,
+                //	    Guid GUID,
+                //	    Name TEXT,
+                //	    Surname TEXT,
+                //	    Birth TEXT,
+                //	    IsDeleted INTEGER,
+                //	    DeletedBy TEXT,
+                //	    DeletedDate INTEGER
+                //    );
+                //";
+                //createCommand.ExecuteNonQuery();
 
-            context.AddRange(
-                new User
-                {
-                    Guid = Guid.NewGuid(),
-                    Name = "Filippo",
-                    Surname = "Foglia",
-                    Birth = DateTime.Today,
-                    IsDeleted = false,
-                    DeletedBy = "User",
-                    DeletedDate = DateTime.Today
-                }, new User
-                {
-                    Guid = Guid.NewGuid(),
-                    Name = "Stefania",
-                    Surname = "Felisati",
-                    Birth = DateTime.Today,
-                    IsDeleted = false,
-                    DeletedBy = "User",
-                    DeletedDate = DateTime.Today
-                });
+                context.AddRange(
+                    new User
+                    {
+                        Guid = Guid.NewGuid(),
+                        Name = "Filippo",
+                        Surname = "Foglia",
+                        Birth = DateTime.Today,
+                        IsDeleted = false,
+                        State = EntityState.Added,
+                        DeletedDate = null
+                    }, new User
+                    {
+                        Guid = Guid.NewGuid(),
+                        Name = "Stefania",
+                        Surname = "Felisati",
+                        Birth = DateTime.Today,
+                        State = EntityState.Added,
+                        IsDeleted = false,
+                        DeletedDate = null
+                    });
+            }
 
             context.SaveChanges();
         }

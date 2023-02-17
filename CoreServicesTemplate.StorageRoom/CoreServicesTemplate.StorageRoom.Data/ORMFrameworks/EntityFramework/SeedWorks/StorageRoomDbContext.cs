@@ -1,7 +1,7 @@
 ﻿using CoreServicesTemplate.StorageRoom.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework
+namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks
 {
     public class StorageRoomDbContext : DbContext
     {
@@ -38,7 +38,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().Property(i => i.Id).UseHiLo();
+            //modelBuilder.Entity<User>().Property(i => i.Id).UseHiLo();
         }
     }
 }

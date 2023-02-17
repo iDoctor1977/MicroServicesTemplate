@@ -1,6 +1,6 @@
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
 
-namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework
+namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks
 {
     public class EfDbContextWrap : IDbContextWrap
     {

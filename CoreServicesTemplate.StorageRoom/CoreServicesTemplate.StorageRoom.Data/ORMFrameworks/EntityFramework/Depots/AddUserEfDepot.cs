@@ -33,16 +33,5 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
             return result;
         }
-
-        public OperationStatusResult Execute(UserAppModel model)
-        {
-            var entity = _userMapper.Map(model);
-
-            _userRepository.Add(entity);
-
-            Commit();
-
-            return OperationStatusResult.Created;
-        }
     }
 }

@@ -53,15 +53,18 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             // this part is added only for features scalability 
             appModel = _subStepSupplier.ExecuteAddAsync(appModel);
 
-            // execute consolidation to repository
-            var result = await _addUserDepot.ExecuteAsync(appModel);
+            try
+            {
+                // execute consolidation to repository
+                var result = await _addUserDepot.ExecuteAsync(appModel);
 
-            return result;
-        }
-
-        public OperationStatusResult Execute(UserAppModel @in)
-        {
-            throw new NotImplementedException();
+                return result;
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical(e.Message);
+                throw new ApplicationException("Data access failed!");
+            }
         }
     }
 }

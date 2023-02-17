@@ -18,10 +18,5 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             return model;
         }
-
-        public UsersAppModel Execute()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

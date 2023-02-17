@@ -3,6 +3,7 @@ using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories
@@ -37,6 +38,8 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
                 if (entity != null)
                 {
                     entity.Id = new Random().Next();
+                    entity.State = EntityState.Added;
+
                     EntitySet.Add(entity);
                 }
             }
@@ -97,6 +100,10 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
                     if (entity != null)
                     {
                         EntitySet.Remove(entity);
+
+                        entity.State = EntityState.Deleted;
+                        entity.IsDeleted = true;
+                        entity.DeletedDate = DateTime.Now;
                     }
                 }
             }
@@ -138,6 +145,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
                     updateEntity.Name = entity.Name;
                     updateEntity.Surname = entity.Surname;
                     updateEntity.Birth = entity.Birth;
+                    updateEntity.State = EntityState.Modified;
                 }
             }
             catch (Exception exception)

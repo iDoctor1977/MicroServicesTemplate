@@ -48,6 +48,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.AddUserEfDepot
 
             // Assert
             response.Result.Should().BeOfType<OperationStatusResult>().And.Be(OperationStatusResult.Created);
+            _factory.CreateContext().Users.Should().HaveCount(3);
         }
     }
 }

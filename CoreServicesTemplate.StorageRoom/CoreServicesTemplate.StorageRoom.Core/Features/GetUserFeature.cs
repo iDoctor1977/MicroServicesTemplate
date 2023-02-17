@@ -36,12 +36,5 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             return modelAppOut;
         }
-
-        public UserAppModel Execute(UserAppModel @in)
-        {
-            var appModel = _getUserDepot.Execute(@in);
-
-            return appModel;
-        }
     }
 }

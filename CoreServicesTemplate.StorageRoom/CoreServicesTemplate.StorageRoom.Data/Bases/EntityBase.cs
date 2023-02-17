@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Bases
 {
@@ -8,8 +9,8 @@ namespace CoreServicesTemplate.StorageRoom.Data.Bases
         public int Id { get; set; }
         public Guid Guid { get; set; }
 
+        public EntityState State { get; set; }
         public bool IsDeleted { get; set; }
-        public string DeletedBy { get; set; }
         public DateTime? DeletedDate { get; set; }
     }
 }

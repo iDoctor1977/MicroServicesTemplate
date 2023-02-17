@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
 using CoreServicesTemplate.StorageRoom.Data.Bases;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases

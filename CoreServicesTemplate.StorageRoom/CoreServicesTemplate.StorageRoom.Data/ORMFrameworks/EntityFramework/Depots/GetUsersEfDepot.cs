@@ -30,10 +30,5 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
             return model;
         }
-
-        public UsersAppModel Execute()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
