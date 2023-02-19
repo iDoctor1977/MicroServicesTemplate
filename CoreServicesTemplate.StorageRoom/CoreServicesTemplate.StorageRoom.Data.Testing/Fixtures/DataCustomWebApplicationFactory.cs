@@ -34,22 +34,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures
 
             if (context.Database.EnsureCreated())
             {
-                //var createCommand = _connection.CreateCommand();
-                //createCommand.CommandText =
-                //    @"
-                //    CREATE TABLE Users (
-                //	    Id INTEGER PRIMARY KEY,
-                //	    Guid GUID,
-                //	    Name TEXT,
-                //	    Surname TEXT,
-                //	    Birth TEXT,
-                //	    IsDeleted INTEGER,
-                //	    DeletedBy TEXT,
-                //	    DeletedDate INTEGER
-                //    );
-                //";
-                //createCommand.ExecuteNonQuery();
-
                 context.AddRange(
                     new User
                     {

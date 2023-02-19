@@ -2,7 +2,7 @@
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases
 {
-    public class EfUnitOfWork : IDisposable
+    public class EfUnitOfWork
     {
         private readonly IDbContextWrap _dbContextWrap;
 
@@ -15,9 +15,5 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Ba
         protected void Commit() => _dbContextWrap.SaveChanges();
 
         protected async Task CommitAsync() => await _dbContextWrap.SaveChangesAsync();
-
-        public void Dispose() => _dbContextWrap.Dispose();
-
-        public async Task DisposeAsync() => await _dbContextWrap.DisposeAsync();
     }
 }
