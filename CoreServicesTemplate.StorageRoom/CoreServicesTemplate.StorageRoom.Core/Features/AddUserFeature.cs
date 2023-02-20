@@ -47,7 +47,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             // decoupling and map modelAgg to modelApp
             var appModel = _userCustomMapper.Map(aggModel);
 
-            _logger.LogInformation("----- Creating User: {@User} {Dt}", appModel.Name, DateTime.UtcNow.ToLongTimeString());
+            _logger.LogInformation("----- Creating User: {@Class} {@User} {Dt}", GetType().Name, appModel.Name, DateTime.UtcNow.ToLongTimeString());
 
             try
             {
