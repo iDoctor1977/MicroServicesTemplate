@@ -45,7 +45,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             };
 
             _factory.DbContextWrapMock.Setup(context => context.SaveChangesAsync()).Returns(Task.CompletedTask);
-            _factory.UserRepositoryMock.Setup(repo => repo.AddCustomAsync(It.IsAny<User>())).ReturnsAsync(OperationStatusResult.Created); ;
+            _factory.UserRepositoryMock.Setup(repo => repo.AddCustomAsync(It.IsAny<User>())).Returns(Task.CompletedTask);
 
             //Act
             var url = ApiUrl.StorageRoom.User.AddUserToStorageRoom();

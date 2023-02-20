@@ -1,7 +1,6 @@
-﻿using CoreServicesTemplate.Shared.Core.Enums;
-using CoreServicesTemplate.Shared.Core.Interfaces.IHandlers;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IHandlers;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 
-public interface IAddUserFeature : IQueryHandler<UserAppModel, OperationStatusResult> { }
+public interface IAddUserFeature : ICommandHandler<UserAppModel> { }

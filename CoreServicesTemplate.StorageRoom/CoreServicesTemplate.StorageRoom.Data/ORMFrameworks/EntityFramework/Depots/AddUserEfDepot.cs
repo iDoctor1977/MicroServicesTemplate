@@ -23,15 +23,15 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
             _userRepository = userRepository;
         }
 
-        public async Task<OperationStatusResult> ExecuteAsync(UserAppModel model)
+        public async Task<OperationResult> ExecuteAsync(UserAppModel model)
         {
             var entity = _userMapper.Map(model);
 
-            var result = await _userRepository.AddCustomAsync(entity);
+            await _userRepository.AddCustomAsync(entity);
 
             await CommitAsync();
 
-            return result;
+            return new OperationResult(OutcomeState.Success);
         }
     }
 }

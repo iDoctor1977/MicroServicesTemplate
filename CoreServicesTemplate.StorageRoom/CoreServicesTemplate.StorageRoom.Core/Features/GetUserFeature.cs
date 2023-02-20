@@ -1,40 +1,52 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using CoreServicesTemplate.Shared.Core.Enums;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 using CoreServicesTemplate.StorageRoom.Core.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class GetUserFeature : IGetUserFeature
     {
-        private readonly ICustomMapper<UserAppModel, UserAggModel> _userCustomMapper;
         private readonly IGetUserDepot _getUserDepot;
         private readonly ISubStepSupplier _subStepSupplier;
+        private readonly ILogger<GetUserFeature> _logger;
 
         public GetUserFeature(
-            ICustomMapper<UserAppModel, UserAggModel> userCustomMapper,
             IGetUserDepot getUserDepot, 
-            ISubStepSupplier subStepSupplier)
+            ISubStepSupplier subStepSupplier, 
+            ILogger<GetUserFeature> logger)
         {
             _getUserDepot = getUserDepot;
             _subStepSupplier = subStepSupplier;
-            _userCustomMapper = userCustomMapper;
+            _logger = logger;
         }
 
-        public async Task<UserAppModel> ExecuteAsync(UserAppModel @in)
+        public async Task<OperationResult<UserAppModel>> ExecuteAsync(UserAppModel @in)
         {
+            OperationResult<UserAppModel> operationResult;
+
             // execute interaction with repository if necessary
-            var modelAppOut = await _getUserDepot.ExecuteAsync(@in);
+            try
+            {
+                operationResult = await _getUserDepot.ExecuteAsync(@in);
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical(e.Message);
+                throw new ApplicationException("Data access failed!");
+            }
 
             // Do something on User aggregate if necessary
 
             // execute getUserFeature sub steps
             // this part is added only for features scalability 
-            modelAppOut = _subStepSupplier.ExecuteGetAsync(modelAppOut);
+            operationResult = _subStepSupplier.ExecuteGetAsync(operationResult.Value);
 
-            return modelAppOut;
+            return operationResult;
         }
     }
 }

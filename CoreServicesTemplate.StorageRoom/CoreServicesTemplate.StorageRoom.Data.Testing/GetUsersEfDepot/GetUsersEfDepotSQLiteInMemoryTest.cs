@@ -33,7 +33,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.GetUsersEfDepot
             // Assert
             response.Result.Should().BeOfType<UsersAppModel>();
             response.Result.Should().BeOfType(typeof(UsersAppModel));
-            response.Result.UsersModelList.Should().BeOfType(typeof(List<UserAppModel>)).And.HaveCount(2);
+            response.Result.Value?.UsersModelList.Should().BeOfType(typeof(List<UserAppModel>)).And.HaveCount(2);
         }
     }
 }

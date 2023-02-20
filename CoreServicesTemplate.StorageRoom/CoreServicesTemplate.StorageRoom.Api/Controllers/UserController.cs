@@ -49,7 +49,7 @@ public class UserController : ControllerBase
         var result = await _addUserFeature.ExecuteAsync(model);
 
         var location = ApiUrl.StorageRoom.User.IndexFromUserToStorageRoom();
-        return result.Equals(OperationStatusResult.Created) ? Created(location, result) : BadRequest();
+        return Equals(result.State, OutcomeState.Success) ? Created(location, result) : BadRequest();
     }
 
     [HttpGet]
@@ -68,7 +68,7 @@ public class UserController : ControllerBase
         var resultModel = await _getUserFeature.ExecuteAsync(model);
 
         // decoupling AppModel and map it in to ApiModel to return value.
-        var resultApiModel = _userCustomMapper.Map(resultModel);
+        var resultApiModel = _userCustomMapper.Map(resultModel.Value);
 
         return resultApiModel is null ? NoContent() : resultApiModel;
     }
@@ -80,7 +80,7 @@ public class UserController : ControllerBase
         var model = await _getUsersFeature.ExecuteAsync();
 
         // decoupling AppModel and map it in to ApiModel to return value.
-        var apiModel = _usersCustomMapper.Map(model);
+        var apiModel = _usersCustomMapper.Map(model.Value);
 
         return apiModel is null ? NoContent() : apiModel;
     }
