@@ -29,9 +29,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
         public async Task<OperationResult> ExecuteAsync(UserAppModel model)
         {
-            var entity = _userMapper.Map(model);
+            _logger.LogInformation("----- Creating User: {@Class} {@User} {Dt}", GetType().Name, model.Name, DateTime.UtcNow.ToLongTimeString());
 
-            _logger.LogInformation("----- Creating User: {@Class} {@User} {Dt}", GetType().Name, entity.Name, DateTime.UtcNow.ToLongTimeString());
+            var entity = _userMapper.Map(model);
 
             await _userRepository.AddCustomAsync(entity);
 

@@ -36,6 +36,7 @@ public class UserController : ControllerBase
     [HttpPost("{apiModel}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<ActionResult> Add(UserApiModel apiModel)
     {
         if (!ModelState.IsValid)
@@ -49,7 +50,7 @@ public class UserController : ControllerBase
         var result = await _addUserFeature.ExecuteAsync(model);
 
         var location = ApiUrl.StorageRoom.User.IndexFromUserToStorageRoom();
-        return Equals(result.State, OutcomeState.Success) ? Created(location, result) : BadRequest();
+        return Equals(result.State, OutcomeState.Success) ? Created(location, result) : Conflict();
     }
 
     [HttpGet]
@@ -65,12 +66,17 @@ public class UserController : ControllerBase
         // decoupling ApiModel and map it in to AppModel.
         var model = _userCustomMapper.Map(apiModel);
 
-        var resultModel = await _getUserFeature.ExecuteAsync(model);
+        var operationResult = await _getUserFeature.ExecuteAsync(model);
 
         // decoupling AppModel and map it in to ApiModel to return value.
-        var resultApiModel = _userCustomMapper.Map(resultModel.Value);
+        if (operationResult.Value != null)
+        {
+            var resultApiModel = _userCustomMapper.Map(operationResult.Value);
 
-        return resultApiModel is null ? NoContent() : resultApiModel;
+            return resultApiModel;
+        }
+
+        return NoContent();
     }
 
     [HttpGet]
@@ -80,9 +86,14 @@ public class UserController : ControllerBase
         var model = await _getUsersFeature.ExecuteAsync();
 
         // decoupling AppModel and map it in to ApiModel to return value.
-        var apiModel = _usersCustomMapper.Map(model.Value);
+        if (model.Value != null)
+        {
+            var apiModel = _usersCustomMapper.Map(model.Value);
 
-        return apiModel is null ? NoContent() : apiModel;
+            return apiModel;
+        }
+
+        return NoContent();
     }
 
     [HttpPut("{guid}")]

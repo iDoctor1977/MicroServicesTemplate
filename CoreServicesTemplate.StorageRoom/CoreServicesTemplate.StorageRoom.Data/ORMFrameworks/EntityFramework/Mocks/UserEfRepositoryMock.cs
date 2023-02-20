@@ -1,5 +1,4 @@
 using System.Reflection;
-using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;

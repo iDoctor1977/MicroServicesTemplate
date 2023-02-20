@@ -51,14 +51,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             try
             {
-                // execute consolidation to repository
-                var operationResult = await _addUserDepot.ExecuteAsync(appModel);
-
                 // execute addUserFeature sub steps
                 // this part is added only for features scalability 
-                operationResult = _subStepSupplier.ExecuteAddAsync(appModel);
+                var operationResult = _subStepSupplier.ExecuteAddAsync(appModel);
 
-                return operationResult;
+                // execute consolidation to repository
+                return await _addUserDepot.ExecuteAsync(appModel);
             }
             catch (Exception e)
             {

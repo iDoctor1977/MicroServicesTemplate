@@ -1,6 +1,5 @@
 using System.Net;
 using System.Net.Http.Json;
-using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;

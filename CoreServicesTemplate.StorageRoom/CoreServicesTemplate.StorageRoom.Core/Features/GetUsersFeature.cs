@@ -19,20 +19,15 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
         public async Task<OperationResult<UsersAppModel>> ExecuteAsync()
         {
-            OperationResult<UsersAppModel> operationResult;
-
             try
             {
-                operationResult = await _getUsersDepot.ExecuteAsync();
+                return await _getUsersDepot.ExecuteAsync();
             }
             catch (Exception e)
             {
                 _logger.LogCritical(e.Message);
                 throw new ApplicationException("Data access failed!");
-
             }
-
-            return operationResult;
         }
     }
 }
