@@ -1,4 +1,5 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using CoreServicesTemplate.Shared.Core.Enums;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models;
@@ -22,15 +23,26 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
             _userRepository = userRepository;
         }
 
-        public async Task<UserAppModel> ExecuteAsync(UserAppModel model)
+        public async Task<OperationResult<UserAppModel>> ExecuteAsync(UserAppModel model)
         {
+            OperationResult<UserAppModel> operationResult;
+
             User entity = _userConsolidator.Map(model);
 
             entity = await _userRepository.GetByNameAsync(entity);
 
-            var modelResult = _userConsolidator.Map(entity);
+            if (entity != null)
+            {
+                var modelResult = _userConsolidator.Map(entity);
 
-            return modelResult;
+                operationResult = new OperationResult<UserAppModel>(modelResult);
+            }
+            else
+            {
+                operationResult = new OperationResult<UserAppModel>("No user found!");
+            }
+
+            return operationResult;
         }
     }
 }

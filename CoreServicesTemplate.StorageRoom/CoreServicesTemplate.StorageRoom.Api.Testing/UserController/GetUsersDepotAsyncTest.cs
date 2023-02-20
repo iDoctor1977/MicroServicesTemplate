@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
@@ -38,7 +39,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                     .Build()
             };
 
-            _factory.GetUsersDepotMock.Setup(depot => depot.ExecuteAsync()).Returns(Task.FromResult(users));
+            _factory.GetUsersDepotMock.Setup(depot => depot.ExecuteAsync()).Returns(Task.FromResult(new OperationResult<UsersAppModel>(users)));
 
             //Act
             var url = ApiUrl.StorageRoom.User.GetAllUserToStorageRoom();

@@ -1,6 +1,5 @@
 using System.Net;
 using System.Net.Http.Json;
-using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
@@ -45,7 +44,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             };
 
             _factory.DbContextWrapMock.Setup(context => context.SaveChangesAsync()).Returns(Task.CompletedTask);
-            _factory.UserRepositoryMock.Setup(repo => repo.AddCustomAsync(It.IsAny<User>())).ReturnsAsync(OperationStatusResult.Created); ;
+            _factory.UserRepositoryMock.Setup(repo => repo.AddCustomAsync(It.IsAny<User>())).Returns(Task.CompletedTask);
 
             //Act
             var url = ApiUrl.StorageRoom.User.AddUserToStorageRoom();

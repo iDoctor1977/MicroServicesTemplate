@@ -6,6 +6,7 @@ using Moq;
 using CoreServicesTemplate.Shared.Core.Builders;
 using Newtonsoft.Json;
 using System.Text;
+using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
 
@@ -52,7 +53,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 
 
             var modelMock = usersModel.UsersModelList.ElementAtOrDefault(2);
-            _factory.GetUserDepotMock.Setup(depot => depot.ExecuteAsync(It.IsAny<UserAppModel>())).Returns(Task.FromResult(modelMock)!);
+            _factory.GetUserDepotMock.Setup(depot => depot.ExecuteAsync(It.IsAny<UserAppModel>())).Returns(Task.FromResult(new OperationResult<UserAppModel>(modelMock)));
 
             //Act
             UserApiModel userApiModel = usersApiModel.UsersApiModelList.ElementAt(2);

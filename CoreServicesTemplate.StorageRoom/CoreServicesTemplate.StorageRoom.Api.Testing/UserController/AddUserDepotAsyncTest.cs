@@ -45,7 +45,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                 }
             };
 
-            _factory.AddUserDepotMock.Setup(depot => depot.ExecuteAsync(It.IsAny<UserAppModel>())).ReturnsAsync(OperationStatusResult.Created);
+            _factory.AddUserDepotMock.Setup(depot => depot.ExecuteAsync(It.IsAny<UserAppModel>())).ReturnsAsync(new OperationResult(OutcomeState.Success));
 
             //Act
             var url = ApiUrl.StorageRoom.User.AddUserToStorageRoom();

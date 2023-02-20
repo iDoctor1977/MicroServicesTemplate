@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
@@ -31,7 +30,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             return await Task.FromResult(new User());
         }
 
-        public async Task<OperationStatusResult> AddCustomAsync(User? entity)
+        public Task AddCustomAsync(User? entity)
         {
             try
             {
@@ -48,7 +47,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
                 throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod()?.Name, exception);
             }
 
-            return await Task.FromResult(OperationStatusResult.Created);
+            return Task.CompletedTask;
         }
 
         public async Task<User> GetByGuidAsync(User? entity)
@@ -89,7 +88,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             return await Task.FromResult(new User());
         }
 
-        public async Task<OperationStatusResult> DeleteCustomAsync(User? entity)
+        public async Task DeleteCustomAsync(User? entity)
         {
             try
             {
@@ -111,8 +110,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             {
                 throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod()?.Name, exception);
             }
-
-            return await Task.FromResult(OperationStatusResult.Deleted);
         }
 
         public async Task<IEnumerable<User>> GetAllCustomAsync()
@@ -134,7 +131,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             return await Task.FromResult(Enumerable.Empty<User>());
         }
 
-        public async Task<OperationStatusResult> UpdateCustomAsync(User? entity)
+        public async Task UpdateCustomAsync(User? entity)
         {
             var updateEntity = await EntitySet.SingleOrDefaultAsync(e => entity != null && e.Name == entity.Name);
 
@@ -152,8 +149,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
             {
                 throw new DbUpdateException(GetType().FullName + " - " + MethodBase.GetCurrentMethod()?.Name, exception);
             }
-
-            return await Task.FromResult(OperationStatusResult.Updated);
         }
     }
 }

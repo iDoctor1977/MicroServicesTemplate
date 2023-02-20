@@ -8,6 +8,7 @@ using CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.StorageRoom.Api;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
+using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Testing.AddUserEfDepot
 {
@@ -26,7 +27,8 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.AddUserEfDepot
             // Arrange
             var depot = new ORMFrameworks.EntityFramework.Depots.AddUserEfDepot(_factory.Services.GetRequiredService<IDbContextWrap>(),
                 _factory.Services.GetRequiredService<IDefaultMapper<UserAppModel, User>>(),
-                _factory.Services.GetRequiredService<IUserRepository>());
+                _factory.Services.GetRequiredService<IUserRepository>(),
+                _factory.Services.GetRequiredService<ILogger<ORMFrameworks.EntityFramework.Depots.AddUserEfDepot>>());
 
             // Act
             var user = new UserAppModel
@@ -47,7 +49,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.AddUserEfDepot
             var response = depot.ExecuteAsync(user);
 
             // Assert
-            response.Result.Should().BeOfType<OperationStatusResult>().And.Be(OperationStatusResult.Created);
+            response.Result.State.Should().BeOfType<OutcomeState>().And.Be(OutcomeState.Success);
             _factory.CreateContext().Users.Should().HaveCount(3);
         }
     }
