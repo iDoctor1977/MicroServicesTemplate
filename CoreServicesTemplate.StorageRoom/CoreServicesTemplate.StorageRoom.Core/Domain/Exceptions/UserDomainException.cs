@@ -1,4 +1,4 @@
-﻿namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.Exceptions;
+﻿namespace CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
 
 /// <summary>
 /// Exception type for domain exceptions

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CoreServicesTemplate.StorageRoom.Common.Models;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates;
+using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates.UserAggregates;
+using CoreServicesTemplate.StorageRoom.Core.Domain.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.MapperProfiles
 {

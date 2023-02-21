@@ -1,14 +1,14 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IAggregates;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.Exceptions;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.SeedWork;
+using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
+using CoreServicesTemplate.StorageRoom.Core.Domain.Models;
+using CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 
-namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
+namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates.UserAggregates
 {
     public class UserAggregate : IAggregate
     {
-        private readonly IDefaultMapper<UserAggModel,UserAggregate> _userMapper;
+        private readonly IDefaultMapper<UserAggModel, UserAggregate> _userMapper;
 
         public Guid Guid { get; private set; }
         public string Name { get; private set; }

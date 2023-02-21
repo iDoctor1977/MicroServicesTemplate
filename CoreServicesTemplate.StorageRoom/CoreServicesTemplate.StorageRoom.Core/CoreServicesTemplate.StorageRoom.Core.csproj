@@ -7,15 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Aggregates\Bases\**" />
-    <Compile Remove="Aggregates\CustomMappers\**" />
-    <Compile Remove="Aggregates\Interfaces\**" />
-    <EmbeddedResource Remove="Aggregates\Bases\**" />
-    <EmbeddedResource Remove="Aggregates\CustomMappers\**" />
-    <EmbeddedResource Remove="Aggregates\Interfaces\**" />
-    <None Remove="Aggregates\Bases\**" />
-    <None Remove="Aggregates\CustomMappers\**" />
-    <None Remove="Aggregates\Interfaces\**" />
+    <Compile Remove="Domain\Aggregates\Bases\**" />
+    <Compile Remove="Domain\Aggregates\CustomMappers\**" />
+    <Compile Remove="Domain\Aggregates\Interfaces\**" />
+    <EmbeddedResource Remove="Domain\Aggregates\Bases\**" />
+    <EmbeddedResource Remove="Domain\Aggregates\CustomMappers\**" />
+    <EmbeddedResource Remove="Domain\Aggregates\Interfaces\**" />
+    <None Remove="Domain\Aggregates\Bases\**" />
+    <None Remove="Domain\Aggregates\CustomMappers\**" />
+    <None Remove="Domain\Aggregates\Interfaces\**" />
   </ItemGroup>
 
   <ItemGroup>

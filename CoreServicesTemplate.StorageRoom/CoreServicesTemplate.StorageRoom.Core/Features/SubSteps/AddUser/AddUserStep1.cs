@@ -3,7 +3,7 @@ using CoreServicesTemplate.Shared.Core.Builders;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
+using CoreServicesTemplate.StorageRoom.Core.Domain.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser
 {

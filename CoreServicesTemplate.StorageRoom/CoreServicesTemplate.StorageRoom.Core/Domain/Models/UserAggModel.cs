@@ -1,6 +1,6 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 
-namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
+namespace CoreServicesTemplate.StorageRoom.Core.Domain.Models;
 
 public class UserAggModel : IAggModel
 {

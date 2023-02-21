@@ -3,10 +3,10 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.Exceptions;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.SeedWork;
-using CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates;
+using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates.UserAggregates;
+using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
+using CoreServicesTemplate.StorageRoom.Core.Domain.Models;
+using CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 

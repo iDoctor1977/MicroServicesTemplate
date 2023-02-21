@@ -2,7 +2,7 @@
 using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.SeedWork;
+namespace CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 
 public class AggregateFactory : IAggregateFactory
 {
