@@ -54,7 +54,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             _factory.UserRepositoryMock.Verify(method => method.AddCustomAsync(It.IsAny<User>()), Times.Once);
             responseMessage.Should().NotBeNull().And.BeOfType<HttpResponseMessage>();
             responseMessage.Headers.Location?.AbsoluteUri.Should().NotBeNull().And.Be(ApiUrl.StorageRoom.User.IndexFromUserToStorageRoom());
-            responseMessage.StatusCode.Should().Be(HttpStatusCode.Created);
+            responseMessage.StatusCode.Should().Be(HttpStatusCode.OK);
         }
     }
 }
