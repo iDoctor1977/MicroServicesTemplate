@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CoreServicesTemplate.Shared.Core.Enums;
-using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
@@ -36,21 +35,28 @@ public class UserController : ControllerBase
     [HttpPost("{apiModel}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status409Conflict)]
-    public async Task<ActionResult> Add(UserApiModel apiModel)
+    public async Task<IActionResult> Add(UserApiModel apiModel)
     {
         if (!ModelState.IsValid)
         {
-            return BadRequest();
+            var message = string.Join(" | ", ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage));
+
+            return BadRequest(message);
         }
 
         // decoupling ApiModel and map it in to AppModel.
         var model = _userCustomMapper.Map(apiModel);
 
-        var result = await _addUserFeature.ExecuteAsync(model);
+        var operationResult = await _addUserFeature.ExecuteAsync(model);
 
-        var location = ApiUrl.StorageRoom.User.IndexFromUserToStorageRoom();
-        return Equals(result.State, OutcomeState.Success) ? Created(location, result) : Conflict();
+        if (operationResult.State.Equals(OutcomeState.Success))
+        {
+            return Ok();
+        }
+
+        return Problem(operationResult.Message);
     }
 
     [HttpGet]
@@ -60,7 +66,11 @@ public class UserController : ControllerBase
     {
         if (!ModelState.IsValid || apiModel.Guid == Guid.Empty)
         {
-            return BadRequest();
+            var message = string.Join(" | ", ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage));
+
+            return BadRequest(message);
         }
 
         // decoupling ApiModel and map it in to AppModel.
@@ -68,12 +78,15 @@ public class UserController : ControllerBase
 
         var operationResult = await _getUserFeature.ExecuteAsync(model);
 
-        // decoupling AppModel and map it in to ApiModel to return value.
-        if (operationResult.Value != null)
+        if (operationResult.State.Equals(OutcomeState.Success))
         {
-            var resultApiModel = _userCustomMapper.Map(operationResult.Value);
+            if (operationResult.Value != null)
+            {
+                // decoupling AppModel and map it in to ApiModel to return value.
+                var resultApiModel = _userCustomMapper.Map(operationResult.Value);
 
-            return resultApiModel;
+                return resultApiModel;
+            }
         }
 
         return NoContent();
@@ -83,14 +96,17 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult<UsersApiModel>> GetAll()
     {
-        var model = await _getUsersFeature.ExecuteAsync();
+        var operationResult = await _getUsersFeature.ExecuteAsync();
 
-        // decoupling AppModel and map it in to ApiModel to return value.
-        if (model.Value != null)
+        if (operationResult.State.Equals(OutcomeState.Success))
         {
-            var apiModel = _usersCustomMapper.Map(model.Value);
+            // decoupling AppModel and map it in to ApiModel to return value.
+            if (operationResult.Value != null)
+            {
+                var apiModel = _usersCustomMapper.Map(operationResult.Value);
 
-            return apiModel;
+                return apiModel;
+            }
         }
 
         return NoContent();
