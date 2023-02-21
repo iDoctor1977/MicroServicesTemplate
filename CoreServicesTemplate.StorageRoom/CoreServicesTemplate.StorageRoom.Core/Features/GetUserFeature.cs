@@ -25,21 +25,19 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
         public async Task<OperationResult<UserAppModel>> ExecuteAsync(UserAppModel @in)
         {
-            OperationResult<UserAppModel> operationResult;
-
             // execute interaction with repository if necessary
             try
             {
                 // execute getUserFeature sub steps
                 // this part is added only for features scalability 
-                operationResult = _subStepSupplier.ExecuteGetAsync(@in);
+                _subStepSupplier.ExecuteGetAsync(@in);
 
                 return await _getUserDepot.ExecuteAsync(@in);
             }
             catch (Exception e)
             {
                 _logger.LogCritical(e.Message);
-                throw new ApplicationException("Data access failed!");
+                return new OperationResult<UserAppModel>("Data access failed: " + e.Message);
             }
         }
     }

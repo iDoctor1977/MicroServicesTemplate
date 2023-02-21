@@ -1,5 +1,6 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IAggregates;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.Exceptions;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.SeedWork;
 
@@ -36,7 +37,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
             }
             else
             {
-                throw new Exception("One or more properties in not valid.");
+                throw new UserDomainException("One or more user properties in not valid.");
             }
         }
 

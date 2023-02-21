@@ -1,5 +1,6 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IAggregates;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.StorageRoom.Core.Aggregates.Exceptions;
 using CoreServicesTemplate.StorageRoom.Core.Aggregates.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
@@ -24,7 +25,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Aggregates.UserAggregates
             }
             else
             {
-                throw new Exception("One or more properties in not set correctly.");
+                throw new UserDomainException("One or more address properties in not valid.");
             }
         }
 

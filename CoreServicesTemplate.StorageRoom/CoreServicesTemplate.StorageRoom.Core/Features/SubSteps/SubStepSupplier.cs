@@ -1,5 +1,4 @@
-﻿using CoreServicesTemplate.Shared.Core.Enums;
-using CoreServicesTemplate.StorageRoom.Common.Models;
+﻿using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
 
@@ -14,22 +13,18 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps
                 GetUserStep1 getUserStep1,
                 GetUserStep1SubStep1 getUserStep1SubStep1) : base(addUserStep1, addUserStep1SubStep1, addUserStep1SubStep2, getUserStep1, getUserStep1SubStep1) { }
 
-        protected override OperationResult<UserAppModel> PipeAddDefinitionAsync(UserAppModel aggregate)
+        protected override UserAppModel PipeAddDefinitionAsync(UserAppModel aggregate)
         {
             aggregate = AddUserStep1.AddSubStep(AddUserStep1SubStep1).AddSubStep(AddUserStep1SubStep2).ExecuteAsync(aggregate);
 
-            var operationResult = new OperationResult<UserAppModel>(aggregate);
-
-            return operationResult;
+            return aggregate;
         }
 
-        protected override OperationResult<UserAppModel> PipeGetDefinitionAsync(UserAppModel aggregate)
+        protected override UserAppModel PipeGetDefinitionAsync(UserAppModel aggregate)
         {
             aggregate = GetUserStep1.AddSubStep(GetUserStep1SubStep1).ExecuteAsync(aggregate);
 
-            var operationResult = new OperationResult<UserAppModel>(aggregate);
-
-            return operationResult;
+            return aggregate;
         }
     }
 }

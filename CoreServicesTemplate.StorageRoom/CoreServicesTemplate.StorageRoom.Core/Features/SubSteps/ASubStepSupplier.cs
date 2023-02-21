@@ -2,7 +2,6 @@
 using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
-using CoreServicesTemplate.Shared.Core.Enums;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps
 {
@@ -30,10 +29,10 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps
             GetUserStep1SubStep1 = getUserStep1SubStep1;
         }
 
-        public Func<UserAppModel, OperationResult<UserAppModel>> ExecuteAddAsync => PipeAddDefinitionAsync;
-        protected abstract OperationResult<UserAppModel> PipeAddDefinitionAsync(UserAppModel aggregate);
+        public Func<UserAppModel, UserAppModel> ExecuteAddAsync => PipeAddDefinitionAsync;
+        protected abstract UserAppModel PipeAddDefinitionAsync(UserAppModel aggregate);
 
-        public Func<UserAppModel, OperationResult<UserAppModel>> ExecuteGetAsync => PipeGetDefinitionAsync;
-        protected abstract OperationResult<UserAppModel> PipeGetDefinitionAsync(UserAppModel aggregate);
+        public Func<UserAppModel, UserAppModel> ExecuteGetAsync => PipeGetDefinitionAsync;
+        protected abstract UserAppModel PipeGetDefinitionAsync(UserAppModel aggregate);
     }
 }
