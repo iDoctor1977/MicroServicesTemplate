@@ -25,22 +25,16 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
         public async Task<OperationResult<UsersAppModel>> ExecuteAsync()
         {
-            OperationResult<UsersAppModel> operationResult;
-
             var entity = await _userRepository.GetAllCustomAsync();
 
             if (entity != null)
             {
                 var model = _usersCustomMapper.Map(entity);
 
-                operationResult = new OperationResult<UsersAppModel>(model);
-            }
-            else
-            {
-                operationResult = new OperationResult<UsersAppModel>("There are no users!");
+                return new OperationResult<UsersAppModel>(model);
             }
 
-            return operationResult;
+            return new OperationResult<UsersAppModel>("There are no users!");
         }
     }
 }

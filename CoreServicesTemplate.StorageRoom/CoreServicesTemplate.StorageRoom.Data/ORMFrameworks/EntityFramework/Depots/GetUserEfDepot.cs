@@ -25,8 +25,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
         public async Task<OperationResult<UserAppModel>> ExecuteAsync(UserAppModel model)
         {
-            OperationResult<UserAppModel> operationResult;
-
             User entity = _userConsolidator.Map(model);
 
             entity = await _userRepository.GetByNameAsync(entity);
@@ -35,14 +33,10 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
             {
                 var modelResult = _userConsolidator.Map(entity);
 
-                operationResult = new OperationResult<UserAppModel>(modelResult);
-            }
-            else
-            {
-                operationResult = new OperationResult<UserAppModel>("No user found!");
+                return new OperationResult<UserAppModel>(modelResult);
             }
 
-            return operationResult;
+            return new OperationResult<UserAppModel>("No user found!");
         }
     }
 }

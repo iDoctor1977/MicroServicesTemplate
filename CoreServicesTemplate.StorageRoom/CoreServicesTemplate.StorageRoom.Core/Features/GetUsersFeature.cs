@@ -26,7 +26,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             catch (Exception e)
             {
                 _logger.LogCritical(e.Message);
-                throw new ApplicationException("Data access failed!");
+                throw new ApplicationException($"Data access failed! {e.Message}");
             }
         }
     }

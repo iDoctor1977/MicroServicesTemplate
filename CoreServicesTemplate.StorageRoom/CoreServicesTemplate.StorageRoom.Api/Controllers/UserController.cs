@@ -35,7 +35,7 @@ public class UserController : ControllerBase
     [HttpPost("{apiModel}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Add(UserApiModel apiModel)
+    public async Task<ActionResult> Post(UserApiModel apiModel)
     {
         if (!ModelState.IsValid)
         {
@@ -53,15 +53,16 @@ public class UserController : ControllerBase
 
         if (operationResult.State.Equals(OutcomeState.Success))
         {
-            return Ok();
+            return Created(new Uri("api/storageroom/user/..."), model);
         }
 
         return Problem(operationResult.Message);
     }
 
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<UserApiModel>> Get([FromBody] UserApiModel apiModel)
     {
         if (!ModelState.IsValid || apiModel.Guid == Guid.Empty)
@@ -85,16 +86,17 @@ public class UserController : ControllerBase
                 // decoupling AppModel and map it in to ApiModel to return value.
                 var resultApiModel = _userCustomMapper.Map(operationResult.Value);
 
-                return resultApiModel;
+                return Ok(resultApiModel);
             }
         }
 
-        return NoContent();
+        return NotFound();
     }
 
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult<UsersApiModel>> GetAll()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<UsersApiModel>> Gets()
     {
         var operationResult = await _getUsersFeature.ExecuteAsync();
 
@@ -105,17 +107,17 @@ public class UserController : ControllerBase
             {
                 var apiModel = _usersCustomMapper.Map(operationResult.Value);
 
-                return apiModel;
+                return Ok(apiModel);
             }
         }
 
-        return NoContent();
+        return NotFound();
     }
 
     [HttpPut("{guid}")]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public Task<IActionResult> Update(Guid guid, [FromBody] UserApiModel apiModel)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    public Task<IActionResult> Put(Guid guid, [FromBody] UserApiModel apiModel)
     {
         if (!ModelState.IsValid || apiModel.Guid == Guid.Empty)
         {
@@ -129,14 +131,15 @@ public class UserController : ControllerBase
 
         //if (result is null)
         //{
-        //    return await Task.FromResult<IActionResult>(NotFound());
+        //    return await Task.FromResult<IActionResult>(Ok());
         //}
 
-        return Task.FromResult<IActionResult>(NoContent());
+        return Task.FromResult<IActionResult>(Conflict());
     }
 
     [HttpDelete("{apiModel}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public Task<ActionResult> Delete(UserApiModel apiModel)
     {
@@ -152,10 +155,10 @@ public class UserController : ControllerBase
 
         //if (result is null)
         //{
-        //    return await Task.FromResult<IActionResult>(NotFound());
+        //    return await Task.FromResult<IActionResult>(NoContent());
         //}
 
-        return Task.FromResult<ActionResult>(NoContent());
+        return Task.FromResult<ActionResult>(NotFound());
     }
 
     [HttpGet("error")]

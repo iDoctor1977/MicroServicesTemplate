@@ -15,11 +15,11 @@ public static class ApiUrl
         public static class User 
         {
             public static string IndexFromUserToStorageRoom() => $"{StorageRoomRoot}/user/index";
-            public static string AddUserToStorageRoom() => $"{StorageRoomRoot}/user/add";
-            public static string DeleteUserToStorageRoom() => $"{StorageRoomRoot}/user/delete/";
-            public static string UpdateUserToStorageRoom() => $"{StorageRoomRoot}/user/update/";
+            public static string AddUserToStorageRoom() => $"{StorageRoomRoot}/user/post";
+            public static string DeleteUserToStorageRoom() => $"{StorageRoomRoot}/user/delete";
+            public static string UpdateUserToStorageRoom() => $"{StorageRoomRoot}/user/put";
             public static string GetUserToStorageRoom() => $"{StorageRoomRoot}/user/get";
-            public static string GetAllUserToStorageRoom() => $"{StorageRoomRoot}/user/getall";
+            public static string GetAllUserToStorageRoom() => $"{StorageRoomRoot}/user/gets";
             public static string GetErrorToStorageRoom() => $"{StorageRoomRoot}/user/error";
             public static string GeHealthyToStorageRoom() => $"{StorageRoomRoot}/user/health";
         }
