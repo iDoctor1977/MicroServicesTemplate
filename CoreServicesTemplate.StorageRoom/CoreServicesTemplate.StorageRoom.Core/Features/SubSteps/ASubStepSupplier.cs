@@ -1,5 +1,5 @@
-﻿using CoreServicesTemplate.StorageRoom.Core.Interfaces;
-using CoreServicesTemplate.StorageRoom.Common.Models;
+﻿using CoreServicesTemplate.StorageRoom.Common.AppModels;
+using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
 

@@ -1,7 +1,7 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IHandlers;
-using CoreServicesTemplate.StorageRoom.Common.Models;
+using CoreServicesTemplate.StorageRoom.Common.AggModels;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots
 {
-    public interface IAddUserDepot : ICommandHandler<UserAppModel> { }
+    public interface IAddUserDepot : ICommandHandler<UserAggModel> { }
 }

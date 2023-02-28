@@ -15,7 +15,7 @@ public static class ApiUrl
         public static class User 
         {
             public static string IndexFromUserToStorageRoom() => $"{StorageRoomRoot}/user/index";
-            public static string AddUserToStorageRoom() => $"{StorageRoomRoot}/user/post";
+            public static string AddUserToStorageRoom() => $"{StorageRoomRoot}/user";
             public static string DeleteUserToStorageRoom() => $"{StorageRoomRoot}/user/delete";
             public static string UpdateUserToStorageRoom() => $"{StorageRoomRoot}/user/put";
             public static string GetUserToStorageRoom() => $"{StorageRoomRoot}/user/get";

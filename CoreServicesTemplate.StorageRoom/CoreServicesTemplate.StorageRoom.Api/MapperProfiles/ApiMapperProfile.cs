@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.StorageRoom.Common.Models;
+using CoreServicesTemplate.StorageRoom.Common.AppModels;
 
 namespace CoreServicesTemplate.StorageRoom.Api.MapperProfiles
 {

@@ -1,8 +1,8 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 
-namespace CoreServicesTemplate.StorageRoom.Core.Domain.Models;
+namespace CoreServicesTemplate.StorageRoom.Common.AppModels;
 
-public class AddressAggModel : IAggModel
+public class AddressAppModel : IAppModel
 {
     public string Address1 { get; set; }
     public string Address2 { get; set; }

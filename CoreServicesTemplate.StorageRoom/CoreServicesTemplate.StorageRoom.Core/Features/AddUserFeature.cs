@@ -1,11 +1,11 @@
 ﻿using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.StorageRoom.Common.AggModels;
+using CoreServicesTemplate.StorageRoom.Common.AppModels;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.StorageRoom.Common.Models;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates.UserAggregates;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
-using CoreServicesTemplate.StorageRoom.Core.Domain.Models;
 using CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -62,10 +62,13 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             // this part is added only for features scalability 
             appModel = _subStepSupplier.ExecuteAddAsync(appModel);
 
+            // decoupling and map modelApp to modelAgg 
+            aggModel = _userCustomMapper.Map(appModel);
+
             try
             {
                 // execute persistence to repository
-                return await _addUserDepot.ExecuteAsync(appModel);
+                return await _addUserDepot.ExecuteAsync(aggModel);
             }
             catch (Exception e)
             {

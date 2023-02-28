@@ -1,7 +1,7 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IAggregates;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.StorageRoom.Common.AggModels;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
-using CoreServicesTemplate.StorageRoom.Core.Domain.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates.UserAggregates
 {
