@@ -1,5 +1,6 @@
 ﻿using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
@@ -62,12 +63,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             catch (UserDomainException ude)
             {
                 _logger.LogCritical(ude.Message);
-                return new OperationResult(OutcomeState.Error, "Domain access failed! " + ude.Message);
+                return new OperationResult(OutcomeState.Error, default, $"Domain access failed! {ude.Message}");
             }
             catch (Exception de)
             {
                 _logger.LogCritical(de.Message);
-                return new OperationResult(OutcomeState.Error, "Data access failed! " + de.Message);
+                return new OperationResult(OutcomeState.Error, default, $"Data access failed! {de.Message}");
             }
         }
     }

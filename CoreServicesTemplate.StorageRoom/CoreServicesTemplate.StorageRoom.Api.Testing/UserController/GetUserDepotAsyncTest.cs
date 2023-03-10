@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Text;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
+using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController

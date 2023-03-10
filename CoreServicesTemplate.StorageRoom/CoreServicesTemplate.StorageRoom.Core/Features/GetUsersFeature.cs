@@ -1,4 +1,5 @@
 ﻿using CoreServicesTemplate.Shared.Core.Enums;
+using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models;
