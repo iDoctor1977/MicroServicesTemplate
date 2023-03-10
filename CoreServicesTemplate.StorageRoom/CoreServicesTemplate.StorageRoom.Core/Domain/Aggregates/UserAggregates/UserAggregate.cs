@@ -37,20 +37,9 @@ namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates.UserAggregates
             }
             else
             {
-                throw new UserDomainException("One or more user properties in not valid.");
+                throw new DomainValidationException<UserAggregate>("Guid is not valid");
             }
         }
-
-        //public void SomeMethod()
-        //{
-        //    PropertyA, PropertyB, PropertyC ecc.. are property not check in class controller
-        //    if (PropertyA != hisType && PropertyB != hisType && PropertyC ... )
-        //    {
-
-        //    }
-
-        //    throw new Exception("One or more properties in not valid.");
-        //}
 
         public string UserToString()
         {
