@@ -5,9 +5,9 @@ using CoreServicesTemplate.StorageRoom.Core.Domain.Models;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates.UserAggregates
 {
-    public class AddressItem : IAggregate
+    public class AddressAggregate : IAggregate
     {
-        private readonly IDefaultMapper<AddressAggModel, AddressItem> _mapper;
+        private readonly IDefaultMapper<AddressAggModel, AddressAggregate> _mapper;
 
         public string Address1 { get; private set; }
         public string Address2 { get; private set; }
@@ -15,7 +15,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates.UserAggregates
         public string State { get; private set; }
         public string PostalCode { get; private set; }
 
-        public AddressItem(IDefaultMapper<AddressAggModel, AddressItem> mapper, AddressAggModel appModel)
+        public AddressAggregate(IDefaultMapper<AddressAggModel, AddressAggregate> mapper, AddressAggModel appModel)
         {
             if (appModel is { Address1: { }, City: { }, State: { }, PostalCode: { } })
             {
@@ -25,7 +25,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates.UserAggregates
             }
             else
             {
-                throw new UserDomainException("One or more address properties in not valid.");
+                throw new DomainValidationException<AddressAggregate>("Guid is not valid");
             }
         }
 

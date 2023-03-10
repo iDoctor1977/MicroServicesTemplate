@@ -12,7 +12,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.MapperProfiles
             CreateMap<UserAppModel, UserAggModel>().ReverseMap();
             CreateMap<AddressAppModel, AddressAggModel>().ReverseMap();
             CreateMap<UserAggModel, UserAggregate>().ReverseMap();
-            CreateMap<AddressAggModel, AddressItem>().ReverseMap();
+            CreateMap<AddressAggModel, AddressAggregate>().ReverseMap();
         }
     }
 }

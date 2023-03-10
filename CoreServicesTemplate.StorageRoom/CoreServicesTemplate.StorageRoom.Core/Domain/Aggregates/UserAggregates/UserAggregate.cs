@@ -15,7 +15,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates.UserAggregates
         public string Surname { get; private set; }
         public DateTime Birth { get; private set; }
 
-        public AddressItem AddressItem { get; private set; }
+        public AddressAggregate AddressItem { get; private set; }
 
         public UserAggregate(
             IAggregateFactory aggregateFactory,
@@ -28,7 +28,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates.UserAggregates
             {
                 _userMapper.Map(aggModel, this);
 
-                AddressItem = aggregateFactory.GenerateAggregate<AddressAggModel, AddressItem>(aggModel.AddressAggModel);
+                AddressItem = aggregateFactory.GenerateAggregate<AddressAggModel, AddressAggregate>(aggModel.AddressAggModel);
 
                 if (Guid == Guid.Empty)
                 {

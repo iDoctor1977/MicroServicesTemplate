@@ -60,7 +60,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
                 // execute consolidation to repository
                 return await _addUserDepot.ExecuteAsync(appModel);
             }
-            catch (UserDomainException ude)
+            catch (DomainValidationException<UserAggregate> ude)
             {
                 _logger.LogCritical(ude.Message);
                 return new OperationResult(OutcomeState.Error, default, $"Domain access failed! {ude.Message}");
