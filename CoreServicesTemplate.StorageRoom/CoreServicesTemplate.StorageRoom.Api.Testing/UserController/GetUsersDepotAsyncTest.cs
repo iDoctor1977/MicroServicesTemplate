@@ -1,10 +1,9 @@
 using System.Net.Http.Json;
-using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
-using CoreServicesTemplate.StorageRoom.Common.Models;
+using CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;

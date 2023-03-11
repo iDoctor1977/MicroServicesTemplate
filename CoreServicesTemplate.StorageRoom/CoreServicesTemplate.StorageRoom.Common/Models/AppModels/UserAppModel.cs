@@ -1,6 +1,6 @@
 ﻿using CoreServicesTemplate.Shared.Core.Bases;
 
-namespace CoreServicesTemplate.StorageRoom.Common.Models;
+namespace CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
 
 public class UserAppModel : AppModelBase
 {

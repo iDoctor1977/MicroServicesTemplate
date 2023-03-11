@@ -3,10 +3,10 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.StorageRoom.Common.Models;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels;
+using CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates.UserAggregates;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
-using CoreServicesTemplate.StorageRoom.Core.Domain.Models;
 using CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -58,7 +58,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
                 appModel = _subStepSupplier.ExecuteAddAsync(appModel);
 
                 // execute consolidation to repository
-                return await _addUserDepot.ExecuteAsync(appModel);
+                return await _addUserDepot.ExecuteAsync(aggModel);
             }
             catch (DomainValidationException<UserAggregate> ude)
             {

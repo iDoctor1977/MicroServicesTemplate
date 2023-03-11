@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CoreServicesTemplate.StorageRoom.Common.Models;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Data.MapperProfiles
@@ -8,7 +8,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.MapperProfiles
     {
         public DataMapperProfile()
         {
-            CreateMap<UserAppModel, User>().ReverseMap();
+            CreateMap<UserAggModel, User>().ReverseMap();
         }
     }
 }

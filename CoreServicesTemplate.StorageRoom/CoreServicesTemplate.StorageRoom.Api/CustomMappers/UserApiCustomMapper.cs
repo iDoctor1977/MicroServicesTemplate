@@ -1,7 +1,7 @@
 ﻿using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.StorageRoom.Common.Models;
+using CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
 
 namespace CoreServicesTemplate.StorageRoom.Api.CustomMappers;
 

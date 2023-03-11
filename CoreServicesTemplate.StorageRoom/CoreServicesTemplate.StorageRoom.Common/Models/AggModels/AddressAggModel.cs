@@ -1,6 +1,6 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 
-namespace CoreServicesTemplate.StorageRoom.Core.Domain.Models;
+namespace CoreServicesTemplate.StorageRoom.Common.Models.AggModels;
 
 public class AddressAggModel : IAggModel
 {

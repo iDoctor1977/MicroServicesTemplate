@@ -1,4 +1,4 @@
-﻿using CoreServicesTemplate.StorageRoom.Common.Models;
+﻿using CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Interfaces;
 

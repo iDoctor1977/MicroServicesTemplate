@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Results;
 
 namespace CoreServicesTemplate.Shared.Core.Interfaces.IHandlers;
