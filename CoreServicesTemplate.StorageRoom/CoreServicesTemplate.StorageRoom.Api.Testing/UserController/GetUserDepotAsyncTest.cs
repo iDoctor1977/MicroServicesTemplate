@@ -8,7 +8,7 @@ using System.Text;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
-using CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {
@@ -30,33 +30,27 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
         public async Task Should_Return_Specified_User()
         {
             //Arrange
-            var userModelBuilder = new UserModelBuilder();
-            var userApiModelBuilder = new UserApiModelBuilder();
+            IUserApiModelAdded userApiModelBuilder = new UserApiModelBuilder();
+            IUserAggModelAdded userModelBuilder = new UserAggModelBuilder();
 
-            var usersApiModel = new UsersApiModel
-            {
-                UsersApiModelList = userApiModelBuilder
+            var usersApiModel =  userApiModelBuilder
                     .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-123987))
                     .AddUser("Duffy", "Duck", DateTime.Now.AddDays(-187962))
                     .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-22897))
-                    .Build()
-            };
+                    .Build();
 
-            var usersModel = new UsersAppModel
-            {
-                UsersModelList = userModelBuilder
+            var usersModel =  userModelBuilder
                     .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-123987))
                     .AddUser("Duffy", "Duck", DateTime.Now.AddDays(-187962))
                     .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-22897))
-                    .Build()
-            };
+                    .Build();
 
 
-            var modelMock = usersModel.UsersModelList.ElementAtOrDefault(2);
-            _factory.GetUserDepotMock.Setup(depot => depot.ExecuteAsync(It.IsAny<UserAppModel>())).Returns(Task.FromResult(new OperationResult<UserAppModel>(modelMock)));
+            var modelMock = usersModel.ElementAtOrDefault(2);
+            _factory.GetUserDepotMock.Setup(depot => depot.ExecuteAsync(It.IsAny<UserAggModel>())).Returns(Task.FromResult(new OperationResult<UserAggModel>(modelMock)));
 
             //Act
-            UserApiModel userApiModel = usersApiModel.UsersApiModelList.ElementAt(2);
+            UserApiModel userApiModel = usersApiModel.ElementAt(2);
 
             var serializedObject = JsonConvert.SerializeObject(userApiModel);
             var url = ApiUrl.StorageRoom.User.GetUserToStorageRoom();
@@ -70,7 +64,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             var result = await _client.SendAsync(request);
 
             //Assert
-            _factory.GetUserDepotMock.Verify((c => c.ExecuteAsync(It.IsAny<UserAppModel>())), Times.Once());
+            _factory.GetUserDepotMock.Verify((c => c.ExecuteAsync(It.IsAny<UserAggModel>())), Times.Once());
         }
     }
 }

@@ -3,7 +3,7 @@ using CoreServicesTemplate.StorageRoom.Data.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Interfaces
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IRepository
     {
         Task AddCustomAsync(User entity);
         Task<IEnumerable<User>> GetAllCustomAsync();

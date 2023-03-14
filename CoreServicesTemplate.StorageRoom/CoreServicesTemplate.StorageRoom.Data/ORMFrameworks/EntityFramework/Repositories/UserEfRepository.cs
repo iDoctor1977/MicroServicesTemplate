@@ -37,7 +37,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
                 if (entity != null)
                 {
                     entity.Id = new Random().Next();
-                    entity.State = EntityState.Added;
 
                     EntitySet.Add(entity);
                 }
@@ -101,8 +100,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
                         EntitySet.Remove(entity);
 
                         entity.State = EntityState.Deleted;
-                        entity.IsDeleted = true;
-                        entity.DeletedDate = DateTime.Now;
                     }
                 }
             }

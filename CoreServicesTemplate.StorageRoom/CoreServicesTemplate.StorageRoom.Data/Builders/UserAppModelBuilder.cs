@@ -2,11 +2,11 @@
 
 namespace CoreServicesTemplate.StorageRoom.Data.Builders
 {
-    public class UserModelBuilder : IUserModelBuilder, IUserModelAdded
+    public class UserAppModelBuilder : IUserAppModelBuilder, IUserAppModelAdded
     {
         private ICollection<UserAppModel> _users;
 
-        public UserModelBuilder() {
+        public UserAppModelBuilder() {
             _users = new List<UserAppModel>();
         }
 
@@ -37,7 +37,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Builders
             return user;
         }
 
-        public IUserModelAdded AddUser(string name)
+        public IUserAppModelAdded AddUser(string name)
         {
             var user = CreateUser(name);
             _users.Add(user);
@@ -45,14 +45,14 @@ namespace CoreServicesTemplate.StorageRoom.Data.Builders
             return this;
         }
 
-        public IUserModelAdded AddUser(string name, string surname)
+        public IUserAppModelAdded AddUser(string name, string surname)
         {
             var user = CreateUser(name, surname);
             _users.Add(user);
 
             return this;
         }
-        public IUserModelAdded AddUser(string name, string surname, DateTime birth)
+        public IUserAppModelAdded AddUser(string name, string surname, DateTime birth)
         {
             var user = CreateUser(name, surname, birth);
             _users.Add(user);
@@ -69,14 +69,14 @@ namespace CoreServicesTemplate.StorageRoom.Data.Builders
         }
     }
 
-    public interface IUserModelBuilder
+    public interface IUserAppModelBuilder
     {
-        IUserModelAdded AddUser(string name);
-        IUserModelAdded AddUser(string name, string surname);
-        IUserModelAdded AddUser(string name, string surname, DateTime birth);
+        IUserAppModelAdded AddUser(string name);
+        IUserAppModelAdded AddUser(string name, string surname);
+        IUserAppModelAdded AddUser(string name, string surname, DateTime birth);
     }
 
-    public interface IUserModelAdded : IUserModelBuilder
+    public interface IUserAppModelAdded : IUserAppModelBuilder
     {
         IEnumerable<UserAppModel> Build();
     }

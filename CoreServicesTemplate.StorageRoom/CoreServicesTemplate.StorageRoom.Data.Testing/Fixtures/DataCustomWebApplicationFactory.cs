@@ -41,9 +41,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures
                         Name = "Filippo",
                         Surname = "Foglia",
                         Birth = DateTime.Today,
-                        IsDeleted = false,
                         State = EntityState.Added,
-                        DeletedDate = null
                     }, new User
                     {
                         Guid = Guid.NewGuid(),
@@ -51,8 +49,6 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures
                         Surname = "Felisati",
                         Birth = DateTime.Today,
                         State = EntityState.Added,
-                        IsDeleted = false,
-                        DeletedDate = null
                     });
             }
 

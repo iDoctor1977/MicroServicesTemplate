@@ -7,7 +7,8 @@ using CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.StorageRoom.Api;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Address;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
 using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Testing.AddUserEfDepot

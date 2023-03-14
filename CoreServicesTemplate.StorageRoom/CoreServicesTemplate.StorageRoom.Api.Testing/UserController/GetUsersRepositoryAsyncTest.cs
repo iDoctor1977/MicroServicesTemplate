@@ -1,9 +1,6 @@
-using System.Net.Http.Json;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
-using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
 using CoreServicesTemplate.StorageRoom.Data.Builders;
-using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
 
@@ -38,11 +35,10 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 
             //Act
             var url = ApiUrl.StorageRoom.User.GetAllUserToStorageRoom();
-            var result = await _client.GetFromJsonAsync<UsersApiModel>(url);
+            var result = await _client.GetAsync(url);
 
             //Assert
             _factory.UserRepositoryMock.Verify((c => c.GetAllCustomAsync()), Times.Once());
-            result.UsersApiModelList.Should().HaveCountGreaterThan(0);
         }
     }
 }

@@ -32,14 +32,11 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             var userEntityBuilder = new UserEntityBuilder();
             var userApiModelBuilder = new UserApiModelBuilder();
 
-            var usersApiModel = new UsersApiModel
-            {
-                UsersApiModelList = userApiModelBuilder
+            var usersApiModel = userApiModelBuilder
                     .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-123987))
                     .AddUser("Duffy", "Duck", DateTime.Now.AddDays(-187962))
                     .AddUser("Micky", "Mouse", DateTime.Now.AddDays(-22897))
-                    .Build()
-            };
+                    .Build();
 
             var userEntity = userEntityBuilder
                 .AddUser("Foo", "Foo Foo", DateTime.Now.AddDays(-123987))
@@ -50,7 +47,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             _factory.UserRepositoryMock.Setup(repo => repo.GetByNameAsync(It.IsAny<User>())).Returns(Task.FromResult(userEntity.ElementAtOrDefault(2)));
 
             //Act
-            UserApiModel userApiModel = usersApiModel.UsersApiModelList.ElementAt(2);
+            UserApiModel userApiModel = usersApiModel.ElementAt(2);
 
             var serializedObject = JsonConvert.SerializeObject(userApiModel);
             var url = ApiUrl.StorageRoom.User.GetUserToStorageRoom();

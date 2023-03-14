@@ -2,42 +2,41 @@
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
-using CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots
 {
-    public class GetUsersEfDepot : EfUnitOfWork, IGetUsersDepot
+    public class GetUsersEfDepot : UnitOfWorkDepotBase, IGetUsersDepot
     {
         private readonly IUserRepository _userRepository;
-        private readonly ICustomMapper<UsersAppModel, IEnumerable<User>> _usersCustomMapper;
+        private readonly IDefaultMapper<UserAggModel, User> _userMapper;
 
         public GetUsersEfDepot(
             IDbContextWrap dbContextWrap,
-            ICustomMapper<UsersAppModel, IEnumerable<User>> usersCustomMapper,
+            IDefaultMapper<UserAggModel, User> usersCustomMapper,
             IUserRepository userRepository) : base(dbContextWrap)
         {
-            _usersCustomMapper = usersCustomMapper;
+            _userMapper = usersCustomMapper;
             _userRepository = userRepository;
         }
 
-        public async Task<OperationResult<UsersAppModel>> ExecuteAsync()
+        public async Task<OperationResult<ICollection<UserAggModel>>> ExecuteAsync()
         {
-            OperationResult<UsersAppModel> operationResult;
+            OperationResult<ICollection<UserAggModel>> operationResult;
 
-            var entity = await _userRepository.GetAllCustomAsync();
+            var entities = await _userRepository.GetAllCustomAsync();
 
-            if (entity != null)
+            if (!entities.Equals(null))
             {
-                var model = _usersCustomMapper.Map(entity);
-
-                operationResult = new OperationResult<UsersAppModel>(model);
+                var aggModels = new List<UserAggModel>(_userMapper.Map(entities.ToList()));
+                operationResult = new OperationResult<ICollection<UserAggModel>>(aggModels);
             }
             else
             {
-                operationResult = new OperationResult<UsersAppModel>("There are no users!");
+                operationResult = new OperationResult<ICollection<UserAggModel>>("There are no users!");
             }
 
             return operationResult;

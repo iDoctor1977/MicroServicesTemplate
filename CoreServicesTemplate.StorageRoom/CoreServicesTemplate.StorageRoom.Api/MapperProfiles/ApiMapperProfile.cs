@@ -10,7 +10,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.MapperProfiles
         {
             CreateMap<AddressAppModel, AddressApiModel>().ReverseMap();
             CreateMap<UserAppModel, UserApiModel>().ReverseMap();
-            CreateMap<UsersAppModel, UsersApiModel>().ReverseMap();
         }
     }
 }

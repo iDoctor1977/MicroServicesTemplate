@@ -1,4 +1,5 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using System.Collections.Generic;
 
 namespace CoreServicesTemplate.Shared.Core.Bases
 {
@@ -37,6 +38,16 @@ namespace CoreServicesTemplate.Shared.Core.Bases
             TIn value = _defaultMapper.Map(@out, @in);
 
             return value;
+        }
+
+        public virtual ICollection<TOut> Map(ICollection<TIn> sourceCollection)
+        {
+            return _defaultMapper.Map(sourceCollection);
+        }
+
+        public virtual ICollection<TIn> Map(ICollection<TOut> sourceCollection)
+        {
+            return _defaultMapper.Map(sourceCollection);
         }
     }
 }

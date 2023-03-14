@@ -2,7 +2,7 @@
 using CoreServicesTemplate.Shared.Core.Builders;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
 using CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser

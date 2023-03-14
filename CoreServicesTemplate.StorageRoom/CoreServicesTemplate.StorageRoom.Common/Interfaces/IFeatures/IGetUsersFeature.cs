@@ -3,4 +3,4 @@ using CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 
-public interface IGetUsersFeature : IQueryHandler<UsersAppModel> { }
+public interface IGetUsersFeature : IQueryHandler<ICollection<UserAppModel>> { }

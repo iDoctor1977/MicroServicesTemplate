@@ -7,7 +7,7 @@ using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
 using CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
 using CoreServicesTemplate.StorageRoom.Core.CustomMappers;
 using CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
@@ -17,8 +17,6 @@ using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
 using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 using CoreServicesTemplate.StorageRoom.Core.MapperProfiles;
-using CoreServicesTemplate.StorageRoom.Data.CustomMappers;
-using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using CoreServicesTemplate.StorageRoom.Data.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots;
@@ -71,11 +69,8 @@ else
 
 builder.Services.AddTransient(typeof(IDefaultMapper<,>), typeof(DefaultMapper<,>));
 builder.Services.AddTransient(typeof(ICustomMapper<UserApiModel, UserAppModel>), typeof(UserApiCustomMapper));
-builder.Services.AddTransient(typeof(ICustomMapper<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomMapper));
 
 builder.Services.AddTransient(typeof(ICustomMapper<UserAppModel, UserAggModel>), typeof(UserCoreCustomMapper));
-
-builder.Services.AddTransient(typeof(ICustomMapper<UsersAppModel, IEnumerable<User>>), typeof(UsersDataCustomMapper));
 
 #endregion
 

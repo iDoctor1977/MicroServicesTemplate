@@ -3,7 +3,7 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots
 {
-    public class AddUserEfDepot : EfUnitOfWork, IAddUserDepot
+    public class AddUserEfDepot : UnitOfWorkDepotBase, IAddUserDepot
     {
         private readonly IUserRepository _userRepository;
         private readonly IDefaultMapper<UserAggModel, User> _userMapper;

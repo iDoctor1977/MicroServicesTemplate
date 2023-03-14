@@ -10,7 +10,15 @@ namespace CoreServicesTemplate.StorageRoom.Data.Bases
         public Guid Guid { get; set; }
 
         public EntityState State { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedDate { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? LastModifiedDate { get; set; }
+
+        public EntityBase()
+        {
+            Guid = Guid.NewGuid();
+            State = EntityState.Added;
+            DateCreated = DateTime.Now;
+            LastModifiedDate = DateTime.Now;
+        }
     }
 }

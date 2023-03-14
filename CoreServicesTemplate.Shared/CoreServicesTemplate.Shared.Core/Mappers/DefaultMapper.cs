@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 
 namespace CoreServicesTemplate.Shared.Core.Mappers
@@ -63,6 +64,32 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
         public TIn Map(TOut @out, TIn @in)
         {
             TIn result = _mapper.Map(@out, @in);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Executes the mapping of the source collection to the destination collection.
+        /// </summary>
+        /// <param name="sourceCollection">Source collection.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public ICollection<TIn> Map(ICollection<TOut> sourceCollection)
+        {
+            var result = _mapper.Map<ICollection<TIn>>(sourceCollection);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Executes the mapping of the source collection to the destination collection.
+        /// </summary>
+        /// <param name="sourceCollection">Source collection.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public ICollection<TOut> Map(ICollection<TIn> sourceCollection)
+        {
+            var result = _mapper.Map<ICollection<TOut>>(sourceCollection);
 
             return result;
         }

@@ -16,19 +16,19 @@ public class UserController : ControllerBase
     private readonly IGetUsersFeature _getUsersFeature;
 
     private readonly ICustomMapper<UserApiModel, UserAppModel> _userCustomMapper;
-    private readonly ICustomMapper<UsersApiModel, UsersAppModel> _usersCustomMapper;
+    private readonly IDefaultMapper<UserApiModel, UserAppModel> _usersDefaultMapper;
 
     public UserController(
         IAddUserFeature addUserFeature,
         IGetUserFeature getUserFeature,
         IGetUsersFeature getUsersFeature,
-        ICustomMapper<UsersApiModel, UsersAppModel> usersCustomMapper,
+        IDefaultMapper<UserApiModel, UserAppModel> usersDefaultMapper,
         ICustomMapper<UserApiModel, UserAppModel> userCustomMapper)
     {
         _addUserFeature = addUserFeature;
         _getUserFeature = getUserFeature;
         _getUsersFeature = getUsersFeature;
-        _usersCustomMapper = usersCustomMapper;
+        _usersDefaultMapper = usersDefaultMapper;
         _userCustomMapper = userCustomMapper;
     }
 
@@ -53,7 +53,7 @@ public class UserController : ControllerBase
 
         if (operationResult.State.Equals(OutcomeState.Success))
         {
-            return Ok();
+            return Created(new Uri("api/storageroom/user/..."), model);
         }
 
         return Problem(operationResult.Message);
@@ -85,7 +85,7 @@ public class UserController : ControllerBase
                 // decoupling AppModel and map it in to ApiModel to return value.
                 var resultApiModel = _userCustomMapper.Map(operationResult.Value);
 
-                return resultApiModel;
+                return Ok(resultApiModel);
             }
         }
 
@@ -94,7 +94,7 @@ public class UserController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult<UsersApiModel>> GetAll()
+    public async Task<ActionResult<ICollection<UserApiModel>>> GetAll()
     {
         var operationResult = await _getUsersFeature.ExecuteAsync();
 
@@ -103,9 +103,8 @@ public class UserController : ControllerBase
             // decoupling AppModel and map it in to ApiModel to return value.
             if (operationResult.Value != null)
             {
-                var apiModel = _usersCustomMapper.Map(operationResult.Value);
-
-                return apiModel;
+                var apiModels = new List<UserApiModel>(_usersDefaultMapper.Map(operationResult.Value));
+                return Ok(apiModels);
             }
         }
 

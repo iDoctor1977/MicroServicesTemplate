@@ -3,9 +3,9 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
 using CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
-using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates.UserAggregates;
+using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
 using CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 using CoreServicesTemplate.StorageRoom.Core.Interfaces;
@@ -37,38 +37,38 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
         public async Task<OperationResult> ExecuteAsync(UserAppModel @in)
         {
+            _logger.LogInformation("----- Creating User: {@Class} {@User} {Dt}", GetType().Name, @in.Name, DateTime.UtcNow.ToLongTimeString());
+
+            // decoupling and map modelApp to modelAgg 
+            var aggModel = _userCustomMapper.Map(@in);
+
             try
             {
-                _logger.LogInformation("----- Creating User: {@Class} {@User} {Dt}", GetType().Name, @in.Name, DateTime.UtcNow.ToLongTimeString());
-
-                // decoupling and map modelApp to modelAgg 
-                var aggModel = _userCustomMapper.Map(@in);
-
                 // generate aggregate instance and execute method on aggregate root domain
-                var userAggregate = _aggregateFactory.GenerateAggregate<UserAggModel, UserAggregate>(aggModel);
-                Console.WriteLine(userAggregate.UserToString());
-                Console.WriteLine(userAggregate.AddressToString());
-                aggModel = userAggregate.ToModel();
+                var userDomain = _aggregateFactory.GenerateAggregate<UserAggModel, UserAggregate>(aggModel);
+                Console.WriteLine(userDomain.UserToString());
+                Console.WriteLine(userDomain.AddressToString());
+                aggModel = userDomain.ToModel();
+            }
+            catch (DomainValidationException<UserAggregate> e)
+            {
+                _logger.LogCritical(e.Message);
+                return new OperationResult(OutcomeState.Failure, default, e.ClassName + e.Message);
+            }
 
-                // decoupling and map modelAgg to modelApp
-                var appModel = _userCustomMapper.Map(aggModel);
+            // execute addUserFeature sub steps
+            // this part is added only for features scalability 
+            //aggModel = _subStepSupplier.ExecuteAddAsync(aggModel);
 
-                // execute addUserFeature sub steps
-                // this part is added only for features scalability 
-                appModel = _subStepSupplier.ExecuteAddAsync(appModel);
-
-                // execute consolidation to repository
+            try
+            {
+                // execute persistence to repository
                 return await _addUserDepot.ExecuteAsync(aggModel);
             }
-            catch (DomainValidationException<UserAggregate> ude)
+            catch (Exception e)
             {
-                _logger.LogCritical(ude.Message);
-                return new OperationResult(OutcomeState.Error, default, $"Domain access failed! {ude.Message}");
-            }
-            catch (Exception de)
-            {
-                _logger.LogCritical(de.Message);
-                return new OperationResult(OutcomeState.Error, default, $"Data access failed! {de.Message}");
+                _logger.LogCritical(e.Message);
+                return new OperationResult(OutcomeState.Failure, default, $"Data access failed! {e.Message}");
             }
         }
     }

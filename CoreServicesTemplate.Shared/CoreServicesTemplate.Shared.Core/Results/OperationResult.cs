@@ -5,13 +5,9 @@ namespace CoreServicesTemplate.Shared.Core.Results
 {
     public class OperationResult<T> : OperationResult
     {
-        public OperationResult()
-        {
-            
-        }
+        public OperationResult() { }
 
-        public OperationResult(OutcomeState state, T? value = default,  string? message = null, OperationResult? innerResult = null) 
-            : base(state, innerResult, message)
+        public OperationResult(OutcomeState state, T? value = default,  string? message = null, OperationResult? innerResult = null) : base(state, innerResult, message)
         {
             Value = value;
 
@@ -38,10 +34,8 @@ namespace CoreServicesTemplate.Shared.Core.Results
         /// <param name="message">The error message.</param>
         /// <param name="innerResult">The inner object, if any.</param>
         /// <exception cref="InvalidOperationException">Throws an exception if the message is empty.</exception>
-        public OperationResult(string message, OperationResult? innerResult = null) 
-            : base(OutcomeState.Failure, innerResult, message)
+        public OperationResult(string message, OperationResult? innerResult = null) : base(OutcomeState.Failure, innerResult, message)
         {
-
             if (string.IsNullOrWhiteSpace(message))
             {
                 throw new InvalidOperationException(nameof(message));
