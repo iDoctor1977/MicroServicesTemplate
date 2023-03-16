@@ -6,6 +6,7 @@ using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.StorageRoom.Api;
 using CoreServicesTemplate.StorageRoom.Data.Factories;
 using Microsoft.Extensions.Logging;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Testing.AddUserEfDepot
 {
@@ -22,7 +23,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.AddUserEfDepot
         public void Should_Get_All_Users_From_InMemorySQLiteDb()
         {
             // Arrange
-            var depot = new ORMFrameworks.EntityFramework.Depots.AddUserEfDepot(_factory.Services.GetRequiredService<StorageRoomDbContext>(),
+            var depot = new ORMFrameworks.EntityFramework.Depots.AddUserEfDepot(_factory.Services.GetRequiredService<AppDbContext>(),
                 _factory.Services.GetRequiredService<IRepositoryFactory>(),
                 _factory.Services.GetRequiredService<IDefaultMapper<UserAggModel, ApiUrl.Dashboard.User>>(),
                 _factory.Services.GetRequiredService<ILogger<ORMFrameworks.EntityFramework.Depots.AddUserEfDepot>>());

@@ -12,10 +12,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
         {
             WalletItems = appDbContext.Set<WalletItem>();
         }
-        public IEnumerable<WalletItem> ReadWalletItemsByOwnerGuidAsync(Guid ownerGuid)
+        public async Task<IEnumerable<WalletItem>> ReadWalletItemsByOwnerGuidAsync(Guid ownerGuid)
         {
-            var walletItems = WalletItems.Where(og => og.ExtWallet.OwnerGuid == ownerGuid);
-            return walletItems;
+            return await WalletItems.Where(og => og.ExtWallet.OwnerGuid == ownerGuid).ToListAsync();
         }
     }
 }

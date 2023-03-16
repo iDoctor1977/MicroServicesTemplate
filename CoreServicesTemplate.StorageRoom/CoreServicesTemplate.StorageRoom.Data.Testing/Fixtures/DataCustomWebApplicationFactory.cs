@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Data.Common;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures
     public class DataCustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
     {
         private readonly DbConnection _connection;
-        private readonly DbContextOptions<StorageRoomDbContext> _contextOptions;
+        private readonly DbContextOptions<AppDbContext> _contextOptions;
 
 
         public DataCustomWebApplicationFactory()
@@ -20,12 +21,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures
             _connection = new SqliteConnection("Data Source=:memory:");
             _connection.Open();
 
-            _contextOptions = new DbContextOptionsBuilder<StorageRoomDbContext>().UseSqlite(_connection).Options;
+            _contextOptions = new DbContextOptionsBuilder<AppDbContext>().UseSqlite(_connection).Options;
 
             SeedDb();
         }
 
-        public StorageRoomDbContext CreateContext() => new StorageRoomDbContext(_contextOptions);
+        public AppDbContext CreateContext() => new AppDbContext(_contextOptions);
 
         private void SeedDb()
         {
@@ -58,7 +59,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures
         {
             builder.ConfigureServices(services =>
             {
-                services.Replace(new ServiceDescriptor(typeof(StorageRoomDbContext), CreateContext()));
+                services.Replace(new ServiceDescriptor(typeof(AppDbContext), CreateContext()));
             });
 
             builder.UseEnvironment("Development");

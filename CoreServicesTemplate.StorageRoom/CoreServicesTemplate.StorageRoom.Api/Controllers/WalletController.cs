@@ -1,5 +1,6 @@
 ﻿using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.Wallet;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,12 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     {
         private readonly ICreateWalletFeature _createWalletFeature;
         private readonly IGetTradingAvailableBalanceFeature _availableBalanceFeature;
-        private readonly IDefaultMapper<CreateWalletApiDto, CreateWalletAppDto> _customMapper;
+        private readonly IDefaultMapper<CreateWalletApiModel, CreateWalletAppDto> _customMapper;
 
         public WalletController(
             ICreateWalletFeature createWalletFeature,
             IGetTradingAvailableBalanceFeature availableBalanceFeature,
-            IDefaultMapper<CreateWalletApiDto, CreateWalletAppDto> customMapper)
+            IDefaultMapper<CreateWalletApiModel, CreateWalletAppDto> customMapper)
         {
             _createWalletFeature = createWalletFeature;
             _customMapper = customMapper;
@@ -25,7 +26,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         }
 
         [HttpPost("{walletDto}")]
-        public async Task<ActionResult> Create(CreateWalletApiDto walletDto)
+        public async Task<ActionResult> Create(CreateWalletApiModel walletDto)
         {
             if (!ModelState.IsValid)
             {
@@ -38,9 +39,12 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
             var operationResult = await _createWalletFeature.ExecuteAsync(model);
 
-            if (operationResult.State == OutcomeState.Success)
+            if (operationResult.State.Equals(OutcomeState.Success))
             {
                 return Ok();
+
+                // alternative return value
+                // return Created(new Uri("api/storageroom/wallet/..."), model);
             }
 
             return UnprocessableEntity(operationResult);

@@ -2,6 +2,7 @@ using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Api;
 using CoreServicesTemplate.StorageRoom.Data.Factories;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
 using CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,7 +21,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.GetUsersEfDepot
         public void Should_Get_All_Users_From_InMemorySQLiteDb()
         {
             // Arrange
-            var depot = new ORMFrameworks.EntityFramework.Depots.GetUsersEfDepot(_factory.Services.GetRequiredService<StorageRoomDbContext>(),
+            var depot = new ORMFrameworks.EntityFramework.Depots.GetUsersEfDepot(_factory.Services.GetRequiredService<AppDbContext>(),
                 _factory.Services.GetRequiredService<IRepositoryFactory>(),
                 _factory.Services.GetRequiredService<IDefaultMapper<UserAggModel, ApiUrl.Dashboard.User>>());
 
