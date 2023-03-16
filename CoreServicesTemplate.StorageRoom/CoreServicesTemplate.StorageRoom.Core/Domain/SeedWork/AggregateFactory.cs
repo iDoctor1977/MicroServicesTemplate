@@ -1,6 +1,4 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IAggregates;
-using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 
@@ -13,7 +11,7 @@ public class AggregateFactory : IAggregateFactory
         _serviceProvider = serviceProvider;
     }
 
-    public TOut GenerateAggregate<TIn, TOut>(TIn model) where TIn : IAggModel where TOut : IAggregate
+    public TOut GenerateAggregate<TIn, TOut>(TIn model)
     {
         var instance = ActivatorUtilities.CreateInstance<TOut>(_serviceProvider, model);
 

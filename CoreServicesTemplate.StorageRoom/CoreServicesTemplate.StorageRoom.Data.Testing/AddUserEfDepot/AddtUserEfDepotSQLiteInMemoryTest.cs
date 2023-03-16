@@ -1,14 +1,10 @@
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
-using CoreServicesTemplate.StorageRoom.Data.Entities;
-using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Enums;
+using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.StorageRoom.Api;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Address;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
-using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
-using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
+using CoreServicesTemplate.StorageRoom.Data.Factories;
 using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Testing.AddUserEfDepot
@@ -28,7 +24,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.AddUserEfDepot
             // Arrange
             var depot = new ORMFrameworks.EntityFramework.Depots.AddUserEfDepot(_factory.Services.GetRequiredService<StorageRoomDbContext>(),
                 _factory.Services.GetRequiredService<IRepositoryFactory>(),
-                _factory.Services.GetRequiredService<IDefaultMapper<UserAggModel, User>>(),
+                _factory.Services.GetRequiredService<IDefaultMapper<UserAggModel, ApiUrl.Dashboard.User>>(),
                 _factory.Services.GetRequiredService<ILogger<ORMFrameworks.EntityFramework.Depots.AddUserEfDepot>>());
 
             // Act

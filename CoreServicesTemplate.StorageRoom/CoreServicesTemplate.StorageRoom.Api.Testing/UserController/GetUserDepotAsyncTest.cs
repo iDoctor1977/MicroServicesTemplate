@@ -1,5 +1,4 @@
 ﻿using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.StorageRoom.Data.Builders;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
 using CoreServicesTemplate.Shared.Core.Builders;
@@ -8,7 +7,6 @@ using System.Text;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
 {

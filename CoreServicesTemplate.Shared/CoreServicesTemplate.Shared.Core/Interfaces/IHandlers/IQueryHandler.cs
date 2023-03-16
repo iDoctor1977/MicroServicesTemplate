@@ -3,7 +3,7 @@ using CoreServicesTemplate.Shared.Core.Results;
 
 namespace CoreServicesTemplate.Shared.Core.Interfaces.IHandlers;
 
-public interface IQueryHandler<in TIn, TOut> where TIn : class where TOut : class
+public interface IQueryHandler<in TIn, TOut>
 {
     Task<OperationResult<TOut>> ExecuteAsync(TIn model);
 }

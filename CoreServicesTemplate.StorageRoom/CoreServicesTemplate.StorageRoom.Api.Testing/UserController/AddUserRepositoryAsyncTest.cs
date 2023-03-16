@@ -3,7 +3,6 @@ using System.Net.Http.Json;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.Testing.UserController.Fixtures;
-using CoreServicesTemplate.StorageRoom.Data.Entities;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
@@ -44,14 +43,14 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
             };
 
             _factory.UnitOfWorkContextMock.Setup(context => context.CommitAsync()).Returns(Task.CompletedTask);
-            _factory.UserRepositoryMock.Setup(repo => repo.AddCustomAsync(It.IsAny<User>())).Returns(Task.CompletedTask);
+            _factory.UserRepositoryMock.Setup(repo => repo.AddCustomAsync(It.IsAny<ApiUrl.Dashboard.User>())).Returns(Task.CompletedTask);
 
             //Act
             var url = ApiUrl.StorageRoom.User.AddUserToStorageRoom();
             var responseMessage = await _client.PostAsJsonAsync($"{url}/{modelApi}", modelApi);
 
             //Assert
-            _factory.UserRepositoryMock.Verify(method => method.AddCustomAsync(It.IsAny<User>()), Times.Once);
+            _factory.UserRepositoryMock.Verify(method => method.AddCustomAsync(It.IsAny<ApiUrl.Dashboard.User>()), Times.Once);
             responseMessage.Should().NotBeNull().And.BeOfType<HttpResponseMessage>();
             responseMessage.Headers.Location?.AbsoluteUri.Should().NotBeNull().And.Be(ApiUrl.StorageRoom.User.IndexFromUserToStorageRoom());
             responseMessage.StatusCode.Should().Be(HttpStatusCode.OK);

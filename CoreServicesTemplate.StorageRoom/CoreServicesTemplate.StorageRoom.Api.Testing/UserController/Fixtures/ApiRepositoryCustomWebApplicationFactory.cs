@@ -1,5 +1,4 @@
-﻿using CoreServicesTemplate.StorageRoom.Data.Interfaces;
-using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
+﻿using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;

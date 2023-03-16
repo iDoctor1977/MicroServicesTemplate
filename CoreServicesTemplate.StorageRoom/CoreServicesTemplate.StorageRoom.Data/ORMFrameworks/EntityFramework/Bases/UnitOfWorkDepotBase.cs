@@ -1,4 +1,7 @@
-﻿namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases
+﻿using CoreServicesTemplate.StorageRoom.Data.Factories;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
+
+namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases
 {
     public class UnitOfWorkDepotBase : IAppDbContext
     {

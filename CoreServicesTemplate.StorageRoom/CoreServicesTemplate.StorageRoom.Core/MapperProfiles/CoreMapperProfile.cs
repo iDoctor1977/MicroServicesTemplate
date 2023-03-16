@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Address;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
-using CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.WalletItem;
+using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
 
 namespace CoreServicesTemplate.StorageRoom.Core.MapperProfiles
@@ -10,14 +11,17 @@ namespace CoreServicesTemplate.StorageRoom.Core.MapperProfiles
     {
         public CoreMapperProfile()
         {
-            CreateMap<UserAppModel, UserAggModel>().ReverseMap();
-            CreateMap<AddressAppModel, AddressAggModel>().ReverseMap();
+            CreateMap<CreateWalletAppDto, CreateWalletModel>().ReverseMap();
+            CreateMap<CreateWalletAppDto, WalletModel>().ReverseMap();
 
-            CreateMap<CreateUserAggModel, UserAggregate>().ReverseMap();
-            CreateMap<UserAggModel, UserAggregate>().ReverseMap();
+            CreateMap<CreateWalletModel, WalletAggregate>().ReverseMap();
+            CreateMap<WalletModel, WalletAggregate>()
+                .ForMember(x => x.WalletItems, opt => { opt.Ignore(); })
+                .ReverseMap();
 
-            CreateMap<CreateAddressAggModel, AddressAggregate>().ReverseMap();
-            CreateMap<AddressAggModel, AddressAggregate>().ReverseMap();
+            CreateMap<CreateWalletItemModel, WalletItemAggregate>().ReverseMap();
+            CreateMap<WalletItemModel, WalletItemAggregate>().ReverseMap();
+            CreateMap<WalletItemAppDto, WalletItemModel>().ReverseMap();
         }
     }
 }

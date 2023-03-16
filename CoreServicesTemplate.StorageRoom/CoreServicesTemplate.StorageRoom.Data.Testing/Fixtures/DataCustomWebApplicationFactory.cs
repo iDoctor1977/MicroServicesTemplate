@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Data.Common;
-using CoreServicesTemplate.StorageRoom.Data.Entities;
+using CoreServicesTemplate.Shared.Core.Infrastructures;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures
 {
@@ -35,14 +34,14 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures
             if (context.Database.EnsureCreated())
             {
                 context.AddRange(
-                    new User
+                    new ApiUrl.Dashboard.User
                     {
                         Guid = Guid.NewGuid(),
                         Name = "Filippo",
                         Surname = "Foglia",
                         Birth = DateTime.Today,
                         State = EntityState.Added,
-                    }, new User
+                    }, new ApiUrl.Dashboard.User
                     {
                         Guid = Guid.NewGuid(),
                         Name = "Stefania",

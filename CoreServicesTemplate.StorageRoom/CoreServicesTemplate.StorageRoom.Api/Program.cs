@@ -1,27 +1,20 @@
 using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
-using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.StorageRoom.Api.CustomMappers;
 using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
-using CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
-using CoreServicesTemplate.StorageRoom.Core.CustomMappers;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 using CoreServicesTemplate.StorageRoom.Core.Features;
-using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps;
-using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
-using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
-using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 using CoreServicesTemplate.StorageRoom.Core.MapperProfiles;
-using CoreServicesTemplate.StorageRoom.Data.Interfaces;
+using CoreServicesTemplate.StorageRoom.Data.CustomMappers;
+using CoreServicesTemplate.StorageRoom.Data.Entities;
+using CoreServicesTemplate.StorageRoom.Data.Factories;
+using CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;
 using CoreServicesTemplate.StorageRoom.Data.MapperProfiles;
-using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots;
-using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mocks;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
 using Microsoft.EntityFrameworkCore;
@@ -30,27 +23,29 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region Injections
 
-builder.Services.AddTransient<IAddUserFeature, AddUserFeature>();
-builder.Services.AddTransient<IGetUserFeature, GetUserFeature>();
-builder.Services.AddTransient<IGetUsersFeature, GetUsersFeature>();
+builder.Services.AddTransient<ICreateWalletFeature, CreateWalletFeature>();
+builder.Services.AddTransient<IGetTradingAvailableBalanceFeature, GetTradingAvailableBalanceFeature>();
+builder.Services.AddTransient<IGetWalletItemsFeature, GetWalletItemsFeature>();
 
 builder.Services.AddTransient<IAggregateFactory, AggregateFactory>();
 
-builder.Services.AddTransient<IAddUserDepot, AddUserEfDepot>();
-builder.Services.AddTransient<IGetUserDepot, GetUserEfDepot>();
-builder.Services.AddTransient<IGetUsersDepot, GetUsersEfDepot>();
+builder.Services.AddTransient<ICreateWalletDepot, CreateWalletEfDepot>();
+builder.Services.AddTransient<IGetTradingAvailableBalanceDepot, GetTradingAvailableBalanceEfDepot>();
+builder.Services.AddTransient<IGetWalletItemsDepot, GetWalletItemsDepot>();
 
 builder.Services.AddTransient<IRepositoryFactory, RepositoryFactory>();
 
-builder.Services.AddTransient(typeof(IRepository<>), typeof(EfRepository<>));
-
 if (builder.Configuration["repositoryMocked"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
 {
-    builder.Services.AddTransient<IUserRepository, UserEfRepositoryMock>();
+    builder.Services.AddTransient(typeof(IRepository<>), typeof(EfRepositoryMock<>));
+    builder.Services.AddTransient<IWalletRepository, WalletEfRepositoryMock>();
+    builder.Services.AddTransient<IWalletItemRepository, WalletItemEfRepositoryMock>();
 }
 else
 {
-    builder.Services.AddTransient<IUserRepository, UserEfRepository>();
+    builder.Services.AddTransient(typeof(IRepository<>), typeof(EfRepository<>));
+    builder.Services.AddTransient<IWalletRepository, WalletEfRepository>();
+    builder.Services.AddTransient<IWalletItemRepository, WalletItemEfRepository>();
 }
 
 #endregion
@@ -59,11 +54,11 @@ else
 
 if (builder.Configuration["DBProvider"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
 {
-    builder.Services.AddDbContext<StorageRoomDbContext>(options => options.UseSqlite());
+    builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite());
 }
 else
 {
-    builder.Services.AddDbContext<StorageRoomDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("StorageRoomDB")));
+    builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("StorageRoomDB")));
 }
 
 #endregion
@@ -71,10 +66,7 @@ else
 #region Mappers
 
 builder.Services.AddTransient(typeof(IDefaultMapper<,>), typeof(DefaultMapper<,>));
-builder.Services.AddTransient(typeof(ICustomMapper<UserApiModel, UserAppModel>), typeof(UserApiCustomMapper));
-
-builder.Services.AddTransient(typeof(ICustomMapper<UserAppModel, CreateUserAggModel>), typeof(UserCreateCoreCustomMapper));
-builder.Services.AddTransient(typeof(ICustomMapper<UserAppModel, UserAggModel>), typeof(UserCoreCustomMapper));
+builder.Services.AddTransient(typeof(ICustomMapper<WalletItemModel, WalletItem>), typeof(WalletDataCustomMapper));
 
 #endregion
 
@@ -95,14 +87,14 @@ builder.Services.AddAutoMapper(typeof(ApiMapperProfile), typeof(DataMapperProfil
 
 #region Pipeline FeatureCommand Sub Steps
 
-builder.Services.AddTransient<ISubStepSupplier, SubStepSupplier>();
+//builder.Services.AddTransient<ISubStepSupplier, SubStepSupplier>();
 
-builder.Services.AddTransient<AddUserStep1>();
-builder.Services.AddTransient<AddUserStep1SubStep1>();
-builder.Services.AddTransient<AddUserStep1SubStep2>();
+//builder.Services.AddTransient<AddUserStep1>();
+//builder.Services.AddTransient<AddUserStep1SubStep1>();
+//builder.Services.AddTransient<AddUserStep1SubStep2>();
 
-builder.Services.AddTransient<GetUserStep1>();
-builder.Services.AddTransient<GetUserStep1SubStep1>();
+//builder.Services.AddTransient<GetUserStep1>();
+//builder.Services.AddTransient<GetUserStep1SubStep1>();
 
 #endregion
 

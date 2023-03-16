@@ -1,5 +1,4 @@
 ﻿using CoreServicesTemplate.Shared.Core.Filters;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
