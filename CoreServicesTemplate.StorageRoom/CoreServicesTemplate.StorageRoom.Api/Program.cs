@@ -54,15 +54,13 @@ else
 
 #region Db provider connection string
 
-builder.Services.AddTransient<IAppDbContext, AppDbContext>();
-
 if (builder.Configuration["DBProvider"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
 {
-    builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite());
+    builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseSqlite());
 }
 else
 {
-    builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("StorageRoomDB")));
+    builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("StorageRoomDB")));
 }
 
 #endregion
