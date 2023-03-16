@@ -34,13 +34,8 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
             var entities = await _walletItemRepository.ReadWalletItemsByOwnerGuidAsync(ownerGuid);
 
-            if (!entities.Equals(null))
-            {
-                var aggModels = new List<WalletItemModel>(_walletItemMapper.Map(entities.ToList()));
-                return new OperationResult<ICollection<WalletItemModel>>(aggModels);
-            }
-
-            return new OperationResult<ICollection<WalletItemModel>>("There are no wallet items!");
+            var aggModels = new List<WalletItemModel>(_walletItemMapper.Map(entities.ToList()));
+            return new OperationResult<ICollection<WalletItemModel>>(aggModels);
         }
     }
 }

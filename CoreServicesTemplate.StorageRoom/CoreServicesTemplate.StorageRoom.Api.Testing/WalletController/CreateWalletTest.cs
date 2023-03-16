@@ -58,7 +58,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "12.3", null, "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "12.3", "32.6", null, HttpStatusCode.UnprocessableEntity)]
         public async Task Should_Verify_Return_HttpStatusCode_To_Create_New_Wallet_With_Null_Values(
-            string ownerGuid, 
+            string? ownerGuid, 
             string tradingAllowedBalance,
             string operationAllowedBalance,
             string balance, HttpStatusCode expectedResultCode)
@@ -97,14 +97,14 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "12.3", "-32.9", "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "12.3", "32.6", "-36.1", HttpStatusCode.UnprocessableEntity)]
         public async Task Should_Verify_Return_Exception_To_Create_New_Wallet_Negative_Values(
-            string ownerGuid, 
+            string? ownerGuid, 
             string tradingAllowedBalance,
             string operationAllowedBalance,
             string balance, HttpStatusCode expectedResultCode)
         {
             // Arrange
             var og = Guid.Empty;
-            if (!ownerGuid.Equals(null))
+            if (ownerGuid != null)
             {
                 og = Guid.Parse(ownerGuid);
             }

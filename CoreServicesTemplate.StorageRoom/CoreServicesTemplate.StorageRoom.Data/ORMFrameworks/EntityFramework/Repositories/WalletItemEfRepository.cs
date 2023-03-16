@@ -14,7 +14,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
         }
         public async Task<IEnumerable<WalletItem>> ReadWalletItemsByOwnerGuidAsync(Guid ownerGuid)
         {
-            return await WalletItems.Where(og => og.ExtWallet.OwnerGuid == ownerGuid).ToListAsync();
+            var entities = await WalletItems.Where(og => og.ExtWallet.OwnerGuid == ownerGuid).ToListAsync();
+
+            return entities;
         }
     }
 }

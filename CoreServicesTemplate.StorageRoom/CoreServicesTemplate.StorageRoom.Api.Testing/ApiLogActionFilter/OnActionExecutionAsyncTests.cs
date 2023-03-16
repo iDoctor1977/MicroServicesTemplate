@@ -1,22 +1,34 @@
 ﻿using System.Net.Http.Json;
+using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter.Fixtures;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
 {
-    public class OnActionExecutionAsyncTests : IClassFixture<ApiLogCustomWebApplicationFactory<Program>>
+    public class OnActionExecutionAsyncTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
-        private readonly ApiLogCustomWebApplicationFactory<Program> _factory;
+        private readonly WebApplicationFactory<Program> _factory;
 
-        public OnActionExecutionAsyncTests(ApiLogCustomWebApplicationFactory<Program> factory)
+        private Mock<ILogger<ApiLogActionFilterAsync>> LoggerMock { get; set; }
+
+        public OnActionExecutionAsyncTests(WebApplicationFactory<Program> factory)
         {
+            LoggerMock = new Mock<ILogger<ApiLogActionFilterAsync>>();
+
             _factory = factory;
-            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            _client = factory.WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureTestServices(services =>
+                {
+                    services.AddTransient(provider => LoggerMock.Object);
+                });
+            }).CreateClient(new WebApplicationFactoryClientOptions
             {
                 AllowAutoRedirect = false
             });
@@ -38,7 +50,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
             await _client.PostAsJsonAsync($"{url}/{apiModel}", apiModel);
 
             //Assert
-            _factory.LoggerMock.Verify(x => x.Log(LogLevel.Information,
+            LoggerMock.Verify(x => x.Log(LogLevel.Information,
                     It.IsAny<EventId>(),
                     It.IsAny<It.IsAnyType>(),
                     It.IsAny<Exception>(),
