@@ -1,6 +1,6 @@
 ﻿namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
 
-public interface IUnitOfWorkContext
+public interface IAppDbContext
 {
     void Commit();
     Task CommitAsync();

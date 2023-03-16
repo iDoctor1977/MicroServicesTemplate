@@ -10,7 +10,6 @@ namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates
 {
     public class UserAggregate : IAggregate
     {
-        private readonly IDefaultMapper<CreateUserAggModel, UserAggregate> _createUserMapper;
         private readonly IDefaultMapper<UserAggModel, UserAggregate> _userMapper;
         private readonly Logger<UserAggregate>_logger;
 
@@ -22,27 +21,31 @@ namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates
         public AddressAggregate AddressItem { get; private set; }
 
         private UserAggregate(
-            IDefaultMapper<CreateUserAggModel, UserAggregate> createUserMapper, 
             IDefaultMapper<UserAggModel, UserAggregate> userMapper, 
             Logger<UserAggregate> logger)
         {
-            _createUserMapper = createUserMapper;
             _userMapper = userMapper;
             _logger = logger;
         }
 
         // Used to create new instance
-        public UserAggregate(IAggregateFactory aggregateFactory,
-            IDefaultMapper<CreateUserAggModel, UserAggregate> baseUserMapper,
+        public UserAggregate(
+            IAggregateFactory aggregateFactory,
+            IDefaultMapper<CreateUserAggModel, UserAggregate> createUserMapper,
             IDefaultMapper<UserAggModel, UserAggregate> userMapper,
             CreateUserAggModel aggModel, 
-            Logger<UserAggregate> logger) : this(baseUserMapper, userMapper, logger)
+            Logger<UserAggregate> logger) : this(userMapper, logger)
         {
+            if (aggModel.AddressAggModel.Equals(null))
+            {
+                throw new DomainValidationException<UserAggregate>("Address is not valid");
+            }
+
             SharedConstruction(aggModel);
 
             try
             {
-                AddressItem = aggregateFactory.GenerateAggregate<AddressAggModel, AddressAggregate>(aggModel.AddressAggModel);
+                AddressItem = aggregateFactory.GenerateAggregate<CreateAddressAggModel, AddressAggregate>(aggModel.AddressAggModel);
             }
             catch (DomainValidationException<AddressAggregate> e)
             {
@@ -50,18 +53,16 @@ namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates
                 throw new DomainValidationException<UserAggregate>("Wallet item generation failed", e);
             }
 
-            _createUserMapper.Map(aggModel, this);
+            createUserMapper.Map(aggModel, this);
 
             Guid = Guid.NewGuid();
         }
 
         // Used for existing instance
         public UserAggregate(
-            IAggregateFactory aggregateFactory,
-            IDefaultMapper<CreateUserAggModel, UserAggregate> baseUserMapper,
             IDefaultMapper<UserAggModel, UserAggregate> userMapper,
             UserAggModel aggModel, 
-            Logger<UserAggregate> logger) : this(baseUserMapper, userMapper, logger)
+            Logger<UserAggregate> logger) : this(userMapper, logger)
         {
             if (aggModel.Guid.Equals(null) || aggModel.Guid == Guid.Empty)
             {
@@ -70,6 +71,10 @@ namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates
             if (aggModel.Birth.Equals(null) || aggModel.Birth == DateTime.MinValue)
             {
                 throw new DomainValidationException<UserAggregate>("Birth is not valid");
+            }
+            if (aggModel.AddressAggModel.Equals(null))
+            {
+                throw new DomainValidationException<UserAggregate>("Address is not valid");
             }
 
             SharedConstruction(aggModel);
@@ -86,10 +91,6 @@ namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates
             if (aggModel.Surname.Equals(null))
             {
                 throw new DomainValidationException<UserAggregate>("Surname is not valid");
-            }
-            if (aggModel.AddressAggModel.Equals(null))
-            {
-                throw new DomainValidationException<UserAggregate>("Address is not valid");
             }
         }
 

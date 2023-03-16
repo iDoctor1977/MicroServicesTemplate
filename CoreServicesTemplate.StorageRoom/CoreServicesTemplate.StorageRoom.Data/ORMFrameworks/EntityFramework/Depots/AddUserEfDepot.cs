@@ -1,7 +1,6 @@
 ﻿using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
@@ -18,13 +17,13 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
         private readonly ILogger<AddUserEfDepot> _logger;
 
         public AddUserEfDepot(
-            IDbContextWrap dbContextWrap,
+            IAppDbContext dbContext,
+            IRepositoryFactory repositoryFactory,
             IDefaultMapper<UserAggModel, User> userMapper,
-            IUserRepository userRepository, 
-            ILogger<AddUserEfDepot> logger) : base(dbContextWrap)
+            ILogger<AddUserEfDepot> logger) : base(repositoryFactory, dbContext)
         {
+            _userRepository = RepositoryFactory.GenerateCustomRepository<IUserRepository>(DbContext);
             _userMapper = userMapper;
-            _userRepository = userRepository;
             _logger = logger;
         }
 
@@ -36,7 +35,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
             await _userRepository.AddCustomAsync(entity);
 
-            await CommitAsync();
+            await DbContext.CommitAsync();
 
             return new OperationResult(OutcomeState.Success);
         }

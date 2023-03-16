@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories
 {
-    public class UserEfRepository : EfRepositoryBase<User>, IUserRepository
+    public class UserEfRepository : EfRepository<User>, IUserRepository
     {
         public UserEfRepository(StorageRoomDbContext dbContextWrap) : base(dbContextWrap) { }
 

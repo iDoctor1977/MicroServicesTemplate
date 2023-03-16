@@ -1,19 +1,24 @@
-﻿using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
-
-namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases
+﻿namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases
 {
-    public class UnitOfWorkDepotBase : IUnitOfWorkContext
+    public class UnitOfWorkDepotBase : IAppDbContext
     {
-        private readonly IDbContextWrap _dbContextWrap;
+        protected IAppDbContext DbContext { get; }
+        protected IRepositoryFactory RepositoryFactory { get; }
 
-
-        protected UnitOfWorkDepotBase(IDbContextWrap dbContextWrap)
+        protected UnitOfWorkDepotBase(IRepositoryFactory repositoryFactory, IAppDbContext dbContext)
         {
-            _dbContextWrap = dbContextWrap;
+            RepositoryFactory = repositoryFactory;
+            DbContext = dbContext;
         }
 
-        public void Commit() => _dbContextWrap.SaveChanges();
+        public void Commit()
+        {
+            DbContext.Commit();
+        }
 
-        public async Task CommitAsync() => await _dbContextWrap.SaveChangesAsync();
+        public async Task CommitAsync()
+        {
+            await DbContext.CommitAsync();
+        }
     }
 }

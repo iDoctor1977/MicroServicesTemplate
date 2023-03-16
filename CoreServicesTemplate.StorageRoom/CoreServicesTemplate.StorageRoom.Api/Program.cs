@@ -4,9 +4,9 @@ using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.CustomMappers;
 using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
 using CoreServicesTemplate.StorageRoom.Common.Models.AppModels;
 using CoreServicesTemplate.StorageRoom.Core.CustomMappers;
@@ -19,6 +19,7 @@ using CoreServicesTemplate.StorageRoom.Core.Interfaces;
 using CoreServicesTemplate.StorageRoom.Core.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using CoreServicesTemplate.StorageRoom.Data.MapperProfiles;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mocks;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories;
@@ -35,11 +36,13 @@ builder.Services.AddTransient<IGetUsersFeature, GetUsersFeature>();
 
 builder.Services.AddTransient<IAggregateFactory, AggregateFactory>();
 
-builder.Services.AddTransient<IDbContextWrap, EfDbContextWrap>();
-
 builder.Services.AddTransient<IAddUserDepot, AddUserEfDepot>();
 builder.Services.AddTransient<IGetUserDepot, GetUserEfDepot>();
 builder.Services.AddTransient<IGetUsersDepot, GetUsersEfDepot>();
+
+builder.Services.AddTransient<IRepositoryFactory, RepositoryFactory>();
+
+builder.Services.AddTransient(typeof(IRepository<>), typeof(EfRepository<>));
 
 if (builder.Configuration["repositoryMocked"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
 {
@@ -70,6 +73,7 @@ else
 builder.Services.AddTransient(typeof(IDefaultMapper<,>), typeof(DefaultMapper<,>));
 builder.Services.AddTransient(typeof(ICustomMapper<UserApiModel, UserAppModel>), typeof(UserApiCustomMapper));
 
+builder.Services.AddTransient(typeof(ICustomMapper<UserAppModel, CreateUserAggModel>), typeof(UserCreateCoreCustomMapper));
 builder.Services.AddTransient(typeof(ICustomMapper<UserAppModel, UserAggModel>), typeof(UserCoreCustomMapper));
 
 #endregion

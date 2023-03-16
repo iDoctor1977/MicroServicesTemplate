@@ -1,4 +1,6 @@
-﻿namespace CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
+﻿using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Address;
+
+namespace CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
 
 /// <summary>
 /// This model is used for all the other operations except to create
@@ -6,4 +8,5 @@
 public class UserAggModel : UserAggModelBase
 {
     public DateTime Birth { get; set; }
+    public AddressAggModel AddressAggModel { get; set; }
 }

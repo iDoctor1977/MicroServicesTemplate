@@ -1,14 +1,14 @@
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
-using CoreServicesTemplate.StorageRoom.Data.Interfaces;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using CoreServicesTemplate.StorageRoom.Data.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.StorageRoom.Api;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Address;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
 using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Testing.AddUserEfDepot
@@ -26,9 +26,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.Testing.AddUserEfDepot
         public void Should_Get_All_Users_From_InMemorySQLiteDb()
         {
             // Arrange
-            var depot = new ORMFrameworks.EntityFramework.Depots.AddUserEfDepot(_factory.Services.GetRequiredService<IDbContextWrap>(),
+            var depot = new ORMFrameworks.EntityFramework.Depots.AddUserEfDepot(_factory.Services.GetRequiredService<StorageRoomDbContext>(),
+                _factory.Services.GetRequiredService<IRepositoryFactory>(),
                 _factory.Services.GetRequiredService<IDefaultMapper<UserAggModel, User>>(),
-                _factory.Services.GetRequiredService<IUserRepository>(),
                 _factory.Services.GetRequiredService<ILogger<ORMFrameworks.EntityFramework.Depots.AddUserEfDepot>>());
 
             // Act

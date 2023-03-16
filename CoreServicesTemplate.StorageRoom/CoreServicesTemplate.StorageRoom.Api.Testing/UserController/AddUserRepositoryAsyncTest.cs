@@ -43,7 +43,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.UserController
                 }
             };
 
-            _factory.DbContextWrapMock.Setup(context => context.SaveChangesAsync()).Returns(Task.CompletedTask);
+            _factory.UnitOfWorkContextMock.Setup(context => context.CommitAsync()).Returns(Task.CompletedTask);
             _factory.UserRepositoryMock.Setup(repo => repo.AddCustomAsync(It.IsAny<User>())).Returns(Task.CompletedTask);
 
             //Act

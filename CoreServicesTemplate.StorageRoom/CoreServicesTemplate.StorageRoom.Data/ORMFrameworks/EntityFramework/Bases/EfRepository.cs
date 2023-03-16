@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Bases
 {
-    public class EfRepositoryBase<T> : IRepository<T> where T : EntityBase
+    public class EfRepository<T> : IRepository<T> where T : EntityBase
     {
         private readonly StorageRoomDbContext _dbContext;
 
-        protected EfRepositoryBase(StorageRoomDbContext dbContext)
+        protected EfRepository(StorageRoomDbContext dbContext)
         {
             _dbContext = dbContext;
             EntitySet = _dbContext.Set<T>();

@@ -15,14 +15,14 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class AddUserFeature : IAddUserFeature
     {
-        private readonly ICustomMapper<UserAppModel, UserAggModel> _userCustomMapper;
+        private readonly ICustomMapper<UserAppModel, CreateUserAggModel> _userCustomMapper;
         private readonly IAddUserDepot _addUserDepot;
         private readonly ISubStepSupplier _subStepSupplier;
         private readonly IAggregateFactory _aggregateFactory;
         private readonly ILogger<AddUserFeature> _logger;
 
         public AddUserFeature(
-            ICustomMapper<UserAppModel, UserAggModel> userCustomMapper,
+            ICustomMapper<UserAppModel, CreateUserAggModel> userCustomMapper,
             IAddUserDepot addUserDepot, 
             ISubStepSupplier subStepSupplier,
             IAggregateFactory aggregateFactory,
@@ -40,12 +40,13 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _logger.LogInformation("----- Creating User: {@Class} {@User} {Dt}", GetType().Name, @in.Name, DateTime.UtcNow.ToLongTimeString());
 
             // decoupling and map modelApp to modelAgg 
-            var aggModel = _userCustomMapper.Map(@in);
+            var createAggModel = _userCustomMapper.Map(@in);
+            UserAggModel aggModel;
 
             try
             {
                 // generate aggregate instance and execute method on aggregate root domain
-                var userDomain = _aggregateFactory.GenerateAggregate<UserAggModel, UserAggregate>(aggModel);
+                var userDomain = _aggregateFactory.GenerateAggregate<CreateUserAggModel, UserAggregate>(createAggModel);
                 Console.WriteLine(userDomain.UserToString());
                 Console.WriteLine(userDomain.AddressToString());
                 aggModel = userDomain.ToModel();

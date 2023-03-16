@@ -1,6 +1,5 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDbContexts;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.User;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
@@ -15,12 +14,12 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
         private readonly IDefaultMapper<UserAggModel, User> _userMapper;
 
         public GetUsersEfDepot(
-            IDbContextWrap dbContextWrap,
-            IDefaultMapper<UserAggModel, User> usersCustomMapper,
-            IUserRepository userRepository) : base(dbContextWrap)
+            IAppDbContext dbContext,
+            IRepositoryFactory repositoryFactory,
+            IDefaultMapper<UserAggModel, User> usersCustomMapper) : base(repositoryFactory, dbContext)
         {
+            _userRepository = RepositoryFactory.GenerateCustomRepository<IUserRepository>(DbContext);
             _userMapper = usersCustomMapper;
-            _userRepository = userRepository;
         }
 
         public async Task<OperationResult<ICollection<UserAggModel>>> ExecuteAsync()

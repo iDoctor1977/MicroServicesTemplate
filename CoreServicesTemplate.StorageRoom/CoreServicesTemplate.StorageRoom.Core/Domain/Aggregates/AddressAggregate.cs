@@ -2,13 +2,14 @@
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Address;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
+using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates
 {
     public class AddressAggregate : IAggregate
     {
-        private readonly IDefaultMapper<CreateAddressAggModel, AddressAggregate> _baseAddressMapper;
         private readonly IDefaultMapper<AddressAggModel, AddressAggregate> _addressMapper;
+        private readonly ILogger<AddressAggregate> _logger;
 
         public Guid GuId { get; private set; }
         public string Address1 { get; private set; }
@@ -19,21 +20,22 @@ namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates
 
         private AddressAggregate(
             IDefaultMapper<AddressAggModel, AddressAggregate> addressMapper,
-            IDefaultMapper<CreateAddressAggModel, AddressAggregate> baseAddressMapper)
+            ILogger<AddressAggregate> logger)
         {
-            _baseAddressMapper = baseAddressMapper;
             _addressMapper = addressMapper;
+            _logger = logger;
         }
 
         // Used to create new instance
         public AddressAggregate(
-            IDefaultMapper<AddressAggModel, AddressAggregate> addressMapper, 
-            IDefaultMapper<CreateAddressAggModel, AddressAggregate> baseAddressMapper,
-            CreateAddressAggModel aggModel) : this(addressMapper, baseAddressMapper)
+            IDefaultMapper<CreateAddressAggModel, AddressAggregate> createAddressMapper,
+            IDefaultMapper<AddressAggModel, AddressAggregate> addressMapper,
+            CreateAddressAggModel aggModel,
+            ILogger<AddressAggregate> logger) : this(addressMapper, logger)
         {
             SharedConstruction(aggModel);
 
-            _baseAddressMapper.Map(aggModel, this);
+            createAddressMapper.Map(aggModel, this);
 
             GuId = Guid.NewGuid();
         }
@@ -41,8 +43,8 @@ namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates
         // Used for all other operations
         public AddressAggregate(
             IDefaultMapper<AddressAggModel, AddressAggregate> addressMapper,
-            IDefaultMapper<CreateAddressAggModel, AddressAggregate> baseAddressMapper,
-            AddressAggModel aggModel) : this(addressMapper, baseAddressMapper)
+            AddressAggModel aggModel, 
+            ILogger<AddressAggregate> logger) : this(addressMapper, logger)
         {
             if (aggModel.GuId.Equals(null) || aggModel.GuId == Guid.Empty)
             {
