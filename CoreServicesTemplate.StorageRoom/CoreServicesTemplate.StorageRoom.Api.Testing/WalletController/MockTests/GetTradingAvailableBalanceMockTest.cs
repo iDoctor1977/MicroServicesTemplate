@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http.Json;
 using CoreServicesTemplate.Shared.Core.Results;
+using CoreServicesTemplate.StorageRoom.Api.Testing.Builders;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.WalletItem;
@@ -14,15 +15,15 @@ using Moq;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController.MockTests
 {
-    public class GetTradingAvailableBalanceMockTest : IClassFixture<WebApplicationFactory<Startup>>
+    public class GetTradingAvailableBalanceMockTest : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
 
         private Mock<IGetTradingAvailableBalanceDepot> GetTradingAvailableBalanceDepotMock { get; set; }
 
-        private const string URL_GET = "api/wallet/";
+        private const string URL_GET = "api/storageroom/wallet/";
 
-        public GetTradingAvailableBalanceMockTest(WebApplicationFactory<Startup> factory)
+        public GetTradingAvailableBalanceMockTest(WebApplicationFactory<Program> factory)
         {
             GetTradingAvailableBalanceDepotMock = new Mock<IGetTradingAvailableBalanceDepot>();
 

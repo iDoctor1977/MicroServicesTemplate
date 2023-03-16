@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CoreServicesTemplate.Shared.Core.Models
 {
-    public class CreateWalletApiModel
+    public class CreateWalletApiDto
     {
         [Required]
         public Guid OwnerGuid { get; set; }

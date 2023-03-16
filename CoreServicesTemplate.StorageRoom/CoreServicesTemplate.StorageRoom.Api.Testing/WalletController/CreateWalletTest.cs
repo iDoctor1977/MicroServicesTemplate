@@ -2,6 +2,7 @@ using System.Net;
 using System.Net.Http.Json;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
+using CoreServicesTemplate.StorageRoom.Data.Entities;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
         private readonly HttpClient _client;
         private readonly CustomWebApplicationFactory<Program> _factory;
 
-        private const string URL_POST = "api/wallet/";
+        private const string URL_POST = "api/storageroom/wallet/";
 
         public CreateWalletTest(CustomWebApplicationFactory<Program> factory)
         {
@@ -33,7 +34,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
             // Arrange
             SeedDatabaseForTest();
 
-            var walletDto = new CreateWalletApiModel
+            var walletDto = new CreateWalletApiDto
             {
                 OwnerGuid = Guid.NewGuid(),
                 TradingAllowedBalance = 1.23m,
@@ -72,7 +73,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
             var o = Convert.ToDecimal(operationAllowedBalance);
             var b = Convert.ToDecimal(balance);
 
-            var walletDto = new CreateWalletApiModel
+            var walletDto = new CreateWalletApiDto
             {
                 OwnerGuid = og,
                 TradingAllowedBalance = t,
@@ -103,7 +104,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
         {
             // Arrange
             var og = Guid.Empty;
-            if (ownerGuid != null)
+            if (!ownerGuid.Equals(null))
             {
                 og = Guid.Parse(ownerGuid);
             }
@@ -111,7 +112,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
             var o = Convert.ToDecimal(operationAllowedBalance);
             var b = Convert.ToDecimal(balance);
 
-            var walletDto = new CreateWalletApiModel
+            var walletDto = new CreateWalletApiDto
             {
                 OwnerGuid = og,
                 TradingAllowedBalance = t,
@@ -136,9 +137,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
 
         private void SeedDatabaseForTest()
         {
-            if (_factory.GetContext().Database.EnsureCreatedAsync() != null)
+            if (!_factory.GetContext().Database.EnsureCreatedAsync().Equals(null))
             {
-                _factory.GetContext().Wallets.Add(new Data.Entities.Wallet
+                _factory.GetContext().Wallets.Add(new Wallet
                 {
                     Guid = Guid.NewGuid(),
                     OwnerGuid = Guid.NewGuid(),

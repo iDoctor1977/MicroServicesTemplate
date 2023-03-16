@@ -15,7 +15,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
 
         private readonly Guid _ownerGuid;
 
-        private const string URL_GET = "api/wallet/";
+        private const string URL_GET = "api/storageroom/wallet/";
 
         public GetTradingAvailableBalanceTest(CustomWebApplicationFactory<Program> factory)
         {
@@ -56,9 +56,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
 
         private void SeedDatabaseForTest()
         {
-            if (_factory.GetContext().Database.EnsureCreatedAsync() != null)
+            if (!_factory.GetContext().Database.EnsureCreatedAsync().Equals(null))
             {
-                _factory.GetContext().Wallets.Add(new Data.Entities.Wallet
+                _factory.GetContext().Wallets.Add(new Wallet
                 {
                     Guid = Guid.NewGuid(),
                     OwnerGuid = _ownerGuid,

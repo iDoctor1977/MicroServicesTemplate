@@ -21,7 +21,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.CustomMappers
         {
             var walletModel = base.Map(valueIn);
 
-            if (walletModel.WalletItems == null)
+            if (walletModel.WalletItems.Equals(null))
             {
                 walletModel.WalletItems = new List<WalletItemModel>();
             }

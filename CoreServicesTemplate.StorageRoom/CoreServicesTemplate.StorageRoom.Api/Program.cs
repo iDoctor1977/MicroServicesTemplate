@@ -5,6 +5,7 @@ using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
+using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 using CoreServicesTemplate.StorageRoom.Core.Features;
@@ -15,6 +16,7 @@ using CoreServicesTemplate.StorageRoom.Data.Factories;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;
 using CoreServicesTemplate.StorageRoom.Data.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mocks;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
 using Microsoft.EntityFrameworkCore;
@@ -52,6 +54,8 @@ else
 
 #region Db provider connection string
 
+builder.Services.AddTransient<IAppDbContext, AppDbContext>();
+
 if (builder.Configuration["DBProvider"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
 {
     builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite());
@@ -66,7 +70,7 @@ else
 #region Mappers
 
 builder.Services.AddTransient(typeof(IDefaultMapper<,>), typeof(DefaultMapper<,>));
-builder.Services.AddTransient(typeof(ICustomMapper<WalletItemModel, WalletItem>), typeof(WalletDataCustomMapper));
+builder.Services.AddTransient(typeof(ICustomMapper<WalletModel, Wallet>), typeof(WalletDataCustomMapper));
 
 #endregion
 

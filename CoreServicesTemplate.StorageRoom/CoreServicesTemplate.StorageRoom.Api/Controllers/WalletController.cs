@@ -8,26 +8,31 @@ using Microsoft.AspNetCore.Mvc;
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/storageroom/[controller]")]
     public class WalletController : ControllerBase
     {
         private readonly ICreateWalletFeature _createWalletFeature;
         private readonly IGetTradingAvailableBalanceFeature _availableBalanceFeature;
-        private readonly IDefaultMapper<CreateWalletApiModel, CreateWalletAppDto> _customMapper;
+        private readonly IDefaultMapper<CreateWalletApiDto, CreateWalletAppDto> _customMapper;
+        private readonly ILogger<WalletController> _logger;
 
         public WalletController(
             ICreateWalletFeature createWalletFeature,
             IGetTradingAvailableBalanceFeature availableBalanceFeature,
-            IDefaultMapper<CreateWalletApiModel, CreateWalletAppDto> customMapper)
+            IDefaultMapper<CreateWalletApiDto, CreateWalletAppDto> customMapper, 
+            ILogger<WalletController> logger)
         {
             _createWalletFeature = createWalletFeature;
             _customMapper = customMapper;
             _availableBalanceFeature = availableBalanceFeature;
+            _logger = logger;
         }
 
         [HttpPost("{walletDto}")]
-        public async Task<ActionResult> Create(CreateWalletApiModel walletDto)
+        public async Task<ActionResult> Create(CreateWalletApiDto walletDto)
         {
+            _logger.LogInformation("----- Create wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+
             if (!ModelState.IsValid)
             {
                 var message = $" | {ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)}";
@@ -47,12 +52,14 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 // return Created(new Uri("api/storageroom/wallet/..."), model);
             }
 
-            return UnprocessableEntity(operationResult);
+            return UnprocessableEntity(operationResult.Message);
         }
 
         [HttpGet("{ownerGuid}")]
         public async Task<ActionResult<decimal>> Get(Guid ownerGuid)
         {
+            _logger.LogInformation("----- Get trading available balance: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+
             if (ownerGuid.Equals(null) || ownerGuid == Guid.Empty)
             {
                 var message = " | Owner guid is not valid.";
@@ -70,7 +77,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 }
             }
 
-            return UnprocessableEntity(operationResult);
+            return UnprocessableEntity(operationResult.Message);
         }
     }
 }

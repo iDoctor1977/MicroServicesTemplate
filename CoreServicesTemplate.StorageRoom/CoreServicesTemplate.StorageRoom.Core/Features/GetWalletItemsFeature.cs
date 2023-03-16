@@ -27,7 +27,9 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
         public async Task<OperationResult<ICollection<WalletItemAppDto>>> ExecuteAsync(Guid ownerGuid)
         {
-            ICollection<WalletItemModel> walletItemsModel;
+            _logger.LogInformation("----- Get wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+
+            ICollection<WalletItemModel>? walletItemsModel;
             try
             {
                 var result = await _walletItemsDepot.ExecuteAsync(ownerGuid);
@@ -36,18 +38,16 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             catch (Exception e)
             {
                 _logger.LogCritical(e.Message);
-                return new OperationResult<ICollection<WalletItemAppDto>>(OutcomeState.Failure, default, $"Data access failed: {e.Message}");
+                return new OperationResult<ICollection<WalletItemAppDto>>(OutcomeState.Failure, default, $" | Data access failed: {e.Message}");
             }
 
-            ICollection<WalletItemAppDto> walletItems = new List<WalletItemAppDto>();
-            foreach (var walletItemModel in walletItemsModel)
+            if (walletItemsModel != null)
             {
-                var walletItemApp = _walletItemsMapper.Map(walletItemModel);
-
-                walletItems.Add(walletItemApp);
+                var appModels = new List<WalletItemAppDto>(_walletItemsMapper.Map(walletItemsModel));
+                return new OperationResult<ICollection<WalletItemAppDto>>(appModels);
             }
 
-            return new OperationResult<ICollection<WalletItemAppDto>>(OutcomeState.Success, new List<WalletItemAppDto>(walletItems));
+            return new OperationResult<ICollection<WalletItemAppDto>>(" | Data values is not valid.");
         }
     }
 }

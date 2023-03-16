@@ -1,5 +1,4 @@
-﻿using CoreServicesTemplate.Shared.Core.Enums;
-using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.WalletItem;
@@ -31,19 +30,17 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
         public async Task<OperationResult<ICollection<WalletItemModel>>> ExecuteAsync(Guid ownerGuid)
         {
-            _logger.LogInformation("----- Get WalletItems: {@Class} {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+            _logger.LogInformation("----- Get wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
-            var walletEntities = await _walletItemRepository.ReadWalletItemsByOwnerGuidAsync(ownerGuid);
+            var entities = await _walletItemRepository.ReadWalletItemsByOwnerGuidAsync(ownerGuid);
 
-            ICollection<WalletItemModel> walletItemModels = new List<WalletItemModel>();
-            foreach (var walletEntity in walletEntities)
+            if (!entities.Equals(null))
             {
-                var walletModel = _walletItemMapper.Map(walletEntity);
-
-                walletItemModels.Add(walletModel);
+                var aggModels = new List<WalletItemModel>(_walletItemMapper.Map(entities.ToList()));
+                return new OperationResult<ICollection<WalletItemModel>>(aggModels);
             }
 
-            return new OperationResult<ICollection<WalletItemModel>>(OutcomeState.Success, walletItemModels);
+            return new OperationResult<ICollection<WalletItemModel>>("There are no wallet items!");
         }
     }
 }

@@ -16,7 +16,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletItemController
 
         private readonly Guid _ownerGuid;
 
-        private const string URL_GET = "api/walletitem/";
+        private const string URL_GET = "api/storageroom/walletitem/";
 
         public GetWalletItemsTest(CustomWebApplicationFactory<Program> factory)
         {
@@ -45,7 +45,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletItemController
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            (await response.Content.ReadFromJsonAsync<ICollection<WalletItemApiModel>>()).Should().HaveCount(4);
+            (await response.Content.ReadFromJsonAsync<ICollection<WalletItemApiDto>>()).Should().HaveCount(4);
         }
 
         public void Dispose()
@@ -55,9 +55,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletItemController
 
         private void SeedDatabaseForTest()
         {
-            if (_factory.GetContext().Database.EnsureCreatedAsync() != null)
+            if (!_factory.GetContext().Database.EnsureCreatedAsync().Equals(null))
             {
-                _factory.GetContext().Wallets.Add(new Data.Entities.Wallet
+                _factory.GetContext().Wallets.Add(new Wallet
                 {
                     Guid = Guid.NewGuid(),
                     OwnerGuid = _ownerGuid,

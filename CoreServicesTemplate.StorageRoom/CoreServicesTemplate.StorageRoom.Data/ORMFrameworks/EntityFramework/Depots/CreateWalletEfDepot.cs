@@ -30,6 +30,8 @@ public class CreateWalletEfDepot: UnitOfWorkDepotBase, ICreateWalletDepot
 
     public async Task<OperationResult> ExecuteAsync(WalletModel appDto)
     {
+        _logger.LogInformation("----- Create wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+
         var walletEntity = _defaultWalletMapper.Map(appDto);
 
         await _walletRepository.AddAsync(walletEntity);

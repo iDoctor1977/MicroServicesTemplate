@@ -32,6 +32,8 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
         public async Task<OperationResult> ExecuteAsync(CreateWalletAppDto appDto)
         {
+            _logger.LogInformation("----- Create wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+
             var baseWalletModel = _walletMapper.Map(appDto);
 
             WalletAggregate walletDomainEntity;
@@ -42,7 +44,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             catch (DomainValidationException<WalletAggregate> e)
             {
                 _logger.LogCritical(e.Message);
-                return new OperationResult(OutcomeState.Failure, default, $"{e.ClassName}: {e.Message}");
+                return new OperationResult(OutcomeState.Failure, default, $" | {e.ClassName}: {e.Message}");
             }
 
             var walletModel = walletDomainEntity.ToWalletModel();
@@ -54,7 +56,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             catch (Exception e)
             {
                 _logger.LogCritical(e.Message);
-                return new OperationResult(OutcomeState.Failure, default, $"Data access failed: {e.Message}");
+                return new OperationResult(OutcomeState.Failure, default, $" | Data access failed: {e.Message}");
             }
         }
     }

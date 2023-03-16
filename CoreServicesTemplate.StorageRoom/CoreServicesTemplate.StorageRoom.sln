@@ -15,12 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Storag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Shared.Core", "..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj", "{B040F81A-DC8B-48B1-BB12-F877C00A3430}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.StorageRoom.Data.Testing", "CoreServicesTemplate.StorageRoom.Data.Testing\CoreServicesTemplate.StorageRoom.Data.Testing.csproj", "{F4D97282-C282-4258-ACB1-F0B077651284}"
-	ProjectSection(ProjectDependencies) = postProject
-		{8473ED5F-4951-460D-A439-4A7BBC70346B} = {8473ED5F-4951-460D-A439-4A7BBC70346B}
-		{8F637B5E-2536-484B-BF50-29A2B1B3F597} = {8F637B5E-2536-484B-BF50-29A2B1B3F597}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,10 +45,6 @@ Global
 		{B040F81A-DC8B-48B1-BB12-F877C00A3430}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B040F81A-DC8B-48B1-BB12-F877C00A3430}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B040F81A-DC8B-48B1-BB12-F877C00A3430}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4D97282-C282-4258-ACB1-F0B077651284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4D97282-C282-4258-ACB1-F0B077651284}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4D97282-C282-4258-ACB1-F0B077651284}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4D97282-C282-4258-ACB1-F0B077651284}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

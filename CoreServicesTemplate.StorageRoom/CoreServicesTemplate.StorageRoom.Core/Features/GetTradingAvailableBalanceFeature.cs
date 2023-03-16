@@ -28,40 +28,47 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
         public async Task<OperationResult<decimal>> ExecuteAsync(Guid ownerGuid)
         {
-            WalletModel walletModel;
+            _logger.LogInformation("----- Get trading available balance: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+
+            WalletModel? walletModel;
             decimal tradingAllowed;
 
             try
             {
-                var result = await _walletDepot.ExecuteAsync(ownerGuid);
+                OperationResult<WalletModel>? result = await _walletDepot.ExecuteAsync(ownerGuid);
                 walletModel = result.Value;
             }
             catch (Exception e)
             {
                 _logger.LogCritical(e.Message);
-                return new OperationResult<decimal>(OutcomeState.Failure, default, $"Data access failed: {e.Message}");
+                return new OperationResult<decimal>(OutcomeState.Failure, default, $" | Data access failed: {e.Message}");
             }
 
             try
             {
-                var walletDomainEntity = _domainEntityFactory.GenerateAggregate<WalletModel, WalletAggregate>(walletModel);
-                tradingAllowed = walletDomainEntity.CalculateTradingAvailableBalance();
+                if (walletModel != null)
+                {
+                    var walletDomainEntity = _domainEntityFactory.GenerateAggregate<WalletModel, WalletAggregate>(walletModel);
+                    tradingAllowed = walletDomainEntity.CalculateTradingAvailableBalance();
+
+                    return new OperationResult<decimal>(OutcomeState.Success, tradingAllowed);
+                }
             }
             catch (DomainValidationException<WalletAggregate> e)
             {
                 OperationResult<decimal> innerResult = null;
                 if (e.InnerException != null)
                 {
-                    _logger.LogCritical($"{GetType().Name}: {e.Message}");
-                    _logger.LogCritical($"{e.InnerException.GetType().Name}: {e.InnerException.Message}");
+                    _logger.LogCritical($" | {GetType().Name}: {e.Message}");
+                    _logger.LogCritical($" | {e.InnerException.GetType().Name}: {e.InnerException.Message}");
 
-                    innerResult = new OperationResult<decimal>(OutcomeState.Failure, default, $"{e.InnerException.GetType().Name}: {e.InnerException.Message}");
+                    innerResult = new OperationResult<decimal>(OutcomeState.Failure, default, $" | {e.InnerException.GetType().Name}: {e.InnerException.Message}");
                 }
 
-                return new OperationResult<decimal>(OutcomeState.Failure, default, $"{e.ClassName}: {e.Message}", innerResult);
+                return new OperationResult<decimal>(OutcomeState.Failure, default, $" | {e.ClassName}: {e.Message}", innerResult);
             }
 
-            return new OperationResult<decimal>(OutcomeState.Success, tradingAllowed);
+            return new OperationResult<decimal>(" | Data values is not valid.");
         }
     }
 }

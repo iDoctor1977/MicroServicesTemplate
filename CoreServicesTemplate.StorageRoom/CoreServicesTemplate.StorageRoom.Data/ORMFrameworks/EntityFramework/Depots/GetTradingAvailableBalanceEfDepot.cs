@@ -30,10 +30,17 @@ public class GetTradingAvailableBalanceEfDepot : UnitOfWorkDepotBase, IGetTradin
 
     public async Task<OperationResult<WalletModel>> ExecuteAsync(Guid ownerGuid)
     {
+        _logger.LogInformation("----- Get trading available balance: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+
         var walletEntity = await _walletRepository.ReadForOwnerGuidAsync(ownerGuid);
 
-        var walletModel = _customWalletMapper.Map(walletEntity);
+        if (walletEntity != null)
+        {
+            var walletModel = _customWalletMapper.Map(walletEntity);
 
-        return new OperationResult<WalletModel>(OutcomeState.Success, walletModel);
+            return new OperationResult<WalletModel>(OutcomeState.Success, walletModel);
+        }
+
+        return new OperationResult<WalletModel>(" | Data values is tot valid.");
     }
 }
