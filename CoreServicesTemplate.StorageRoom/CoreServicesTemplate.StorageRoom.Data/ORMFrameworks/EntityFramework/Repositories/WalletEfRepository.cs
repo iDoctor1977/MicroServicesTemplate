@@ -21,9 +21,9 @@ public class WalletEfRepository : EfRepository<Wallet>, IWalletRepository
         return walletItems;
     }
 
-    public Task<Wallet?> ReadForOwnerGuidAsync(Guid ownerGuid)
+    public async Task<Wallet?> ReadForOwnerGuidAsync(Guid ownerGuid)
     {
-        var entity = WalletEntity.FirstOrDefaultAsync(w => w.OwnerGuid == ownerGuid);
+        var entity = await WalletEntity.FirstOrDefaultAsync(w => w.OwnerGuid == ownerGuid);
 
         return entity;
     }

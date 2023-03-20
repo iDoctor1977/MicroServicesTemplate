@@ -3,6 +3,7 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CoreServicesTemplate.StorageRoom.Data.CustomMappers
 {
@@ -21,7 +22,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.CustomMappers
         {
             var walletModel = base.Map(valueIn);
 
-            if (walletModel.WalletItems.Equals(null))
+            if (walletModel.WalletItems.IsNullOrEmpty())
             {
                 walletModel.WalletItems = new List<WalletItemModel>();
             }

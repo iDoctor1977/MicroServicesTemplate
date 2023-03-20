@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
 {
-    public class CreateWalletTest : IClassFixture<CustomWebApplicationFactory<Program>>, IDisposable
+    public class CreateWalletTest : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
         private readonly CustomWebApplicationFactory<Program> _factory;
@@ -49,7 +49,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
 
             // Assert
             response.EnsureSuccessStatusCode();
-            _factory.GetContext().Wallets.Should().HaveCount(2);
+            _factory.GetContext()?.Wallets.Should().HaveCount(2);
         }
 
         [Theory]
@@ -130,16 +130,13 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
             responseStatusCode.Should().Be(expectedResultCode);
         }
 
-        public void Dispose()
-        {
-            _factory.CloseDbConnection();
-        }
-
         private void SeedDatabaseForTest()
         {
-            if (!_factory.GetContext().Database.EnsureCreatedAsync().Equals(null))
+            var context = _factory.GetContext();
+
+            if (context != null && !context.Database.EnsureCreatedAsync().Equals(null))
             {
-                _factory.GetContext().Wallets.Add(new Wallet
+                context.Wallets.Add(new Wallet
                 {
                     Guid = Guid.NewGuid(),
                     OwnerGuid = Guid.NewGuid(),
@@ -152,7 +149,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
                     LastModifiedDate = DateTime.Now
                 });
 
-                _factory.GetContext().SaveChanges();
+                context.SaveChanges();
             }
         }
     }

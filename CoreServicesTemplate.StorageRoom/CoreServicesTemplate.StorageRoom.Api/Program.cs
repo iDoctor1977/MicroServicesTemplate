@@ -6,7 +6,6 @@ using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 using CoreServicesTemplate.StorageRoom.Core.Features;
 using CoreServicesTemplate.StorageRoom.Core.MapperProfiles;
