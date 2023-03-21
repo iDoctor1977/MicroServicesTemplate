@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
+using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
@@ -9,12 +10,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
 {
-    public class CreateWalletTest : IClassFixture<CustomWebApplicationFactory<Program>>
+    public class CreateWalletTest : IClassFixture<CustomWebApplicationFactory<Program>>, IDisposable
     {
         private readonly HttpClient _client;
         private readonly CustomWebApplicationFactory<Program> _factory;
 
-        private const string URL_POST = "api/storageroom/wallet/";
+        private static readonly string UrlPost = ApiUrl.StorageRoom.Wallet.WalletUrlBase();
 
         public CreateWalletTest(CustomWebApplicationFactory<Program> factory)
         {
@@ -26,6 +27,11 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
             });
 
             _factory.OpenDbConnection();
+        }
+
+        public void Dispose()
+        {
+            _factory.CloseDbConnection();
         }
 
         [Fact]
@@ -42,14 +48,16 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
                 Balance = 2.36m
             };
 
-            var uri = $"{URL_POST}{walletDto}";
+            var uri = $"{UrlPost}/{walletDto}";
 
             // Act
             var response = await _client.PostAsJsonAsync(uri, walletDto);
 
             // Assert
             response.EnsureSuccessStatusCode();
-            _factory.GetContext()?.Wallets.Should().HaveCount(2);
+
+            var dbContext = _factory.GetContext();
+            dbContext?.Wallets.Should().HaveCount(2);
         }
 
         [Theory]
@@ -81,7 +89,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
                 Balance = b
             };
 
-            var uri = $"{URL_POST}{walletDto}";
+            var uri = $"{UrlPost}/{walletDto}";
 
             // Act
             var response = await _client.PostAsJsonAsync(uri, walletDto);
@@ -120,7 +128,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
                 Balance = b
             };
 
-            var uri = $"{URL_POST}{walletDto}";
+            var uri = $"{UrlPost}/ {walletDto}";
 
             // Act
             var response = await _client.PostAsJsonAsync(uri, walletDto);

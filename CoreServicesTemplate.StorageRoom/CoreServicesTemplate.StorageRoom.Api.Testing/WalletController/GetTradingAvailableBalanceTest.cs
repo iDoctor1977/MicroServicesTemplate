@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using FluentAssertions;
@@ -15,7 +16,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
 
         private readonly Guid _ownerGuid;
 
-        private const string URL_GET = "api/storageroom/wallet/";
+        private static readonly string UrlGet = ApiUrl.StorageRoom.Wallet.WalletUrlBase();
 
         public GetTradingAvailableBalanceTest(CustomWebApplicationFactory<Program> factory)
         {
@@ -27,17 +28,17 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
             {
                 AllowAutoRedirect = false
             });
-
-            _factory.OpenDbConnection();
         }
 
         [Fact]
         public async Task Should_Be_Return_Trading_Available_Decimal_Value_From_SQLiteInMemory()
         {
             // Arrange
+            _factory.OpenDbConnection();
+
             SeedDatabaseForTest();
 
-            var uri = $"{URL_GET}{_ownerGuid}";
+            var uri = $"{UrlGet}/{_ownerGuid}";
 
             // Act
             var response = await _client.GetAsync(uri);
@@ -56,9 +57,11 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
 
         private void SeedDatabaseForTest()
         {
-            if (!_factory.GetContext().Database.EnsureCreatedAsync().Equals(null))
+            var dbContext = _factory.GetContext();
+
+            if (dbContext != null && !dbContext.Database.EnsureCreatedAsync().Equals(null))
             {
-                _factory.GetContext().Wallets.Add(new Wallet
+                dbContext.Wallets.Add(new Wallet
                 {
                     Guid = Guid.NewGuid(),
                     OwnerGuid = _ownerGuid,
@@ -84,7 +87,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
                     }
                 });
 
-                _factory.GetContext().SaveChanges();
+                dbContext.SaveChanges();
             }
         }
     }

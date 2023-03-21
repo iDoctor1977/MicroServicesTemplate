@@ -22,11 +22,11 @@ namespace CoreServicesTemplate.Shared.Core.HealthChecks
         public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
             var httpClient = _clientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(ApiUrl.StorageRoom.User.GeHealthyToStorageRoom());
+            httpClient.BaseAddress = new Uri(ApiUrl.StorageRoom.StorageRoomUrlBase());
 
             try
             {
-                var response = await httpClient.GetAsync("/health", cancellationToken);
+                var response = await httpClient.GetAsync($"{ApiUrl.StorageRoom.GetHealthyToStorageRoom()}", cancellationToken);
                 response.EnsureSuccessStatusCode();
 
                 if (response.IsSuccessStatusCode)

@@ -29,7 +29,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         }
 
         [HttpPost("{walletDto}")]
-        public async Task<ActionResult> Create(CreateWalletApiDto walletDto)
+        public async Task<ActionResult> Post(CreateWalletApiDto walletDto)
         {
             _logger.LogInformation("----- Create wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 

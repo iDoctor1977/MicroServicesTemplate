@@ -24,12 +24,12 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
         _dbContext = Services.GetRequiredService<IAppDbContext>() as AppDbContext;
 
-        _dbContext?.Database.EnsureCreated();
+        if (_dbContext != null) _dbContext.Database.EnsureCreated();
     }
 
     public void CloseDbConnection()
     {
-        _dbContext?.Database.EnsureDeleted();
+        if (_dbContext != null) _dbContext.Database.EnsureDeleted();
 
         _connection.Close();
     }
@@ -55,7 +55,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
             services.AddDbContext<IAppDbContext, AppDbContext>(options =>
             {
                 options.UseSqlite(_connection);
-            }, ServiceLifetime.Singleton, ServiceLifetime.Singleton);
+            }, ServiceLifetime.Transient, ServiceLifetime.Transient);
         });
     }
 }

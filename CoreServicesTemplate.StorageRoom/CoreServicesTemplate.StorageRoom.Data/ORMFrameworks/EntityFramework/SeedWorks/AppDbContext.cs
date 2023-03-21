@@ -39,7 +39,7 @@ public class AppDbContext : DbContext, IAppDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //modelBuilder.Entity<User>().Property(i => i.Id).UseHiLo();
+        //modelBuilder.Entity<Wallet>().Property(i => i.Id).UseHiLo();
     }
 
     public void Commit()

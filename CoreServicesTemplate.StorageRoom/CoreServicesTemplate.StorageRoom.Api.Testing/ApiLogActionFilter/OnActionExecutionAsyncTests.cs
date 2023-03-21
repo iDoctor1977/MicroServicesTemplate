@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System;
+using System.Net.Http.Json;
 using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Models;
@@ -13,7 +14,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
     public class OnActionExecutionAsyncTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
-        private readonly WebApplicationFactory<Program> _factory;
 
         private Mock<ILogger<ApiLogActionFilterAsync>> LoggerMock { get; set; }
 
@@ -21,7 +21,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
         {
             LoggerMock = new Mock<ILogger<ApiLogActionFilterAsync>>();
 
-            _factory = factory;
             _client = factory.WithWebHostBuilder(builder =>
             {
                 builder.ConfigureTestServices(services =>
@@ -38,16 +37,16 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
         public async Task Should_LogTheCallToAnyAction()
         {
             //Arrange
-            var apiModel = new UserApiModel
+            var apiModel = new CreateWalletApiDto
             {
-                Name = "Foo",
-                Surname = "Foo Foo",
-                Birth = DateTime.Now.AddDays(-14000)
+                OwnerGuid = Guid.NewGuid(),
+                TradingAllowedBalance = 1.23m,
+                OperationAllowedBalance = 12.3m,
+                Balance = 2.36m
             };
 
             //Act
-            var url = ApiUrl.StorageRoom.User.AddUserToStorageRoom();
-            await _client.PostAsJsonAsync($"{url}/{apiModel}", apiModel);
+            await _client.PostAsJsonAsync(ApiUrl.StorageRoom.Wallet.CreateWalletToStorageRoom(), apiModel);
 
             //Assert
             LoggerMock.Verify(x => x.Log(LogLevel.Information,
