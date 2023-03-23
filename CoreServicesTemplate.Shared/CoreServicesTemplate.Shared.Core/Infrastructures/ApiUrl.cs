@@ -55,16 +55,18 @@ public static class ApiUrl
         /// <summary>
         /// Url project controller references
         /// </summary>
-        public static class User
+        public static class Wallet
         {
-            public static string IndexFromDashboardUser() => $"{DashboardRoot}/user/index";
-            public static string AddUserToDashboard() => $"{DashboardRoot}/user/add";
-            public static string DeleteUserToDashboard() => $"{DashboardRoot}/user/delete";
-            public static string UpdateUserToDashboard() => $"{DashboardRoot}/user/update";
-            public static string GetUserToDashboard() => $"{DashboardRoot}/user/get";
-            public static string GetAllUserToDashboard() => $"{DashboardRoot}/user/getall";
-            public static string GetErrorToDashboard() => $"{DashboardRoot}/user/error";
-            public static string GeHealthyToDashboard() => $"{DashboardRoot}/user/health";
+            private static readonly string WalletEndPoint = "wallet";
+
+            public static string IndexFromDashboardUser() => $"{DashboardRoot}/{WalletEndPoint}/index";
+            public static string CreateWalletToDashboard() => $"{DashboardRoot}/{WalletEndPoint}/post";
+            public static string DeleteWalletToDashboard() => $"{DashboardRoot}/{WalletEndPoint}/delete";
+            public static string UpdateWalletToDashboard() => $"{DashboardRoot}/{WalletEndPoint}/put";
+            public static string GetWalletToDashboard() => $"{DashboardRoot}/{WalletEndPoint}/get";
+            public static string GetAllWalletToDashboard() => $"{DashboardRoot}/{WalletEndPoint}/get";
+            public static string GetErrorToDashboard() => $"{DashboardRoot}/{WalletEndPoint}/error";
+            public static string GeHealthyToDashboard() => $"{DashboardRoot}/{WalletEndPoint}/health";
         }
     }
 }

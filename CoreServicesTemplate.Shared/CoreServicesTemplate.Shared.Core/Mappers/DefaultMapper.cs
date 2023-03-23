@@ -20,11 +20,11 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
         /// Execute a mapping from the source object to a new destination object.
         /// The source type is inferred from the source object.
         /// </summary>
-        /// <param name="in">Source object to map from</param>
+        /// <param name="viewModel">Source object to map from</param>
         /// <returns>Mapped destination object</returns>
-        public TOut Map(TIn @in)
+        public TOut Map(TIn viewModel)
         {
-            var result = _mapper.Map<TOut>(@in);
+            var result = _mapper.Map<TOut>(viewModel);
 
             return result;
         }
@@ -33,11 +33,11 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
         /// Execute a mapping from the source object to a new destination object.
         /// The source type is inferred from the source object.
         /// </summary>
-        /// <param name="out">Source object to map from</param>
+        /// <param name="appModel">Source object to map from</param>
         /// <returns>Mapped destination object</returns>
-        public TIn Map(TOut @out)
+        public TIn Map(TOut appModel)
         {
-            var result = _mapper.Map<TIn>(@out);
+            var result = _mapper.Map<TIn>(appModel);
 
             return result;
         }
@@ -45,12 +45,12 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
         /// <summary>
         /// Execute a mapping from the source object to the existing destination object.
         /// </summary>
-        /// <param name="in">Source type to use</param>
+        /// <param name="viewModel">Source type to use</param>
         /// <param name="out">Destination type</param>
         /// <returns>Mapped destination object</returns>
-        public TOut Map(TIn @in, TOut @out)
+        public TOut Map(TIn viewModel, TOut @out)
         {
-            TOut result = _mapper.Map(@in, @out);
+            TOut result = _mapper.Map(viewModel, @out);
 
             return result;
         }
@@ -58,12 +58,12 @@ namespace CoreServicesTemplate.Shared.Core.Mappers
         /// <summary>
         /// Execute a mapping from the source object to the existing destination object.
         /// </summary>
-        /// <param name="out">Source type to use</param>
+        /// <param name="appModel">Source type to use</param>
         /// <param name="in">Destination type</param>
         /// <returns>Mapped destination object</returns>
-        public TIn Map(TOut @out, TIn @in)
+        public TIn Map(TOut appModel, TIn @in)
         {
-            TIn result = _mapper.Map(@out, @in);
+            TIn result = _mapper.Map(appModel, @in);
 
             return result;
         }

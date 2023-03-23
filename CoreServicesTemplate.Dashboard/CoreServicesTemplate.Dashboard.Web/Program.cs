@@ -1,16 +1,14 @@
-using CoreServicesTemplate.Dashboard.Common.CustomMappers;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
-using CoreServicesTemplate.Dashboard.Common.Models;
+using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
 using CoreServicesTemplate.Dashboard.Core.Features;
 using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
 using CoreServicesTemplate.Dashboard.Services;
-using CoreServicesTemplate.Dashboard.Web.CustomMappers;
+using CoreServicesTemplate.Dashboard.Web.CustomMappers.Wallets;
 using CoreServicesTemplate.Dashboard.Web.MapperProfiles;
-using CoreServicesTemplate.Dashboard.Web.Models;
+using CoreServicesTemplate.Dashboard.Web.Models.Wallets;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
-using CoreServicesTemplate.Shared.Core.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,8 +17,8 @@ builder.Services.AddControllersWithViews();
 
 #region Injection
 
-builder.Services.AddTransient<IAddUserFeature, AddUserFeature>();
-builder.Services.AddTransient<IGetUsersFeature, GetUsersFeature>();
+builder.Services.AddTransient<ICreateWalletFeature, CreateWalletFeature>();
+builder.Services.AddTransient<IGetWalletFeature, ReadWalletFeature>();
 builder.Services.AddTransient<IStorageRoomService, StorageRoomService>();
 
 #endregion
@@ -29,10 +27,7 @@ builder.Services.AddTransient<IStorageRoomService, StorageRoomService>();
 
 builder.Services.AddTransient(typeof(IDefaultMapper<,>), typeof(DefaultMapper<,>));
 
-builder.Services.AddTransient(typeof(ICustomMapper<UserViewModel, UserAppModel>), typeof(UserWebCustomMapper));
-builder.Services.AddTransient(typeof(ICustomMapper<UsersViewModel, UsersAppModel>), typeof(UsersWebCustomMapper));
-
-builder.Services.AddTransient(typeof(ICustomMapper<UsersApiModel, UsersAppModel>), typeof(UsersApiCustomConsolidator));
+builder.Services.AddTransient(typeof(ICustomMapper<CreateWalletViewModel, CreateWalletAppModel>), typeof(WalletWebCustomMapper));
 
 #endregion
 

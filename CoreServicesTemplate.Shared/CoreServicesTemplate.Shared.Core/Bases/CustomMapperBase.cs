@@ -12,30 +12,30 @@ namespace CoreServicesTemplate.Shared.Core.Bases
             _defaultMapper = defaultMapper;
         }
 
-        public virtual TOut Map(TIn @in)
+        public virtual TOut Map(TIn viewModel)
         {
-            TOut value = _defaultMapper.Map(@in);
+            TOut value = _defaultMapper.Map(viewModel);
 
             return value;
         }
 
-        public virtual TIn Map(TOut @out)
+        public virtual TIn Map(TOut appModel)
         {
-            TIn value = _defaultMapper.Map(@out);
+            TIn value = _defaultMapper.Map(appModel);
 
             return value;
         }
 
-        public virtual TOut Map(TIn @in, TOut @out)
+        public virtual TOut Map(TIn viewModel, TOut @out)
         {
-            TOut value = _defaultMapper.Map(@in, @out);
+            TOut value = _defaultMapper.Map(viewModel, @out);
 
             return value;
         }
 
-        public virtual TIn Map(TOut @out, TIn @in)
+        public virtual TIn Map(TOut appModel, TIn @in)
         {
-            TIn value = _defaultMapper.Map(@out, @in);
+            TIn value = _defaultMapper.Map(appModel, @in);
 
             return value;
         }

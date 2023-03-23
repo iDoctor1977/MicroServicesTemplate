@@ -5,19 +5,15 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Dashboard.Web", "CoreServicesTemplate.Dashboard.Web\CoreServicesTemplate.Dashboard.Web.csproj", "{327D91C3-D094-4F79-A6ED-ABE25180851D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Dashboard.Core", "CoreServicesTemplate.Dashboard.Core\CoreServicesTemplate.Dashboard.Core.csproj", "{50321ABE-9363-4A2A-8E95-202FE4EE362B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Dashboard.Core", "CoreServicesTemplate.Dashboard.Core\CoreServicesTemplate.Dashboard.Core.csproj", "{50321ABE-9363-4A2A-8E95-202FE4EE362B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Shared.Core", "..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj", "{A1B84F26-E7C6-42EF-BBC8-40BE2470C2F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Dashboard.Common", "CoreServicesTemplate.Dashboard.Common\CoreServicesTemplate.Dashboard.Common.csproj", "{4D0771DD-B537-49A7-AAC1-B3633574EBAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Dashboard.Common", "CoreServicesTemplate.Dashboard.Common\CoreServicesTemplate.Dashboard.Common.csproj", "{4D0771DD-B537-49A7-AAC1-B3633574EBAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Dashboard.Services", "CoreServicesTemplate.Dashboard.Services\CoreServicesTemplate.Dashboard.Services.csproj", "{4A471A40-178F-4A6C-9BD4-61BD7B485E2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Dashboard.Services", "CoreServicesTemplate.Dashboard.Services\CoreServicesTemplate.Dashboard.Services.csproj", "{4A471A40-178F-4A6C-9BD4-61BD7B485E2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Dashboard.Api", "CoreServicesTemplate.Dashboard.Api\CoreServicesTemplate.Dashboard.Api.csproj", "{DCAA3548-1E36-41BF-A89F-97D1896A7B3D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Dashboard.Api.Testing", "CoreServicesTemplate.Dashboard.Api.Testing\CoreServicesTemplate.Dashboard.Api.Testing.csproj", "{1DE8EE09-3B7A-4F72-9165-6B72087D6570}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Dashboard.Web.Testing", "CoreServicesTemplate.Dashboard.Web.Testing\CoreServicesTemplate.Dashboard.Web.Testing.csproj", "{DA897D95-9AC3-40FA-A62D-A5B9D329EA26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Dashboard.Web.Testing", "CoreServicesTemplate.Dashboard.Web.Testing\CoreServicesTemplate.Dashboard.Web.Testing.csproj", "{DA897D95-9AC3-40FA-A62D-A5B9D329EA26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,14 +41,6 @@ Global
 		{4A471A40-178F-4A6C-9BD4-61BD7B485E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A471A40-178F-4A6C-9BD4-61BD7B485E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A471A40-178F-4A6C-9BD4-61BD7B485E2A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DCAA3548-1E36-41BF-A89F-97D1896A7B3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DCAA3548-1E36-41BF-A89F-97D1896A7B3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DCAA3548-1E36-41BF-A89F-97D1896A7B3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DCAA3548-1E36-41BF-A89F-97D1896A7B3D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1DE8EE09-3B7A-4F72-9165-6B72087D6570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1DE8EE09-3B7A-4F72-9165-6B72087D6570}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1DE8EE09-3B7A-4F72-9165-6B72087D6570}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1DE8EE09-3B7A-4F72-9165-6B72087D6570}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DA897D95-9AC3-40FA-A62D-A5B9D329EA26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DA897D95-9AC3-40FA-A62D-A5B9D329EA26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA897D95-9AC3-40FA-A62D-A5B9D329EA26}.Release|Any CPU.ActiveCfg = Release|Any CPU
