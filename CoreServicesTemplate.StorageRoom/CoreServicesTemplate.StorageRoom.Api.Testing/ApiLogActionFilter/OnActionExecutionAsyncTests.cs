@@ -1,8 +1,7 @@
-﻿using System;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
+using CoreServicesTemplate.Shared.Core.Dtos.Wallet;
 using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
-using CoreServicesTemplate.Shared.Core.Models;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,7 +38,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
             //Arrange
             var apiModel = new CreateWalletApiDto
             {
-                OwnerGuid = Guid.NewGuid(),
                 TradingAllowedBalance = 1.23m,
                 OperationAllowedBalance = 12.3m,
                 Balance = 2.36m

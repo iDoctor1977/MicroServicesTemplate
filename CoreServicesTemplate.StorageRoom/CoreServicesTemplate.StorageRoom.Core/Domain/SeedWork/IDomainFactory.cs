@@ -1,6 +1,6 @@
 ﻿namespace CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 
-public interface IAggregateFactory
+public interface IDomainFactory
 {
     TOut GenerateAggregate<TIn, TOut>(TIn model);
 }

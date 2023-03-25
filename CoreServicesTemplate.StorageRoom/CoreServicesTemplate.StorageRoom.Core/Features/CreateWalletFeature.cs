@@ -14,13 +14,13 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class CreateWalletFeature : ICreateWalletFeature
     {
-        private readonly IAggregateFactory _domainEntityFactory;
+        private readonly IDomainFactory _domainEntityFactory;
         private readonly IDefaultMapper<CreateWalletAppDto, CreateWalletModel> _walletMapper;
         private readonly ICreateWalletDepot _walletDepot;
         private readonly ILogger<CreateWalletFeature> _logger;
 
         public CreateWalletFeature(
-            IAggregateFactory domainEntityFactory,
+            IDomainFactory domainEntityFactory,
             IDefaultMapper<CreateWalletAppDto, CreateWalletModel> walletMapper,
             ICreateWalletDepot walletDepot, ILogger<CreateWalletFeature> logger)
         {

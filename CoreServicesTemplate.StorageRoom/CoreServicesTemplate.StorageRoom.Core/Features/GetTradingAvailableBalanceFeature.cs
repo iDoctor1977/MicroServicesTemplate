@@ -12,12 +12,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class GetTradingAvailableBalanceFeature : IGetTradingAvailableBalanceFeature
     {
-        private readonly IAggregateFactory _domainEntityFactory;
+        private readonly IDomainFactory _domainEntityFactory;
         private readonly IGetTradingAvailableBalanceDepot _walletDepot;
         private readonly ILogger<CreateWalletFeature> _logger;
 
         public GetTradingAvailableBalanceFeature(
-            IAggregateFactory domainEntityFactory,
+            IDomainFactory domainEntityFactory,
             IGetTradingAvailableBalanceDepot walletDepot,
             ILogger<CreateWalletFeature> logger)
         {

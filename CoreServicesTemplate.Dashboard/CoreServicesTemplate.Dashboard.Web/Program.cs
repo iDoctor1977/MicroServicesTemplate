@@ -1,11 +1,14 @@
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
+using CoreServicesTemplate.Dashboard.Common.Models.WalletItems;
 using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
 using CoreServicesTemplate.Dashboard.Core.Features;
 using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
 using CoreServicesTemplate.Dashboard.Services;
+using CoreServicesTemplate.Dashboard.Web.CustomMappers.WalletItems;
 using CoreServicesTemplate.Dashboard.Web.CustomMappers.Wallets;
 using CoreServicesTemplate.Dashboard.Web.MapperProfiles;
+using CoreServicesTemplate.Dashboard.Web.Models.WalletItems;
 using CoreServicesTemplate.Dashboard.Web.Models.Wallets;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
@@ -26,8 +29,9 @@ builder.Services.AddTransient<IStorageRoomService, StorageRoomService>();
 #region Mapper
 
 builder.Services.AddTransient(typeof(IDefaultMapper<,>), typeof(DefaultMapper<,>));
-
-builder.Services.AddTransient(typeof(ICustomMapper<CreateWalletViewModel, CreateWalletAppModel>), typeof(WalletWebCustomMapper));
+builder.Services.AddTransient(typeof(ICustomMapper<CreateWalletViewModel, CreateWalletAppModel>), typeof(CreateWalletWebCustomMapper));
+builder.Services.AddTransient(typeof(ICustomMapper<WalletViewModel, WalletAppModel>), typeof(WalletWebCustomMapper));
+builder.Services.AddTransient(typeof(ICustomMapper<CreateWalletItemViewModel, WalletItemAppModel>), typeof(CreateWalletItemsWebCustomMapper));
 
 #endregion
 

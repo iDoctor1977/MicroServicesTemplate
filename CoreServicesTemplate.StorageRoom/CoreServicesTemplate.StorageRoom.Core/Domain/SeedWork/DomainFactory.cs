@@ -2,11 +2,11 @@
 
 namespace CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 
-public class AggregateFactory : IAggregateFactory
+public class DomainFactory : IDomainFactory
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public AggregateFactory(IServiceProvider serviceProvider)
+    public DomainFactory(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
     }

@@ -1,7 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
+using CoreServicesTemplate.Shared.Core.Dtos.Wallet;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
-using CoreServicesTemplate.Shared.Core.Models;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using FluentAssertions;
@@ -83,7 +83,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
 
             var walletDto = new CreateWalletApiDto
             {
-                OwnerGuid = og,
                 TradingAllowedBalance = t,
                 OperationAllowedBalance = o,
                 Balance = b
@@ -122,7 +121,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
 
             var walletDto = new CreateWalletApiDto
             {
-                OwnerGuid = og,
                 TradingAllowedBalance = t,
                 OperationAllowedBalance = o,
                 Balance = b

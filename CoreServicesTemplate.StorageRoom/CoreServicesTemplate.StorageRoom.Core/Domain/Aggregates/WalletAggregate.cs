@@ -18,14 +18,14 @@ public class WalletAggregate
     public decimal Performance { get; private set; }
     public ICollection<WalletItemAggregate> WalletItems { get; private set; }
 
-    private readonly IAggregateFactory _domainEntityFactory;
+    private readonly IDomainFactory _domainEntityFactory;
     private readonly IDefaultMapper<WalletModel, WalletAggregate> _walletMapper;
     private readonly ILogger<WalletAggregate> _logger;
 
     #region Aggregate construction instance
 
     private WalletAggregate(
-        IAggregateFactory domainEntityFactory,
+        IDomainFactory domainEntityFactory,
         IDefaultMapper<WalletModel, WalletAggregate> walletMapper,
         ILogger<WalletAggregate> logger)
     {
@@ -44,7 +44,7 @@ public class WalletAggregate
     /// <param name="logger"></param>
     /// <param name="model"></param>
     public WalletAggregate(
-        IAggregateFactory domainEntityFactory,
+        IDomainFactory domainEntityFactory,
         IDefaultMapper<CreateWalletModel, WalletAggregate> createWalletMapper,
         IDefaultMapper<WalletModel, WalletAggregate> walletMapper,
         ILogger<WalletAggregate> logger,
@@ -66,7 +66,7 @@ public class WalletAggregate
     /// <param name="model"></param>
     /// <exception cref="DomainValidationException{T}"></exception>
     public WalletAggregate(
-        IAggregateFactory domainEntityFactory,
+        IDomainFactory domainEntityFactory,
         IDefaultMapper<WalletModel, WalletAggregate> walletMapper,
         ILogger<WalletAggregate> logger,
         WalletModel model) : this(domainEntityFactory, walletMapper, logger)
@@ -84,11 +84,12 @@ public class WalletAggregate
 
         try
         {
-            model.WalletItems.ToList().ForEach(wa => WalletItems.Add(_domainEntityFactory.GenerateAggregate<WalletItemModel, WalletItemAggregate>(wa)));
+           WalletItems = model.WalletItems.Select(wa => _domainEntityFactory.GenerateAggregate<WalletItemModel, WalletItemAggregate>(wa)).ToList();
         }
         catch (DomainValidationException<WalletItemAggregate> e)
         {
             _logger.LogCritical($"{GetType().Name}: {e.Message}");
+
             throw new DomainValidationException<WalletAggregate>("Wallet item generation failed", e);
         }
 
@@ -97,13 +98,13 @@ public class WalletAggregate
 
     private void SharedConstruction(BaseWalletModel model)
     {
-        if (model.Balance <= 0)
-        {
-            throw new DomainValidationException<WalletAggregate>("Balance is not valid");
-        }
         if (model.OwnerGuid == Guid.Empty || model.Equals(null))
         {
             throw new DomainValidationException<WalletAggregate>("Owner guid is not valid");
+        }
+        if (model.Balance <= 0)
+        {
+            throw new DomainValidationException<WalletAggregate>("Balance is not valid");
         }
         if (model.TradingAllowedBalance <= 0)
         {
@@ -136,7 +137,7 @@ public class WalletAggregate
     {
         var toModel = _walletMapper.Map(this);
 
-        WalletItems.ToList().ForEach(wi => toModel.WalletItems.Add(wi.ToWalletModel()));
+        WalletItems.ToList().ForEach(wi => toModel.WalletItems.Add(wi.ToWalletItemModel()));
 
         return toModel;
     }

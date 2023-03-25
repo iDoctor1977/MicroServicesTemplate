@@ -28,7 +28,7 @@ builder.Services.AddTransient<ICreateWalletFeature, CreateWalletFeature>();
 builder.Services.AddTransient<IGetTradingAvailableBalanceFeature, GetTradingAvailableBalanceFeature>();
 builder.Services.AddTransient<IGetWalletItemsFeature, GetWalletItemsFeature>();
 
-builder.Services.AddTransient<IAggregateFactory, AggregateFactory>();
+builder.Services.AddTransient<IDomainFactory, DomainFactory>();
 
 builder.Services.AddTransient<ICreateWalletDepot, CreateWalletEfDepot>();
 builder.Services.AddTransient<IGetTradingAvailableBalanceDepot, GetTradingAvailableBalanceEfDepot>();

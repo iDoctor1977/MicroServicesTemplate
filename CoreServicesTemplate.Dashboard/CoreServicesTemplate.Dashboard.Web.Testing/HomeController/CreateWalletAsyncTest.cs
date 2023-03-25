@@ -7,7 +7,6 @@ using CoreServicesTemplate.Dashboard.Web.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Dtos.Wallet;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;

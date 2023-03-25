@@ -92,7 +92,7 @@ public class WalletItemAggregate
 
     #endregion
 
-    public WalletItemModel ToWalletModel()
+    public WalletItemModel ToWalletItemModel()
     {
         var toModel = _walletItemMapper.Map(this);
 
