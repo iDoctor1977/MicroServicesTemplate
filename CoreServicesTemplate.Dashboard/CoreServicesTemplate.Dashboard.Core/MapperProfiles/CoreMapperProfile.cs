@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CoreServicesTemplate.Dashboard.Common.Models;
-using CoreServicesTemplate.Shared.Core.Models;
+using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
+using CoreServicesTemplate.Shared.Core.Dtos.Wallet;
 
 namespace CoreServicesTemplate.Dashboard.Core.MapperProfiles
 {
@@ -8,8 +8,8 @@ namespace CoreServicesTemplate.Dashboard.Core.MapperProfiles
     {
         public CoreMapperProfile()
         {
-            CreateMap<UserAppModel, UserApiModel>().ReverseMap();
-            CreateMap<UsersAppModel, UsersApiModel>().ReverseMap();
+            CreateMap<CreateWalletAppModel, CreateWalletApiDto>().ReverseMap();
+            CreateMap<WalletAppModel, WalletApiDto>().ReverseMap();
         }
     }
 }

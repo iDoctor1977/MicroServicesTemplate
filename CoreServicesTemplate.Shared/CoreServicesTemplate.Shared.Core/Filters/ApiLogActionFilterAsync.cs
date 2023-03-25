@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CoreServicesTemplate.Shared.Core.Models;
+using CoreServicesTemplate.Shared.Core.Dtos;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -19,7 +19,7 @@ namespace CoreServicesTemplate.Shared.Core.Filters
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             // Do something before the action executes.
-            var logApiModel = new LogApiModel
+            var logApiModel = new LogApiDto
             {
                 LogTime = DateTime.Now,
                 IpAddress = context.HttpContext.Connection.RemoteIpAddress?.ToString(),

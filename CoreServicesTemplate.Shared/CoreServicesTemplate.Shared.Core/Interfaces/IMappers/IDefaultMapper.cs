@@ -1,9 +1,13 @@
-﻿namespace CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using System.Collections.Generic;
+
+namespace CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 
 public interface IDefaultMapper<TIn, TOut>
 {
-    TOut Map(TIn @in);
-    TIn Map(TOut @out);
-    TOut Map(TIn @in, TOut @out);
-    TIn Map(TOut @out, TIn @in);
+    TOut Map(TIn viewModel);
+    TIn Map(TOut appModel);
+    TOut Map(TIn viewModel, TOut @out);
+    TIn Map(TOut appModel, TIn @in);
+    ICollection<TOut> Map(ICollection<TIn> sourceCollection);
+    ICollection<TIn> Map(ICollection<TOut> sourceCollection);
 }

@@ -1,6 +1,4 @@
-﻿using CoreServicesTemplate.StorageRoom.Common.AppModels;
-
-namespace CoreServicesTemplate.StorageRoom.Core.Interfaces;
+﻿namespace CoreServicesTemplate.StorageRoom.Core.Interfaces;
 
 public interface ISubStepSupplier
 {

@@ -1,22 +1,32 @@
 ﻿using System.Net.Http.Json;
+using CoreServicesTemplate.Shared.Core.Dtos.Wallet;
+using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
-using CoreServicesTemplate.Shared.Core.Models;
-using CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter.Fixtures;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
 {
-    public class OnActionExecutionAsyncTests : IClassFixture<ApiLogCustomWebApplicationFactory<Program>>
+    public class OnActionExecutionAsyncTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
-        private readonly ApiLogCustomWebApplicationFactory<Program> _factory;
 
-        public OnActionExecutionAsyncTests(ApiLogCustomWebApplicationFactory<Program> factory)
+        private Mock<ILogger<ApiLogActionFilterAsync>> LoggerMock { get; set; }
+
+        public OnActionExecutionAsyncTests(WebApplicationFactory<Program> factory)
         {
-            _factory = factory;
-            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            LoggerMock = new Mock<ILogger<ApiLogActionFilterAsync>>();
+
+            _client = factory.WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureTestServices(services =>
+                {
+                    services.AddTransient(provider => LoggerMock.Object);
+                });
+            }).CreateClient(new WebApplicationFactoryClientOptions
             {
                 AllowAutoRedirect = false
             });
@@ -26,19 +36,18 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
         public async Task Should_LogTheCallToAnyAction()
         {
             //Arrange
-            var apiModel = new UserApiModel
+            var apiModel = new CreateWalletApiDto
             {
-                Name = "Foo",
-                Surname = "Foo Foo",
-                Birth = DateTime.Now.AddDays(-14000)
+                TradingAllowedBalance = 1.23m,
+                OperationAllowedBalance = 12.3m,
+                Balance = 2.36m
             };
 
             //Act
-            var url = ApiUrl.StorageRoom.User.AddUserToStorageRoom();
-            await _client.PostAsJsonAsync($"{url}/{apiModel}", apiModel);
+            await _client.PostAsJsonAsync(ApiUrl.StorageRoom.Wallet.CreateWalletToStorageRoom(), apiModel);
 
             //Assert
-            _factory.LoggerMock.Verify(x => x.Log(LogLevel.Information,
+            LoggerMock.Verify(x => x.Log(LogLevel.Information,
                     It.IsAny<EventId>(),
                     It.IsAny<It.IsAnyType>(),
                     It.IsAny<Exception>(),

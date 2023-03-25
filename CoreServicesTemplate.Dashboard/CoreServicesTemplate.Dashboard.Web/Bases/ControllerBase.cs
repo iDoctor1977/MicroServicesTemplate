@@ -6,11 +6,11 @@ namespace CoreServicesTemplate.Dashboard.Web.Bases
 {
     public class ControllerBase<T> : Controller where T : Controller
     {
-        private readonly ILogger<T> _logger;
+        protected readonly ILogger<T> Logger;
 
         public ControllerBase(ILogger<T> logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,9 +1,6 @@
 ﻿using CoreServicesTemplate.Shared.Core.Attributes;
 using CoreServicesTemplate.Shared.Core.Builders;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
-using CoreServicesTemplate.StorageRoom.Common.AggModels;
-using CoreServicesTemplate.StorageRoom.Common.AppModels;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser
 {

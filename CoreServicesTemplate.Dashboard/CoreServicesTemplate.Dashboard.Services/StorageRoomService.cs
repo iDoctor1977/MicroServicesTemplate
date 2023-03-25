@@ -1,7 +1,8 @@
 using System.Net.Http.Json;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
+using CoreServicesTemplate.Shared.Core.Dtos.Wallet;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
-using CoreServicesTemplate.Shared.Core.Models;
+using CoreServicesTemplate.Shared.Core.Results;
 
 namespace CoreServicesTemplate.Dashboard.Services
 {
@@ -14,32 +15,27 @@ namespace CoreServicesTemplate.Dashboard.Services
             _client = new HttpClient();
         }
 
-        public async Task<HttpResponseMessage> AddUserAsync(UserApiModel apiModel)
+        public async Task<OperationResult<HttpResponseMessage>> PostWalletAsync(CreateWalletApiDto apiModel)
         {
             //HTTP POST
-            var url = ApiUrl.StorageRoom.User.AddUserToStorageRoom();
+            var url = ApiUrl.StorageRoom.Wallet.CreateWalletToStorageRoom();
             var responseMessage = await _client.PostAsJsonAsync($"{url}/{apiModel}", apiModel);
 
-            return responseMessage;
+            return new OperationResult<HttpResponseMessage>(responseMessage);
         }
 
-        public HttpResponseMessage AddUser(UserApiModel apiModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<UsersApiModel> GetUsersAsync()
+        public async Task<OperationResult<WalletApiDto>> GetWalletAsync(Guid ownerGuid)
         {
             //HTTP GET
-            var url = ApiUrl.StorageRoom.User.GetAllUserToStorageRoom();
-            var apiModel = await _client.GetFromJsonAsync<UsersApiModel>(url);
+            var url = ApiUrl.StorageRoom.Wallet.GetWalletToStorageRoom();
+            var apiModel = await _client.GetFromJsonAsync<WalletApiDto>($"{url}/{ownerGuid}");
 
-            return apiModel;
-        }
+            if (apiModel != null)
+            {
+                return new OperationResult<WalletApiDto>(apiModel);
+            };
 
-        public UsersApiModel GetUsers()
-        {
-            throw new NotImplementedException();
+            return new OperationResult<WalletApiDto>("Api return value is not valid.");
         }
     }
 }

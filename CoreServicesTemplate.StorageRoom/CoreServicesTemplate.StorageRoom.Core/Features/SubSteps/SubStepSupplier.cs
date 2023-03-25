@@ -1,5 +1,4 @@
-﻿using CoreServicesTemplate.StorageRoom.Common.AppModels;
-using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
+﻿using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.AddUser;
 using CoreServicesTemplate.StorageRoom.Core.Features.SubSteps.GetUser;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features.SubSteps
