@@ -3,7 +3,7 @@ using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.WalletItem;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.Builders
 {
-    public class WalletModelBuilderBuilder : ICreateWalletModelAdded, IWalletModelAdded
+    public class WalletModelBuilder : ICreateWalletModelAdded, IWalletModelAdded
     {
         private ICollection<CreateWalletModel> _createWalletModels;
         private ICollection<WalletModel> _walletModels;

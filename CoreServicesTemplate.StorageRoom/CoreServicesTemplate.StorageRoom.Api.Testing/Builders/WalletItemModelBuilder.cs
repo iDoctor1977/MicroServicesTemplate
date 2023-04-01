@@ -21,19 +21,21 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Builders
             set => _walletItemModels = value;
         }
 
-        private CreateWalletItemModel CreateWalletItemModel(decimal buyPrice, DateTime buyDate, int quantity)
+        private CreateWalletItemModel CreateWalletItemModel(string extTicker, Guid extMarketItemGuid, decimal buyPrice, DateTime buyDate, int quantity)
         {
             var createWalletItemModel = new CreateWalletItemModel
             {
                 BuyPrice = buyPrice,
                 BuyDate = buyDate,
-                Quantity = quantity
+                Quantity = quantity,
+                ExtTicker = extTicker,
+                ExtMarketItemGuid = extMarketItemGuid
             };
 
             return createWalletItemModel;
         }
 
-        private WalletItemModel UpdateWalletItemModel(decimal buyPrice, DateTime buyDate, int quantity, decimal amount, DateTime dateUpdated)
+        private WalletItemModel UpdateWalletItemModel(string extTicker, Guid extMarketItemGuid, decimal buyPrice, DateTime buyDate, int quantity, decimal amount, DateTime dateUpdated)
         {
             var walletModel = new WalletItemModel
             {
@@ -43,31 +45,33 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Builders
                 Quantity = quantity,
                 Amount = amount,
                 DateUpdated = dateUpdated,
+                ExtTicker = extTicker,
+                ExtMarketItemGuid = extMarketItemGuid
             };
 
             return walletModel;
         }
 
-        public ICreateWalletItemModelAdded AddCreateWalletItemModel(decimal buyPrice, DateTime buyDate, int quantity)
+        public ICreateWalletItemModelAdded AddCreateWalletItemModel(string extTicker, Guid extMarketItemGuid, decimal buyPrice, DateTime buyDate, int quantity)
         {
-            var walletModel = CreateWalletItemModel(buyPrice, buyDate, quantity);
+            var walletModel = CreateWalletItemModel(extTicker, extMarketItemGuid, buyPrice, buyDate, quantity);
 
             CreateWalletItemModels.Add(walletModel);
 
             return this;
         }
 
-        public IWalletItemModelAdded AddUpdateWalletItemModel(decimal buyPrice, DateTime buyDate, int quantity, decimal amount, DateTime dateUpdated)
+        public IWalletItemModelAdded AddUpdateWalletItemModel(string extTicker, Guid extMarketItemGuid, decimal buyPrice, DateTime buyDate, int quantity, decimal amount, DateTime dateUpdated)
         {
-            var walletModel = UpdateWalletItemModel(buyPrice, buyDate, quantity, amount, dateUpdated);
+            var walletModel = UpdateWalletItemModel(extTicker, extMarketItemGuid, buyPrice, buyDate, quantity, amount, dateUpdated);
 
             WalletItemModels.Add(walletModel);
 
             return this;
         }
-        public IWalletItemModelAdded AddUpdateWalletItemModel(decimal amount)
+        public IWalletItemModelAdded AddUpdateWalletItemModel(string extTicker, Guid extMarketItemGuid, decimal amount)
         {
-            var walletModel = UpdateWalletItemModel(Decimal.One, DateTime.Now, 1, amount, DateTime.Now);
+            var walletModel = UpdateWalletItemModel(extTicker, extMarketItemGuid, Decimal.One, DateTime.Now, 1, amount, DateTime.Now);
 
             WalletItemModels.Add(walletModel);
 
@@ -93,13 +97,13 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Builders
 
     public interface ICreateWalletItemModelBuilder
     {
-        ICreateWalletItemModelAdded AddCreateWalletItemModel(decimal buyPrice, DateTime buyDate, int quantity);
+        ICreateWalletItemModelAdded AddCreateWalletItemModel(string ticker, Guid extMarketItemGuid, decimal buyPrice, DateTime buyDate, int quantity);
     }
 
     public interface IWalletItemModelBuilder
     {
-        IWalletItemModelAdded AddUpdateWalletItemModel(decimal amount);
-        IWalletItemModelAdded AddUpdateWalletItemModel(decimal buyPrice, DateTime buyDate, int quantity, decimal amount, DateTime dateUpdated);
+        IWalletItemModelAdded AddUpdateWalletItemModel(string ticker, Guid extMarketItemGuid, decimal amount);
+        IWalletItemModelAdded AddUpdateWalletItemModel(string ticker, Guid extMarketItemGuid, decimal buyPrice, DateTime buyDate, int quantity, decimal amount, DateTime dateUpdated);
     }
 
     public interface ICreateWalletItemModelAdded : ICreateWalletItemModelBuilder

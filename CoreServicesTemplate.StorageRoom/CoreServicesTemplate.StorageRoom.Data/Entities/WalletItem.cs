@@ -10,5 +10,8 @@
 
         public int ExtWalletId { get; set; }
         public virtual Wallet ExtWallet { get; set; }
+
+        public string ExtTicker { get; set; }
+        public Guid ExtMarketItemGuid { get; set; }
     }
 }

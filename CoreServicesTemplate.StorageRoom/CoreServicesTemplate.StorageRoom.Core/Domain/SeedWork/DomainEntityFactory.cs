@@ -2,11 +2,11 @@
 
 namespace CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 
-public class DomainFactory : IDomainFactory
+public class DomainEntityFactory : IDomainEntityFactory
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public DomainFactory(IServiceProvider serviceProvider)
+    public DomainEntityFactory(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
     }

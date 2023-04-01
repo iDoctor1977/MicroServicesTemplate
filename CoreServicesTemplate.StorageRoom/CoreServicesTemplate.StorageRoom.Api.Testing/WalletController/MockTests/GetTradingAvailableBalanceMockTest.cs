@@ -83,15 +83,15 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController.MockTest
             foreach (var walletItemValue in walletItemsValues)
             {
                 var walletItemModels = walletItemModelBuilder
-                    .AddUpdateWalletItemModel(walletItemValue.Value[0])
-                    .AddUpdateWalletItemModel(walletItemValue.Value[1])
-                    .AddUpdateWalletItemModel(walletItemValue.Value[2])
+                    .AddUpdateWalletItemModel("A2A", Guid.NewGuid(), walletItemValue.Value[0])
+                    .AddUpdateWalletItemModel("Ferrari", Guid.NewGuid(), walletItemValue.Value[1])
+                    .AddUpdateWalletItemModel("Hera", Guid.NewGuid(), walletItemValue.Value[2])
                     .Build();
 
                 walletItems.Add(walletItemValue.Key, walletItemModels);
             }
 
-            IWalletModelBuilder walletBuilder = new WalletModelBuilderBuilder();
+            IWalletModelBuilder walletBuilder = new WalletModelBuilder();
             var walletModels = walletBuilder
                 .AddUpdateWalletModel(ownerGuid[0], 400m, walletItems[ownerGuid[0]])
                 .AddUpdateWalletModel(ownerGuid[1], 2000m, walletItems[ownerGuid[1]])

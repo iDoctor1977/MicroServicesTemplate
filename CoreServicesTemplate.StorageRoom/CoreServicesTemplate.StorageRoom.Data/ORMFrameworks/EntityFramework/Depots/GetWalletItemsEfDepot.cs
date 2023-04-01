@@ -11,17 +11,17 @@ using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots
 {
-    public class GetWalletItemsDepot : UnitOfWorkDepotBase, IGetWalletItemsDepot
+    public class GetWalletItemsEfDepot : UnitOfWorkDepotBase, IGetWalletItemsEfDepot
     {
         private readonly IDefaultMapper<WalletItemModel, WalletItem> _walletItemMapper;
         private readonly IWalletItemRepository _walletItemRepository;
-        private readonly ILogger<GetWalletItemsDepot> _logger;
+        private readonly ILogger<GetWalletItemsEfDepot> _logger;
 
-        public GetWalletItemsDepot(
+        public GetWalletItemsEfDepot(
             IAppDbContext dbContext,
             IRepositoryFactory repositoryFactory,
             IDefaultMapper<WalletItemModel, WalletItem> walletItemMapper,
-            ILogger<GetWalletItemsDepot> logger) : base(repositoryFactory, dbContext)
+            ILogger<GetWalletItemsEfDepot> logger) : base(repositoryFactory, dbContext)
         {
             _walletItemMapper = walletItemMapper;
             _walletItemRepository = RepositoryFactory.GenerateCustomRepository<IWalletItemRepository>(dbContext);

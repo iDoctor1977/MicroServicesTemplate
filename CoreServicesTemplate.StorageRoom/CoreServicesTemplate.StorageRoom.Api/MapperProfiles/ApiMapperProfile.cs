@@ -10,8 +10,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.MapperProfiles
     {
         public ApiMapperProfile()
         {
-            CreateMap<CreateWalletApiDto, CreateWalletAppDto>().ReverseMap();
-            CreateMap<WalletItemApiDto, WalletItemAppDto>().ReverseMap();
+            CreateMap<CreateWalletApiDto, CreateNewWalletAppDto>().ReverseMap();
+            CreateMap<WalletItemApiDto, ResponseWalletItemsAppDto>().ReverseMap();
         }
     }
 }

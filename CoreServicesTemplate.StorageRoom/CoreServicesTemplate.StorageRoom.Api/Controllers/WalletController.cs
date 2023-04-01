@@ -8,26 +8,28 @@ using Microsoft.AspNetCore.Mvc;
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 {
     [ApiController]
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [Route("api/storageroom/[controller]")]
     public class WalletController : ControllerBase
     {
-        private readonly ICreateWalletFeature _createWalletFeature;
+        private readonly ICreateNewWalletFeature _createNewWalletFeature;
         private readonly IGetTradingAvailableBalanceFeature _availableBalanceFeature;
-        private readonly IDefaultMapper<CreateWalletApiDto, CreateWalletAppDto> _customMapper;
+        private readonly IDefaultMapper<CreateWalletApiDto, CreateNewWalletAppDto> _customMapper;
         private readonly ILogger<WalletController> _logger;
 
         public WalletController(
-            ICreateWalletFeature createWalletFeature,
+            ICreateNewWalletFeature createNewWalletFeature,
             IGetTradingAvailableBalanceFeature availableBalanceFeature,
-            IDefaultMapper<CreateWalletApiDto, CreateWalletAppDto> customMapper, 
+            IDefaultMapper<CreateWalletApiDto, CreateNewWalletAppDto> customMapper, 
             ILogger<WalletController> logger)
         {
-            _createWalletFeature = createWalletFeature;
+            _createNewWalletFeature = createNewWalletFeature;
             _customMapper = customMapper;
             _availableBalanceFeature = availableBalanceFeature;
             _logger = logger;
         }
 
+        // POST api/storageroom/wallet/{dto}
         [HttpPost("{walletDto}")]
         public async Task<ActionResult> Post(CreateWalletApiDto walletDto)
         {
@@ -42,7 +44,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
             var model = _customMapper.Map(walletDto);
 
-            var operationResult = await _createWalletFeature.ExecuteAsync(model);
+            var operationResult = await _createNewWalletFeature.ExecuteAsync(model);
 
             if (operationResult.State.Equals(OutcomeState.Success))
             {
@@ -55,6 +57,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             return UnprocessableEntity(operationResult.Message);
         }
 
+        // GET api/storageroom/wallet/{ownerGuid}
         [HttpGet("{ownerGuid}")]
         public async Task<ActionResult<decimal>> Get(Guid ownerGuid)
         {
@@ -78,6 +81,27 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
             }
 
             return UnprocessableEntity(operationResult.Message);
+        }
+
+        // GET api/storageroom/wallet
+        [HttpGet]
+        public ActionResult<IEnumerable<string>> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
+
+        // PUT api/storageroom/wallet/5
+        [HttpPut("{id}")]
+        public Task Put(int id, [FromBody] string value)
+        {
+            return Task.CompletedTask;
+        }
+
+        // DELETE api/storageroom/wallet/5
+        [HttpDelete("{id}")]
+        public Task Delete(int id)
+        {
+            return Task.CompletedTask;
         }
     }
 }

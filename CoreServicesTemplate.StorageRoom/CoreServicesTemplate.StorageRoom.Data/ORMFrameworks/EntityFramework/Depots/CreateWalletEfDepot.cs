@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots;
 
-public class CreateWalletEfDepot: UnitOfWorkDepotBase, ICreateWalletDepot
+public class CreateWalletEfDepot: UnitOfWorkDepotBase, ICreateNewWalletDepot
 {
     private readonly IDefaultMapper<WalletModel, Entities.Wallet> _defaultWalletMapper;
     private readonly IWalletRepository _walletRepository;

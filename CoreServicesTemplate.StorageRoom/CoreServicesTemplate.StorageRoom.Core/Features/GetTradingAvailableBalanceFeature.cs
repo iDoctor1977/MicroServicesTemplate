@@ -12,16 +12,16 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class GetTradingAvailableBalanceFeature : IGetTradingAvailableBalanceFeature
     {
-        private readonly IDomainFactory _domainEntityFactory;
+        private readonly IDomainEntityFactory _domainEntityEntityFactory;
         private readonly IGetTradingAvailableBalanceDepot _walletDepot;
-        private readonly ILogger<CreateWalletFeature> _logger;
+        private readonly ILogger<CreateNewWalletFeature> _logger;
 
         public GetTradingAvailableBalanceFeature(
-            IDomainFactory domainEntityFactory,
+            IDomainEntityFactory domainEntityEntityFactory,
             IGetTradingAvailableBalanceDepot walletDepot,
-            ILogger<CreateWalletFeature> logger)
+            ILogger<CreateNewWalletFeature> logger)
         {
-            _domainEntityFactory = domainEntityFactory;
+            _domainEntityEntityFactory = domainEntityEntityFactory;
             _walletDepot = walletDepot;
             _logger = logger;
         }
@@ -48,7 +48,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             {
                 if (walletModel != null)
                 {
-                    var walletDomainEntity = _domainEntityFactory.GenerateAggregate<WalletModel, WalletAggregate>(walletModel);
+                    var walletDomainEntity = _domainEntityEntityFactory.GenerateAggregate<WalletModel, WalletAggregate>(walletModel);
                     tradingAllowed = walletDomainEntity.CalculateTradingAvailableBalance();
 
                     return new OperationResult<decimal>(OutcomeState.Success, tradingAllowed);

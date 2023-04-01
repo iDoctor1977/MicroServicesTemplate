@@ -13,19 +13,18 @@ public class WalletAggregate
     public Guid OwnerGuid { get; private set; }
     public decimal TradingAllowedBalance { get; private set; }
     public decimal OperationAllowedBalance { get; private set; }
-    public int MaxCommodities { get; private set; }
     public decimal Balance { get; private set; }
     public decimal Performance { get; private set; }
-    public ICollection<WalletItemAggregate> WalletItems { get; private set; }
+    public ICollection<WalletItemEntity> WalletItems { get; private set; }
 
-    private readonly IDomainFactory _domainEntityFactory;
+    private readonly IDomainEntityFactory _domainEntityFactory;
     private readonly IDefaultMapper<WalletModel, WalletAggregate> _walletMapper;
     private readonly ILogger<WalletAggregate> _logger;
 
     #region Aggregate construction instance
 
     private WalletAggregate(
-        IDomainFactory domainEntityFactory,
+        IDomainEntityFactory domainEntityFactory,
         IDefaultMapper<WalletModel, WalletAggregate> walletMapper,
         ILogger<WalletAggregate> logger)
     {
@@ -33,7 +32,7 @@ public class WalletAggregate
         _domainEntityFactory = domainEntityFactory;
         _logger = logger;
 
-        WalletItems = new List<WalletItemAggregate>();
+        WalletItems = new List<WalletItemEntity>();
     }
 
     /// <summary>
@@ -44,7 +43,7 @@ public class WalletAggregate
     /// <param name="logger"></param>
     /// <param name="model"></param>
     public WalletAggregate(
-        IDomainFactory domainEntityFactory,
+        IDomainEntityFactory domainEntityFactory,
         IDefaultMapper<CreateWalletModel, WalletAggregate> createWalletMapper,
         IDefaultMapper<WalletModel, WalletAggregate> walletMapper,
         ILogger<WalletAggregate> logger,
@@ -66,7 +65,7 @@ public class WalletAggregate
     /// <param name="model"></param>
     /// <exception cref="DomainValidationException{T}"></exception>
     public WalletAggregate(
-        IDomainFactory domainEntityFactory,
+        IDomainEntityFactory domainEntityFactory,
         IDefaultMapper<WalletModel, WalletAggregate> walletMapper,
         ILogger<WalletAggregate> logger,
         WalletModel model) : this(domainEntityFactory, walletMapper, logger)
@@ -84,9 +83,9 @@ public class WalletAggregate
 
         try
         {
-           WalletItems = model.WalletItems.Select(wa => _domainEntityFactory.GenerateAggregate<WalletItemModel, WalletItemAggregate>(wa)).ToList();
+           WalletItems = model.WalletItems.Select(wa => _domainEntityFactory.GenerateAggregate<WalletItemModel, WalletItemEntity>(wa)).ToList();
         }
-        catch (DomainValidationException<WalletItemAggregate> e)
+        catch (DomainValidationException<WalletItemEntity> e)
         {
             _logger.LogCritical($"{GetType().Name}: {e.Message}");
 
@@ -96,15 +95,15 @@ public class WalletAggregate
         _walletMapper.Map(model, this);
     }
 
-    private void SharedConstruction(BaseWalletModel model)
+    private void SharedConstruction(WalletModelBase model)
     {
-        if (model.OwnerGuid == Guid.Empty || model.Equals(null))
-        {
-            throw new DomainValidationException<WalletAggregate>("Owner guid is not valid");
-        }
         if (model.Balance <= 0)
         {
             throw new DomainValidationException<WalletAggregate>("Balance is not valid");
+        }
+        if (model.OwnerGuid == Guid.Empty || model.Equals(null))
+        {
+            throw new DomainValidationException<WalletAggregate>("Owner guid is not valid");
         }
         if (model.TradingAllowedBalance <= 0)
         {

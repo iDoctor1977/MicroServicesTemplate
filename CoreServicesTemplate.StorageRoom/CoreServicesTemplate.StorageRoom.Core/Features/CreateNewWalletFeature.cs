@@ -12,25 +12,25 @@ using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
-    public class CreateWalletFeature : ICreateWalletFeature
+    public class CreateNewWalletFeature : ICreateNewWalletFeature
     {
-        private readonly IDomainFactory _domainEntityFactory;
-        private readonly IDefaultMapper<CreateWalletAppDto, CreateWalletModel> _walletMapper;
-        private readonly ICreateWalletDepot _walletDepot;
-        private readonly ILogger<CreateWalletFeature> _logger;
+        private readonly IDomainEntityFactory _domainEntityEntityFactory;
+        private readonly IDefaultMapper<CreateNewWalletAppDto, CreateWalletModel> _walletMapper;
+        private readonly ICreateNewWalletDepot _walletDepot;
+        private readonly ILogger<CreateNewWalletFeature> _logger;
 
-        public CreateWalletFeature(
-            IDomainFactory domainEntityFactory,
-            IDefaultMapper<CreateWalletAppDto, CreateWalletModel> walletMapper,
-            ICreateWalletDepot walletDepot, ILogger<CreateWalletFeature> logger)
+        public CreateNewWalletFeature(
+            IDomainEntityFactory domainEntityEntityFactory,
+            IDefaultMapper<CreateNewWalletAppDto, CreateWalletModel> walletMapper,
+            ICreateNewWalletDepot walletDepot, ILogger<CreateNewWalletFeature> logger)
         {
-            _domainEntityFactory = domainEntityFactory;
+            _domainEntityEntityFactory = domainEntityEntityFactory;
             _walletMapper = walletMapper;
             _walletDepot = walletDepot;
             _logger = logger;
         }
 
-        public async Task<OperationResult> ExecuteAsync(CreateWalletAppDto appDto)
+        public async Task<OperationResult> ExecuteAsync(CreateNewWalletAppDto appDto)
         {
             _logger.LogInformation("----- Create wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
@@ -39,7 +39,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             WalletAggregate walletDomainEntity;
             try
             {
-                walletDomainEntity = _domainEntityFactory.GenerateAggregate<CreateWalletModel, WalletAggregate>(baseWalletModel);
+                walletDomainEntity = _domainEntityEntityFactory.GenerateAggregate<CreateWalletModel, WalletAggregate>(baseWalletModel);
             }
             catch (DomainValidationException<WalletAggregate> e)
             {

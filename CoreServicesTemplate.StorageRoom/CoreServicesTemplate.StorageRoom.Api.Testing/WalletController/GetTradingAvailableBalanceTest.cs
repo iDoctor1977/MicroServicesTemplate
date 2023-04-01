@@ -61,7 +61,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
 
             if (dbContext != null && !dbContext.Database.EnsureCreatedAsync().Equals(null))
             {
-                dbContext.Wallets.Add(new Wallet
+                dbContext.Wallets.Add(new Data.Entities.Wallet
                 {
                     Guid = Guid.NewGuid(),
                     OwnerGuid = _ownerGuid,
@@ -72,20 +72,23 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
                     State = EntityState.Added,
                     DateCreated = DateTime.Now,
                     LastModifiedDate = DateTime.Now,
-                    ColWalletItems = new List<WalletItem>
-                    {
-                        new()
-                        {
-                            Guid = Guid.NewGuid(),
-                            Amount = 10.34m,
-                            BuyDate = DateTime.Now,
-                            BuyPrice = 1.52m,
-                            Quantity = 3,
-                            ExtWalletId = 1,
-                            DateUpdated = DateTime.Now
-                        }
-                    }
                 });
+
+                dbContext.SaveChanges();
+
+                dbContext.WalletItems.Add(
+                    new WalletItem
+                    {
+                        Guid = Guid.NewGuid(),
+                        Amount = 10.34m,
+                        BuyDate = DateTime.Now,
+                        BuyPrice = 1.52m,
+                        Quantity = 3,
+                        ExtWalletId = 1,
+                        DateUpdated = DateTime.Now,
+                        ExtTicker = "A2A",
+                        ExtMarketItemGuid = Guid.NewGuid()
+                    });
 
                 dbContext.SaveChanges();
             }

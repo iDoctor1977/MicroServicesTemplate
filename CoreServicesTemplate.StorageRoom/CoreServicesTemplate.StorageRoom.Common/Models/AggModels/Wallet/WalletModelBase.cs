@@ -1,6 +1,6 @@
 ﻿namespace CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
 
-public class BaseWalletModel
+public class WalletModelBase
 {
     public Guid OwnerGuid { get; set; }
     public decimal Balance { get; set; }

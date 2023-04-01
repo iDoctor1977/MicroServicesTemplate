@@ -24,17 +24,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region Injections
 
-builder.Services.AddTransient<ICreateWalletFeature, CreateWalletFeature>();
+builder.Services.AddTransient<ICreateNewWalletFeature, CreateNewWalletFeature>();
 builder.Services.AddTransient<IGetTradingAvailableBalanceFeature, GetTradingAvailableBalanceFeature>();
 builder.Services.AddTransient<IGetWalletItemsFeature, GetWalletItemsFeature>();
 
 
-builder.Services.AddTransient<IDomainFactory, DomainFactory>();
+builder.Services.AddTransient<IDomainEntityFactory, DomainEntityFactory>();
 
 
-builder.Services.AddTransient<ICreateWalletDepot, CreateWalletEfDepot>();
+builder.Services.AddTransient<ICreateNewWalletDepot, CreateWalletEfDepot>();
 builder.Services.AddTransient<IGetTradingAvailableBalanceDepot, GetTradingAvailableBalanceEfDepot>();
-builder.Services.AddTransient<IGetWalletItemsDepot, GetWalletItemsDepot>();
+builder.Services.AddTransient<IGetWalletItemsEfDepot, GetWalletItemsEfDepot>();
 
 builder.Services.AddTransient<IRepositoryFactory, RepositoryFactory>();
 

@@ -8,16 +8,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 {
     [ApiController]
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [Route("api/storageroom/[controller]")]
     public class WalletItemController : ControllerBase
     {
         private readonly IGetWalletItemsFeature _getWalletItemsFeature;
-        private readonly IDefaultMapper<WalletItemApiDto, WalletItemAppDto> _walletItemsMapper;
+        private readonly IDefaultMapper<WalletItemApiDto, ResponseWalletItemsAppDto> _walletItemsMapper;
         private readonly ILogger<WalletItemController> _logger;
 
         public WalletItemController(
             IGetWalletItemsFeature getWalletItemsFeature, 
-            IDefaultMapper<WalletItemApiDto, WalletItemAppDto> walletItemsMapper, 
+            IDefaultMapper<WalletItemApiDto, ResponseWalletItemsAppDto> walletItemsMapper, 
             ILogger<WalletItemController> logger)
         {
             _getWalletItemsFeature = getWalletItemsFeature;

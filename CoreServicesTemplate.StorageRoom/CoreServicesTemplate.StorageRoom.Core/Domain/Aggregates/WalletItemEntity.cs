@@ -4,7 +4,7 @@ using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
 
-public class WalletItemAggregate
+public class WalletItemEntity
 {
     public Guid Guid { get; private set; }
     public decimal Amount { get; private set; }
@@ -12,15 +12,17 @@ public class WalletItemAggregate
     public DateTime BuyDate { get; private set; }
     public int Quantity { get; private set; }
     public DateTime DateUpdated { get; private set; }
+    public string ExtTicker { get; private set; }
+    public Guid ExtMarketItemGuid { get; private set; }
 
-    private readonly IDefaultMapper<CreateWalletItemModel, WalletItemAggregate> _createWalletItemMapper;
-    private readonly IDefaultMapper<WalletItemModel, WalletItemAggregate> _walletItemMapper;
+    private readonly IDefaultMapper<CreateWalletItemModel, WalletItemEntity> _createWalletItemMapper;
+    private readonly IDefaultMapper<WalletItemModel, WalletItemEntity> _walletItemMapper;
 
     #region Aggregate construction instance
 
-    private WalletItemAggregate(
-    IDefaultMapper<CreateWalletItemModel, WalletItemAggregate> createWalletItemMapper,
-    IDefaultMapper<WalletItemModel, WalletItemAggregate> walletItemMapper)
+    private WalletItemEntity(
+    IDefaultMapper<CreateWalletItemModel, WalletItemEntity> createWalletItemMapper,
+    IDefaultMapper<WalletItemModel, WalletItemEntity> walletItemMapper)
     {
         _createWalletItemMapper = createWalletItemMapper;
         _walletItemMapper = walletItemMapper;
@@ -32,9 +34,9 @@ public class WalletItemAggregate
     /// <param name="createWalletItemMapper"></param>
     /// <param name="walletItemMapper"></param>
     /// <param name="model"></param>
-    public WalletItemAggregate(
-        IDefaultMapper<CreateWalletItemModel, WalletItemAggregate> createWalletItemMapper,
-        IDefaultMapper<WalletItemModel, WalletItemAggregate> walletItemMapper,
+    public WalletItemEntity(
+        IDefaultMapper<CreateWalletItemModel, WalletItemEntity> createWalletItemMapper,
+        IDefaultMapper<WalletItemModel, WalletItemEntity> walletItemMapper,
         CreateWalletItemModel model) : this(createWalletItemMapper, walletItemMapper)
     {
         SharedConstruction(model);
@@ -51,22 +53,26 @@ public class WalletItemAggregate
     /// <param name="walletItemMapper"></param>
     /// <param name="model"></param>
     /// <exception cref="DomainValidationException{T}"></exception>
-    public WalletItemAggregate(
-        IDefaultMapper<CreateWalletItemModel, WalletItemAggregate> createWalletItemMapper,
-        IDefaultMapper<WalletItemModel, WalletItemAggregate> walletItemMapper,
+    public WalletItemEntity(
+        IDefaultMapper<CreateWalletItemModel, WalletItemEntity> createWalletItemMapper,
+        IDefaultMapper<WalletItemModel, WalletItemEntity> walletItemMapper,
         WalletItemModel model) : this(createWalletItemMapper, walletItemMapper)
     {
+        if (model.ExtTicker.Equals(null))
+        {
+            throw new DomainValidationException<WalletItemEntity>("Ticker is not valid");
+        }
         if (model.Guid.Equals(null) || model.Guid == Guid.Empty)
         {
-            throw new DomainValidationException<WalletItemAggregate>("Guid is not valid");
+            throw new DomainValidationException<WalletItemEntity>("Guid is not valid");
         }
         if (model.Amount <= 0)
         {
-            throw new DomainValidationException<WalletItemAggregate>("Amount is not valid");
+            throw new DomainValidationException<WalletItemEntity>("Amount is not valid");
         }
         if (model.DateUpdated.Equals(DateTime.MinValue))
         {
-            throw new DomainValidationException<WalletItemAggregate>("Date updated is not valid");
+            throw new DomainValidationException<WalletItemEntity>("Date updated is not valid");
         }
 
         SharedConstruction(model);
@@ -74,19 +80,23 @@ public class WalletItemAggregate
         _walletItemMapper.Map(model, this);
     }
 
-    private void SharedConstruction(BaseWalletItemModel model)
+    private void SharedConstruction(WalletItemModelBase model)
     {
+        if (model.ExtMarketItemGuid.Equals(null) || model.ExtMarketItemGuid == Guid.Empty)
+        {
+            throw new DomainValidationException<WalletItemEntity>("Market item guid is not valid");
+        }
         if (model.BuyPrice <= 0)
         {
-            throw new DomainValidationException<WalletItemAggregate>("Buy price is not valid");
+            throw new DomainValidationException<WalletItemEntity>("Buy price is not valid");
         }
         if (model.Quantity <= 0)
         {
-            throw new DomainValidationException<WalletItemAggregate>("Quantity is not valid");
+            throw new DomainValidationException<WalletItemEntity>("Quantity is not valid");
         }
         if (model.BuyDate.Equals(DateTime.MinValue))
         {
-            throw new DomainValidationException<WalletItemAggregate>("Buy date is not valid");
+            throw new DomainValidationException<WalletItemEntity>("Buy date is not valid");
         }
     }
 

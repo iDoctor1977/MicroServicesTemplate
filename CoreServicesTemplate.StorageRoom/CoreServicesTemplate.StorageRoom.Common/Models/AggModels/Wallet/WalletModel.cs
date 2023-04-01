@@ -2,7 +2,7 @@
 
 namespace CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
 
-public class WalletModel : BaseWalletModel
+public class WalletModel : WalletModelBase
 {
     public Guid Guid { get; set; }
     public decimal Performance { get; set; }

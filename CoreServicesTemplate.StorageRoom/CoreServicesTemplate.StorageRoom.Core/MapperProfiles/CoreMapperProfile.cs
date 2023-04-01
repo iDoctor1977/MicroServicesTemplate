@@ -11,17 +11,17 @@ namespace CoreServicesTemplate.StorageRoom.Core.MapperProfiles
     {
         public CoreMapperProfile()
         {
-            CreateMap<CreateWalletAppDto, CreateWalletModel>().ReverseMap();
-            CreateMap<CreateWalletAppDto, WalletModel>().ReverseMap();
+            CreateMap<CreateNewWalletAppDto, CreateWalletModel>().ReverseMap();
+            CreateMap<CreateNewWalletAppDto, WalletModel>().ReverseMap();
 
             CreateMap<CreateWalletModel, WalletAggregate>().ReverseMap();
             CreateMap<WalletModel, WalletAggregate>()
                 .ForMember(x => x.WalletItems, opt => { opt.Ignore(); })
                 .ReverseMap();
 
-            CreateMap<CreateWalletItemModel, WalletItemAggregate>().ReverseMap();
-            CreateMap<WalletItemModel, WalletItemAggregate>().ReverseMap();
-            CreateMap<WalletItemAppDto, WalletItemModel>().ReverseMap();
+            CreateMap<CreateWalletItemModel, WalletItemEntity>().ReverseMap();
+            CreateMap<WalletItemModel, WalletItemEntity>().ReverseMap();
+            CreateMap<ResponseWalletItemsAppDto, WalletItemModel>().ReverseMap();
         }
     }
 }
