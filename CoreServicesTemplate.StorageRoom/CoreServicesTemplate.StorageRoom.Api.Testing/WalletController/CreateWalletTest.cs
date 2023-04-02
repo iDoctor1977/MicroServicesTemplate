@@ -40,7 +40,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
             // Arrange
             SeedDatabaseForTest();
 
-            var walletDto = new CreateWalletApiDto
+            var walletDto = new CreateNewWalletApiDto
             {
                 OwnerGuid = Guid.NewGuid(),
                 TradingAllowedBalance = 1.23m,
@@ -81,7 +81,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
             var o = Convert.ToDecimal(operationAllowedBalance);
             var b = Convert.ToDecimal(balance);
 
-            var walletDto = new CreateWalletApiDto
+            var walletDto = new CreateNewWalletApiDto
             {
                 TradingAllowedBalance = t,
                 OperationAllowedBalance = o,
@@ -119,7 +119,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
             var o = Convert.ToDecimal(operationAllowedBalance);
             var b = Convert.ToDecimal(balance);
 
-            var walletDto = new CreateWalletApiDto
+            var walletDto = new CreateNewWalletApiDto
             {
                 TradingAllowedBalance = t,
                 OperationAllowedBalance = o,

@@ -11,12 +11,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class GetWalletItemsFeature : IGetWalletItemsFeature
     {
-        private readonly IDefaultMapper<ResponseWalletItemsAppDto, WalletItemModel> _walletItemsMapper;
+        private readonly IDefaultMapper<WalletItemAppDto, WalletItemModel> _walletItemsMapper;
         private readonly IGetWalletItemsEfDepot _walletItemsEfDepot;
         private readonly ILogger<GetWalletItemsFeature> _logger;
 
         public GetWalletItemsFeature(
-            IDefaultMapper<ResponseWalletItemsAppDto, WalletItemModel> walletItemsMapper, 
+            IDefaultMapper<WalletItemAppDto, WalletItemModel> walletItemsMapper, 
             IGetWalletItemsEfDepot walletItemsEfDepot,
             ILogger<GetWalletItemsFeature> logger)
         {
@@ -25,29 +25,29 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _logger = logger;
         }
 
-        public async Task<OperationResult<ICollection<ResponseWalletItemsAppDto>>> ExecuteAsync(Guid ownerGuid)
+        public async Task<OperationResult<ICollection<WalletItemAppDto>>> ExecuteAsync(Guid ownerGuid)
         {
             _logger.LogInformation("----- Get wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
             ICollection<WalletItemModel>? walletItemsModel;
             try
             {
-                var result = await _walletItemsEfDepot.ExecuteAsync(ownerGuid);
-                walletItemsModel = result.Value;
+                var depotResult = await _walletItemsEfDepot.ExecuteAsync(ownerGuid);
+                walletItemsModel = depotResult.Value;
             }
             catch (Exception e)
             {
                 _logger.LogCritical(e.Message);
-                return new OperationResult<ICollection<ResponseWalletItemsAppDto>>(OutcomeState.Failure, default, $" | Data access failed: {e.Message}");
+                return new OperationResult<ICollection<WalletItemAppDto>>(OutcomeState.Failure, default, $" | Data access failed: {e.Message}");
             }
 
             if (walletItemsModel != null)
             {
-                var appModels = new List<ResponseWalletItemsAppDto>(_walletItemsMapper.Map(walletItemsModel));
-                return new OperationResult<ICollection<ResponseWalletItemsAppDto>>(appModels);
+                var appModels = new List<WalletItemAppDto>(_walletItemsMapper.Map(walletItemsModel));
+                return new OperationResult<ICollection<WalletItemAppDto>>(appModels);
             }
 
-            return new OperationResult<ICollection<ResponseWalletItemsAppDto>>(" | Data values is not valid.");
+            return new OperationResult<ICollection<WalletItemAppDto>>(" | Data values is not valid.");
         }
     }
 }

@@ -15,7 +15,7 @@ namespace CoreServicesTemplate.Dashboard.Services
             _client = new HttpClient();
         }
 
-        public async Task<OperationResult<HttpResponseMessage>> PostWalletAsync(CreateWalletApiDto apiModel)
+        public async Task<OperationResult<HttpResponseMessage>> CreateNewWalletAsync(CreateWalletApiDto apiModel)
         {
             //HTTP POST
             var url = ApiUrl.StorageRoom.Wallet.CreateWalletToStorageRoom();

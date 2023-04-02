@@ -31,7 +31,7 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
 
             var apiModel = _walletMapper.Map(model);
 
-            var responseMessage = await _storageRoomService.PostWalletAsync(apiModel);
+            var responseMessage = await _storageRoomService.CreateNewWalletAsync(apiModel);
 
             return new OperationResult(OutcomeState.Success, responseMessage);
         }

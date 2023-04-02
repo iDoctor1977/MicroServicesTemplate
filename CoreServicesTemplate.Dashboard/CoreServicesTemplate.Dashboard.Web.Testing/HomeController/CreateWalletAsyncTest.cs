@@ -34,7 +34,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
                 OperationAllowedBalance = "128.96"
             };
 
-            _factory.StorageRoomServiceMock.Setup(service => service.PostWalletAsync(It.IsAny<CreateWalletApiDto>())).ReturnsAsync(new OperationResult<HttpResponseMessage>(new HttpResponseMessage { StatusCode = HttpStatusCode.OK }));
+            _factory.StorageRoomServiceMock.Setup(service => service.CreateNewWalletAsync(It.IsAny<CreateWalletApiDto>())).ReturnsAsync(new OperationResult<HttpResponseMessage>(new HttpResponseMessage { StatusCode = HttpStatusCode.OK }));
 
             var controller = new Controllers.WalletController(
                 _factory.Services.GetRequiredService<ICustomMapper<CreateWalletViewModel, CreateWalletAppModel>>(),
@@ -47,7 +47,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
             var responseMessage = await controller.Create(userViewModel);
 
             //Assert
-            _factory.StorageRoomServiceMock.Verify(method => method.PostWalletAsync(It.IsAny<CreateWalletApiDto>()), Times.Once);
+            _factory.StorageRoomServiceMock.Verify(method => method.CreateNewWalletAsync(It.IsAny<CreateWalletApiDto>()), Times.Once);
         }
     }
 }

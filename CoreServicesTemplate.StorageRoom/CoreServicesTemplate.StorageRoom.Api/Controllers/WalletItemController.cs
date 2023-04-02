@@ -13,12 +13,12 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     public class WalletItemController : ControllerBase
     {
         private readonly IGetWalletItemsFeature _getWalletItemsFeature;
-        private readonly IDefaultMapper<WalletItemApiDto, ResponseWalletItemsAppDto> _walletItemsMapper;
+        private readonly IDefaultMapper<WalletItemApiDto, WalletItemAppDto> _walletItemsMapper;
         private readonly ILogger<WalletItemController> _logger;
 
         public WalletItemController(
             IGetWalletItemsFeature getWalletItemsFeature, 
-            IDefaultMapper<WalletItemApiDto, ResponseWalletItemsAppDto> walletItemsMapper, 
+            IDefaultMapper<WalletItemApiDto, WalletItemAppDto> walletItemsMapper, 
             ILogger<WalletItemController> logger)
         {
             _getWalletItemsFeature = getWalletItemsFeature;

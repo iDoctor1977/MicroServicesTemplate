@@ -5,7 +5,7 @@ namespace CoreServicesTemplate.Dashboard.Common.Interfaces.IServices
 {
     public interface IStorageRoomService
     {
-        Task<OperationResult<HttpResponseMessage>> PostWalletAsync(CreateWalletApiDto apiModel);
+        Task<OperationResult<HttpResponseMessage>> CreateNewWalletAsync(CreateWalletApiDto apiModel);
         Task<OperationResult<WalletApiDto>> GetWalletAsync(Guid ownerGuid);
     }
 }

@@ -14,13 +14,13 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     {
         private readonly ICreateNewWalletFeature _createNewWalletFeature;
         private readonly IGetTradingAvailableBalanceFeature _availableBalanceFeature;
-        private readonly IDefaultMapper<CreateWalletApiDto, CreateNewWalletAppDto> _customMapper;
+        private readonly IDefaultMapper<CreateNewWalletApiDto, CreateNewWalletAppDto> _customMapper;
         private readonly ILogger<WalletController> _logger;
 
         public WalletController(
             ICreateNewWalletFeature createNewWalletFeature,
             IGetTradingAvailableBalanceFeature availableBalanceFeature,
-            IDefaultMapper<CreateWalletApiDto, CreateNewWalletAppDto> customMapper, 
+            IDefaultMapper<CreateNewWalletApiDto, CreateNewWalletAppDto> customMapper, 
             ILogger<WalletController> logger)
         {
             _createNewWalletFeature = createNewWalletFeature;
@@ -30,8 +30,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         }
 
         // POST api/storageroom/wallet/{dto}
-        [HttpPost("{walletDto}")]
-        public async Task<ActionResult> Post(CreateWalletApiDto walletDto)
+        [HttpPost("{newWalletDto}")]
+        public async Task<ActionResult> Post(CreateNewWalletApiDto newWalletDto)
         {
             _logger.LogInformation("----- Create wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
@@ -42,7 +42,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 return BadRequest(message);
             }
 
-            var model = _customMapper.Map(walletDto);
+            var model = _customMapper.Map(newWalletDto);
 
             var operationResult = await _createNewWalletFeature.ExecuteAsync(model);
 
