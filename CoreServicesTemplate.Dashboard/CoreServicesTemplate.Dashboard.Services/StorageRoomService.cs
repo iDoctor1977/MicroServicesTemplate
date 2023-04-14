@@ -1,6 +1,6 @@
 using System.Net.Http.Json;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
-using CoreServicesTemplate.Shared.Core.Dtos.Wallet;
+using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Results;
 

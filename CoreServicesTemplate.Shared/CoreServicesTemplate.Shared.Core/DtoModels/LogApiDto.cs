@@ -1,7 +1,7 @@
 ﻿using System;
 using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 
-namespace CoreServicesTemplate.Shared.Core.Dtos
+namespace CoreServicesTemplate.Shared.Core.DtoModels
 {
     public class LogApiDto : IAppModel
     {

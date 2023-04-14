@@ -1,4 +1,4 @@
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
+using CoreServicesTemplate.Shared.Core.Interfaces.IData;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;

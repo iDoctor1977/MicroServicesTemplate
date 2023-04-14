@@ -1,9 +1,8 @@
-﻿using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
-using CoreServicesTemplate.StorageRoom.Data.Entities;
-using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
+﻿using System;
+using CoreServicesTemplate.Shared.Core.Interfaces.IData;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CoreServicesTemplate.StorageRoom.Data.Factories;
+namespace CoreServicesTemplate.Shared.Core.Data;
 
 public class RepositoryFactory : IRepositoryFactory
 {
@@ -19,7 +18,7 @@ public class RepositoryFactory : IRepositoryFactory
     /// </summary>
     /// <typeparam name="T">The repository's interface.</typeparam>
     /// <returns>Returns a default repository.</returns>
-    public IRepository<T> GenerateDefaultRepositoryFor<T>(IAppDbContext appDbContext) where T : EntityBase
+    public IRepository<T> GenerateDefaultRepositoryFor<T>(IAppDbContext appDbContext) where T : IEntityEfBase
     {
         return ActivatorUtilities.CreateInstance<IRepository<T>>(_serviceProvider, appDbContext);
     }

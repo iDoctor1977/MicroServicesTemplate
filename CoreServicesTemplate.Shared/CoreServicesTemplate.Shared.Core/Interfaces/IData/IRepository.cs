@@ -1,8 +1,12 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories
+namespace CoreServicesTemplate.Shared.Core.Interfaces.IData
 {
-    public interface IRepository<T> : IRepository where T : class
+    public interface IRepository<T> : IRepository where T : IEntityEfBase
     {
         T? Get(Expression<Func<T, bool>> expression);
         IEnumerable<T> GetAll();

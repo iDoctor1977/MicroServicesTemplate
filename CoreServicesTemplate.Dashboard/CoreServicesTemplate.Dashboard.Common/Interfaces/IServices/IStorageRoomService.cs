@@ -1,4 +1,4 @@
-﻿using CoreServicesTemplate.Shared.Core.Dtos.Wallet;
+﻿using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Results;
 
 namespace CoreServicesTemplate.Dashboard.Common.Interfaces.IServices

@@ -1,4 +1,4 @@
-﻿using CoreServicesTemplate.Shared.Core.Dtos.Wallet;
+﻿using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
@@ -14,13 +14,13 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     {
         private readonly ICreateNewWalletFeature _createNewWalletFeature;
         private readonly IGetTradingAvailableBalanceFeature _availableBalanceFeature;
-        private readonly IDefaultMapper<CreateNewWalletApiDto, CreateNewWalletAppDto> _customMapper;
+        private readonly IDefaultMapper<CreateWalletApiDto, CreateNewWalletAppDto> _customMapper;
         private readonly ILogger<WalletController> _logger;
 
         public WalletController(
             ICreateNewWalletFeature createNewWalletFeature,
             IGetTradingAvailableBalanceFeature availableBalanceFeature,
-            IDefaultMapper<CreateNewWalletApiDto, CreateNewWalletAppDto> customMapper, 
+            IDefaultMapper<CreateWalletApiDto, CreateNewWalletAppDto> customMapper, 
             ILogger<WalletController> logger)
         {
             _createNewWalletFeature = createNewWalletFeature;
@@ -31,7 +31,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
         // POST api/storageroom/wallet/{dto}
         [HttpPost("{newWalletDto}")]
-        public async Task<ActionResult> Post(CreateNewWalletApiDto newWalletDto)
+        public async Task<ActionResult> Post(CreateWalletApiDto newWalletDto)
         {
             _logger.LogInformation("----- Create wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 

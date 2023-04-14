@@ -1,4 +1,4 @@
-﻿using CoreServicesTemplate.Shared.Core.Dtos.WalletItem;
+﻿using CoreServicesTemplate.Shared.Core.DtoModels.WalletItem;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;

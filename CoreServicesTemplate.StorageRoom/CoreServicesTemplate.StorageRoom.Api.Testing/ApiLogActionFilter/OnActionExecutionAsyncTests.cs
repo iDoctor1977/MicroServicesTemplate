@@ -1,5 +1,5 @@
 ﻿using System.Net.Http.Json;
-using CoreServicesTemplate.Shared.Core.Dtos.Wallet;
+using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -36,7 +36,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
         public async Task Should_LogTheCallToAnyAction()
         {
             //Arrange
-            var apiModel = new CreateNewWalletApiDto
+            var apiModel = new CreateWalletApiDto
             {
                 TradingAllowedBalance = 1.23m,
                 OperationAllowedBalance = 12.3m,

@@ -1,6 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
-using CoreServicesTemplate.Shared.Core.Dtos.Wallet;
+using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
@@ -40,7 +40,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
             // Arrange
             SeedDatabaseForTest();
 
-            var walletDto = new CreateNewWalletApiDto
+            var walletDto = new CreateWalletApiDto
             {
                 OwnerGuid = Guid.NewGuid(),
                 TradingAllowedBalance = 1.23m,
@@ -81,7 +81,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
             var o = Convert.ToDecimal(operationAllowedBalance);
             var b = Convert.ToDecimal(balance);
 
-            var walletDto = new CreateNewWalletApiDto
+            var walletDto = new CreateWalletApiDto
             {
                 TradingAllowedBalance = t,
                 OperationAllowedBalance = o,
@@ -119,7 +119,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
             var o = Convert.ToDecimal(operationAllowedBalance);
             var b = Convert.ToDecimal(balance);
 
-            var walletDto = new CreateNewWalletApiDto
+            var walletDto = new CreateWalletApiDto
             {
                 TradingAllowedBalance = t,
                 OperationAllowedBalance = o,

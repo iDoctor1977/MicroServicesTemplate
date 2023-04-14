@@ -1,7 +1,8 @@
-﻿using CoreServicesTemplate.StorageRoom.Data.Entities;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IData;
+using CoreServicesTemplate.StorageRoom.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
+namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
 
 public class AppDbContext : DbContext, IAppDbContext
 {

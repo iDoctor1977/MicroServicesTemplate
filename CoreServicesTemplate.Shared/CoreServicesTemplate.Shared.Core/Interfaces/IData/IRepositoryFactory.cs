@@ -1,8 +1,4 @@
-﻿using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
-using CoreServicesTemplate.StorageRoom.Data.Entities;
-using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
-
-namespace CoreServicesTemplate.StorageRoom.Data.Factories;
+﻿namespace CoreServicesTemplate.Shared.Core.Interfaces.IData;
 
 public interface IRepositoryFactory
 {
@@ -11,7 +7,7 @@ public interface IRepositoryFactory
     /// </summary>
     /// <typeparam name="T">The entity type.</typeparam>
     /// <returns>A standard CRUD repository.</returns>
-    IRepository<T> GenerateDefaultRepositoryFor<T>(IAppDbContext appDbContext) where T : EntityBase;
+    IRepository<T> GenerateDefaultRepositoryFor<T>(IAppDbContext appDbContext) where T : IEntityEfBase;
 
     /// <summary>
     /// Generates a custom repository for the specified interface.

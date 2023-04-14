@@ -1,6 +1,6 @@
 ﻿namespace CoreServicesTemplate.StorageRoom.Data.Entities
 {
-    public class WalletItem : EntityBase
+    public class WalletItem : EntityEfBase
     {
         public decimal Amount { get; set; }
         public decimal BuyPrice { get; set; }

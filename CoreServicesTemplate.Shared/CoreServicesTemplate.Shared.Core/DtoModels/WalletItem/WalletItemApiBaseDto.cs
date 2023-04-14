@@ -1,6 +1,6 @@
 using System;
 
-namespace CoreServicesTemplate.Shared.Core.Dtos.WalletItem;
+namespace CoreServicesTemplate.Shared.Core.DtoModels.WalletItem;
 
 public class WalletItemApiBaseDto
 {

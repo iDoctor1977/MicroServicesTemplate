@@ -1,12 +1,11 @@
 ﻿using System.Linq.Expressions;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IRepositories;
+using CoreServicesTemplate.Shared.Core.Interfaces.IData;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
-using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Mocks
+namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories.Mocks
 {
-    public class EfRepositoryMock<T> : IRepository<T> where T : EntityBase
+    public class EfRepositoryMock<T> : IRepository<T> where T : EntityEfBase
     {
         protected EfRepositoryMock(AppDbContext dbContext)
         {

@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using CoreServicesTemplate.Shared.Core.Interfaces.IData;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Data.Entities
 {
-    public class EntityBase
+    public class EntityEfBase : IEntityEfBase
     {
         [Key]
         public int Id { get; set; }
@@ -13,7 +14,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Entities
         public DateTime? DateCreated { get; set; }
         public DateTime? LastModifiedDate { get; set; }
 
-        public EntityBase()
+        public EntityEfBase()
         {
             Guid = Guid.NewGuid();
             State = EntityState.Added;

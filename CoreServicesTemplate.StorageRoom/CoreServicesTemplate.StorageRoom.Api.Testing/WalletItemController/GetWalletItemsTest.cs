@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using CoreServicesTemplate.Shared.Core.Dtos.WalletItem;
+using CoreServicesTemplate.Shared.Core.DtoModels.WalletItem;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using CoreServicesTemplate.StorageRoom.Data.Entities;

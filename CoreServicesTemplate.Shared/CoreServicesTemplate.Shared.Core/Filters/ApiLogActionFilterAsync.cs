@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CoreServicesTemplate.Shared.Core.Dtos;
+using CoreServicesTemplate.Shared.Core.DtoModels;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;

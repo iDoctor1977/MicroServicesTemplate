@@ -1,5 +1,6 @@
 ﻿using System.Data.Common;
-using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.SeedWorks;
+using CoreServicesTemplate.Shared.Core.Interfaces.IData;
+using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.Sqlite;
