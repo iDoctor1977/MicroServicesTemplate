@@ -3,19 +3,18 @@ using System.Net.Http.Json;
 using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
-using CoreServicesTemplate.StorageRoom.Data.Entities;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
+namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
 {
     public class CreateWalletTest : IClassFixture<CustomWebApplicationFactory<Program>>, IDisposable
     {
         private readonly HttpClient _client;
         private readonly CustomWebApplicationFactory<Program> _factory;
 
-        private static readonly string UrlPost = ApiUrl.StorageRoom.Wallet.WalletUrlBase();
+        private static readonly string UrlPost = ApiUrl.StorageRoom.CreateWallet();
 
         public CreateWalletTest(CustomWebApplicationFactory<Program> factory)
         {
@@ -142,7 +141,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController
 
             if (context != null && !context.Database.EnsureCreatedAsync().Equals(null))
             {
-                context.Wallets.Add(new Wallet
+                context.Wallets.Add(new Data.Entities.Wallet
                 {
                     Guid = Guid.NewGuid(),
                     OwnerGuid = Guid.NewGuid(),

@@ -5,6 +5,6 @@ namespace CoreServicesTemplate.Shared.Core.DtoModels.Wallet
 {
     public class WalletApiDto : WalletApiBaseDto
     {
-        public ICollection<WalletItemApiDto> WalletItems { get; set; }
+        public ICollection<MarketItemApiDto> WalletItems { get; set; }
     }
 }

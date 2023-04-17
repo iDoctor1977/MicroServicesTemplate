@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Net;
 using System.Net.Http.Json;
+using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Builders;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
@@ -13,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Moq;
 
-namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController.MockTests
+namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet.MockTests
 {
     public class GetTradingAvailableBalanceMockTest : IClassFixture<WebApplicationFactory<Program>>
     {
@@ -21,7 +22,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController.MockTest
 
         private Mock<IGetTradingAvailableBalanceDepot> GetTradingAvailableBalanceDepotMock { get; set; }
 
-        private const string URL_GET = "api/storageroom/wallet/";
+        private static readonly string UrlGet = ApiUrl.StorageRoom.GetTradingAvailableBalance();
 
         public GetTradingAvailableBalanceMockTest(WebApplicationFactory<Program> factory)
         {
@@ -48,7 +49,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletController.MockTest
                 .Setup(depot => depot.ExecuteAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(new OperationResult<WalletModel>(walletModel));
 
-            var uri = $"{URL_GET}{walletModel.OwnerGuid}";
+            var uri = $"{UrlGet}/{walletModel.OwnerGuid}";
 
             // Act
             var response = await _client.GetAsync(uri);

@@ -26,7 +26,7 @@ namespace CoreServicesTemplate.Shared.Core.HealthChecks
 
             try
             {
-                var response = await httpClient.GetAsync($"{ApiUrl.StorageRoom.GetHealthyToStorageRoom()}", cancellationToken);
+                var response = await httpClient.GetAsync($"{ApiUrl.StorageRoom.GetHealthy()}", cancellationToken);
                 response.EnsureSuccessStatusCode();
 
                 if (response.IsSuccessStatusCode)

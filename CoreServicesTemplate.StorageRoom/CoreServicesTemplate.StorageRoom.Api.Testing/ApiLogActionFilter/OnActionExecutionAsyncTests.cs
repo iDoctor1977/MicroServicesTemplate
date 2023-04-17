@@ -16,6 +16,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
 
         private Mock<ILogger<ApiLogActionFilterAsync>> LoggerMock { get; set; }
 
+        private static readonly string UrlPost = ApiUrl.StorageRoom.CreateWallet();
+
         public OnActionExecutionAsyncTests(WebApplicationFactory<Program> factory)
         {
             LoggerMock = new Mock<ILogger<ApiLogActionFilterAsync>>();
@@ -43,8 +45,10 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
                 Balance = 2.36m
             };
 
-            //Act
-            await _client.PostAsJsonAsync(ApiUrl.StorageRoom.Wallet.CreateWalletToStorageRoom(), apiModel);
+            var uri = $"{UrlPost}/{apiModel}";
+
+            // Act
+            await _client.PostAsJsonAsync(uri, apiModel);
 
             //Assert
             LoggerMock.Verify(x => x.Log(LogLevel.Information,

@@ -1,3 +1,3 @@
 namespace CoreServicesTemplate.Shared.Core.DtoModels.WalletItem;
 
-public class CreateWalletItemApiDto : WalletItemApiBaseDto { }
+public class CreateMarketItemApiDto : MarketItemApiBaseDto { }

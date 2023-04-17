@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using CoreServicesTemplate.Shared.Core.DtoModels.WalletItem;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
@@ -8,31 +7,31 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletItemController
+namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
 {
-    public class GetWalletItemsTest : IClassFixture<CustomWebApplicationFactory<Program>>, IDisposable
+    public class GetTradingAvailableBalanceTest : IClassFixture<CustomWebApplicationFactory<Program>>, IDisposable
     {
         private readonly HttpClient _client;
         private readonly CustomWebApplicationFactory<Program> _factory;
 
         private readonly Guid _ownerGuid;
 
-        private static readonly string UrlGet = ApiUrl.StorageRoom.WalletItem.WalletItemUrlBase();
+        private static readonly string UrlGet = ApiUrl.StorageRoom.GetTradingAvailableBalance();
 
-        public GetWalletItemsTest(CustomWebApplicationFactory<Program> factory)
+        public GetTradingAvailableBalanceTest(CustomWebApplicationFactory<Program> factory)
         {
             _factory = factory;
 
             _ownerGuid = Guid.NewGuid();
 
-            _client = _factory.CreateClient(new WebApplicationFactoryClientOptions
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
             {
                 AllowAutoRedirect = false
             });
         }
 
         [Fact]
-        public async Task Should_Be_Returns_The_List_Of_All_Wallet_Items_From_SQLiteInMemory()
+        public async Task Should_Be_Return_Trading_Available_Decimal_Value_From_SQLiteInMemory()
         {
             // Arrange
             _factory.OpenDbConnection();
@@ -46,7 +45,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletItemController
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            (await response.Content.ReadFromJsonAsync<ICollection<WalletItemApiDto>>()).Should().HaveCount(4);
+            var content = await response.Content.ReadFromJsonAsync<decimal>();
+
+            content.Should().Be(2m);
         }
 
         public void Dispose()
@@ -75,7 +76,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletItemController
 
                 dbContext.SaveChanges();
 
-                dbContext.WalletItems.AddRange(
+                dbContext.WalletItems.Add(
                     new WalletItem
                     {
                         Guid = Guid.NewGuid(),
@@ -87,44 +88,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.WalletItemController
                         DateUpdated = DateTime.Now,
                         ExtTicker = "A2A",
                         ExtMarketItemGuid = Guid.NewGuid()
-                    },
-                    new WalletItem
-                    {
-                        Guid = Guid.NewGuid(),
-                        Amount = 10.34m,
-                        BuyDate = DateTime.Now,
-                        BuyPrice = 1.52m,
-                        Quantity = 3,
-                        ExtWalletId = 1,
-                        DateUpdated = DateTime.Now,
-                        ExtTicker = "Finecobank",
-                        ExtMarketItemGuid = Guid.NewGuid()
-                    },
-                    new WalletItem
-                    {
-                        Guid = Guid.NewGuid(),
-                        Amount = 10.34m,
-                        BuyDate = DateTime.Now,
-                        BuyPrice = 1.52m,
-                        Quantity = 3,
-                        ExtWalletId = 1,
-                        DateUpdated = DateTime.Now,
-                        ExtTicker = "Ferrari",
-                        ExtMarketItemGuid = Guid.NewGuid()
-                    },
-                    new WalletItem
-                    {
-                        Guid = Guid.NewGuid(),
-                        Amount = 10.34m,
-                        BuyDate = DateTime.Now,
-                        BuyPrice = 1.52m,
-                        Quantity = 3,
-                        ExtWalletId = 1,
-                        DateUpdated = DateTime.Now,
-                        ExtTicker = "Hera",
-                        ExtMarketItemGuid = Guid.NewGuid()
-                    }
-                );
+                    });
 
                 dbContext.SaveChanges();
             }

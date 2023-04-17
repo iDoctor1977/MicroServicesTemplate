@@ -8,43 +8,13 @@ public static class ApiUrl
     public static class StorageRoom
     {
         private static readonly string StorageRoomRoot = "http://localhost:32001/api/storageroom";
-        private static readonly string WalletEndPoint = "wallet";
-        private static readonly string WalletItemEndPoint = "walletitem";
 
         public static string StorageRoomUrlBase() => $"{StorageRoomRoot}";
-        public static string GetHealthyToStorageRoom() => $"{StorageRoomRoot}/health";
+        public static string GetHealthy() => $"{StorageRoomRoot}/health";
 
-        /// <summary>
-
-        /// Url project references
-        /// </summary>
-
-        public static class Wallet 
-        {
-            public static string WalletUrlBase() => $"{StorageRoomRoot}/{WalletEndPoint}";
-            public static string IndexFromWalletToStorageRoom() => $"{StorageRoomRoot}/{WalletEndPoint}/index";
-            public static string CreateWalletToStorageRoom() => $"{StorageRoomRoot}/{WalletEndPoint}/post";
-            public static string DeleteWalletToStorageRoom() => $"{StorageRoomRoot}/{WalletEndPoint}/delete";
-            public static string UpdateWalletToStorageRoom() => $"{StorageRoomRoot}/{WalletEndPoint}/put";
-            public static string GetWalletToStorageRoom() => $"{StorageRoomRoot}/{WalletEndPoint}/get";
-            public static string GetAllWalletToStorageRoom() => $"{StorageRoomRoot}/{WalletEndPoint}/get";
-            public static string GetErrorToStorageRoom() => $"{StorageRoomRoot}/{WalletEndPoint}/error";
-        }
-
-        /// <summary>
-        /// Url project references
-        /// </summary>
-        public static class WalletItem
-        {
-            public static string WalletItemUrlBase() => $"{StorageRoomRoot}/{WalletItemEndPoint}";
-            public static string IndexFromWalletToStorageRoom() => $"{StorageRoomRoot}/{WalletItemEndPoint}/index";
-            public static string CreateUserToStorageRoom() => $"{StorageRoomRoot}/{WalletItemEndPoint}/post";
-            public static string DeleteWalletToStorageRoom() => $"{StorageRoomRoot}/{WalletItemEndPoint}/delete";
-            public static string UpdateWalletToStorageRoom() => $"{StorageRoomRoot}/{WalletItemEndPoint}/put";
-            public static string GetWalletToStorageRoom() => $"{StorageRoomRoot}/{WalletItemEndPoint}/get";
-            public static string GetAllWalletToStorageRoom() => $"{StorageRoomRoot}/{WalletItemEndPoint}/get";
-            public static string GetErrorToStorageRoom() => $"{StorageRoomRoot}/{WalletItemEndPoint}/error";
-        }
+        public static string CreateWallet() => $"{StorageRoomRoot}/create_wallet";
+        public static string GetTradingAvailableBalance() => $"{StorageRoomRoot}/get_trading_available_balance";
+        public static string GetWalletItems() => $"{StorageRoomRoot}/get_wallet_items";
     }
 
     /// <summary>

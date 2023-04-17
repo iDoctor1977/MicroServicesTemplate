@@ -10,24 +10,25 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     [ApiController]
     [ApiConventionType(typeof(DefaultApiConventions))]
     [Route("api/storageroom/[controller]")]
-    public class WalletItemController : ControllerBase
+    public class Get_Wallet_ItemsController : ControllerBase
     {
         private readonly IGetWalletItemsFeature _getWalletItemsFeature;
-        private readonly IDefaultMapper<WalletItemApiDto, WalletItemAppDto> _walletItemsMapper;
-        private readonly ILogger<WalletItemController> _logger;
+        private readonly IDefaultMapper<MarketItemApiDto, WalletItemAppDto> _walletItemsMapper;
+        private readonly ILogger<Get_Wallet_ItemsController> _logger;
 
-        public WalletItemController(
+        public Get_Wallet_ItemsController(
             IGetWalletItemsFeature getWalletItemsFeature, 
-            IDefaultMapper<WalletItemApiDto, WalletItemAppDto> walletItemsMapper, 
-            ILogger<WalletItemController> logger)
+            IDefaultMapper<MarketItemApiDto, WalletItemAppDto> walletItemsMapper, 
+            ILogger<Get_Wallet_ItemsController> logger)
         {
             _getWalletItemsFeature = getWalletItemsFeature;
             _walletItemsMapper = walletItemsMapper;
             _logger = logger;
         }
 
+        // GET api/storageroom/get_wallet_items/{ownerGuid}
         [HttpGet("{ownerGuid}")]
-        public async Task<ActionResult<ICollection<WalletItemApiDto>>> Get(Guid ownerGuid)
+        public async Task<ActionResult<ICollection<MarketItemApiDto>>> Get(Guid ownerGuid)
         {
             _logger.LogInformation("----- Get wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
@@ -42,7 +43,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
             if (operationResult.State.Equals(OutcomeState.Success))
             {
-                ICollection<WalletItemApiDto> walletItemsDto = new List<WalletItemApiDto>();
+                ICollection<MarketItemApiDto> walletItemsDto = new List<MarketItemApiDto>();
                 if (operationResult.Value != null)
                 {
                     foreach (var walletItemModel in operationResult.Value)
