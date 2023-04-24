@@ -34,7 +34,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
         }
 
         [Fact]
-        public async Task Should_Be_Create_New_Wallet_And_Save_It_To_InMemorySQLiteDb()
+        public async Task Should_Create_New_Wallet_And_Save_It_To_InMemorySQLiteDb()
         {
             // Arrange
             SeedDatabaseForTest();

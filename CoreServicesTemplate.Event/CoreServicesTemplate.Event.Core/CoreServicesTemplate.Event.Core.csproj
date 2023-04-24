@@ -8,6 +8,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj" />
+    <ProjectReference Include="..\CoreServicesTemplate.Event.Data\CoreServicesTemplate.Event.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\" />
   </ItemGroup>
 
 </Project>

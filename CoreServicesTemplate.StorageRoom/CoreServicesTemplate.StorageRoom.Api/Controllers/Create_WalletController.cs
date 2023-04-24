@@ -12,16 +12,16 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     [Route("api/storageroom/[controller]")]
     public class Create_WalletController : ControllerBase
     {
-        private readonly ICreateNewWalletFeature _createNewWalletFeature;
+        private readonly ICreateWalletFeature _createWalletFeature;
         private readonly IDefaultMapper<CreateWalletApiDto, CreateNewWalletAppDto> _customMapper;
         private readonly ILogger<Create_WalletController> _logger;
 
         public Create_WalletController(
-            ICreateNewWalletFeature createNewWalletFeature,
+            ICreateWalletFeature createWalletFeature,
             IDefaultMapper<CreateWalletApiDto, CreateNewWalletAppDto> customMapper, 
             ILogger<Create_WalletController> logger)
         {
-            _createNewWalletFeature = createNewWalletFeature;
+            _createWalletFeature = createWalletFeature;
             _customMapper = customMapper;
             _logger = logger;
         }
@@ -41,7 +41,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
             var model = _customMapper.Map(apiDto);
 
-            var operationResult = await _createNewWalletFeature.ExecuteAsync(model);
+            var operationResult = await _createWalletFeature.ExecuteAsync(model);
 
             if (operationResult.State.Equals(OutcomeState.Success))
             {

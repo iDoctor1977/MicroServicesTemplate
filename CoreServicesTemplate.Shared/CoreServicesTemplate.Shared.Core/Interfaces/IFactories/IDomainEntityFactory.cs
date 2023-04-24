@@ -1,4 +1,4 @@
-﻿namespace CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
+﻿namespace CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 
 public interface IDomainEntityFactory
 {

@@ -31,7 +31,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
         }
 
         [Fact]
-        public async Task Should_Be_Return_Trading_Available_Decimal_Value_From_SQLiteInMemory()
+        public async Task Should_Return_Trading_Available_Decimal_Value_From_SQLiteInMemory()
         {
             // Arrange
             _factory.OpenDbConnection();

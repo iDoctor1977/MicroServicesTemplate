@@ -64,7 +64,7 @@ public class WalletItemEntity
         }
         if (model.Guid.Equals(null) || model.Guid == Guid.Empty)
         {
-            throw new DomainValidationException<WalletItemEntity>("Guid is not valid");
+            throw new DomainValidationException<WalletItemEntity>("OwnerGuid is not valid");
         }
         if (model.Amount <= 0)
         {

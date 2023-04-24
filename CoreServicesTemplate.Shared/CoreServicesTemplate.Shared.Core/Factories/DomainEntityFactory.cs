@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
+namespace CoreServicesTemplate.Shared.Core.Factories;
 
 public class DomainEntityFactory : IDomainEntityFactory
 {

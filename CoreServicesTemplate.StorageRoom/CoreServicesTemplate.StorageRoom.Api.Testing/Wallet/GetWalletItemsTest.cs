@@ -32,7 +32,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
         }
 
         [Fact]
-        public async Task Should_Be_Returns_The_List_Of_All_Wallet_Items_From_SQLiteInMemory()
+        public async Task Should_Returns_The_List_Of_All_Wallet_Items_From_SQLiteInMemory()
         {
             // Arrange
             _factory.OpenDbConnection();

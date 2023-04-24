@@ -1,11 +1,11 @@
 ﻿using CoreServicesTemplate.Shared.Core.Enums;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
-using CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
@@ -14,12 +14,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
     {
         private readonly IDomainEntityFactory _domainEntityEntityFactory;
         private readonly IGetTradingAvailableBalanceDepot _walletDepot;
-        private readonly ILogger<CreateNewWalletFeature> _logger;
+        private readonly ILogger<CreateWalletFeature> _logger;
 
         public GetTradingAvailableBalanceFeature(
             IDomainEntityFactory domainEntityEntityFactory,
             IGetTradingAvailableBalanceDepot walletDepot,
-            ILogger<CreateNewWalletFeature> logger)
+            ILogger<CreateWalletFeature> logger)
         {
             _domainEntityEntityFactory = domainEntityEntityFactory;
             _walletDepot = walletDepot;
