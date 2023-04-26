@@ -31,8 +31,8 @@ Net Core microservices template
 > - Aggregates (Domain objects definition)
 > - Features
 > - Pipeline Feature Substeps
-> - Consolidators (default, custom)
-> - Repositoryes (Repository pattern + CQRS pattern)
+> - Mappers (default, custom)
+> - Repositories (Repository pattern + CQRS pattern)
 > - Depots (Unit of Works pattern)
 
 ---
