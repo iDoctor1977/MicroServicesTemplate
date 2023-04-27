@@ -5,9 +5,7 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
-using CoreServicesTemplate.StorageRoom.Bus.Events;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IEvents;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Core.Features;
@@ -20,6 +18,7 @@ using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories.Mocks;
+using CoreServicesTemplate.StorageRoom.EventBus.Events;
 using Microsoft.EntityFrameworkCore;
 using RabbitMQ.Client;
 
@@ -110,14 +109,14 @@ builder.Services.AddAutoMapper(typeof(ApiMapperProfile), typeof(DataMapperProfil
 
 #region BusEvents
 
-builder.Services.AddTransient<ICreateWalletEvent, CreateWalletEvent>(sp =>
+builder.Services.AddTransient(sp =>
 {
     var logger = sp.GetRequiredService<ILogger<CreateWalletEvent>>();
 
-    var factory = new ConnectionFactory { HostName = builder.Configuration["BusConnectionName"] };
-    var subscriptionClientName = builder.Configuration["SubscriptionClientName"];
+    var connectionFactory = new ConnectionFactory { HostName = builder.Configuration["BusConnectionName"] };
+    var queueName = builder.Configuration["CreateWalletQueueName"];
 
-    return new CreateWalletEvent(factory, subscriptionClientName, logger);
+    return new CreateWalletEvent(connectionFactory, queueName, logger);
 });
 
 #endregion

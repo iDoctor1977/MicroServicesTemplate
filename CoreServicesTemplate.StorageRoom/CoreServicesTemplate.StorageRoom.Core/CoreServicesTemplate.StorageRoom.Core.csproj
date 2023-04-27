@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj" />
-    <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Bus\CoreServicesTemplate.StorageRoom.Bus.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Common\CoreServicesTemplate.StorageRoom.Common.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Data\CoreServicesTemplate.StorageRoom.Data.csproj" />
   </ItemGroup>

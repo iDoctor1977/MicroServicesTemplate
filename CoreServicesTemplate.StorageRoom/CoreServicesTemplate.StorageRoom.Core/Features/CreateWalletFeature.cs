@@ -1,10 +1,10 @@
 ﻿using CoreServicesTemplate.Shared.Core.DtoEvents;
 using CoreServicesTemplate.Shared.Core.Enums;
+using CoreServicesTemplate.Shared.Core.Interfaces.IEvents;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
-using CoreServicesTemplate.StorageRoom.Common.Interfaces.IEvents;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.Wallet;
@@ -17,20 +17,20 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
     public class CreateWalletFeature : ICreateWalletFeature
     {
         private readonly IDomainEntityFactory _domainEntityEntityFactory;
-        private readonly ICreateWalletEvent _createWalletEvent;
+        private readonly IEventBus<CreateWalletEventDto> _eventBus;
         private readonly IDefaultMapper<CreateNewWalletAppDto, CreateWalletModel> _walletMapper;
         private readonly ICreateWalletDepot _walletDepot;
         private readonly ILogger<CreateWalletFeature> _logger;
 
         public CreateWalletFeature(
             IDomainEntityFactory domainEntityEntityFactory,
-            ICreateWalletEvent createWalletEvent,
+            IEventBus<CreateWalletEventDto> eventBus,
             IDefaultMapper<CreateNewWalletAppDto, CreateWalletModel> walletMapper,
             ICreateWalletDepot walletDepot,
             ILogger<CreateWalletFeature> logger)
         {
             _domainEntityEntityFactory = domainEntityEntityFactory;
-            _createWalletEvent = createWalletEvent;
+            _eventBus = eventBus;
             _walletMapper = walletMapper;
             _walletDepot = walletDepot;
             _logger = logger;
@@ -66,7 +66,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
                 operationResult = new OperationResult(OutcomeState.Failure, default, $" | Data access failed: {e.Message}");
             }
 
-            await _createWalletEvent.PublishAsync(new CreateWalletEventDto { OwnerGuid = appDto.OwnerGuid, IsCreated = true });
+            _eventBus.PublishAsync(new CreateWalletEventDto { OwnerGuid = appDto.OwnerGuid, IsCreated = true });
 
             return operationResult;
         }

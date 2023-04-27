@@ -31,8 +31,6 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _logger.LogInformation("----- Get trading available balance: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
             WalletModel? walletModel;
-            decimal tradingAllowed;
-
             try
             {
                 OperationResult<WalletModel>? result = await _walletDepot.ExecuteAsync(ownerGuid);
@@ -49,7 +47,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
                 if (walletModel != null)
                 {
                     var walletDomainEntity = _domainEntityEntityFactory.GenerateAggregate<WalletModel, WalletAggregate>(walletModel);
-                    tradingAllowed = walletDomainEntity.CalculateTradingAvailableBalance();
+                    var tradingAllowed = walletDomainEntity.CalculateTradingAvailableBalance();
 
                     return new OperationResult<decimal>(OutcomeState.Success, tradingAllowed);
                 }

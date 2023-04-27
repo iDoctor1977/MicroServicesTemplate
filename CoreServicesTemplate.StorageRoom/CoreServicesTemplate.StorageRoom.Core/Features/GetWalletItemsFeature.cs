@@ -16,7 +16,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
         private readonly ILogger<GetWalletItemsFeature> _logger;
 
         public GetWalletItemsFeature(
-            IDefaultMapper<WalletItemAppDto, WalletItemModel> walletItemsMapper, 
+            IDefaultMapper<WalletItemAppDto, WalletItemModel> walletItemsMapper,
             IGetWalletItemsEfDepot walletItemsEfDepot,
             ILogger<GetWalletItemsFeature> logger)
         {
