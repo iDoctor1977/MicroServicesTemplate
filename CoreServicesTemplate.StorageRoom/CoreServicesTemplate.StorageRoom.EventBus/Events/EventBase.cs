@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
 using CoreServicesTemplate.Shared.Core.Interfaces.IEvents;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
@@ -8,50 +7,67 @@ namespace CoreServicesTemplate.StorageRoom.EventBus.Events;
 
 public class EventBase<TDto, TLog> : IEventBus<TDto> where TDto : class
 {
-    private readonly IConnection _connection;
+    private readonly IConnection _connectionFactory;
     private readonly string _queueName;
     private readonly ILogger<TLog> _logger;
+    private IModel _channel;
 
-    private IModel Channel { get; set; }
-
-    public EventBase(ConnectionFactory connectionFactory, string queueName, ILogger<TLog> logger)
+    public EventBase(IConnectionFactory connectionFactory, string queueName, ILogger<TLog> logger)
     {
         _queueName = queueName;
         _logger = logger;
 
-        _connection = connectionFactory.CreateConnection();
+        _connectionFactory = connectionFactory.CreateConnection();
     }
 
-    public async void PublishAsync(TDto eventDto)
+    // Publish/Subscribe
+    public void Publish(TDto eventDto)
     {
         _logger.LogInformation("----- Handling integration event: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
-        using (Channel = _connection.CreateModel())
+        using (_channel = _connectionFactory.CreateModel())
         {
-            Channel.QueueDeclare(
-                queue: _queueName,
-                durable: true,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null);
+            _channel.ExchangeDeclare(exchange: "wallet", type: ExchangeType.Direct);
 
-            var payloadDto = JsonSerializer.Serialize(eventDto);
-            var body = Encoding.UTF8.GetBytes(payloadDto);
+            var body = JsonSerializer.SerializeToUtf8Bytes(eventDto);
 
-            var properties = Channel.CreateBasicProperties();
-            properties.Persistent = true;
-
-            Channel.BasicPublish(
-                exchange: string.Empty,
-                routingKey: _queueName,
-                basicProperties: properties,
+            _channel.BasicPublish(
+                exchange: "wallet",
+                routingKey: string.Empty,
+                basicProperties: null,
                 body: body);
         }
     }
 
+    // Work queues
+    //public void Publish(TDto eventDto)
+    //{
+    //    _logger.LogInformation("----- Handling integration event: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+
+    //    using (_channel = _connectionFactory.CreateModel())
+    //    {
+    //        _channel.QueueDeclare(
+    //            queue: _queueName,
+    //            durable: true,
+    //            exclusive: false,
+    //            autoDelete: false,
+    //            arguments: null);
+
+    //        var body = JsonSerializer.SerializeToUtf8Bytes(eventDto);
+
+    //        var properties = _channel.CreateBasicProperties();
+    //        properties.Persistent = true;
+
+    //        _channel.BasicPublish(
+    //            exchange: string.Empty,
+    //            routingKey: _queueName,
+    //            basicProperties: properties,
+    //            body: body);
+    //    }
+    //}
+
     public void Dispose()
     {
-        Channel.Close();
-        _connection.Close();
+        _channel.Close();
     }
 }

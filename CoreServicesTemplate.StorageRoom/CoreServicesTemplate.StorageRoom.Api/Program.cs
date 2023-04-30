@@ -1,6 +1,8 @@
+using CoreServicesTemplate.Shared.Core.DtoEvents;
 using CoreServicesTemplate.Shared.Core.Factories;
 using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.Shared.Core.Interfaces.IData;
+using CoreServicesTemplate.Shared.Core.Interfaces.IEvents;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
@@ -109,11 +111,11 @@ builder.Services.AddAutoMapper(typeof(ApiMapperProfile), typeof(DataMapperProfil
 
 #region BusEvents
 
-builder.Services.AddTransient(sp =>
+builder.Services.AddTransient<IEventBus<CreateWalletEventDto>, CreateWalletEvent>(sp =>
 {
     var logger = sp.GetRequiredService<ILogger<CreateWalletEvent>>();
 
-    var connectionFactory = new ConnectionFactory { HostName = builder.Configuration["BusConnectionName"] };
+    var connectionFactory = new ConnectionFactory { HostName = builder.Configuration["BusConnectionName"], DispatchConsumersAsync = true };
     var queueName = builder.Configuration["CreateWalletQueueName"];
 
     return new CreateWalletEvent(connectionFactory, queueName, logger);

@@ -17,7 +17,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
 
         private readonly Guid _ownerGuid;
 
-        private static readonly string UrlGet = ApiUrl.StorageRoom.GetWalletItems();
+        private static readonly string UrlGet = ApiUrl.StorageRoomApi.GetWalletItems();
 
         public GetWalletItemsTest(CustomWebApplicationFactory<Program> factory)
         {

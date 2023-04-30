@@ -18,7 +18,7 @@ namespace CoreServicesTemplate.Dashboard.Services
         public async Task<OperationResult<HttpResponseMessage>> CreateNewWalletAsync(CreateWalletApiDto apiModel)
         {
             //HTTP POST
-            var url = ApiUrl.StorageRoom.Wallet.CreateWalletToStorageRoom();
+            var url = ApiUrl.StorageRoomApi.CreateWallet();
             var responseMessage = await _client.PostAsJsonAsync($"{url}/{apiModel}", apiModel);
 
             return new OperationResult<HttpResponseMessage>(responseMessage);
@@ -27,7 +27,7 @@ namespace CoreServicesTemplate.Dashboard.Services
         public async Task<OperationResult<WalletApiDto>> GetWalletAsync(Guid ownerGuid)
         {
             //HTTP GET
-            var url = ApiUrl.StorageRoom.Wallet.GetWalletToStorageRoom();
+            var url = ApiUrl.StorageRoomApi.GetWallet();
             var apiModel = await _client.GetFromJsonAsync<WalletApiDto>($"{url}/{ownerGuid}");
 
             if (apiModel != null)

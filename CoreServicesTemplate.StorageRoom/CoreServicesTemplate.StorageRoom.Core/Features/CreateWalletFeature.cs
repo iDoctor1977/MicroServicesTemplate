@@ -66,7 +66,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
                 operationResult = new OperationResult(OutcomeState.Failure, default, $" | Data access failed: {e.Message}");
             }
 
-            _eventBus.PublishAsync(new CreateWalletEventDto { OwnerGuid = appDto.OwnerGuid, IsCreated = true });
+            _eventBus.Publish(new CreateWalletEventDto { OwnerGuid = appDto.OwnerGuid, IsCreated = true });
 
             return operationResult;
         }

@@ -14,7 +14,7 @@ IHost host = Host.CreateDefaultBuilder(args)
                 HostName = configuration["BusConnectionName"],
                 DispatchConsumersAsync = true
             };
-            var queueName = configuration["SubscriptionClientName"];
+            var queueName = configuration["CreateWalletQueueName"];
 
             return new CreateWalletWorker(factory, queueName, logger);
         });

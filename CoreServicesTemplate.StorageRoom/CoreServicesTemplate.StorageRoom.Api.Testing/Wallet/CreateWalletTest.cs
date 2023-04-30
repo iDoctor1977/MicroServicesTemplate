@@ -14,7 +14,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
         private readonly HttpClient _client;
         private readonly CustomWebApplicationFactory<Program> _factory;
 
-        private static readonly string UrlPost = ApiUrl.StorageRoom.CreateWallet();
+        private static readonly string UrlPost = ApiUrl.StorageRoomApi.CreateWallet();
 
         public CreateWalletTest(CustomWebApplicationFactory<Program> factory)
         {

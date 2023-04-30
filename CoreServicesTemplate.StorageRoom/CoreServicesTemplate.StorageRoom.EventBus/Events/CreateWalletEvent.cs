@@ -6,6 +6,6 @@ namespace CoreServicesTemplate.StorageRoom.EventBus.Events
 {
     public class CreateWalletEvent : EventBase<CreateWalletEventDto, CreateWalletEvent>
     {
-        public CreateWalletEvent(ConnectionFactory connectionFactory, string queueName, ILogger<CreateWalletEvent> logger) : base(connectionFactory, queueName, logger) { }
+        public CreateWalletEvent(IConnectionFactory connectionFactory, string queueName, ILogger<CreateWalletEvent> logger) : base(connectionFactory, queueName, logger) { }
     }
 }

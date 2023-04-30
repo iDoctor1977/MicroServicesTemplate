@@ -22,7 +22,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet.MockTests
 
         private Mock<IGetTradingAvailableBalanceDepot> GetTradingAvailableBalanceDepotMock { get; set; }
 
-        private static readonly string UrlGet = ApiUrl.StorageRoom.GetTradingAvailableBalance();
+        private static readonly string UrlGet = ApiUrl.StorageRoomApi.GetTradingAvailableBalance();
 
         public GetTradingAvailableBalanceMockTest(WebApplicationFactory<Program> factory)
         {

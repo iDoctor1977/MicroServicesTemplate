@@ -16,7 +16,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
 
         private readonly Guid _ownerGuid;
 
-        private static readonly string UrlGet = ApiUrl.StorageRoom.GetTradingAvailableBalance();
+        private static readonly string UrlGet = ApiUrl.StorageRoomApi.GetTradingAvailableBalance();
 
         public GetTradingAvailableBalanceTest(CustomWebApplicationFactory<Program> factory)
         {
