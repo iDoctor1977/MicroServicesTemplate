@@ -28,7 +28,7 @@ Net Core microservices template
 ## Architecture components
 
 > - ViewModel, ApiModel, AppModel, AggModel.
-> - Aggregates (Domain objects definition)
+> - Aggregates and Entities (Domain objects definition)
 > - Features
 > - Pipeline Feature Substeps
 > - Mappers (default, custom)
@@ -37,10 +37,10 @@ Net Core microservices template
 
 ---
 
-## Project components.
+## Accessories project components.
 
 > - Builder
-> - Rebus o RabbitMq
+> - Event Bus
 > - Action Filter
 > - Health Check
 > - Mapper
