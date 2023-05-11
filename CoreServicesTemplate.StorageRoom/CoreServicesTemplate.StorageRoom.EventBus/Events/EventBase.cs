@@ -5,14 +5,14 @@ using RabbitMQ.Client;
 
 namespace CoreServicesTemplate.StorageRoom.EventBus.Events;
 
-public class EventBase<TDto, TLog> : IEventBus<TDto> where TDto : class
+public class EventBase<TDto> : IEventBus<TDto> where TDto : class
 {
     private readonly IConnection _connectionFactory;
     private readonly string _exchangeName;
-    private readonly ILogger<TLog> _logger;
+    private readonly ILogger _logger;
     private IModel _channel;
 
-    public EventBase(IConnectionFactory connectionFactory, string exchangeName, ILogger<TLog> logger)
+    public EventBase(IConnectionFactory connectionFactory, string exchangeName, ILogger logger)
     {
         _exchangeName = exchangeName;
         _logger = logger;

@@ -111,7 +111,7 @@ builder.Services.AddAutoMapper(typeof(ApiMapperProfile), typeof(DataMapperProfil
 
 #region BusEvents
 
-builder.Services.AddTransient<IEventBus<CreateWalletEventDto>, CreateWalletEvent>(sp =>
+builder.Services.AddTransient<IEventBus<CreateWalletEventDto>>(sp =>
 {
     var logger = sp.GetRequiredService<ILogger<CreateWalletEvent>>();
 
