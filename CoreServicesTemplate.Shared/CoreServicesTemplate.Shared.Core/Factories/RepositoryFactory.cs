@@ -1,8 +1,9 @@
 ﻿using System;
 using CoreServicesTemplate.Shared.Core.Interfaces.IData;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CoreServicesTemplate.Shared.Core.Data;
+namespace CoreServicesTemplate.Shared.Core.Factories;
 
 public class RepositoryFactory : IRepositoryFactory
 {

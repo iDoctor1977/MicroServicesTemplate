@@ -22,11 +22,11 @@ namespace CoreServicesTemplate.Shared.Core.HealthChecks
         public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
             var httpClient = _clientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(ApiUrl.StorageRoom.StorageRoomUrlBase());
+            httpClient.BaseAddress = new Uri(ApiUrl.StorageRoomApi.StorageRoomUrlBase());
 
             try
             {
-                var response = await httpClient.GetAsync($"{ApiUrl.StorageRoom.GetHealthy()}", cancellationToken);
+                var response = await httpClient.GetAsync($"{ApiUrl.StorageRoomApi.GetHealthy()}", cancellationToken);
                 response.EnsureSuccessStatusCode();
 
                 if (response.IsSuccessStatusCode)
@@ -35,17 +35,17 @@ namespace CoreServicesTemplate.Shared.Core.HealthChecks
 
                     if (contents.Equals("healthy", StringComparison.OrdinalIgnoreCase))
                     {
-                        return HealthCheckResult.Healthy("StorageRoom ApiUrl endpoint is healthy");
+                        return HealthCheckResult.Healthy("StorageRoomApi ApiUrl endpoint is healthy");
                     }
                 }
 
-                return HealthCheckResult.Degraded("StorageRoom ApiUrl endpoint is degraded");
+                return HealthCheckResult.Degraded("StorageRoomApi ApiUrl endpoint is degraded");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
 
-                return HealthCheckResult.Degraded("StorageRoom ApiUrl endpoint is unhealthy");
+                return HealthCheckResult.Degraded("StorageRoomApi ApiUrl endpoint is unhealthy");
             }
         }
     }

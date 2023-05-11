@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CoreServicesTemplate.Shared.Core.Interfaces.IData;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 
 namespace CoreServicesTemplate.Shared.Core.Data
 {

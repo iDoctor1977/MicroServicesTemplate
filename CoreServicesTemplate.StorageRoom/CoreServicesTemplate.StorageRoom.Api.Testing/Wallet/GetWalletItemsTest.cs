@@ -17,7 +17,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
 
         private readonly Guid _ownerGuid;
 
-        private static readonly string UrlGet = ApiUrl.StorageRoom.GetWalletItems();
+        private static readonly string UrlGet = ApiUrl.StorageRoomApi.GetWalletItems();
 
         public GetWalletItemsTest(CustomWebApplicationFactory<Program> factory)
         {
@@ -32,7 +32,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
         }
 
         [Fact]
-        public async Task Should_Be_Returns_The_List_Of_All_Wallet_Items_From_SQLiteInMemory()
+        public async Task Should_Returns_The_List_Of_All_Wallet_Items_From_SQLiteInMemory()
         {
             // Arrange
             _factory.OpenDbConnection();

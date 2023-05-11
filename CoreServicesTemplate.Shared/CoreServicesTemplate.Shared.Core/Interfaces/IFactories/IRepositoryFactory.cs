@@ -1,4 +1,6 @@
-﻿namespace CoreServicesTemplate.Shared.Core.Interfaces.IData;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IData;
+
+namespace CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 
 public interface IRepositoryFactory
 {

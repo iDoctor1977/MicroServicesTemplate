@@ -1,8 +1,8 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
-using CoreServicesTemplate.StorageRoom.Core.Domain.SeedWork;
 using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
@@ -72,7 +72,7 @@ public class WalletAggregate
     {
         if (model.Guid == Guid.Empty || model.Equals(null))
         {
-            throw new DomainValidationException<WalletAggregate>("Guid is not valid");
+            throw new DomainValidationException<WalletAggregate>("OwnerGuid is not valid");
         }
         if (model.Performance <= 0)
         {

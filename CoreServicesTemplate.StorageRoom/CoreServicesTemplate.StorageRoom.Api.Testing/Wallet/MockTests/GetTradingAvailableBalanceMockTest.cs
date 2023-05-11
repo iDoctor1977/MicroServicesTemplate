@@ -22,7 +22,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet.MockTests
 
         private Mock<IGetTradingAvailableBalanceDepot> GetTradingAvailableBalanceDepotMock { get; set; }
 
-        private static readonly string UrlGet = ApiUrl.StorageRoom.GetTradingAvailableBalance();
+        private static readonly string UrlGet = ApiUrl.StorageRoomApi.GetTradingAvailableBalance();
 
         public GetTradingAvailableBalanceMockTest(WebApplicationFactory<Program> factory)
         {
@@ -42,7 +42,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet.MockTests
 
         [Theory]
         [ClassData(typeof(WalletFactory))]
-        public async Task Should_Be_Return_Trading_Available_Decimal_Value(WalletModel walletModel, HttpOperationResult<decimal> operationResult)
+        public async Task Should_Return_Trading_Available_Decimal_Value(WalletModel walletModel, HttpOperationResult<decimal> operationResult)
         {
             // Arrange
             GetTradingAvailableBalanceDepotMock

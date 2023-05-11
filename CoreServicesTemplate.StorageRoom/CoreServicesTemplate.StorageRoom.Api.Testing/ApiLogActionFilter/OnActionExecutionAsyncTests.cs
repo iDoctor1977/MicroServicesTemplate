@@ -16,7 +16,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
 
         private Mock<ILogger<ApiLogActionFilterAsync>> LoggerMock { get; set; }
 
-        private static readonly string UrlPost = ApiUrl.StorageRoom.CreateWallet();
+        private static readonly string UrlPost = ApiUrl.StorageRoomApi.CreateWallet();
 
         public OnActionExecutionAsyncTests(WebApplicationFactory<Program> factory)
         {

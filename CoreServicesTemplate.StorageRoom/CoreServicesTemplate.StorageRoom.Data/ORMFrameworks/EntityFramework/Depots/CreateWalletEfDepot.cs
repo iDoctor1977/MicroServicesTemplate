@@ -1,6 +1,7 @@
 using CoreServicesTemplate.Shared.Core.Data;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IData;
+using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
@@ -10,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots;
 
-public class CreateWalletEfDepot: UnitOfWorkDepotBase, ICreateNewWalletDepot
+public class CreateWalletEfDepot: UnitOfWorkDepotBase, ICreateWalletDepot
 {
     private readonly IDefaultMapper<WalletModel, Entities.Wallet> _defaultWalletMapper;
     private readonly IWalletRepository _walletRepository;
