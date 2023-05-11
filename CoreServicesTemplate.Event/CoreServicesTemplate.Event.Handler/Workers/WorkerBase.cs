@@ -1,21 +1,29 @@
 using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 
 namespace CoreServicesTemplate.Event.Handler.Workers;
 
-public abstract class WorkerBase<T> : BackgroundService
+public abstract class WorkerBase : BackgroundService
 {
     private readonly IConnectionFactory _connectionFactory;
+    private readonly string _exchangeName;
+
     private IConnection _connection;
 
     protected IModel Channel { get; private set; }
+    protected string QueueName { get; }
+    protected ILogger Logger { get; }
 
-    protected readonly string QueueName;
-    protected readonly ILogger<T> Logger;
-
-    public WorkerBase(IConnectionFactory connectionFactory, string queueName, ILogger<T> logger)
+    public WorkerBase(
+        IConnectionFactory connectionFactory,
+        string exchangeName,
+        string queueName,
+        ILogger logger)
     {
         _connectionFactory = connectionFactory;
+        _exchangeName = exchangeName;
         QueueName = queueName;
+
         Logger = logger;
     }
 
@@ -34,5 +42,29 @@ public abstract class WorkerBase<T> : BackgroundService
         Logger.LogInformation("RabbitMQ connection is closed.");
 
         await base.StopAsync(cancellationToken);
+    }
+
+    //Publish/Subscribe
+    protected AsyncEventingBasicConsumer SetAsyncEventConsumer(CancellationToken stoppingToken)
+    {
+        stoppingToken.ThrowIfCancellationRequested();
+
+        Channel.ExchangeDeclare(
+            exchange: _exchangeName,
+            type: ExchangeType.Direct);
+
+        Channel.QueueDeclare(
+                    queue: QueueName,
+                    durable: true,
+                    exclusive: false,
+                    autoDelete: false,
+                    arguments: null);
+
+        Channel.QueueBind(
+            queue: QueueName,
+            exchange: _exchangeName,
+            routingKey: string.Empty);
+
+        return new AsyncEventingBasicConsumer(Channel);
     }
 }

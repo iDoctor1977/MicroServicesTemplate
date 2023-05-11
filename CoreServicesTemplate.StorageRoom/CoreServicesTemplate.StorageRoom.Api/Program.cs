@@ -116,9 +116,9 @@ builder.Services.AddTransient<IEventBus<CreateWalletEventDto>, CreateWalletEvent
     var logger = sp.GetRequiredService<ILogger<CreateWalletEvent>>();
 
     var connectionFactory = new ConnectionFactory { HostName = builder.Configuration["BusConnectionName"], DispatchConsumersAsync = true };
-    var queueName = builder.Configuration["CreateWalletQueueName"];
+    var exchangeName = builder.Configuration["CreateWalletExchangeName"];
 
-    return new CreateWalletEvent(connectionFactory, queueName, logger);
+    return new CreateWalletEvent(connectionFactory, exchangeName, logger);
 });
 
 #endregion
