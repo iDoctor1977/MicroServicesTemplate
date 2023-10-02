@@ -14,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Moq;
 
-namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet.MockTests
+namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers.MockTests
 {
     public class GetTradingAvailableBalanceMockTest : IClassFixture<WebApplicationFactory<Program>>
     {

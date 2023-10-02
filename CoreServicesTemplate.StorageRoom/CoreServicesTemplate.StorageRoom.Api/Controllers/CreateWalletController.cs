@@ -2,7 +2,7 @@
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers
@@ -10,27 +10,28 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     [ApiController]
     [ApiConventionType(typeof(DefaultApiConventions))]
     [Route("api/storageroom/[controller]")]
-    public class Create_WalletController : ControllerBase
+    public class CreateWalletController : ControllerBase
     {
         private readonly ICreateWalletFeature _createWalletFeature;
-        private readonly IDefaultMapper<CreateWalletApiDto, CreateNewWalletAppDto> _customMapper;
-        private readonly ILogger<Create_WalletController> _logger;
+        private readonly IDefaultMapper<CreateWalletApiDto, CreateWalletAppDto> _customMapper;
+        private readonly ILogger<CreateWalletController> _logger;
 
-        public Create_WalletController(
+        public CreateWalletController(
             ICreateWalletFeature createWalletFeature,
-            IDefaultMapper<CreateWalletApiDto, CreateNewWalletAppDto> customMapper, 
-            ILogger<Create_WalletController> logger)
+            IDefaultMapper<CreateWalletApiDto, CreateWalletAppDto> customMapper,
+            ILogger<CreateWalletController> logger)
         {
             _createWalletFeature = createWalletFeature;
             _customMapper = customMapper;
             _logger = logger;
         }
 
-        // POST api/storageroom/create_wallet/{apiDto}
-        [HttpPost("{apiDto}")]
-        public async Task<ActionResult> Post(CreateWalletApiDto apiDto)
+        // POST api/storageroom/createwallet/{apiDto}
+        [HttpPost]
+        public async Task<ActionResult> Post(CreateWalletApiDto walletDto)
         {
-            _logger.LogInformation("----- Create wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+            _logger.LogInformation("POST on controller: {@Class} at {Dt}", GetType().Name,
+                DateTime.UtcNow.ToLongTimeString());
 
             if (!ModelState.IsValid)
             {
@@ -39,19 +40,16 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 return BadRequest(message);
             }
 
-            var model = _customMapper.Map(apiDto);
+            var model = _customMapper.Map(walletDto);
 
             var operationResult = await _createWalletFeature.ExecuteAsync(model);
 
-            if (operationResult.State.Equals(OutcomeState.Success))
+            if (operationResult.State == OutcomeState.Success)
             {
                 return Ok();
-
-                // alternative return value
-                // return Created(new Uri("api/storageroom/wallet/..."), model);
             }
 
-            return UnprocessableEntity(operationResult.Message);
+            return UnprocessableEntity(operationResult);
         }
     }
 }

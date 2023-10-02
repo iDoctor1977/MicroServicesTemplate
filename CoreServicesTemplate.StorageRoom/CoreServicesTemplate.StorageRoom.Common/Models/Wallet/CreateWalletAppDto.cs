@@ -1,6 +1,6 @@
-﻿namespace CoreServicesTemplate.StorageRoom.Common.Models.AppModels.Wallet
+﻿namespace CoreServicesTemplate.StorageRoom.Common.Models.Wallet
 {
-    public class CreateNewWalletAppDto
+    public class CreateWalletAppDto
     {
         public Guid OwnerGuid { get; set; }
         public decimal TradingAllowedBalance { get; set; }

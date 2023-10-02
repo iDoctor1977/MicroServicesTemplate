@@ -1,4 +1,4 @@
-﻿namespace CoreServicesTemplate.StorageRoom.Common.Models.AppModels.WalletItem;
+﻿namespace CoreServicesTemplate.StorageRoom.Common.Models.WalletItem;
 
 public class WalletItemAppDto
 {

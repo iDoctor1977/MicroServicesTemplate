@@ -1,5 +1,5 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IHandlers;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots
 {

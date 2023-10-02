@@ -7,24 +7,24 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     [ApiController]
     [ApiConventionType(typeof(DefaultApiConventions))]
     [Route("api/storageroom/[controller]")]
-    public class Get_Trading_Available_BalanceController : ControllerBase
+    public class GetTradingAvailableBalanceController : ControllerBase
     {
         private readonly IGetTradingAvailableBalanceFeature _availableBalanceFeature;
-        private readonly ILogger<Get_Trading_Available_BalanceController> _logger;
+        private readonly ILogger<GetTradingAvailableBalanceController> _logger;
 
-        public Get_Trading_Available_BalanceController(
+        public GetTradingAvailableBalanceController(
             IGetTradingAvailableBalanceFeature availableBalanceFeature,
-            ILogger<Get_Trading_Available_BalanceController> logger)
+            ILogger<GetTradingAvailableBalanceController> logger)
         {
             _availableBalanceFeature = availableBalanceFeature;
             _logger = logger;
         }
 
-        // GET api/storageroom/get_trading_available_balance/{ownerGuid}
+        // GET api/storageroom/gettradingavailablebalance/{ownerGuid}
         [HttpGet("{ownerGuid}")]
         public async Task<ActionResult<decimal>> Get(Guid ownerGuid)
         {
-            _logger.LogInformation("----- Get trading available balance: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+            _logger.LogInformation("GET on controller: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
             if (ownerGuid.Equals(null) || ownerGuid == Guid.Empty)
             {
@@ -43,7 +43,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 }
             }
 
-            return UnprocessableEntity(operationResult.Message);
+            return UnprocessableEntity(operationResult);
         }
     }
 }
