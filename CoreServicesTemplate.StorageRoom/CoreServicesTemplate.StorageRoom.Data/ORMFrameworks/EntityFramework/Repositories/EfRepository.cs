@@ -7,9 +7,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
 {
     public class EfRepository<T> : IRepository<T> where T : EntityEfBase
     {
-        private readonly AppDbContext _dbContext;
+        private readonly UnitOfWorkContext _dbContext;
 
-        protected EfRepository(AppDbContext dbContext)
+        protected EfRepository(UnitOfWorkContext dbContext)
         {
             _dbContext = dbContext;
             EntitySet = _dbContext.Set<T>();

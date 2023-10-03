@@ -18,7 +18,7 @@ public class GetTradingAvailableBalanceEfDepot : UnitOfWorkDepotBase, IGetTradin
     private readonly ILogger<GetTradingAvailableBalanceEfDepot> _logger;
 
     public GetTradingAvailableBalanceEfDepot(
-        IAppDbContext dbContext,
+        IUnitOfWorkContext dbContext,
         ICustomMapper<WalletModel, Entities.Wallet> customWalletMapper,
         ILogger<GetTradingAvailableBalanceEfDepot> logger,
         IRepositoryFactory repositoryFactory) : base(repositoryFactory, dbContext)

@@ -18,7 +18,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
         private readonly ILogger<GetWalletItemsEfDepot> _logger;
 
         public GetWalletItemsEfDepot(
-            IAppDbContext dbContext,
+            IUnitOfWorkContext dbContext,
             IRepositoryFactory repositoryFactory,
             IDefaultMapper<WalletItemModel, WalletItem> walletItemMapper,
             ILogger<GetWalletItemsEfDepot> logger) : base(repositoryFactory, dbContext)

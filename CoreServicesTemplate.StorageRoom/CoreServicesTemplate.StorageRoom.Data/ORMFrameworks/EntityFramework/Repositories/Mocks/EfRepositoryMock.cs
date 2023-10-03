@@ -7,7 +7,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
 {
     public class EfRepositoryMock<T> : IRepository<T> where T : EntityEfBase
     {
-        protected EfRepositoryMock(AppDbContext dbContext)
+        protected EfRepositoryMock(UnitOfWorkContext dbContext)
         {
             EntitySet = dbContext.Set<T>();
         }

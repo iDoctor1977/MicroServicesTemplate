@@ -24,7 +24,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         [HttpGet("{ownerGuid}")]
         public async Task<ActionResult<decimal>> Get(Guid ownerGuid)
         {
-            _logger.LogInformation("GET on controller: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+            _logger.LogInformation("----- GET on controller: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
             if (ownerGuid.Equals(null) || ownerGuid == Guid.Empty)
             {

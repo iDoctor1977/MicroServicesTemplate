@@ -12,7 +12,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
 {
     private readonly DbConnection _connection;
-    private AppDbContext? _dbContext;
+    private UnitOfWorkContext? _dbContext;
 
     public CustomWebApplicationFactory()
     {
@@ -23,7 +23,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
     {
         _connection.Open();
 
-        _dbContext = Services.GetRequiredService<IAppDbContext>() as AppDbContext;
+        _dbContext = Services.GetRequiredService<IUnitOfWorkContext>() as UnitOfWorkContext;
 
         if (_dbContext != null) _dbContext.Database.EnsureCreated();
     }
@@ -35,25 +35,25 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
         _connection.Close();
     }
 
-    public AppDbContext? GetContext() => _dbContext;
+    public UnitOfWorkContext? GetContext() => _dbContext;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureServices(services =>
         {
-            var optionDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<AppDbContext>));
+            var optionDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<UnitOfWorkContext>));
             if (optionDescriptor != null)
             {
                 services.Remove(optionDescriptor);
             }
 
-            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IAppDbContext));
+            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IUnitOfWorkContext));
             if (descriptor != null)
             {
                 services.Remove(descriptor);
             }
 
-            services.AddDbContext<IAppDbContext, AppDbContext>(options =>
+            services.AddDbContext<IUnitOfWorkContext, UnitOfWorkContext>(options =>
             {
                 options.UseSqlite(_connection);
             }, ServiceLifetime.Transient, ServiceLifetime.Transient);

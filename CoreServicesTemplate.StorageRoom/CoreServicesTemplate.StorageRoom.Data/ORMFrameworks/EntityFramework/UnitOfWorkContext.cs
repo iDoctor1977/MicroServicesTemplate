@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
 
-public class AppDbContext : DbContext, IAppDbContext
+public class UnitOfWorkContext : DbContext, IUnitOfWorkContext
 {
     private readonly string _dbName;
     private readonly string _connectionStringName;
@@ -12,15 +12,15 @@ public class AppDbContext : DbContext, IAppDbContext
     public DbSet<Wallet> Wallets { get; set; }
     public DbSet<WalletItem> WalletItems { get; set; }
 
-    public AppDbContext(DbContextOptions contextOptions) : base(contextOptions) { }
+    public UnitOfWorkContext(DbContextOptions contextOptions) : base(contextOptions) { }
 
-    public AppDbContext()
+    public UnitOfWorkContext()
     {
         _dbName = "StorageRoomDb";
         _connectionStringName = CreateConnectionStringPath();
     }
 
-    public AppDbContext(string dbName)
+    public UnitOfWorkContext(string dbName)
     {
         _dbName = dbName;
         _connectionStringName = CreateConnectionStringPath();

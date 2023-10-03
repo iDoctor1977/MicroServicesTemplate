@@ -18,7 +18,7 @@ public class CreateWalletEfDepot: UnitOfWorkDepotBase, ICreateWalletDepot
     private readonly ILogger<CreateWalletEfDepot> _logger;
 
     public CreateWalletEfDepot(
-        IAppDbContext dbContext,
+        IUnitOfWorkContext dbContext,
         IRepositoryFactory repositoryFactory,
         IDefaultMapper<WalletModel, Entities.Wallet> defaultWalletMapper,
         ILogger<CreateWalletEfDepot> logger) : base(repositoryFactory, dbContext)

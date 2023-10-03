@@ -8,9 +8,9 @@ public class WalletEfRepository : EfRepository<Wallet>, IWalletRepository
 {
     private DbSet<Wallet> WalletEntity { get; }
 
-    public WalletEfRepository(AppDbContext appDbContext) : base(appDbContext)
+    public WalletEfRepository(UnitOfWorkContext unitOfWorkContext) : base(unitOfWorkContext)
     {
-        WalletEntity = appDbContext.Set<Wallet>();
+        WalletEntity = unitOfWorkContext.Set<Wallet>();
     }
 
     public async Task<IEnumerable<WalletItem>> ReadWalletItemsByOwnerGuidAsync(Guid ownerGuid)

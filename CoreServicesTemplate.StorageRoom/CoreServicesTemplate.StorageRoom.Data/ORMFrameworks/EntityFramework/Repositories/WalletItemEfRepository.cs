@@ -7,9 +7,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
     public class WalletItemEfRepository : EfRepository<WalletItem>, IWalletItemRepository
     {
         private DbSet<WalletItem> WalletItems { get; }
-        public WalletItemEfRepository(AppDbContext appDbContext) : base(appDbContext)
+        public WalletItemEfRepository(UnitOfWorkContext unitOfWorkContext) : base(unitOfWorkContext)
         {
-            WalletItems = appDbContext.Set<WalletItem>();
+            WalletItems = unitOfWorkContext.Set<WalletItem>();
         }
         public async Task<IEnumerable<WalletItem>> ReadWalletItemsByOwnerGuidAsync(Guid ownerGuid)
         {

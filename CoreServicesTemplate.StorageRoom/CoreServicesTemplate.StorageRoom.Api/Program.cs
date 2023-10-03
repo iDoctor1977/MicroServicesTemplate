@@ -64,12 +64,12 @@ builder.Services.AddTransient<IRepositoryFactory, RepositoryFactory>();
 
 if (builder.Configuration["DBProvider"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
 {
-    builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseSqlite());
+    builder.Services.AddDbContext<IUnitOfWorkContext, UnitOfWorkContext>(options => options.UseSqlite());
 }
 else
 {
 
-    builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("StorageRoomDB")));
+    builder.Services.AddDbContext<IUnitOfWorkContext, UnitOfWorkContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("StorageRoomDB")));
 }
 
 #endregion

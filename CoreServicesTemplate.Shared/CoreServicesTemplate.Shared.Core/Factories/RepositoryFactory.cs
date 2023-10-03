@@ -19,9 +19,9 @@ public class RepositoryFactory : IRepositoryFactory
     /// </summary>
     /// <typeparam name="T">The repository's interface.</typeparam>
     /// <returns>Returns a default repository.</returns>
-    public IRepository<T> GenerateDefaultRepositoryFor<T>(IAppDbContext appDbContext) where T : IEntityEfBase
+    public IRepository<T> GenerateDefaultRepositoryFor<T>(IUnitOfWorkContext unitOfWorkContext) where T : IEntityEfBase
     {
-        return ActivatorUtilities.CreateInstance<IRepository<T>>(_serviceProvider, appDbContext);
+        return ActivatorUtilities.CreateInstance<IRepository<T>>(_serviceProvider, unitOfWorkContext);
     }
 
     /// <summary>
@@ -30,10 +30,10 @@ public class RepositoryFactory : IRepositoryFactory
     /// <typeparam name="T">The repository's interface.</typeparam>
     /// <returns>Returns a custom repository.</returns>
     /// <remarks>The concrete implementation of the repository needs to be assigned to the dependency injection container.</remarks>
-    public T GenerateCustomRepository<T>(IAppDbContext appDbContext) where T : IRepository
+    public T GenerateCustomRepository<T>(IUnitOfWorkContext unitOfWorkContext) where T : IRepository
     {
         var concreteType = _serviceProvider.GetRequiredService<T>();
 
-        return (T)ActivatorUtilities.CreateInstance(_serviceProvider, concreteType.GetType(), appDbContext);
+        return (T)ActivatorUtilities.CreateInstance(_serviceProvider, concreteType.GetType(), unitOfWorkContext);
     }
 }

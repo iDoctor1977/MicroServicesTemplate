@@ -16,7 +16,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
     {
         private readonly HttpClient _client;
         private readonly CustomWebApplicationFactory<Program> _factory;
-        private readonly AppDbContext _context;
+        private readonly UnitOfWorkContext _context;
 
         private static readonly string UrlPost = ApiUrl.StorageRoomApi.CreateWallet();
 
@@ -30,7 +30,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
             });
 
             _factory.OpenDbConnection();
-            _context = (AppDbContext)_factory.Services.GetRequiredService<IUnitOfWorkContext>();
+            _context = (UnitOfWorkContext)_factory.Services.GetRequiredService<IUnitOfWorkContext>();
         }
 
         [Fact]

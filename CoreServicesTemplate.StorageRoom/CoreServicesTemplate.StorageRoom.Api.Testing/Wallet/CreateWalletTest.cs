@@ -47,10 +47,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
                 Balance = 2.36m
             };
 
-            var uri = $"{UrlPost}/{walletDto}";
-
             // Act
-            var response = await _client.PostAsJsonAsync(uri, walletDto);
+            var response = await _client.PostAsJsonAsync(UrlPost, walletDto);
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -87,10 +85,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
                 Balance = b
             };
 
-            var uri = $"{UrlPost}/{walletDto}";
-
             // Act
-            var response = await _client.PostAsJsonAsync(uri, walletDto);
+            var response = await _client.PostAsJsonAsync(UrlPost, walletDto);
 
             // Assert
             var responseStatusCode = response.StatusCode;
@@ -125,10 +121,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
                 Balance = b
             };
 
-            var uri = $"{UrlPost}/ {walletDto}";
-
             // Act
-            var response = await _client.PostAsJsonAsync(uri, walletDto);
+            var response = await _client.PostAsJsonAsync(UrlPost, walletDto);
 
             // Assert
             var responseStatusCode = response.StatusCode;

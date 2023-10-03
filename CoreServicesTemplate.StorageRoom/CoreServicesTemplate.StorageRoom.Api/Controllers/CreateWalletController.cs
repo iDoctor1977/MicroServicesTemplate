@@ -30,8 +30,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(CreateWalletApiDto walletDto)
         {
-            _logger.LogInformation("POST on controller: {@Class} at {Dt}", GetType().Name,
-                DateTime.UtcNow.ToLongTimeString());
+            _logger.LogInformation("----- POST on controller: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
             if (!ModelState.IsValid)
             {
