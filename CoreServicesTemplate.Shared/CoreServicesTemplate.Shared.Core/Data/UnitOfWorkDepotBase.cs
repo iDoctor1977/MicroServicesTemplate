@@ -4,12 +4,12 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 
 namespace CoreServicesTemplate.Shared.Core.Data
 {
-    public class UnitOfWorkDepotBase : IAppDbContext
+    public class UnitOfWorkDepotBase : IUnitOfWorkContext
     {
-        protected IAppDbContext DbContext { get; }
+        protected IUnitOfWorkContext DbContext { get; }
         protected IRepositoryFactory RepositoryFactory { get; }
 
-        protected UnitOfWorkDepotBase(IRepositoryFactory repositoryFactory, IAppDbContext dbContext)
+        protected UnitOfWorkDepotBase(IRepositoryFactory repositoryFactory, IUnitOfWorkContext dbContext)
         {
             RepositoryFactory = repositoryFactory;
             DbContext = dbContext;

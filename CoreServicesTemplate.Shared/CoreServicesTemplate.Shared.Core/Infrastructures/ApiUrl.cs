@@ -12,14 +12,14 @@ public static class ApiUrl
         public static string StorageRoomUrlBase() => $"{StorageRoomRoot}";
         public static string GetHealthy() => $"{StorageRoomRoot}/health";
 
-        public static string CreateWallet() => $"{StorageRoomRoot}/create_wallet";
-        public static string GetWallet() => $"{StorageRoomRoot}/get_wallet";
-        public static string GetTradingAvailableBalance() => $"{StorageRoomRoot}/get_trading_available_balance";
-        public static string GetWalletItems() => $"{StorageRoomRoot}/get_wallet_items";
+        public static string CreateWallet() => $"{StorageRoomRoot}/createwallet";
+        public static string GetWallet() => $"{StorageRoomRoot}/getwallet";
+        public static string GetTradingAvailableBalance() => $"{StorageRoomRoot}/gettradingavailablebalance";
+        public static string GetWalletItems() => $"{StorageRoomRoot}/getwalletitems";
     }
     public static class EventBusApi
     {
-        private static readonly string EventBusRoot = "http://localhost:32001/api/event-bus";
+        private static readonly string EventBusRoot = "http://localhost:32001/api/storageroom";
 
         public static string EventBusUrlBase() => $"{EventBusRoot}";
         public static string GetHealthy() => $"{EventBusRoot}/health";

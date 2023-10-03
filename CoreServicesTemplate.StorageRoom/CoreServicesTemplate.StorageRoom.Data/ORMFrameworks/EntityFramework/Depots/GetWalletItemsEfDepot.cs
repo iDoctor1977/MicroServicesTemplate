@@ -3,8 +3,8 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IData;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
+using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;
 using Microsoft.Extensions.Logging;
@@ -18,7 +18,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
         private readonly ILogger<GetWalletItemsEfDepot> _logger;
 
         public GetWalletItemsEfDepot(
-            IAppDbContext dbContext,
+            IUnitOfWorkContext dbContext,
             IRepositoryFactory repositoryFactory,
             IDefaultMapper<WalletItemModel, WalletItem> walletItemMapper,
             ILogger<GetWalletItemsEfDepot> logger) : base(repositoryFactory, dbContext)

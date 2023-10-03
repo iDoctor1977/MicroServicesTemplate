@@ -4,8 +4,8 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IData;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
+using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;
 using Microsoft.Extensions.Logging;
 
@@ -18,7 +18,7 @@ public class CreateWalletEfDepot: UnitOfWorkDepotBase, ICreateWalletDepot
     private readonly ILogger<CreateWalletEfDepot> _logger;
 
     public CreateWalletEfDepot(
-        IAppDbContext dbContext,
+        IUnitOfWorkContext dbContext,
         IRepositoryFactory repositoryFactory,
         IDefaultMapper<WalletModel, Entities.Wallet> defaultWalletMapper,
         ILogger<CreateWalletEfDepot> logger) : base(repositoryFactory, dbContext)

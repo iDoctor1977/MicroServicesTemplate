@@ -7,9 +7,9 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
 using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
+using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Core.Features;
 using CoreServicesTemplate.StorageRoom.Core.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Data.CustomMappers;
@@ -64,12 +64,12 @@ builder.Services.AddTransient<IRepositoryFactory, RepositoryFactory>();
 
 if (builder.Configuration["DBProvider"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
 {
-    builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseSqlite());
+    builder.Services.AddDbContext<IUnitOfWorkContext, AppEfContext>(options => options.UseSqlite());
 }
 else
 {
 
-    builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("StorageRoomDB")));
+    builder.Services.AddDbContext<IUnitOfWorkContext, AppEfContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("StorageRoomDB")));
 }
 
 #endregion

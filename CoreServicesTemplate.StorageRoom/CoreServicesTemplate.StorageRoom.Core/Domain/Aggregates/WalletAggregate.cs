@@ -1,7 +1,7 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.WalletItem;
+using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
 using Microsoft.Extensions.Logging;
 
@@ -36,7 +36,7 @@ public class WalletAggregate
     }
 
     /// <summary>
-    /// For creation instance
+    /// To create instance
     /// </summary>
     /// <param name="domainEntityFactory"></param>
     /// <param name="createWalletMapper"></param>
@@ -57,7 +57,7 @@ public class WalletAggregate
     }
 
     /// <summary>
-    /// For updating instance
+    /// To update instance
     /// </summary>
     /// <param name="domainEntityFactory"></param>
     /// <param name="walletMapper"></param>
@@ -72,46 +72,46 @@ public class WalletAggregate
     {
         if (model.Guid == Guid.Empty || model.Equals(null))
         {
-            throw new DomainValidationException<WalletAggregate>("OwnerGuid is not valid");
+            throw new DomainValidationException<WalletAggregate>($"{nameof(model.Guid)} is not valid");
         }
         if (model.Performance <= 0)
         {
-            throw new DomainValidationException<WalletAggregate>("Performance is not valid");
+            throw new DomainValidationException<WalletAggregate>($"{nameof(model.Performance)} is not valid");
         }
 
         SharedConstruction(model);
 
         try
         {
-           WalletItems = model.WalletItems.Select(wa => _domainEntityFactory.GenerateAggregate<WalletItemModel, WalletItemEntity>(wa)).ToList();
+           WalletItems = model.WalletItems.Select(_domainEntityFactory.Generate<WalletItemModel, WalletItemEntity>).ToList();
         }
         catch (DomainValidationException<WalletItemEntity> e)
         {
             _logger.LogCritical($"{GetType().Name}: {e.Message}");
 
-            throw new DomainValidationException<WalletAggregate>("Wallet item generation failed", e);
+            throw new DomainValidationException<WalletAggregate>($"{GetType().Name}: wallet item generation failed", e);
         }
 
         _walletMapper.Map(model, this);
     }
 
-    private void SharedConstruction(WalletModelBase model)
+    private void SharedConstruction(BaseWalletModel model)
     {
         if (model.Balance <= 0)
         {
-            throw new DomainValidationException<WalletAggregate>("Balance is not valid");
+            throw new DomainValidationException<WalletAggregate>($"{nameof(model.Balance)} is not valid");
         }
         if (model.OwnerGuid == Guid.Empty || model.Equals(null))
         {
-            throw new DomainValidationException<WalletAggregate>("Owner guid is not valid");
+            throw new DomainValidationException<WalletAggregate>($"{nameof(model.OwnerGuid)} is not valid");
         }
         if (model.TradingAllowedBalance <= 0)
         {
-            throw new DomainValidationException<WalletAggregate>("Trading allowed balance is not valid");
+            throw new DomainValidationException<WalletAggregate>($"{nameof(model.TradingAllowedBalance)} is not valid");
         }
         if (model.OperationAllowedBalance <= 0)
         {
-            throw new DomainValidationException<WalletAggregate>("Operation allowed balance is not valid");
+            throw new DomainValidationException<WalletAggregate>($"{nameof(model.OperationAllowedBalance)} is not valid");
         }
     }
 
@@ -126,17 +126,38 @@ public class WalletAggregate
 
         if (TradingAllowedBalance < tradingAvailable || tradingAvailable < 0)
         {
-            throw new DomainValidationException<WalletAggregate>("Trading allowed balance is not valid");
+            throw new DomainValidationException<WalletAggregate>($"{GetType().Name}: trading allowed balance is not valid");
         }
 
         return tradingAvailable;
     }
 
+    public void AddWalletItems(ICollection<CreateWalletItemModel> walletItemModels)
+    {
+        try
+        {
+            foreach (var createWalletItemModel in walletItemModels)
+            {
+                var walletItemValue = (createWalletItemModel.BuyPrice * createWalletItemModel.Quantity);
+
+                Balance -= walletItemValue;
+                TradingAllowedBalance -= walletItemValue;
+
+                var walletItemEntity = _domainEntityFactory.Generate<CreateWalletItemModel, WalletItemEntity>(createWalletItemModel);
+                WalletItems.Add(walletItemEntity);
+            }
+        }
+        catch (DomainValidationException<WalletItemEntity> e)
+        {
+            _logger.LogCritical($"{GetType().Name}: {e.Message}");
+
+            throw new DomainValidationException<WalletAggregate>($"{GetType().Name}: wallet item generation failed", e);
+        }
+    }
+
     public WalletModel ToWalletModel()
     {
         var toModel = _walletMapper.Map(this);
-
-        WalletItems.ToList().ForEach(wi => toModel.WalletItems.Add(wi.ToWalletItemModel()));
 
         return toModel;
     }

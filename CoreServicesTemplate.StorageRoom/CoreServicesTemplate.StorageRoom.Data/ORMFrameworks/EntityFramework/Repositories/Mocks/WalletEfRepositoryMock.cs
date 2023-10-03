@@ -5,7 +5,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
 {
     public class WalletEfRepositoryMock : EfRepository<Wallet>, IWalletRepository
     {
-        protected WalletEfRepositoryMock(AppDbContext dbContext) : base(dbContext) { }
+        protected WalletEfRepositoryMock(AppEfContext dbContext) : base(dbContext) { }
 
         public Task<IEnumerable<WalletItem>> ReadWalletItemsByOwnerGuidAsync(Guid ownerGuid)
         {

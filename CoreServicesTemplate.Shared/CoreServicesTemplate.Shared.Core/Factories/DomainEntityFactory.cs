@@ -13,7 +13,7 @@ public class DomainEntityFactory : IDomainEntityFactory
         _serviceProvider = serviceProvider;
     }
 
-    public TOut GenerateAggregate<TIn, TOut>(TIn model)
+    public TOut Generate<TIn, TOut>(TIn model)
     {
         var instance = ActivatorUtilities.CreateInstance<TOut>(_serviceProvider, model);
 

@@ -1,5 +1,5 @@
 ﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.WalletItem;
+using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
@@ -29,7 +29,7 @@ public class WalletItemEntity
     }
 
     /// <summary>
-    /// For creation instance
+    /// To create instance
     /// </summary>
     /// <param name="createWalletItemMapper"></param>
     /// <param name="walletItemMapper"></param>
@@ -47,7 +47,7 @@ public class WalletItemEntity
     }
 
     /// <summary>
-    /// For updating instance
+    /// To update instance
     /// </summary>
     /// <param name="createWalletItemMapper"></param>
     /// <param name="walletItemMapper"></param>
@@ -60,19 +60,19 @@ public class WalletItemEntity
     {
         if (model.ExtTicker.Equals(null))
         {
-            throw new DomainValidationException<WalletItemEntity>("Ticker is not valid");
+            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.ExtTicker)} is not valid");
         }
         if (model.Guid.Equals(null) || model.Guid == Guid.Empty)
         {
-            throw new DomainValidationException<WalletItemEntity>("OwnerGuid is not valid");
+            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.Guid)} is not valid");
         }
         if (model.Amount <= 0)
         {
-            throw new DomainValidationException<WalletItemEntity>("Amount is not valid");
+            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.Amount)} is not valid");
         }
         if (model.DateUpdated.Equals(DateTime.MinValue))
         {
-            throw new DomainValidationException<WalletItemEntity>("Date updated is not valid");
+            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.DateUpdated)} is not valid");
         }
 
         SharedConstruction(model);
@@ -80,23 +80,23 @@ public class WalletItemEntity
         _walletItemMapper.Map(model, this);
     }
 
-    private void SharedConstruction(WalletItemModelBase model)
+    private void SharedConstruction(BaseWalletItemModel model)
     {
         if (model.ExtMarketItemGuid.Equals(null) || model.ExtMarketItemGuid == Guid.Empty)
         {
-            throw new DomainValidationException<WalletItemEntity>("Market item guid is not valid");
+            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.ExtMarketItemGuid)} is not valid");
         }
         if (model.BuyPrice <= 0)
         {
-            throw new DomainValidationException<WalletItemEntity>("Buy price is not valid");
+            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.BuyPrice)} is not valid");
         }
         if (model.Quantity <= 0)
         {
-            throw new DomainValidationException<WalletItemEntity>("Quantity is not valid");
+            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.Quantity)} is not valid");
         }
         if (model.BuyDate.Equals(DateTime.MinValue))
         {
-            throw new DomainValidationException<WalletItemEntity>("Buy date is not valid");
+            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.BuyDate)} is not valid");
         }
     }
 

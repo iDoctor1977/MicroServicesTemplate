@@ -45,10 +45,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
                 Balance = 2.36m
             };
 
-            var uri = $"{UrlPost}/{apiModel}";
-
             // Act
-            await _client.PostAsJsonAsync(uri, apiModel);
+            await _client.PostAsJsonAsync(UrlPost, apiModel);
 
             //Assert
             LoggerMock.Verify(x => x.Log(LogLevel.Information,

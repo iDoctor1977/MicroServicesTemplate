@@ -41,7 +41,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
             var uri = $"{UrlGet}/{_ownerGuid}";
 
             // Act
-            var response = await _client.GetAsync(uri);
+            using var response = await _client.GetAsync(uri);
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);

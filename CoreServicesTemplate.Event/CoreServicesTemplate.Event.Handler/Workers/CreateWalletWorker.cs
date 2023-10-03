@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json;
-using CoreServicesTemplate.Shared.Core.DtoEvents;
+using CoreServicesTemplate.Event.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.Shared.Core.Events;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
 

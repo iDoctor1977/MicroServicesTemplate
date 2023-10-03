@@ -4,10 +4,10 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IEvents;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
+using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.StorageRoom.Common.Models.AggModels.Wallet;
-using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
 using Microsoft.Extensions.Logging;
@@ -16,42 +16,43 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class CreateWalletFeature : ICreateWalletFeature
     {
-        private readonly IDomainEntityFactory _domainEntityEntityFactory;
+        private readonly IDomainEntityFactory _domainEntityFactory;
         private readonly IEventBus<CreateWalletEventDto> _eventBus;
-        private readonly IDefaultMapper<CreateNewWalletAppDto, CreateWalletModel> _walletMapper;
+        private readonly IDefaultMapper<CreateWalletAppDto, CreateWalletModel> _walletMapper;
         private readonly ICreateWalletDepot _walletDepot;
         private readonly ILogger<CreateWalletFeature> _logger;
 
         public CreateWalletFeature(
             IDomainEntityFactory domainEntityEntityFactory,
             IEventBus<CreateWalletEventDto> eventBus,
-            IDefaultMapper<CreateNewWalletAppDto, CreateWalletModel> walletMapper,
+            IDefaultMapper<CreateWalletAppDto, CreateWalletModel> walletMapper,
             ICreateWalletDepot walletDepot,
             ILogger<CreateWalletFeature> logger)
         {
-            _domainEntityEntityFactory = domainEntityEntityFactory;
+            _domainEntityFactory = domainEntityEntityFactory;
             _eventBus = eventBus;
             _walletMapper = walletMapper;
             _walletDepot = walletDepot;
             _logger = logger;
         }
 
-        public async Task<OperationResult> ExecuteAsync(CreateNewWalletAppDto appDto)
+        public async Task<OperationResult> ExecuteAsync(CreateWalletAppDto appDto)
         {
-            _logger.LogInformation("----- Create wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+            _logger.LogInformation("----- Execute feature: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
-            var createWalletModel = _walletMapper.Map(appDto);
+            var baseWalletModel = _walletMapper.Map(appDto);
 
             OperationResult operationResult;
             WalletAggregate walletDomainEntity;
             try
             {
-                walletDomainEntity = _domainEntityEntityFactory.GenerateAggregate<CreateWalletModel, WalletAggregate>(createWalletModel);
+                walletDomainEntity = _domainEntityFactory.Generate<CreateWalletModel, WalletAggregate>(baseWalletModel);
             }
             catch (DomainValidationException<WalletAggregate> e)
             {
                 _logger.LogCritical(e.Message);
-                return new OperationResult(OutcomeState.Failure, default, $" | {e.ClassName}: {e.Message}");
+
+                return new OperationResult(OutcomeState.Failure, default, $"{e.ClassName}: {e.Message}");
             }
 
             var walletModel = walletDomainEntity.ToWalletModel();
@@ -63,9 +64,11 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             catch (Exception e)
             {
                 _logger.LogCritical(e.Message);
+
                 operationResult = new OperationResult(OutcomeState.Failure, default, $" | Data access failed: {e.Message}");
             }
 
+            // Send payload to RabbitMq event bus 
             _eventBus.Publish(new CreateWalletEventDto { OwnerGuid = appDto.OwnerGuid, IsCreated = true });
 
             return operationResult;

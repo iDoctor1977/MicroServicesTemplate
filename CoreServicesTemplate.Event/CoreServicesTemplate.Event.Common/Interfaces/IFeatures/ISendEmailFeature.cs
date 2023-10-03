@@ -1,6 +1,6 @@
-using CoreServicesTemplate.Shared.Core.DtoEvents;
+using CoreServicesTemplate.Shared.Core.Events;
 using CoreServicesTemplate.Shared.Core.Interfaces.IHandlers;
 
-namespace CoreServicesTemplate.Event.Handler.Workers;
+namespace CoreServicesTemplate.Event.Common.Interfaces.IFeatures;
 
 public interface ISendEmailFeature : ICommandHandler<CreateWalletEventDto> { }

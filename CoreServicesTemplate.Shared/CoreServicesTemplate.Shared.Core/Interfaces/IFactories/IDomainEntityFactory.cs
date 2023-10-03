@@ -2,5 +2,5 @@
 
 public interface IDomainEntityFactory
 {
-    TOut GenerateAggregate<TIn, TOut>(TIn model);
+    TOut Generate<TIn, TOut>(TIn model);
 }
