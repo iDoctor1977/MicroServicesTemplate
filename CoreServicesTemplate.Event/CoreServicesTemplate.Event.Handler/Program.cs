@@ -1,3 +1,4 @@
+using CoreServicesTemplate.Event.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Event.Core.Features;
 using CoreServicesTemplate.Event.Handler.Workers;
 using RabbitMQ.Client;

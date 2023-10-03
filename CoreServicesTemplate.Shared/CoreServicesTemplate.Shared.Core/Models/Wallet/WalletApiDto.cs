@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using CoreServicesTemplate.Shared.Core.DtoModels.WalletItem;
+using CoreServicesTemplate.Shared.Core.Models.WalletItem;
 
-namespace CoreServicesTemplate.Shared.Core.DtoModels.Wallet
+namespace CoreServicesTemplate.Shared.Core.Models.Wallet
 {
     public class WalletApiDto : WalletApiBaseDto
     {

@@ -42,7 +42,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
             var uri = $"{UrlGet}/{_ownerGuid}";
 
             // Act
-            var response = await _client.GetAsync(uri);
+            using var response = await _client.GetAsync(uri);
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -58,7 +58,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
         {
             var dbContext = _factory.GetContext();
 
-            if (dbContext != null && !dbContext.Database.EnsureCreatedAsync().Equals(null))
+            if (!dbContext.Database.EnsureCreatedAsync().Equals(null))
             {
                 dbContext.Wallets.Add(new Data.Entities.Wallet
                 {

@@ -7,9 +7,9 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
 {
     public class EfRepository<T> : IRepository<T> where T : EntityEfBase
     {
-        private readonly UnitOfWorkContext _dbContext;
+        private readonly AppEfContext _dbContext;
 
-        protected EfRepository(UnitOfWorkContext dbContext)
+        protected EfRepository(AppEfContext dbContext)
         {
             _dbContext = dbContext;
             EntitySet = _dbContext.Set<T>();
@@ -17,7 +17,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
 
         private DbSet<T> EntitySet { get; }
 
-        public T? Get(Expression<Func<T, bool>> expression) => EntitySet.FirstOrDefault(expression);
+        public T Get(Expression<Func<T, bool>> expression) => EntitySet.FirstOrDefault(expression);
 
         public IEnumerable<T> GetAll() => EntitySet.AsEnumerable();
 
@@ -37,7 +37,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
 
         public void UpdateRange(IEnumerable<T> entities) => _dbContext.UpdateRange(entities);
 
-        public async Task<T?> GetAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default) => await EntitySet.FirstOrDefaultAsync(expression, cancellationToken);
+        public async Task<T> GetAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default) => await EntitySet.FirstOrDefaultAsync(expression, cancellationToken);
 
         public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default) => await EntitySet.ToListAsync(cancellationToken);
 

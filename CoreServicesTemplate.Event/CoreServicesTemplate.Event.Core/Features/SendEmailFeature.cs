@@ -1,5 +1,5 @@
-using CoreServicesTemplate.Event.Handler.Workers;
-using CoreServicesTemplate.Shared.Core.DtoEvents;
+using CoreServicesTemplate.Event.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.Shared.Core.Events;
 using CoreServicesTemplate.Shared.Core.Results;
 using Microsoft.Extensions.Logging;
 
@@ -16,11 +16,11 @@ public class SendEmailFeature : ISendEmailFeature
 
     public async Task<OperationResult> ExecuteAsync(CreateWalletEventDto model)
     {
-        _logger.LogInformation($"Sending confirmation email #[{model.OwnerGuid}, {model.IsCreated}].");
+        _logger.LogInformation($"---- Sending confirmation email #[{model.OwnerGuid}, {model.IsCreated}].");
 
         await Task.Delay(1000);
 
-        _logger.LogInformation($"#{model.OwnerGuid} confirmation email sent.");
+        _logger.LogInformation($"---- #{model.OwnerGuid} confirmation email sent.");
 
         return new OperationResult();
     }

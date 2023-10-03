@@ -8,7 +8,7 @@ public class WalletEfRepository : EfRepository<Wallet>, IWalletRepository
 {
     private DbSet<Wallet> WalletEntity { get; }
 
-    public WalletEfRepository(UnitOfWorkContext unitOfWorkContext) : base(unitOfWorkContext)
+    public WalletEfRepository(AppEfContext unitOfWorkContext) : base(unitOfWorkContext)
     {
         WalletEntity = unitOfWorkContext.Set<Wallet>();
     }

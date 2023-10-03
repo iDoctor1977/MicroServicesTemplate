@@ -68,6 +68,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
                 operationResult = new OperationResult(OutcomeState.Failure, default, $" | Data access failed: {e.Message}");
             }
 
+            // Send payload to RabbitMq event bus 
             _eventBus.Publish(new CreateWalletEventDto { OwnerGuid = appDto.OwnerGuid, IsCreated = true });
 
             return operationResult;

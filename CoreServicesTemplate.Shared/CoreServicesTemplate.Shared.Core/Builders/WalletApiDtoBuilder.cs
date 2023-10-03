@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
+using CoreServicesTemplate.Shared.Core.Models.Wallet;
 
 namespace CoreServicesTemplate.Shared.Core.Builders
 {

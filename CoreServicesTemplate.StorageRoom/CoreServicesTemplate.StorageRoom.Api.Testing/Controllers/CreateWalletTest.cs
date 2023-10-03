@@ -16,7 +16,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
     {
         private readonly HttpClient _client;
         private readonly CustomWebApplicationFactory<Program> _factory;
-        private readonly UnitOfWorkContext _context;
 
         private static readonly string UrlPost = ApiUrl.StorageRoomApi.CreateWallet();
 
@@ -28,9 +27,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
             {
                 AllowAutoRedirect = false
             });
-
-            _factory.OpenDbConnection();
-            _context = (UnitOfWorkContext)_factory.Services.GetRequiredService<IUnitOfWorkContext>();
         }
 
         [Fact]
@@ -52,7 +48,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
 
             // Assert
             response.EnsureSuccessStatusCode();
-            _context.Wallets.Should().HaveCount(2);
+            _factory.GetContext().Wallets.Should().HaveCount(2);
         }
 
         [Theory]
@@ -136,9 +132,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
 
         private void SeedDatabaseForTest()
         {
-            if (!_context.Database.EnsureCreatedAsync().Equals(null))
+            if (!_factory.GetContext().Database.EnsureCreatedAsync().Equals(null))
             {
-                _context.Wallets.Add(new Data.Entities.Wallet
+                _factory.GetContext().Wallets.Add(new Data.Entities.Wallet
                 {
                     Guid = Guid.NewGuid(),
                     OwnerGuid = Guid.NewGuid(),
@@ -151,7 +147,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
                     LastModifiedDate = DateTime.Now
                 });
 
-                _context.SaveChanges();
+                _factory.GetContext().SaveChanges();
             }
         }
     }

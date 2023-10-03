@@ -27,15 +27,17 @@ public class EventBase<TDto> : IEventBus<TDto> where TDto : class
 
         using (_channel = _connectionFactory.CreateModel())
         {
-            _channel.ExchangeDeclare(exchange: _exchangeName, type: ExchangeType.Direct);
+            _channel.ExchangeDeclare(
+                exchange: _exchangeName,
+                type: ExchangeType.Direct);
 
-            var body = JsonSerializer.SerializeToUtf8Bytes(eventDto);
+            var dto = JsonSerializer.SerializeToUtf8Bytes(eventDto);
 
             _channel.BasicPublish(
                 exchange: _exchangeName,
                 routingKey: string.Empty,
                 basicProperties: null,
-                body: body);
+                body: dto);
         }
     }
 

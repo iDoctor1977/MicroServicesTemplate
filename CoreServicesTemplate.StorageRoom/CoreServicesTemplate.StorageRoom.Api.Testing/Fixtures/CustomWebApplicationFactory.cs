@@ -12,7 +12,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
 {
     private readonly DbConnection _connection;
-    private UnitOfWorkContext? _dbContext;
+    private AppEfContext _dbContext;
 
     public CustomWebApplicationFactory()
     {
@@ -23,25 +23,25 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
     {
         _connection.Open();
 
-        _dbContext = Services.GetRequiredService<IUnitOfWorkContext>() as UnitOfWorkContext;
+        _dbContext = (AppEfContext)Services.GetRequiredService<IUnitOfWorkContext>();
 
-        if (_dbContext != null) _dbContext.Database.EnsureCreated();
+        _dbContext.Database.EnsureCreated();
     }
 
     public void CloseDbConnection()
     {
-        if (_dbContext != null) _dbContext.Database.EnsureDeleted();
+        _dbContext.Database.EnsureDeleted();
 
         _connection.Close();
     }
 
-    public UnitOfWorkContext? GetContext() => _dbContext;
+    public AppEfContext GetContext() => _dbContext;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureServices(services =>
         {
-            var optionDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<UnitOfWorkContext>));
+            var optionDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<AppEfContext>));
             if (optionDescriptor != null)
             {
                 services.Remove(optionDescriptor);
@@ -53,7 +53,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
                 services.Remove(descriptor);
             }
 
-            services.AddDbContext<IUnitOfWorkContext, UnitOfWorkContext>(options =>
+            services.AddDbContext<IUnitOfWorkContext, AppEfContext>(options =>
             {
                 options.UseSqlite(_connection);
             }, ServiceLifetime.Transient, ServiceLifetime.Transient);

@@ -7,7 +7,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
 {
     public class EfRepositoryMock<T> : IRepository<T> where T : EntityEfBase
     {
-        protected EfRepositoryMock(UnitOfWorkContext dbContext)
+        protected EfRepositoryMock(AppEfContext dbContext)
         {
             EntitySet = dbContext.Set<T>();
         }
@@ -80,6 +80,11 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Re
         }
 
         public Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
         {
             throw new NotImplementedException();
         }

@@ -48,7 +48,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
             };
 
             // Act
-            var response = await _client.PostAsJsonAsync(UrlPost, walletDto);
+            using var response = await _client.PostAsJsonAsync(UrlPost, walletDto);
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -69,10 +69,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
             string balance, HttpStatusCode expectedResultCode)
         {
             // Arrange
-            var og = Guid.Empty;
             if (ownerGuid != null)
             {
-                og = Guid.Parse(ownerGuid);
+                Guid.Parse(ownerGuid);
             }
             var t = Convert.ToDecimal(tradingAllowedBalance);
             var o = Convert.ToDecimal(operationAllowedBalance);
@@ -86,7 +85,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
             };
 
             // Act
-            var response = await _client.PostAsJsonAsync(UrlPost, walletDto);
+            using var response = await _client.PostAsJsonAsync(UrlPost, walletDto);
 
             // Assert
             var responseStatusCode = response.StatusCode;
@@ -105,10 +104,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
             string balance, HttpStatusCode expectedResultCode)
         {
             // Arrange
-            var og = Guid.Empty;
             if (ownerGuid != null)
             {
-                og = Guid.Parse(ownerGuid);
+                Guid.Parse(ownerGuid);
             }
             var t = Convert.ToDecimal(tradingAllowedBalance);
             var o = Convert.ToDecimal(operationAllowedBalance);
@@ -122,7 +120,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
             };
 
             // Act
-            var response = await _client.PostAsJsonAsync(UrlPost, walletDto);
+            using var response = await _client.PostAsJsonAsync(UrlPost, walletDto);
 
             // Assert
             var responseStatusCode = response.StatusCode;
@@ -133,7 +131,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
         {
             var context = _factory.GetContext();
 
-            if (context != null && !context.Database.EnsureCreatedAsync().Equals(null))
+            if (!context.Database.EnsureCreatedAsync().Equals(null))
             {
                 context.Wallets.Add(new Data.Entities.Wallet
                 {

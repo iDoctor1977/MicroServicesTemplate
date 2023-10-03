@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoreServicesTemplate.Shared.Core.DtoEvents;
+namespace CoreServicesTemplate.Shared.Core.Events;
 
 public class CreateWalletEventDto
 {
