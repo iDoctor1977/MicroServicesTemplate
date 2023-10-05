@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Json;
-using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
+using CoreServicesTemplate.Shared.Core.Models.Wallet;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;

@@ -5,6 +5,6 @@ namespace CoreServicesTemplate.Event.Common.Interfaces.IServices
 {
     public interface IEventService
     {
-        Task<OperationResult<WalletApiDto>> GetWalletAsync(Guid ownerGuid);
+        Task<OperationResult<CreateWalletEventApiDto?>> CreateWalletEventAsync(Guid ownerGuid);
     }
 }

@@ -1,14 +1,11 @@
 using System.Net;
 using System.Net.Http.Json;
-using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
-using CoreServicesTemplate.Shared.Core.Interfaces.IData;
+using CoreServicesTemplate.Shared.Core.Models.Wallet;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
-using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
 {

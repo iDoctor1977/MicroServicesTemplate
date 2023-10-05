@@ -1,7 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
-using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
+using CoreServicesTemplate.Shared.Core.Models.Wallet;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;

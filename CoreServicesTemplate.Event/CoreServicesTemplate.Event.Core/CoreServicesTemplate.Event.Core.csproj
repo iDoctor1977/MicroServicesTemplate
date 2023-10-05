@@ -12,8 +12,4 @@
     <ProjectReference Include="..\CoreServicesTemplate.Event.Data\CoreServicesTemplate.Event.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\" />
-  </ItemGroup>
-
 </Project>

@@ -35,7 +35,7 @@ namespace CoreServicesTemplate.Dashboard.Services
                 return new OperationResult<WalletApiDto>(apiModel);
             };
 
-            return new OperationResult<WalletApiDto>("Api return value is not valid.");
+            return new OperationResult<WalletEventApiDto>(OutcomeState.Failure, default, " | Api return value is not valid.");
         }
     }
 }

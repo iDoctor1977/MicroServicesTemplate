@@ -1,6 +1,6 @@
-﻿using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
-using CoreServicesTemplate.Shared.Core.Enums;
+﻿using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.Shared.Core.Models.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 using Microsoft.AspNetCore.Mvc;

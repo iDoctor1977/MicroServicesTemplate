@@ -1,5 +1,5 @@
-﻿using CoreServicesTemplate.Shared.Core.DtoEvents;
-using CoreServicesTemplate.Shared.Core.Enums;
+﻿using CoreServicesTemplate.Shared.Core.Enums;
+using CoreServicesTemplate.Shared.Core.EventModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Interfaces.IEvents;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
@@ -36,11 +36,11 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _logger = logger;
         }
 
-        public async Task<OperationResult> ExecuteAsync(CreateWalletAppDto appDto)
+        public async Task<OperationResult> ExecuteAsync(CreateWalletAppDto app)
         {
             _logger.LogInformation("----- Execute feature: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
-            var baseWalletModel = _walletMapper.Map(appDto);
+            var baseWalletModel = _walletMapper.Map(app);
 
             OperationResult operationResult;
             WalletAggregate walletDomainEntity;
@@ -69,7 +69,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             }
 
             // Send payload to RabbitMq event bus 
-            _eventBus.Publish(new CreateWalletEventDto { OwnerGuid = appDto.OwnerGuid, IsCreated = true });
+            _eventBus.Publish(new CreateWalletEventDto { OwnerGuid = app.OwnerGuid, IsCreated = true });
 
             return operationResult;
         }

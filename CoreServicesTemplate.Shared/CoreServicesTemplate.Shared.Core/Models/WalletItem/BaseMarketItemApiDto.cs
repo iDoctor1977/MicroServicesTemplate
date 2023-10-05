@@ -2,7 +2,7 @@ using System;
 
 namespace CoreServicesTemplate.Shared.Core.Models.WalletItem;
 
-public class MarketItemApiBaseDto
+public class BaseMarketItemApiDto
 {
     public decimal? Amount { get; set; }
     public decimal? BuyPrice { get; set; }

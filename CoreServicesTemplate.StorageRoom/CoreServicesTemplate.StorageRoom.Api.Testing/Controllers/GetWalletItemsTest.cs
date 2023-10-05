@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using CoreServicesTemplate.Shared.Core.DtoModels.WalletItem;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
+using CoreServicesTemplate.Shared.Core.Models.WalletItem;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using FluentAssertions;
