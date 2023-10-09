@@ -43,9 +43,12 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
             if (operationResult.State.Equals(OutcomeState.Success))
             {
-                var walletApiModel = _walletEventMapper.Map(operationResult.Value);
+                if (operationResult.Value != null)
+                {
+                    var walletApiModel = _walletEventMapper.Map(operationResult.Value);
 
-                return Ok(walletApiModel);
+                    return Ok(walletApiModel);
+                }
             }
 
             return UnprocessableEntity(operationResult);

@@ -6,7 +6,6 @@ using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
 {

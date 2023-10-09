@@ -7,7 +7,7 @@ using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 using Microsoft.Extensions.Logging;
 
-namespace CoreServicesTemplate.StorageRoom.Core.EventFeatures;
+namespace CoreServicesTemplate.StorageRoom.Core.Features;
 
 public class CreateWalletEventFeature : ICreateWalletEventFeature
 {

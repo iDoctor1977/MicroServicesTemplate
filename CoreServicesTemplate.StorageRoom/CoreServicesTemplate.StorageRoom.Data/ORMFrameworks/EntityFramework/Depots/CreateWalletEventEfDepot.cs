@@ -1,5 +1,4 @@
-﻿using System.Net.Mail;
-using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
@@ -13,8 +12,10 @@ public class CreateWalletEventEfDepot : ICreateWalletEventEfDepot
 {
     private readonly IDefaultMapper<CreateWalletEventModel, Wallet> _walletEventMapper;
     // private readonly IDefaultMapper<CreateWalletEventModel, User> _userMapper;
+    // private readonly IDefaultMapper<CreateWalletEventModel, Info> _infoMapper;
     private readonly IWalletRepository _walletRepository;
-    //private readonly IUserRepository _walletRepository;
+    //private readonly IUserRepository _userRepository;
+    //private readonly IInfoRepository _infoRepository;
     private readonly ILogger<CreateWalletEventEfDepot> _logger;
 
     public CreateWalletEventEfDepot(
@@ -39,10 +40,10 @@ public class CreateWalletEventEfDepot : ICreateWalletEventEfDepot
         walletEventModel.Surname = "Foglia";
         walletEventModel.Cap = "44123";
         walletEventModel.Address = "Via A. Magri, 12";
-        walletEventModel.FromAddress = new MailAddress("info@wallet.com");
+        walletEventModel.FromAddress = "info@wallet.com";
 
-        // in this point you can read site info repository and map here to return model
-        walletEventModel.ToAddress = new MailAddress("fifoglia@gmail.com");
+        // in this point you can read site info from repository and map here to return model
+        walletEventModel.ToAddress = "fifoglia@gmail.com";
             
         return new OperationResult<CreateWalletEventModel>(walletEventModel);
     }
