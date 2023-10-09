@@ -1,27 +1,25 @@
 # Micro Services Template
 Net Core microservices template 
 
-# Base guideline to create Web App and Web Api Domain Driven projects.
+# Basic architecture to create Web App and Web Api Domain Driven projects.
 
 > Style of creation for projects **WebApp MVC**  
-> 1. **SolutionName**.*SolutionProject*.
->       1. Common
->       2. Web => [ ***Graphic interface*** ]
->       3. Web.Testing
->       4. Core
->       5. Data => [ ***For the data management Webapps*** ]
->       6. Services
+> 1. **SolutionName**.*ProjectName*.
+>       1. ProjectName.Common
+>       2. ProjectName.Web => [ ***Graphic interface*** ]
+>       3. ProjectName.Web.Testing
+>       4. ProjectName.Core
+>       5. ProjectName.Data => [ ***For the data management Webapps*** ]
+>       6. ProjectName.Services
 
 > Style of creation for projects **WebApi MVC** 
-> 1. **SolutionName**.*SolutionProject*.
->       1. Common
->       2. Api
->       3. Api.Testing
->       4. Web => [ ***Graphic interface if necessary*** ]
->       5. Web.Testing
->       6. Core
->       7. Data => [ ***For the data management Webapps*** ]
->       8. Services
+> 1. **SolutionName**.*ProjectName*.
+>       1. ProjectName.Common
+>       2. ProjectName.Api
+>       3. ProjectName.Api.Testing
+>       6. ProjectName.Core
+>       7. ProjectName.Data => [ ***For the data management Webapps*** ]
+>       8. ProjectName.Services
 
 ---
 
