@@ -1,7 +1,8 @@
 using System.Net.Http.Json;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
-using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
+using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
+using CoreServicesTemplate.Shared.Core.Models.Wallet;
 using CoreServicesTemplate.Shared.Core.Results;
 
 namespace CoreServicesTemplate.Dashboard.Services
@@ -35,7 +36,7 @@ namespace CoreServicesTemplate.Dashboard.Services
                 return new OperationResult<WalletApiDto>(apiModel);
             };
 
-            return new OperationResult<WalletApiDto>("Api return value is not valid.");
+            return new OperationResult<WalletApiDto>(OutcomeState.Failure, default, " | Api return value is not valid.");
         }
     }
 }

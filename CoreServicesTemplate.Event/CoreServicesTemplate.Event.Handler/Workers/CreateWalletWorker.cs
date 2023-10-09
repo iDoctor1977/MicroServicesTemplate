@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using CoreServicesTemplate.Event.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.Shared.Core.Events;
+using CoreServicesTemplate.Shared.Core.EventModels.Wallet;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
 
@@ -9,22 +9,22 @@ namespace CoreServicesTemplate.Event.Handler.Workers
 {
     public class CreateWalletWorker : WorkerBase
     {
-        private readonly ISendEmailFeature _sendEmailFeature;
+        private readonly ISendEmailEventFeature _sendEmailEventFeature;
 
         public CreateWalletWorker(
             IConnectionFactory connectionFactory,
-            ISendEmailFeature sendEmailFeature,
+            ISendEmailEventFeature sendEmailEventFeature,
             string exchangeName,
             string queueName,
             ILogger<CreateWalletWorker> logger) : base(connectionFactory, exchangeName, queueName, logger)
         {
-            _sendEmailFeature = sendEmailFeature;
+            _sendEmailEventFeature = sendEmailEventFeature;
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var consumer = SetAsyncEventConsumer(stoppingToken);
-            consumer.Received += async (ch, ea) =>
+            consumer.Received += async (model, ea) =>
             {
                 var body = Encoding.UTF8.GetString(ea.Body.ToArray());
                 Logger.LogInformation($"Processing msg: '{body}'.");
@@ -33,7 +33,7 @@ namespace CoreServicesTemplate.Event.Handler.Workers
                 {
                     var eventDto = JsonSerializer.Deserialize<CreateWalletEventDto>(body);
 
-                    await _sendEmailFeature.ExecuteAsync(eventDto);
+                    await _sendEmailEventFeature.ExecuteAsync(eventDto);
 
                     Channel.BasicAck(ea.DeliveryTag, false);
                 }

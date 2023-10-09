@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
-using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
+using CoreServicesTemplate.Shared.Core.Models.Wallet;
 
 namespace CoreServicesTemplate.Dashboard.Core.MapperProfiles
 {

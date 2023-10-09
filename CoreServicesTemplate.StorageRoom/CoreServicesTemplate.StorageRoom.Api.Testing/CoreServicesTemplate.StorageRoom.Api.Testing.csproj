@@ -31,4 +31,8 @@
     <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Data\CoreServicesTemplate.StorageRoom.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Event\" />
+  </ItemGroup>
+
 </Project>

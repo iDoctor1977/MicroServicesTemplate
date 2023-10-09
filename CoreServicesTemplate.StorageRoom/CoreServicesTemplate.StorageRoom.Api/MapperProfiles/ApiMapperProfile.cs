@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
-using CoreServicesTemplate.Shared.Core.DtoModels.WalletItem;
+using CoreServicesTemplate.Shared.Core.Models.Wallet;
+using CoreServicesTemplate.Shared.Core.Models.WalletItem;
 using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Models.WalletItem;
 

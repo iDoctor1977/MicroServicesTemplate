@@ -30,7 +30,7 @@ public class CreateWalletEfDepot: UnitOfWorkDepotBase, ICreateWalletDepot
 
     public async Task<OperationResult> ExecuteAsync(WalletModel appDto)
     {
-        _logger.LogInformation("----- Create wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+        _logger.LogInformation("----- Execute depot: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
         var walletEntity = _defaultWalletMapper.Map(appDto);
 

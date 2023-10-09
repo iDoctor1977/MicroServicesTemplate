@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CoreServicesTemplate.Shared.Core.Models.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
@@ -22,6 +23,9 @@ namespace CoreServicesTemplate.StorageRoom.Core.MapperProfiles
             CreateMap<CreateWalletItemModel, WalletItemEntity>().ReverseMap();
             CreateMap<WalletItemModel, WalletItemEntity>().ReverseMap();
             CreateMap<WalletItemAppDto, WalletItemModel>().ReverseMap();
+
+            CreateMap<CreateWalletEventApiDto, CreateWalletEventAppDto>().ReverseMap();
+            CreateMap<CreateWalletEventAppDto, CreateWalletEventModel>().ReverseMap();
         }
     }
 }

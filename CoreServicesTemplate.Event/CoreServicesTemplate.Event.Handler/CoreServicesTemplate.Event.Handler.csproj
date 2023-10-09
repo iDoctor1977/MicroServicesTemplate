@@ -16,5 +16,6 @@
     <ProjectReference Include="..\..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.Event.Common\CoreServicesTemplate.Event.Common.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.Event.Core\CoreServicesTemplate.Event.Core.csproj" />
+    <ProjectReference Include="..\CoreServicesTemplate.Event.Services\CoreServicesTemplate.Event.Services.csproj" />
   </ItemGroup>
 </Project>

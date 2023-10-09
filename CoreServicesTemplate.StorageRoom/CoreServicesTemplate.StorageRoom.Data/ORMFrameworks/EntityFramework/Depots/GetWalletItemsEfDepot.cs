@@ -30,7 +30,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
         public async Task<OperationResult<ICollection<WalletItemModel>>> ExecuteAsync(Guid ownerGuid)
         {
-            _logger.LogInformation("----- Get wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+            _logger.LogInformation("----- Execute depot: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
             var entities = await _walletItemRepository.ReadWalletItemsByOwnerGuidAsync(ownerGuid);
 

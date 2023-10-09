@@ -1,14 +1,12 @@
 using System.Net;
 using System.Net.Http.Json;
-using CoreServicesTemplate.Shared.Core.DtoModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Infrastructures;
-using CoreServicesTemplate.Shared.Core.Interfaces.IData;
+using CoreServicesTemplate.Shared.Core.Models.Wallet;
 using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
-using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
 {
@@ -33,6 +31,8 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
         public async Task Should_Create_New_Wallet_And_Save_It_To_InMemorySQLiteDb()
         {
             // Arrange
+            _factory.OpenDbConnection();
+
             SeedDatabaseForTest();
 
             var walletDto = new CreateWalletApiDto
@@ -52,7 +52,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
         }
 
         [Theory]
-        [InlineData(null, "12.3", "32.6", "12.5", HttpStatusCode.UnprocessableEntity)]
+        [InlineData("00000000-0000-0000-0000-000000000000", "12.3", "32.6", "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", null, "32.6", "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "12.3", null, "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "12.3", "32.6", null, HttpStatusCode.UnprocessableEntity)]
@@ -63,18 +63,15 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
             string balance, HttpStatusCode expectedResultCode)
         {
             // Arrange
-            var og = Guid.Empty;
-            if (ownerGuid != null)
-            {
-                og = Guid.Parse(ownerGuid);
-            }
+            _factory.OpenDbConnection();
+
             var t = Convert.ToDecimal(tradingAllowedBalance);
             var o = Convert.ToDecimal(operationAllowedBalance);
             var b = Convert.ToDecimal(balance);
 
             var walletDto = new CreateWalletApiDto
             {
-                OwnerGuid = og,
+                OwnerGuid = Guid.Parse(ownerGuid),
                 TradingAllowedBalance = t,
                 OperationAllowedBalance = o,
                 Balance = b
@@ -89,7 +86,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
         }
 
         [Theory]
-        [InlineData(null, "12.3", "32.6", "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "-15.69", "32.6", "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "12.3", "-32.9", "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "12.3", "32.6", "-36.1", HttpStatusCode.UnprocessableEntity)]
@@ -100,18 +96,17 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Controllers
             string balance, HttpStatusCode expectedResultCode)
         {
             // Arrange
-            var og = Guid.Empty;
-            if (ownerGuid != null)
-            {
-                og = Guid.Parse(ownerGuid);
-            }
+            _factory.OpenDbConnection();
+
+            SeedDatabaseForTest();
+
             var t = Convert.ToDecimal(tradingAllowedBalance);
             var o = Convert.ToDecimal(operationAllowedBalance);
             var b = Convert.ToDecimal(balance);
 
             var walletDto = new CreateWalletApiDto
             {
-                OwnerGuid = og,
+                OwnerGuid = Guid.Parse(ownerGuid),
                 TradingAllowedBalance = t,
                 OperationAllowedBalance = o,
                 Balance = b

@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Storag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Shared.Core", "..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj", "{B040F81A-DC8B-48B1-BB12-F877C00A3430}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.StorageRoom.EventBus", "CoreServicesTemplate.StorageRoom.EventBus\CoreServicesTemplate.StorageRoom.EventBus.csproj", "{A71FAF3E-EE27-41B4-B6D4-9D4FC3869DF2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{B040F81A-DC8B-48B1-BB12-F877C00A3430}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B040F81A-DC8B-48B1-BB12-F877C00A3430}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B040F81A-DC8B-48B1-BB12-F877C00A3430}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A71FAF3E-EE27-41B4-B6D4-9D4FC3869DF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A71FAF3E-EE27-41B4-B6D4-9D4FC3869DF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A71FAF3E-EE27-41B4-B6D4-9D4FC3869DF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A71FAF3E-EE27-41B4-B6D4-9D4FC3869DF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

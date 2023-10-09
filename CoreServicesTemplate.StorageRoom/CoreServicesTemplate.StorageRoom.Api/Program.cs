@@ -1,4 +1,4 @@
-using CoreServicesTemplate.Shared.Core.DtoEvents;
+using CoreServicesTemplate.Shared.Core.EventModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Factories;
 using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.Shared.Core.Interfaces.IData;
@@ -6,10 +6,12 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IEvents;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
+using CoreServicesTemplate.StorageRoom.Api.Events;
 using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.StorageRoom.Core.EventFeatures;
 using CoreServicesTemplate.StorageRoom.Core.Features;
 using CoreServicesTemplate.StorageRoom.Core.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Data.CustomMappers;
@@ -20,7 +22,6 @@ using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Depots;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories;
 using CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.Repositories.Mocks;
-using CoreServicesTemplate.StorageRoom.EventBus.Events;
 using Microsoft.EntityFrameworkCore;
 using RabbitMQ.Client;
 
@@ -31,10 +32,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<ICreateWalletFeature, CreateWalletFeature>();
 builder.Services.AddTransient<IGetTradingAvailableBalanceFeature, GetTradingAvailableBalanceFeature>();
 builder.Services.AddTransient<IGetWalletItemsFeature, GetWalletItemsFeature>();
+builder.Services.AddTransient<ICreateWalletEventFeature, CreateWalletEventFeature>();
 
 builder.Services.AddTransient<ICreateWalletDepot, CreateWalletEfDepot>();
 builder.Services.AddTransient<IGetTradingAvailableBalanceDepot, GetTradingAvailableBalanceEfDepot>();
 builder.Services.AddTransient<IGetWalletItemsEfDepot, GetWalletItemsEfDepot>();
+builder.Services.AddTransient<ICreateWalletEventEfDepot, CreateWalletEventEfDepot>();
 
 if (builder.Configuration["repositoryMocked"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
 {
@@ -111,7 +114,7 @@ builder.Services.AddAutoMapper(typeof(ApiMapperProfile), typeof(DataMapperProfil
 
 #region BusEvents
 
-builder.Services.AddTransient<IEventBus<CreateWalletEventDto>>(sp =>
+builder.Services.AddTransient((Func<IServiceProvider, IEventBus<CreateWalletEventDto>>)(sp =>
 {
     var logger = sp.GetRequiredService<ILogger<CreateWalletEvent>>();
 
@@ -119,7 +122,7 @@ builder.Services.AddTransient<IEventBus<CreateWalletEventDto>>(sp =>
     var exchangeName = builder.Configuration["CreateWalletExchangeName"];
 
     return new CreateWalletEvent(connectionFactory, exchangeName, logger);
-});
+}));
 
 #endregion
 

@@ -53,12 +53,7 @@ public abstract class WorkerBase : BackgroundService
             exchange: _exchangeName,
             type: ExchangeType.Direct);
 
-        Channel.QueueDeclare(
-                    queue: QueueName,
-                    durable: true,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
+        Channel.QueueDeclare(queue: QueueName);
 
         Channel.QueueBind(
             queue: QueueName,

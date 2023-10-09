@@ -1,8 +1,8 @@
-﻿using CoreServicesTemplate.Shared.Core.DtoEvents;
-using Microsoft.Extensions.Logging;
+﻿using CoreServicesTemplate.Shared.Core.Bases;
+using CoreServicesTemplate.Shared.Core.EventModels.Wallet;
 using RabbitMQ.Client;
 
-namespace CoreServicesTemplate.StorageRoom.EventBus.Events
+namespace CoreServicesTemplate.StorageRoom.Api.Events
 {
     public class CreateWalletEvent : EventBase<CreateWalletEventDto>
     {

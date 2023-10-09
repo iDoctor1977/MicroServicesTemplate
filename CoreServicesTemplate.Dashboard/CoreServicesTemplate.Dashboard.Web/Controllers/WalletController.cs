@@ -56,6 +56,8 @@ namespace CoreServicesTemplate.Dashboard.Web.Controllers
 
         public async Task<ViewResult> ReadWallet(Guid ownerGuid)
         {
+            Logger.LogInformation("----- Read wallet items: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+
             var result = await _readWalletFeature.ExecuteAsync(ownerGuid);
 
             if (result.Value != null)

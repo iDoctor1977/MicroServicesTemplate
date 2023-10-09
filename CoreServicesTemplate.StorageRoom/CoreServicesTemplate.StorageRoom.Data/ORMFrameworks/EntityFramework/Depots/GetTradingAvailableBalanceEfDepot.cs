@@ -30,7 +30,7 @@ public class GetTradingAvailableBalanceEfDepot : UnitOfWorkDepotBase, IGetTradin
 
     public async Task<OperationResult<WalletModel>> ExecuteAsync(Guid ownerGuid)
     {
-        _logger.LogInformation("----- Get trading available balance: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
+        _logger.LogInformation("----- Execute depot: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
         var walletEntity = await _walletRepository.ReadForOwnerGuidAsync(ownerGuid);
 
