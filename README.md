@@ -6,10 +6,10 @@ Net Core microservices template
 > Style of creation for projects **WebApp MVC**  
 > 1. **SolutionName**.*ProjectName*.
 >       1. ProjectName.Common
->       2. ProjectName.Web => [ ***Graphic interface*** ]
+>       2. ProjectName.Web => [ ***Graphic user interface*** ]
 >       3. ProjectName.Web.Testing
 >       4. ProjectName.Core
->       5. ProjectName.Data => [ ***For the data management Webapps*** ]
+>       5. ProjectName.Data => [ ***For data management*** ]
 >       6. ProjectName.Services
 
 > Style of creation for projects **WebApi MVC** 
@@ -18,7 +18,7 @@ Net Core microservices template
 >       2. ProjectName.Api
 >       3. ProjectName.Api.Testing
 >       6. ProjectName.Core
->       7. ProjectName.Data => [ ***For the data management Webapps*** ]
+>       7. ProjectName.Data => [ ***For data management*** ]
 >       8. ProjectName.Services
 
 ---
