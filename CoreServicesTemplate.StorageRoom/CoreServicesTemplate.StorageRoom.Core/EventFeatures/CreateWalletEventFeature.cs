@@ -7,13 +7,23 @@ using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 using Microsoft.Extensions.Logging;
 
-namespace CoreServicesTemplate.StorageRoom.Core.Features;
+namespace CoreServicesTemplate.StorageRoom.Core.EventFeatures;
 
 public class CreateWalletEventFeature : ICreateWalletEventFeature
 {
     private readonly IDefaultMapper<CreateWalletEventAppDto, CreateWalletEventModel> _defaultMapper;
     private readonly ICreateWalletEventEfDepot _walletEventEfDepot;
     private readonly ILogger<CreateWalletEventFeature> _logger;
+
+    public CreateWalletEventFeature(
+        IDefaultMapper<CreateWalletEventAppDto, CreateWalletEventModel> defaultMapper,
+        ICreateWalletEventEfDepot walletEventEfDepot,
+        ILogger<CreateWalletEventFeature> logger)
+    {
+        _defaultMapper = defaultMapper;
+        _walletEventEfDepot = walletEventEfDepot;
+        _logger = logger;
+    }
 
     public async Task<OperationResult<CreateWalletEventAppDto>> ExecuteAsync(Guid ownerGuid)
     {

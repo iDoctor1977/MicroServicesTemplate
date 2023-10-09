@@ -24,7 +24,7 @@ namespace CoreServicesTemplate.Event.Handler.Workers
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var consumer = SetAsyncEventConsumer(stoppingToken);
-            consumer.Received += async (ch, ea) =>
+            consumer.Received += async (model, ea) =>
             {
                 var body = Encoding.UTF8.GetString(ea.Body.ToArray());
                 Logger.LogInformation($"Processing msg: '{body}'.");

@@ -1,3 +1,4 @@
+using CoreServicesTemplate.Shared.Core.EventModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Factories;
 using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.Shared.Core.Interfaces.IData;
@@ -5,10 +6,12 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IEvents;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
+using CoreServicesTemplate.StorageRoom.Api.Events;
 using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.StorageRoom.Core.EventFeatures;
 using CoreServicesTemplate.StorageRoom.Core.Features;
 using CoreServicesTemplate.StorageRoom.Core.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Data.CustomMappers;
@@ -111,14 +114,14 @@ builder.Services.AddAutoMapper(typeof(ApiMapperProfile), typeof(DataMapperProfil
 
 #region BusEvents
 
-builder.Services.AddTransient((Func<IServiceProvider, IEventBus<CoreServicesTemplate.Shared.Core.EventModels.Wallet.CreateWalletEventDto>>)(sp =>
+builder.Services.AddTransient((Func<IServiceProvider, IEventBus<CreateWalletEventDto>>)(sp =>
 {
-    var logger = sp.GetRequiredService<ILogger<CoreServicesTemplate.StorageRoom.EventBus.Events.CreateWalletEvent>>();
+    var logger = sp.GetRequiredService<ILogger<CreateWalletEvent>>();
 
     var connectionFactory = new ConnectionFactory { HostName = builder.Configuration["BusConnectionName"], DispatchConsumersAsync = true };
     var exchangeName = builder.Configuration["CreateWalletExchangeName"];
 
-    return new CoreServicesTemplate.StorageRoom.EventBus.Events.CreateWalletEvent(connectionFactory, exchangeName, logger);
+    return new CreateWalletEvent(connectionFactory, exchangeName, logger);
 }));
 
 #endregion

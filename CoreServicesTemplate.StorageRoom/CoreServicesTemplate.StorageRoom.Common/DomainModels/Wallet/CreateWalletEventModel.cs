@@ -2,8 +2,9 @@
 
 namespace CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 
-public class CreateWalletEventModel : BaseWalletModel
+public class CreateWalletEventModel
 {
+    public Guid OwnerGuid { get; set; }
     public string Name { get; set; }
     public string Surname { get; set; }
     public string Address { get; set; }

@@ -6,6 +6,7 @@ using CoreServicesTemplate.StorageRoom.Api.Testing.Fixtures;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
 {
@@ -58,7 +59,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
         }
 
         [Theory]
-        [InlineData(null, "12.3", "32.6", "12.5", HttpStatusCode.UnprocessableEntity)]
+        [InlineData("00000000-0000-0000-0000-000000000000", "12.3", "32.6", "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", null, "32.6", "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "12.3", null, "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "12.3", "32.6", null, HttpStatusCode.UnprocessableEntity)]
@@ -69,9 +70,10 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
             string balance, HttpStatusCode expectedResultCode)
         {
             // Arrange
-            if (ownerGuid != null)
+            Guid og = default;
+            if (ownerGuid.IsNullOrEmpty())
             {
-                Guid.Parse(ownerGuid);
+                og = Guid.Empty;
             }
             var t = Convert.ToDecimal(tradingAllowedBalance);
             var o = Convert.ToDecimal(operationAllowedBalance);
@@ -79,6 +81,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
 
             var walletDto = new CreateWalletApiDto
             {
+                OwnerGuid = og,
                 TradingAllowedBalance = t,
                 OperationAllowedBalance = o,
                 Balance = b
@@ -93,7 +96,6 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
         }
 
         [Theory]
-        [InlineData(null, "12.3", "32.6", "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "-15.69", "32.6", "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "12.3", "-32.9", "12.5", HttpStatusCode.UnprocessableEntity)]
         [InlineData("8b4ff777-7bbc-496e-994e-ade927f37cfa", "12.3", "32.6", "-36.1", HttpStatusCode.UnprocessableEntity)]
@@ -104,9 +106,10 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
             string balance, HttpStatusCode expectedResultCode)
         {
             // Arrange
-            if (ownerGuid != null)
+            Guid og = default;
+            if (ownerGuid.IsNullOrEmpty())
             {
-                Guid.Parse(ownerGuid);
+                og = Guid.Empty;
             }
             var t = Convert.ToDecimal(tradingAllowedBalance);
             var o = Convert.ToDecimal(operationAllowedBalance);
@@ -114,6 +117,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.Wallet
 
             var walletDto = new CreateWalletApiDto
             {
+                OwnerGuid = og,
                 TradingAllowedBalance = t,
                 OperationAllowedBalance = o,
                 Balance = b

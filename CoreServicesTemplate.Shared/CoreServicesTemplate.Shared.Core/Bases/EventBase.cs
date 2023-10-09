@@ -1,13 +1,14 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using CoreServicesTemplate.Shared.Core.Interfaces.IEvents;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 
-namespace CoreServicesTemplate.StorageRoom.EventBus.Events;
+namespace CoreServicesTemplate.Shared.Core.Bases;
 
 public class EventBase<TDto> : IEventBus<TDto> where TDto : class
 {
-    private readonly IConnection _connectionFactory;
+    private readonly IConnection _connection;
     private readonly string _exchangeName;
     private readonly ILogger _logger;
     private IModel _channel;
@@ -17,7 +18,7 @@ public class EventBase<TDto> : IEventBus<TDto> where TDto : class
         _exchangeName = exchangeName;
         _logger = logger;
 
-        _connectionFactory = connectionFactory.CreateConnection();
+        _connection = connectionFactory.CreateConnection();
     }
 
     // Publish/Subscribe
@@ -25,7 +26,7 @@ public class EventBase<TDto> : IEventBus<TDto> where TDto : class
     {
         _logger.LogInformation("----- Handling integration event: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
-        using (_channel = _connectionFactory.CreateModel())
+        using (_channel = _connection.CreateModel())
         {
             _channel.ExchangeDeclare(
                 exchange: _exchangeName,
@@ -43,6 +44,9 @@ public class EventBase<TDto> : IEventBus<TDto> where TDto : class
 
     public void Dispose()
     {
-        _channel.Close();
+        if (!_channel.IsClosed && _channel != null)
+        {
+            _channel.Close();
+        }
     }
 }

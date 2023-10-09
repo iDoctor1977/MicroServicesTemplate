@@ -1,9 +1,11 @@
+using System;
 using System.Net.Mail;
 
 namespace CoreServicesTemplate.Shared.Core.Models.Wallet
 {
-    public class CreateWalletEventApiDto : WalletApiBaseDto
+    public class CreateWalletEventApiDto
     {
+        public Guid OwnerGuid { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Address { get; set; }

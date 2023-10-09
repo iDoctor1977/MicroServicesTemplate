@@ -9,7 +9,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.Event.Common\CoreServicesTemplate.Event.Common.csproj" />
-    <ProjectReference Include="..\CoreServicesTemplate.Event.Data\CoreServicesTemplate.Event.Data.csproj" />
   </ItemGroup>
 
 </Project>

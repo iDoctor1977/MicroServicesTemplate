@@ -60,6 +60,9 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             try
             {
                 operationResult = await _walletDepot.ExecuteAsync(walletModel);
+
+                // Send payload to RabbitMq event bus 
+                _eventBus.Publish(new CreateWalletEventDto { OwnerGuid = app.OwnerGuid, IsCreated = true });
             }
             catch (Exception e)
             {
@@ -67,9 +70,6 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
                 operationResult = new OperationResult(OutcomeState.Failure, default, $" | Data access failed: {e.Message}");
             }
-
-            // Send payload to RabbitMq event bus 
-            _eventBus.Publish(new CreateWalletEventDto { OwnerGuid = app.OwnerGuid, IsCreated = true });
 
             return operationResult;
         }

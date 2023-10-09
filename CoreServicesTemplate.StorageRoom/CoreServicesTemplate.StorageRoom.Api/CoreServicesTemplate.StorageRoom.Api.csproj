@@ -20,7 +20,6 @@
     <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Common\CoreServicesTemplate.StorageRoom.Common.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Core\CoreServicesTemplate.StorageRoom.Core.csproj" />
     <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.Data\CoreServicesTemplate.StorageRoom.Data.csproj" />
-    <ProjectReference Include="..\CoreServicesTemplate.StorageRoom.EventBus\CoreServicesTemplate.StorageRoom.EventBus.csproj" />
   </ItemGroup>
 
 </Project>

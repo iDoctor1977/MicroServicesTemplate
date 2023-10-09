@@ -17,7 +17,7 @@ public static class ApiUrl
         public static string GetTradingAvailableBalance() => $"{StorageRoomRoot}/gettradingavailablebalance";
         public static string GetWalletItems() => $"{StorageRoomRoot}/getwalletitems";
 
-        public static object CreateWalletEvent() => $"{StorageRoomRoot}/createwalletevent" ;
+        public static string CreateWalletEvent() => $"{StorageRoomRoot}/createwalletevent" ;
     }
     public static class EventBusApi
     {
