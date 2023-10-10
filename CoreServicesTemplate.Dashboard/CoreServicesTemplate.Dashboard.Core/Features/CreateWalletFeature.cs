@@ -2,8 +2,6 @@
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
 using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
 using CoreServicesTemplate.Shared.Core.Enums;
-using CoreServicesTemplate.Shared.Core.EventModels.Wallet;
-using CoreServicesTemplate.Shared.Core.Interfaces.IEvents;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models.Wallet;
 using CoreServicesTemplate.Shared.Core.Results;
@@ -14,18 +12,15 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
     public class CreateWalletFeature : ICreateWalletFeature
     {
         private readonly IStorageRoomService _storageRoomService;
-        private readonly IEventBus<CreateWalletEventDto> _eventBus;
         private readonly IDefaultMapper<CreateWalletAppModel, CreateWalletApiDto> _walletMapper;
         private readonly ILogger<CreateWalletFeature> _logger;
 
         public CreateWalletFeature(
             IStorageRoomService storageRoomService,
-            IEventBus<CreateWalletEventDto> eventBus,
             IDefaultMapper<CreateWalletAppModel, CreateWalletApiDto> walletMapper,
             ILogger<CreateWalletFeature> logger) 
         {
             _storageRoomService = storageRoomService;
-            _eventBus = eventBus;
             _walletMapper = walletMapper;
             _logger = logger;
         }

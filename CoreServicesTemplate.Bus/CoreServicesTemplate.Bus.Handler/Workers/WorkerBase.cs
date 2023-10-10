@@ -1,7 +1,7 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace CoreServicesTemplate.Event.Handler.Workers;
+namespace CoreServicesTemplate.Bus.Handler.Workers;
 
 public abstract class WorkerBase : BackgroundService
 {

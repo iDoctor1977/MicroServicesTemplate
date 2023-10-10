@@ -1,11 +1,11 @@
-using CoreServicesTemplate.Event.Common.Interfaces.IServices;
-using CoreServicesTemplate.Shared.Core.Infrastructures;
-using CoreServicesTemplate.Shared.Core.Results;
 using System.Net.Http.Json;
-using CoreServicesTemplate.Shared.Core.Models.Wallet;
+using CoreServicesTemplate.Bus.Common.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Enums;
+using CoreServicesTemplate.Shared.Core.Infrastructures;
+using CoreServicesTemplate.Shared.Core.Models.Wallet;
+using CoreServicesTemplate.Shared.Core.Results;
 
-namespace CoreServicesTemplate.Event.Services
+namespace CoreServicesTemplate.Bus.Services
 {
     public class EventService : IEventService
     {

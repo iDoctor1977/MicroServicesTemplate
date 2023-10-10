@@ -1,11 +1,11 @@
 using System.Text;
 using System.Text.Json;
-using CoreServicesTemplate.Event.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.Bus.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Shared.Core.EventModels.Wallet;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
 
-namespace CoreServicesTemplate.Event.Handler.Workers
+namespace CoreServicesTemplate.Bus.Handler.Workers
 {
     public class CreateWalletWorker : WorkerBase
     {
