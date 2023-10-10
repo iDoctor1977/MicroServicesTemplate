@@ -1,8 +1,8 @@
-using CoreServicesTemplate.Event.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.Event.Common.Interfaces.IServices;
-using CoreServicesTemplate.Event.Core.Features;
-using CoreServicesTemplate.Event.Handler.Workers;
-using CoreServicesTemplate.Event.Services;
+using CoreServicesTemplate.Bus.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.Bus.Common.Interfaces.IServices;
+using CoreServicesTemplate.Bus.Core.Features;
+using CoreServicesTemplate.Bus.Handler.Workers;
+using CoreServicesTemplate.Bus.Services;
 using RabbitMQ.Client;
 
 IHost host = Host.CreateDefaultBuilder(args)

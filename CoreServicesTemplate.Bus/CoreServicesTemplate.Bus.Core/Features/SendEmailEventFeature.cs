@@ -1,13 +1,13 @@
-using CoreServicesTemplate.Event.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.Event.Common.Interfaces.IServices;
+using System.Net.Mail;
+using CoreServicesTemplate.Bus.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.Bus.Common.Interfaces.IServices;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.EventModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Models.Wallet;
 using CoreServicesTemplate.Shared.Core.Results;
 using Microsoft.Extensions.Logging;
-using System.Net.Mail;
 
-namespace CoreServicesTemplate.Event.Core.Features;
+namespace CoreServicesTemplate.Bus.Core.Features;
 
 public class SendEmailEventFeature : ISendEmailEventFeature
 {
