@@ -1,6 +1,8 @@
 # Micro Services Template
 Net Core microservices template 
 
+![Project_Architecture](Project_Architecture.png "Architecture")
+
 # Basic architecture to create Web App and Web Api Domain Driven projects.
 
 > Style of creation for projects **WebApp MVC**  
