@@ -18,7 +18,7 @@ namespace CoreServicesTemplate.Bus.Services
 
         public async Task<OperationResult<ResponseEmailPropertiesApiDto>> GetEmailPropertiesAsync(Guid ownerGuid)
         {
-            var url = ApiUrl.StorageRoomApi.CreateWalletEvent();
+            var url = ApiUrl.StorageRoomApi.GetEmailProperties();
             var apiModel = await _client.GetFromJsonAsync<ResponseEmailPropertiesApiDto>($"{url}/{ownerGuid}");
 
             if (apiModel != null)

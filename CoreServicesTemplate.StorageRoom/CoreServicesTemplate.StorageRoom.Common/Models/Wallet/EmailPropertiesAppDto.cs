@@ -2,7 +2,7 @@
 
 namespace CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 
-public class CreateWalletEventAppDto : BaseWalletAppDto
+public class EmailPropertiesAppDto : WalletAppDtoBase
 {
     public string Name { get; set; }
     public string Surname { get; set; }

@@ -10,25 +10,25 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     [ApiController]
     [ApiConventionType(typeof(DefaultApiConventions))]
     [Route("api/storageroom/[controller]")]
-    public class CreateWalletEventController : ControllerBase
+    public class GetEmailPropertiesController : ControllerBase
     {
-        private readonly ICreateWalletEventFeature _createWalletEventFeature;
-        private readonly IDefaultMapper<CreateWalletEventAppDto, CreateWalletEventApiDto> _walletEventMapper;
+        private readonly IGetEmailPropertiesFeature _getEmailPropertiesFeature;
+        private readonly IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesAppDto> _walletEventMapper;
         private readonly ILogger<CreateWalletController> _logger;
 
-        public CreateWalletEventController(
-            ICreateWalletEventFeature createWalletEventFeature, 
-            IDefaultMapper<CreateWalletEventAppDto, CreateWalletEventApiDto> walletEventMapper, 
+        public GetEmailPropertiesController(
+            IGetEmailPropertiesFeature getEmailPropertiesFeature, 
+            IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesAppDto> walletEventMapper, 
             ILogger<CreateWalletController> logger)
         {
-            _createWalletEventFeature = createWalletEventFeature;
+            _getEmailPropertiesFeature = getEmailPropertiesFeature;
             _walletEventMapper = walletEventMapper;
             _logger = logger;
         }
 
         // GET api/storageroom/createwalletevent/{ownerGuid}
         [HttpGet("{ownerGuid}")]
-        public async Task<ActionResult<CreateWalletEventApiDto>> Get(Guid ownerGuid)
+        public async Task<ActionResult<ResponseEmailPropertiesApiDto>> Get(Guid ownerGuid)
         {
             _logger.LogInformation("----- GET on controller: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
@@ -39,15 +39,15 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 return BadRequest(message);
             }
 
-            var operationResult = await _createWalletEventFeature.ExecuteAsync(ownerGuid);
+            var operationResult = await _getEmailPropertiesFeature.ExecuteAsync(ownerGuid);
 
             if (operationResult.State.Equals(OutcomeState.Success))
             {
                 if (operationResult.Value != null)
                 {
-                    var walletApiModel = _walletEventMapper.Map(operationResult.Value);
+                    var apiDto = _walletEventMapper.Map(operationResult.Value);
 
-                    return Ok(walletApiModel);
+                    return Ok(apiDto);
                 }
             }
 

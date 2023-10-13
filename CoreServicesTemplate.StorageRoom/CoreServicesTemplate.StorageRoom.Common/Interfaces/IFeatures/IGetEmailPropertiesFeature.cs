@@ -3,4 +3,4 @@ using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 
-public interface ICreateWalletEventFeature : IQueryHandler<Guid, CreateWalletEventAppDto> { }
+public interface IGetEmailPropertiesFeature : IQueryHandler<Guid, EmailPropertiesAppDto> { }

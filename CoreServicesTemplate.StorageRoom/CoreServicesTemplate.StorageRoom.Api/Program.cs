@@ -6,7 +6,7 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IEvents;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Mappers;
-using CoreServicesTemplate.StorageRoom.Api.Events;
+using CoreServicesTemplate.StorageRoom.Api.Bus;
 using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
@@ -31,12 +31,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<ICreateWalletFeature, CreateWalletFeature>();
 builder.Services.AddTransient<IGetTradingAvailableBalanceFeature, GetTradingAvailableBalanceFeature>();
 builder.Services.AddTransient<IGetWalletItemsFeature, GetWalletItemsFeature>();
-builder.Services.AddTransient<ICreateWalletEventFeature, CreateWalletEventFeature>();
+builder.Services.AddTransient<IGetEmailPropertiesFeature, GetEmailPropertiesFeature>();
 
 builder.Services.AddTransient<ICreateWalletDepot, CreateWalletEfDepot>();
 builder.Services.AddTransient<IGetTradingAvailableBalanceDepot, GetTradingAvailableBalanceEfDepot>();
 builder.Services.AddTransient<IGetWalletItemsEfDepot, GetWalletItemsEfDepot>();
-builder.Services.AddTransient<ICreateWalletEventEfDepot, CreateWalletEventEfDepot>();
+builder.Services.AddTransient<IGetEmailPropertiesEfDepot, GetEmailPropertiesEfDepot>();
 
 if (builder.Configuration["repositoryMocked"]!.Equals("true", StringComparison.OrdinalIgnoreCase))
 {
@@ -113,14 +113,14 @@ builder.Services.AddAutoMapper(typeof(ApiMapperProfile), typeof(DataMapperProfil
 
 #region BusEvents
 
-builder.Services.AddTransient((Func<IServiceProvider, IEventBus<CreateWalletEventDto>>)(sp =>
+builder.Services.AddTransient((Func<IServiceProvider, IEventBus<WalletCreatedBusDto>>)(sp =>
 {
-    var logger = sp.GetRequiredService<ILogger<CreateWalletEvent>>();
+    var logger = sp.GetRequiredService<ILogger<WalletCreatedBus>>();
 
     var connectionFactory = new ConnectionFactory { HostName = builder.Configuration["BusConnectionName"], DispatchConsumersAsync = true };
     var exchangeName = builder.Configuration["CreateWalletExchangeName"];
 
-    return new CreateWalletEvent(connectionFactory, exchangeName, logger);
+    return new WalletCreatedBus(connectionFactory, exchangeName, logger);
 }));
 
 #endregion
