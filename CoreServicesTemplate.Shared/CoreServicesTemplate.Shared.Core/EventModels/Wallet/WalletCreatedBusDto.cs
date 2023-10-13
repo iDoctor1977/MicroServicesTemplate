@@ -2,7 +2,7 @@
 
 namespace CoreServicesTemplate.Shared.Core.EventModels.Wallet;
 
-public class CreateWalletEventDto
+public class WalletCreatedBusDto
 {
     public Guid OwnerGuid { get; set; }
     public bool IsCreated { get; set; }

@@ -7,26 +7,26 @@ using CoreServicesTemplate.Shared.Core.Results;
 
 namespace CoreServicesTemplate.Bus.Services
 {
-    public class EventService : IEventService
+    public class BusService : IBusService
     {
         private readonly HttpClient _client;
 
-        public EventService()
+        protected BusService()
         {
             _client = new HttpClient();
         }
 
-        public async Task<OperationResult<CreateWalletEventApiDto?>> CreateWalletEventAsync(Guid ownerGuid)
+        public async Task<OperationResult<ResponseEmailPropertiesApiDto>> GetEmailPropertiesAsync(Guid ownerGuid)
         {
             var url = ApiUrl.StorageRoomApi.CreateWalletEvent();
-            var apiModel = await _client.GetFromJsonAsync<CreateWalletEventApiDto>($"{url}/{ownerGuid}");
+            var apiModel = await _client.GetFromJsonAsync<ResponseEmailPropertiesApiDto>($"{url}/{ownerGuid}");
 
             if (apiModel != null)
             {
-                return new OperationResult<CreateWalletEventApiDto?>(apiModel);
+                return new OperationResult<ResponseEmailPropertiesApiDto>(apiModel);
             };
 
-            return new OperationResult<CreateWalletEventApiDto?>(OutcomeState.Failure, default," | Api return value is not valid.");
+            return new OperationResult<ResponseEmailPropertiesApiDto>(OutcomeState.Failure, default," | Api return value is not valid.");
         }
     }
 }

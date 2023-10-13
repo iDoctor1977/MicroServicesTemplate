@@ -7,16 +7,16 @@ using RabbitMQ.Client.Exceptions;
 
 namespace CoreServicesTemplate.Bus.Handler.Workers
 {
-    public class CreateWalletWorker : WorkerBase
+    public class WalletCreatedWorker : WorkerBase
     {
-        private readonly ISendEmailEventFeature _sendEmailEventFeature;
+        private readonly ISendEmailFeature _sendEmailEventFeature;
 
-        public CreateWalletWorker(
+        public WalletCreatedWorker(
             IConnectionFactory connectionFactory,
-            ISendEmailEventFeature sendEmailEventFeature,
+            ISendEmailFeature sendEmailEventFeature,
             string exchangeName,
             string queueName,
-            ILogger<CreateWalletWorker> logger) : base(connectionFactory, exchangeName, queueName, logger)
+            ILogger<WalletCreatedWorker> logger) : base(connectionFactory, exchangeName, queueName, logger)
         {
             _sendEmailEventFeature = sendEmailEventFeature;
         }
@@ -31,9 +31,9 @@ namespace CoreServicesTemplate.Bus.Handler.Workers
 
                 try
                 {
-                    var eventDto = JsonSerializer.Deserialize<CreateWalletEventDto>(body);
+                    var bustDto = JsonSerializer.Deserialize<WalletCreatedBusDto>(body);
 
-                    await _sendEmailEventFeature.ExecuteAsync(eventDto);
+                    await _sendEmailEventFeature.ExecuteAsync(bustDto);
 
                     Channel.BasicAck(ea.DeliveryTag, false);
                 }
