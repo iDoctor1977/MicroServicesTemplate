@@ -6,7 +6,7 @@ using System.Globalization;
 
 namespace CoreServicesTemplate.Dashboard.Web.CustomMappers.WalletItems
 {
-    public class WalletItemWebCustomMapperBase<T1, T2> : CustomMapperBase<T1, T2> where  T1 : WalletItemViewBaseModel where T2 : WalletItemAppBaseModel
+    public class WalletItemWebCustomMapperBase<T1, T2> : CustomMapperBase<T1, T2> where  T1 : WalletItemViewBaseModel where T2 : WalletItemAppModelBase
     {
         protected WalletItemWebCustomMapperBase(IDefaultMapper<T1, T2> walletMapper) : base(walletMapper) { }
 

@@ -2,7 +2,7 @@ using System;
 
 namespace CoreServicesTemplate.Shared.Core.Models.Wallet
 {
-    public class WalletApiBaseDto
+    public class WalletApiDtoBase
     {
         public Guid OwnerGuid { get; set; }
         public decimal? TradingAllowedBalance { get; set; }

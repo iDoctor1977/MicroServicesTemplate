@@ -2,7 +2,7 @@
 
 namespace CoreServicesTemplate.Dashboard.Common.Models.Wallets
 {
-    public class WalletAppModel : WalletAppBaseModel
+    public class WalletAppModel : WalletAppModelBase
     {
         public ICollection<WalletItemAppModel> WalletItems { get; set; }
     }

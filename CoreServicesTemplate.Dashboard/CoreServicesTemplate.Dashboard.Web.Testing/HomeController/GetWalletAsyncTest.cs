@@ -1,10 +1,9 @@
+using CoreServicesTemplate.Dashboard.Common.Builders;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
 using CoreServicesTemplate.Dashboard.Web.Models.Wallets;
 using CoreServicesTemplate.Dashboard.Web.Testing.Fixtures;
-using CoreServicesTemplate.Shared.Core.Builders;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
-using CoreServicesTemplate.Shared.Core.Models.Wallet;
 using CoreServicesTemplate.Shared.Core.Results;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -27,10 +26,10 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
             //Arrange
             var ownerGuid = Guid.NewGuid();
 
-            IWalletApiDtoAdded walletBuilder = new WalletApiDtoBuilder();
+            IWalletModelAdded walletBuilder = new WalletModelBuilder();
             var wallets = walletBuilder.AddWallet(ownerGuid, 123589.63m, 236.9m, 124.2m).Build();
 
-            _factory.StorageRoomServiceMock.Setup(service => service.GetWalletAsync(ownerGuid)).ReturnsAsync(new OperationResult<WalletApiDto>(wallets.FirstOrDefault(x => x.OwnerGuid == ownerGuid) ?? throw new InvalidOperationException()));
+            _factory.StorageRoomServiceMock.Setup(service => service.GetWalletAsync(ownerGuid)).ReturnsAsync(new OperationResult<WalletModel>(wallets.FirstOrDefault(x => x.OwnerGuid == ownerGuid) ?? throw new InvalidOperationException()));
 
             var controller = new Controllers.WalletController(
                 _factory.Services.GetRequiredService<ICustomMapper<CreateWalletViewModel, CreateWalletAppModel>>(),

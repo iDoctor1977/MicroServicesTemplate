@@ -5,6 +5,7 @@ using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
 using CoreServicesTemplate.Dashboard.Core.Features;
 using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
 using CoreServicesTemplate.Dashboard.Services;
+using CoreServicesTemplate.Dashboard.Services.MapperProfiles;
 using CoreServicesTemplate.Dashboard.Web.CustomMappers.WalletItems;
 using CoreServicesTemplate.Dashboard.Web.CustomMappers.Wallets;
 using CoreServicesTemplate.Dashboard.Web.MapperProfiles;
@@ -37,7 +38,7 @@ builder.Services.AddTransient(typeof(ICustomMapper<CreateWalletItemViewModel, Wa
 
 #region Automapper
 
-builder.Services.AddAutoMapper(typeof(WebMapperProfile), typeof(CoreMapperProfile));
+builder.Services.AddAutoMapper(typeof(WebMapperProfile), typeof(CoreMapperProfile), typeof(ServiceMapperProfile));
 
 #endregion
 

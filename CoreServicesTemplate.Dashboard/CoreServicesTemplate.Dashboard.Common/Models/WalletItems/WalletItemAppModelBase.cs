@@ -1,6 +1,6 @@
 ﻿namespace CoreServicesTemplate.Dashboard.Common.Models.WalletItems;
 
-public class WalletItemAppBaseModel
+public class WalletItemAppModelBase
 {
     public decimal Amount { get; set; }
     public decimal BuyPrice { get; set; }
