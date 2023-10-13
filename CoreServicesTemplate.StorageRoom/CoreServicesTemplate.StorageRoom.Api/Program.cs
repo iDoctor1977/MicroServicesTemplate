@@ -1,4 +1,4 @@
-using CoreServicesTemplate.Shared.Core.EventModels.Wallet;
+using CoreServicesTemplate.Shared.Core.BusModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Factories;
 using CoreServicesTemplate.Shared.Core.Filters;
 using CoreServicesTemplate.Shared.Core.Interfaces.IData;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoreServicesTemplate.Shared.Core.EventModels.Wallet;
+namespace CoreServicesTemplate.Shared.Core.BusModels.Wallet;
 
 public class WalletCreatedBusDto
 {

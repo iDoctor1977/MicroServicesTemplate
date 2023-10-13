@@ -1,5 +1,5 @@
-﻿using CoreServicesTemplate.Shared.Core.Enums;
-using CoreServicesTemplate.Shared.Core.EventModels.Wallet;
+﻿using CoreServicesTemplate.Shared.Core.BusModels.Wallet;
+using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IEvents;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
