@@ -2,7 +2,6 @@ using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
 using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
-using CoreServicesTemplate.Shared.Core.Models.Wallet;
 using CoreServicesTemplate.Shared.Core.Results;
 using Microsoft.Extensions.Logging;
 
@@ -11,12 +10,12 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
     public class ReadWalletFeature : IGetWalletFeature
     {
         private readonly IStorageRoomService _storageRoomService;
-        private readonly IDefaultMapper<WalletAppModel, WalletApiDto> _walletMapper;
+        private readonly IDefaultMapper<WalletAppModel, WalletModel> _walletMapper;
         private readonly ILogger<CreateWalletFeature> _logger;
 
         public ReadWalletFeature(
             IStorageRoomService storageRoomService, 
-            IDefaultMapper<WalletAppModel, WalletApiDto> walletMapper,
+            IDefaultMapper<WalletAppModel, WalletModel> walletMapper,
             ILogger<CreateWalletFeature> logger)
         {
             _storageRoomService = storageRoomService;
@@ -32,9 +31,9 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
 
             if (result.Value != null)
             {
-                var model = _walletMapper.Map(result.Value);
+                var appModel = _walletMapper.Map(result.Value);
 
-                return new OperationResult<WalletAppModel>(model);
+                return new OperationResult<WalletAppModel>(appModel);
             }
 
             return new OperationResult<WalletAppModel>("Wallet value is not valid.", result);

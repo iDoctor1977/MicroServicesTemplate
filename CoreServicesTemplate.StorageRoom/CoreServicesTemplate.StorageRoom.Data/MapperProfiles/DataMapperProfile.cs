@@ -12,7 +12,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.MapperProfiles
 
             CreateMap<WalletModel, Wallet>().ReverseMap();
             CreateMap<WalletItemModel, WalletItem>().ReverseMap();
-            CreateMap<CreateWalletEventModel, Wallet>().ReverseMap();
+            CreateMap<EmailPropertiesModel, Wallet>().ReverseMap();
         }
     }
 }

@@ -1,3 +1,3 @@
 ﻿namespace CoreServicesTemplate.Dashboard.Common.Models.WalletItems;
 
-public class WalletItemAppModel : WalletItemAppBaseModel { }
+public class WalletItemAppModel : WalletItemAppModelBase { }

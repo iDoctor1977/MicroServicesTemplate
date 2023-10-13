@@ -28,7 +28,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
         // POST api/storageroom/createwallet/{apiDto}
         [HttpPost]
-        public async Task<ActionResult> Post(CreateWalletApiDto walletDto)
+        public async Task<ActionResult> Post(CreateWalletApiDto apiDto)
         {
             _logger.LogInformation("----- POST on controller: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
@@ -39,7 +39,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 return BadRequest(message);
             }
 
-            var model = _customMapper.Map(walletDto);
+            var model = _customMapper.Map(apiDto);
 
             var operationResult = await _createWalletFeature.ExecuteAsync(model);
 

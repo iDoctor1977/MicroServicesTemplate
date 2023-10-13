@@ -3,4 +3,4 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IHandlers;
 
 namespace CoreServicesTemplate.Bus.Common.Interfaces.IFeatures;
 
-public interface ISendEmailEventFeature : ICommandHandler<CreateWalletEventDto> { }
+public interface ISendEmailFeature : ICommandHandler<WalletCreatedBusDto> { }

@@ -17,14 +17,14 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
     public class CreateWalletFeature : ICreateWalletFeature
     {
         private readonly IDomainEntityFactory _domainEntityFactory;
-        private readonly IEventBus<CreateWalletEventDto> _eventBus;
+        private readonly IEventBus<WalletCreatedBusDto> _eventBus;
         private readonly IDefaultMapper<CreateWalletAppDto, CreateWalletModel> _walletMapper;
         private readonly ICreateWalletDepot _walletDepot;
         private readonly ILogger<CreateWalletFeature> _logger;
 
         public CreateWalletFeature(
             IDomainEntityFactory domainEntityEntityFactory,
-            IEventBus<CreateWalletEventDto> eventBus,
+            IEventBus<WalletCreatedBusDto> eventBus,
             IDefaultMapper<CreateWalletAppDto, CreateWalletModel> walletMapper,
             ICreateWalletDepot walletDepot,
             ILogger<CreateWalletFeature> logger)
@@ -62,7 +62,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
                 operationResult = await _walletDepot.ExecuteAsync(walletModel);
 
                 // Send payload to RabbitMq event bus 
-                _eventBus.Publish(new CreateWalletEventDto { OwnerGuid = app.OwnerGuid, IsCreated = true });
+                _eventBus.Publish(new WalletCreatedBusDto { OwnerGuid = app.OwnerGuid, IsCreated = true });
             }
             catch (Exception e)
             {

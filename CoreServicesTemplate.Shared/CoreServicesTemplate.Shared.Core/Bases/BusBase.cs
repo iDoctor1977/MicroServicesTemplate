@@ -6,14 +6,14 @@ using RabbitMQ.Client;
 
 namespace CoreServicesTemplate.Shared.Core.Bases;
 
-public class EventBase<TDto> : IEventBus<TDto> where TDto : class
+public class BusBase<TDto> : IEventBus<TDto> where TDto : class
 {
     private readonly IConnection _connection;
     private readonly string _exchangeName;
     private readonly ILogger _logger;
     private IModel _channel;
 
-    public EventBase(IConnectionFactory connectionFactory, string exchangeName, ILogger logger)
+    public BusBase(IConnectionFactory connectionFactory, string exchangeName, ILogger logger)
     {
         _exchangeName = exchangeName;
         _logger = logger;

@@ -3,8 +3,8 @@ using CoreServicesTemplate.Shared.Core.Results;
 
 namespace CoreServicesTemplate.Bus.Common.Interfaces.IServices
 {
-    public interface IEventService
+    public interface IBusService
     {
-        Task<OperationResult<CreateWalletEventApiDto?>> CreateWalletEventAsync(Guid ownerGuid);
+        Task<OperationResult<ResponseEmailPropertiesApiDto>> GetEmailPropertiesAsync(Guid ownerGuid);
     }
 }

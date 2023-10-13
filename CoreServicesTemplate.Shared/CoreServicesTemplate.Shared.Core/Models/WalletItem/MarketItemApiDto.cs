@@ -1,3 +1,3 @@
 namespace CoreServicesTemplate.Shared.Core.Models.WalletItem;
 
-public class MarketItemApiDto : BaseMarketItemApiDto { }
+public class MarketItemApiDto : MarketItemApiDtoBase { }

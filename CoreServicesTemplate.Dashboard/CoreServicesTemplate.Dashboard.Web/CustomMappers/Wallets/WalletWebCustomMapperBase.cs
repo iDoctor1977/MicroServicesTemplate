@@ -6,7 +6,7 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 
 namespace CoreServicesTemplate.Dashboard.Web.CustomMappers.Wallets
 {
-    public class WalletWebCustomMapperBase<T1, T2> : CustomMapperBase<T1, T2> where  T1 : WalletViewBaseModel where T2 : WalletAppBaseModel
+    public class WalletWebCustomMapperBase<T1, T2> : CustomMapperBase<T1, T2> where  T1 : WalletViewBaseModel where T2 : WalletAppModelBase
     {
         protected WalletWebCustomMapperBase(IDefaultMapper<T1, T2> walletMapper) : base(walletMapper) { }
 

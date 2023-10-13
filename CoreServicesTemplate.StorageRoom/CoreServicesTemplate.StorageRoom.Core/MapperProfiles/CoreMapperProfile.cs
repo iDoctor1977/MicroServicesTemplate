@@ -24,8 +24,8 @@ namespace CoreServicesTemplate.StorageRoom.Core.MapperProfiles
             CreateMap<WalletItemModel, WalletItemEntity>().ReverseMap();
             CreateMap<WalletItemAppDto, WalletItemModel>().ReverseMap();
 
-            CreateMap<CreateWalletEventApiDto, CreateWalletEventAppDto>().ReverseMap();
-            CreateMap<CreateWalletEventAppDto, CreateWalletEventModel>().ReverseMap();
+            CreateMap<ResponseEmailPropertiesApiDto, EmailPropertiesAppDto>().ReverseMap();
+            CreateMap<EmailPropertiesAppDto, EmailPropertiesModel>().ReverseMap();
         }
     }
 }

@@ -1,4 +1,4 @@
 namespace CoreServicesTemplate.Shared.Core.Models.Wallet
 {
-    public class CreateWalletApiDto : WalletApiBaseDto { }
+    public class CreateWalletApiDto : WalletApiDtoBase { }
 }

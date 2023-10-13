@@ -3,7 +3,7 @@ using System.Net.Mail;
 
 namespace CoreServicesTemplate.Shared.Core.Models.Wallet
 {
-    public class CreateWalletEventApiDto
+    public class ResponseEmailPropertiesApiDto
     {
         public Guid OwnerGuid { get; set; }
         public string Name { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 
-public class CreateWalletEventModel
+public class EmailPropertiesModel
 {
     public Guid OwnerGuid { get; set; }
     public string Name { get; set; }
