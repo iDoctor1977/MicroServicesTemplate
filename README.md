@@ -1,4 +1,6 @@
 # Microservices Project Template
+Questo template nasce con lo scopo di poter creare progetti per applicazione web basate su l'utilizzo dei microservizi. L'architettura generale e' stata pensata e realizzata seguendo le principali tecniche di sviluppo a cominciare dai concetti di Domain Drive Design, osservando i principi SOLID e l'utilizzo di pattern fortemente consigliati come Unit of Work e CQRS.
+
 Net Core microservices Architecture 
 
 ![Project_Architecture](/docs/SolutionArchitecture.png "Project_Architecture")
