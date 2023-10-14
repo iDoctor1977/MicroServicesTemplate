@@ -14,17 +14,25 @@ This template was born to create Web Applications projects based on the use of m
 >       3. ProjectName.Web.Testing
 >       4. ProjectName.Core
 >       5. ProjectName.Data => [ ***For data management*** ]
->       6. ProjectName.Services
+>       6. ProjectName.Service [ ***For API service***]
 
-> Style of creation for projects **WebApi MVC** 
+> Style of creation for projects **WebApi Service** 
 > 1. **SolutionName**.*ProjectName*.
 >       1. ProjectName.Common
 >       2. ProjectName.Api
 >       3. ProjectName.Api.Testing
 >       6. ProjectName.Core
 >       7. ProjectName.Data => [ ***For data management*** ]
->       8. ProjectName.Services
+>       8. ProjectName.Service [ ***For API service***]
 
+> Style of creation for projects **Bus Event** 
+> 1. **SolutionName**.*ProjectName*.
+>       1. ProjectName.Common
+>       2. ProjectName.Handler
+>       3. ProjectName.Handler.Testing
+>       6. ProjectName.Core
+>       7. ProjectName.Data => [ ***For data management*** ]
+>       8. ProjectName.Service [ ***For API service***]
 ---
 
 ## Architecture components
