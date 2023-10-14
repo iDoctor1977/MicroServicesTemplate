@@ -11,12 +11,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 {
     public class GetWalletItemsFeature : IGetWalletItemsFeature
     {
-        private readonly IDefaultMapper<WalletItemAppDto, WalletItemModel> _walletItemsMapper;
+        private readonly IDefaultMapper<WalletItemAppModel, WalletItemModel> _walletItemsMapper;
         private readonly IGetWalletItemsEfDepot _walletItemsEfDepot;
         private readonly ILogger<GetWalletItemsFeature> _logger;
 
         public GetWalletItemsFeature(
-            IDefaultMapper<WalletItemAppDto, WalletItemModel> walletItemsMapper,
+            IDefaultMapper<WalletItemAppModel, WalletItemModel> walletItemsMapper,
             IGetWalletItemsEfDepot walletItemsEfDepot,
             ILogger<GetWalletItemsFeature> logger)
         {
@@ -25,35 +25,35 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _logger = logger;
         }
 
-        public async Task<OperationResult<ICollection<WalletItemAppDto>>> ExecuteAsync(Guid ownerGuid)
+        public async Task<OperationResult<ICollection<WalletItemAppModel>>> ExecuteAsync(Guid ownerGuid)
         {
             _logger.LogInformation("----- Execute feature: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
-            ICollection<WalletItemModel>? walletItemsModel;
+            ICollection<WalletItemModel> models;
             try
             {
                 OperationResult<ICollection<WalletItemModel>> result = await _walletItemsEfDepot.ExecuteAsync(ownerGuid);
-                walletItemsModel = result.Value;
+                models = result.Value;
             }
             catch (Exception e)
             {
                 _logger.LogCritical(e.Message);
 
-                return new OperationResult<ICollection<WalletItemAppDto>>(OutcomeState.Failure, default, $"Data access failed: {e.Message}");
+                return new OperationResult<ICollection<WalletItemAppModel>>(OutcomeState.Failure, default, $"Data access failed: {e.Message}");
             }
 
-            ICollection<WalletItemAppDto> walletItems = new List<WalletItemAppDto>();
-            if (walletItemsModel != null)
+            ICollection<WalletItemAppModel> appModels = new List<WalletItemAppModel>();
+            if (models != null)
             {
-                foreach (var walletItemModel in walletItemsModel)
+                foreach (var walletItemModel in models)
                 {
-                    var walletItemApp = _walletItemsMapper.Map(walletItemModel);
+                    var appModel = _walletItemsMapper.Map(walletItemModel);
 
-                    walletItems.Add(walletItemApp);
+                    appModels.Add(appModel);
                 }
             }
             
-            return new OperationResult<ICollection<WalletItemAppDto>>(OutcomeState.Success, new List<WalletItemAppDto>(walletItems));
+            return new OperationResult<ICollection<WalletItemAppModel>>(OutcomeState.Success, new List<WalletItemAppModel>(appModels));
         }
     }
 }

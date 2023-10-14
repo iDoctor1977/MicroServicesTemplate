@@ -11,12 +11,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features;
 
 public class GetEmailPropertiesFeature : IGetEmailPropertiesFeature
 {
-    private readonly IDefaultMapper<EmailPropertiesAppDto, EmailPropertiesModel> _defaultMapper;
+    private readonly IDefaultMapper<EmailPropertiesAppModel, EmailPropertiesModel> _defaultMapper;
     private readonly IGetEmailPropertiesEfDepot _walletEventEfDepot;
     private readonly ILogger<GetEmailPropertiesFeature> _logger;
 
     public GetEmailPropertiesFeature(
-        IDefaultMapper<EmailPropertiesAppDto, EmailPropertiesModel> defaultMapper,
+        IDefaultMapper<EmailPropertiesAppModel, EmailPropertiesModel> defaultMapper,
         IGetEmailPropertiesEfDepot walletEventEfDepot,
         ILogger<GetEmailPropertiesFeature> logger)
     {
@@ -25,7 +25,7 @@ public class GetEmailPropertiesFeature : IGetEmailPropertiesFeature
         _logger = logger;
     }
 
-    public async Task<OperationResult<EmailPropertiesAppDto>> ExecuteAsync(Guid ownerGuid)
+    public async Task<OperationResult<EmailPropertiesAppModel>> ExecuteAsync(Guid ownerGuid)
     {
         _logger.LogInformation("----- Execute feature: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
@@ -39,11 +39,11 @@ public class GetEmailPropertiesFeature : IGetEmailPropertiesFeature
         {
             _logger.LogCritical(e.Message);
 
-            return new OperationResult<EmailPropertiesAppDto>(OutcomeState.Failure, default, $"Data access failed: {e.Message}");
+            return new OperationResult<EmailPropertiesAppModel>(OutcomeState.Failure, default, $"Data access failed: {e.Message}");
         }
 
-        var walletEventAppDto = _defaultMapper.Map(model);
+        var appModel = _defaultMapper.Map(model);
 
-        return new OperationResult<EmailPropertiesAppDto>(OutcomeState.Success, walletEventAppDto);
+        return new OperationResult<EmailPropertiesAppModel>(OutcomeState.Success, appModel);
     }
 }

@@ -18,14 +18,14 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
     {
         private readonly IDomainEntityFactory _domainEntityFactory;
         private readonly IEventBus<WalletCreatedBusDto> _eventBus;
-        private readonly IDefaultMapper<CreateWalletAppDto, CreateWalletModel> _walletMapper;
+        private readonly IDefaultMapper<CreateWalletAppModel, CreateWalletModel> _walletMapper;
         private readonly ICreateWalletDepot _walletDepot;
         private readonly ILogger<CreateWalletFeature> _logger;
 
         public CreateWalletFeature(
             IDomainEntityFactory domainEntityEntityFactory,
             IEventBus<WalletCreatedBusDto> eventBus,
-            IDefaultMapper<CreateWalletAppDto, CreateWalletModel> walletMapper,
+            IDefaultMapper<CreateWalletAppModel, CreateWalletModel> walletMapper,
             ICreateWalletDepot walletDepot,
             ILogger<CreateWalletFeature> logger)
         {
@@ -36,17 +36,17 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             _logger = logger;
         }
 
-        public async Task<OperationResult> ExecuteAsync(CreateWalletAppDto app)
+        public async Task<OperationResult> ExecuteAsync(CreateWalletAppModel appModel)
         {
             _logger.LogInformation("----- Execute feature: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
-            var baseWalletModel = _walletMapper.Map(app);
+            var baseModel = _walletMapper.Map(appModel);
 
             OperationResult operationResult;
-            WalletAggregate walletDomainEntity;
+            WalletAggregate aggregate;
             try
             {
-                walletDomainEntity = _domainEntityFactory.Generate<CreateWalletModel, WalletAggregate>(baseWalletModel);
+                aggregate = _domainEntityFactory.Generate<CreateWalletModel, WalletAggregate>(baseModel);
             }
             catch (DomainValidationException<WalletAggregate> e)
             {
@@ -55,14 +55,14 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
                 return new OperationResult(OutcomeState.Failure, default, $"{e.ClassName}: {e.Message}");
             }
 
-            var walletModel = walletDomainEntity.ToWalletModel();
+            var model = aggregate.ToWalletModel();
 
             try
             {
-                operationResult = await _walletDepot.ExecuteAsync(walletModel);
+                operationResult = await _walletDepot.ExecuteAsync(model);
 
                 // Send payload to RabbitMq event bus 
-                _eventBus.Publish(new WalletCreatedBusDto { OwnerGuid = app.OwnerGuid, IsCreated = true });
+                _eventBus.Publish(new WalletCreatedBusDto { OwnerGuid = appModel.OwnerGuid, IsCreated = true });
             }
             catch (Exception e)
             {

@@ -3,5 +3,5 @@ using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 
 namespace CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures
 {
-    public interface ICreateWalletFeature : ICommandHandler<CreateWalletAppDto> { }
+    public interface ICreateWalletFeature : ICommandHandler<CreateWalletAppModel> { }
 }

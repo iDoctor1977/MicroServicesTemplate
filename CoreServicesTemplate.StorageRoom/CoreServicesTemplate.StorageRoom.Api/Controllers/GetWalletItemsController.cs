@@ -13,12 +13,12 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     public class GetWalletItemsController : ControllerBase
     {
         private readonly IGetWalletItemsFeature _getWalletItemsFeature;
-        private readonly IDefaultMapper<MarketItemApiDto, WalletItemAppDto> _walletItemsMapper;
+        private readonly IDefaultMapper<MarketItemApiDto, WalletItemAppModel> _walletItemsMapper;
         private readonly ILogger<GetWalletItemsController> _logger;
 
         public GetWalletItemsController(
             IGetWalletItemsFeature getWalletItemsFeature, 
-            IDefaultMapper<MarketItemApiDto, WalletItemAppDto> walletItemsMapper, 
+            IDefaultMapper<MarketItemApiDto, WalletItemAppModel> walletItemsMapper, 
             ILogger<GetWalletItemsController> logger)
         {
             _getWalletItemsFeature = getWalletItemsFeature;
@@ -43,15 +43,15 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
             if (operationResult.State.Equals(OutcomeState.Success))
             {
-                ICollection<MarketItemApiDto> walletItemsDto = new List<MarketItemApiDto>();
+                ICollection<MarketItemApiDto> apiDtos = new List<MarketItemApiDto>();
                 if (operationResult.Value != null)
                 {
                     foreach (var walletItemModel in operationResult.Value)
                     {
-                        walletItemsDto.Add(_walletItemsMapper.Map(walletItemModel));
+                        apiDtos.Add(_walletItemsMapper.Map(walletItemModel));
                     }
 
-                    return Ok(walletItemsDto);
+                    return Ok(apiDtos);
                 }
             }
 

@@ -1,6 +1,6 @@
 ﻿namespace CoreServicesTemplate.StorageRoom.Common.Models.WalletItem;
 
-public class WalletItemAppDto
+public class WalletItemAppModel
 {
     public Guid GuId { get; set; }
     public decimal? Amount { get; set; }

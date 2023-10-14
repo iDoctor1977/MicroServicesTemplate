@@ -13,7 +13,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.ORMFrameworks.EntityFramework.De
 
 public class CreateWalletEfDepot: UnitOfWorkDepotBase, ICreateWalletDepot
 {
-    private readonly IDefaultMapper<WalletModel, Entities.Wallet> _defaultWalletMapper;
+    private readonly IDefaultMapper<WalletModel, Entities.Wallet> _walletMapper;
     private readonly IWalletRepository _walletRepository;
     private readonly ILogger<CreateWalletEfDepot> _logger;
 
@@ -23,18 +23,18 @@ public class CreateWalletEfDepot: UnitOfWorkDepotBase, ICreateWalletDepot
         IDefaultMapper<WalletModel, Entities.Wallet> defaultWalletMapper,
         ILogger<CreateWalletEfDepot> logger) : base(repositoryFactory, dbContext)
     {
-        _defaultWalletMapper = defaultWalletMapper;
+        _walletMapper = defaultWalletMapper;
         _walletRepository = RepositoryFactory.GenerateCustomRepository<IWalletRepository>(DbContext);
         _logger = logger;
     }
 
-    public async Task<OperationResult> ExecuteAsync(WalletModel appDto)
+    public async Task<OperationResult> ExecuteAsync(WalletModel model)
     {
         _logger.LogInformation("----- Execute depot: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
-        var walletEntity = _defaultWalletMapper.Map(appDto);
+        var entity = _walletMapper.Map(model);
 
-        await _walletRepository.AddAsync(walletEntity);
+        await _walletRepository.AddAsync(entity);
 
         await CommitAsync();
 

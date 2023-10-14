@@ -30,13 +30,13 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
         {
             _logger.LogInformation("----- Execute feature: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
-            WalletModel? walletModel;
+            WalletModel model;
             decimal tradingAllowed;
 
             try
             {
                 OperationResult<WalletModel> result = await _walletDepot.ExecuteAsync(ownerGuid);
-                walletModel = result.Value;
+                model = result.Value;
             }
             catch (Exception e)
             {
@@ -46,8 +46,8 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             try
             {
-                var walletDomainEntity = _domainEntityFactory.Generate<WalletModel, WalletAggregate>(walletModel);
-                tradingAllowed = walletDomainEntity.CalculateTradingAvailableBalance();
+                var aggregate = _domainEntityFactory.Generate<WalletModel, WalletAggregate>(model);
+                tradingAllowed = aggregate.CalculateTradingAvailableBalance();
             }
             catch (DomainValidationException<WalletAggregate> e)
             {

@@ -13,12 +13,12 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     public class GetEmailPropertiesController : ControllerBase
     {
         private readonly IGetEmailPropertiesFeature _getEmailPropertiesFeature;
-        private readonly IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesAppDto> _walletEventMapper;
+        private readonly IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesAppModel> _walletEventMapper;
         private readonly ILogger<CreateWalletController> _logger;
 
         public GetEmailPropertiesController(
             IGetEmailPropertiesFeature getEmailPropertiesFeature, 
-            IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesAppDto> walletEventMapper, 
+            IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesAppModel> walletEventMapper, 
             ILogger<CreateWalletController> logger)
         {
             _getEmailPropertiesFeature = getEmailPropertiesFeature;

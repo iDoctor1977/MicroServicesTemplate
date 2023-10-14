@@ -12,8 +12,8 @@ namespace CoreServicesTemplate.StorageRoom.Core.MapperProfiles
     {
         public CoreMapperProfile()
         {
-            CreateMap<CreateWalletAppDto, CreateWalletModel>().ReverseMap();
-            CreateMap<CreateWalletAppDto, WalletModel>().ReverseMap();
+            CreateMap<CreateWalletAppModel, CreateWalletModel>().ReverseMap();
+            CreateMap<CreateWalletAppModel, WalletModel>().ReverseMap();
 
             CreateMap<CreateWalletModel, WalletAggregate>().ReverseMap();
             CreateMap<WalletModel, WalletAggregate>()
@@ -22,10 +22,10 @@ namespace CoreServicesTemplate.StorageRoom.Core.MapperProfiles
 
             CreateMap<CreateWalletItemModel, WalletItemChild>().ReverseMap();
             CreateMap<WalletItemModel, WalletItemChild>().ReverseMap();
-            CreateMap<WalletItemAppDto, WalletItemModel>().ReverseMap();
+            CreateMap<WalletItemAppModel, WalletItemModel>().ReverseMap();
 
-            CreateMap<ResponseEmailPropertiesApiDto, EmailPropertiesAppDto>().ReverseMap();
-            CreateMap<EmailPropertiesAppDto, EmailPropertiesModel>().ReverseMap();
+            CreateMap<ResponseEmailPropertiesApiDto, EmailPropertiesAppModel>().ReverseMap();
+            CreateMap<EmailPropertiesAppModel, EmailPropertiesModel>().ReverseMap();
         }
     }
 }

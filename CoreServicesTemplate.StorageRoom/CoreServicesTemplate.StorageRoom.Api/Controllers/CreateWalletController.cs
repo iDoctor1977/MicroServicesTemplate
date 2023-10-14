@@ -13,12 +13,12 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     public class CreateWalletController : ControllerBase
     {
         private readonly ICreateWalletFeature _createWalletFeature;
-        private readonly IDefaultMapper<CreateWalletApiDto, CreateWalletAppDto> _customMapper;
+        private readonly IDefaultMapper<CreateWalletApiDto, CreateWalletAppModel> _customMapper;
         private readonly ILogger<CreateWalletController> _logger;
 
         public CreateWalletController(
             ICreateWalletFeature createWalletFeature,
-            IDefaultMapper<CreateWalletApiDto, CreateWalletAppDto> customMapper,
+            IDefaultMapper<CreateWalletApiDto, CreateWalletAppModel> customMapper,
             ILogger<CreateWalletController> logger)
         {
             _createWalletFeature = createWalletFeature;
@@ -39,9 +39,9 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 return BadRequest(message);
             }
 
-            var model = _customMapper.Map(apiDto);
+            var appModel = _customMapper.Map(apiDto);
 
-            var operationResult = await _createWalletFeature.ExecuteAsync(model);
+            var operationResult = await _createWalletFeature.ExecuteAsync(appModel);
 
             if (operationResult.State == OutcomeState.Success)
             {
