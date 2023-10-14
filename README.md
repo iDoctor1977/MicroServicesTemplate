@@ -1,4 +1,4 @@
-# Micro Services Template
+# Microservices Project Template
 Net Core microservices Architecture 
 
 ![Project_Architecture](/docs/SolutionArchitecture.png "Project_Architecture")
