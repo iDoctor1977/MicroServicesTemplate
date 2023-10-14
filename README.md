@@ -27,10 +27,9 @@ Net Core microservices template
 
 ## Architecture components
 
-> - ViewModel, ApiModel, AppModel, AggModel.
-> - Aggregates and Entities (Domain objects definition)
+> - Model and DTO: ViewModel, AppModel, Model, ApiDto. BusDto, Entity
+> - Aggregates and Childs (Domain objects definition)
 > - Features
-> - Pipeline Feature Substeps
 > - Mappers (default, custom)
 > - Repositories (Repository pattern + CQRS pattern)
 > - Depots (Unit of Works pattern)
