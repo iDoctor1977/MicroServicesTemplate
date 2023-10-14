@@ -5,9 +5,9 @@ This template was born to create Web Applications projects based on the use of m
 
 ![Project_Architecture](/docs/SolutionArchitecture.png "Project_Architecture")
 
-# WebApp and WebApi projects composition.
+# WebApp, WebApi and EventBus projects composition.
 
-> Style of creation for projects **WebApp MVC**  
+> Style of creation to **WebApp MVC** projects  
 > 1. **SolutionName**.*ProjectName*.
 >       1. ProjectName.Common
 >       2. ProjectName.Web
@@ -16,7 +16,7 @@ This template was born to create Web Applications projects based on the use of m
 >       5. ProjectName.Data => [ ***For data management if necessary*** ]
 >       6. ProjectName.Service [ ***For API service if necessary*** ]
 
-> Style of creation for projects **WebApi Service** 
+> Style of creation to **WebApi Service** projects 
 > 1. **SolutionName**.*ProjectName*.
 >       1. ProjectName.Common
 >       2. ProjectName.Api
@@ -25,7 +25,7 @@ This template was born to create Web Applications projects based on the use of m
 >       7. ProjectName.Data => [ ***For data management if necessary*** ]
 >       8. ProjectName.Service [ ***For API service if necessary*** ]
 
-> Style of creation for projects **Bus Event** 
+> Style of creation to **Bus Event**  projects
 > 1. **SolutionName**.*ProjectName*.
 >       1. ProjectName.Common
 >       2. ProjectName.Handler
