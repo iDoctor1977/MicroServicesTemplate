@@ -5,7 +5,7 @@ This template was born to create Web Applications projects based on the use of m
 
 ![Project_Architecture](/docs/SolutionArchitecture.png "Project_Architecture")
 
-# Basic architecture to create Web App and Web Api Domain Driven projects.
+# WebApp and WebApi projects composition.
 
 > Style of creation for projects **WebApp MVC**  
 > 1. **SolutionName**.*ProjectName*.
