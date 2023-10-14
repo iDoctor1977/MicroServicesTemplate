@@ -4,6 +4,7 @@ using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
 using Microsoft.Extensions.Logging;

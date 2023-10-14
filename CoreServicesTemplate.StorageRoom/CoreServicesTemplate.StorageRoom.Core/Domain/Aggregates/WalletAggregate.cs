@@ -2,6 +2,8 @@
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
+using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.WalletItem;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
 using Microsoft.Extensions.Logging;
 
@@ -95,7 +97,7 @@ public class WalletAggregate
         _walletMapper.Map(model, this);
     }
 
-    private void SharedConstruction(BaseWalletModel model)
+    private void SharedConstruction(WalletModelBase model)
     {
         if (model.Balance <= 0)
         {

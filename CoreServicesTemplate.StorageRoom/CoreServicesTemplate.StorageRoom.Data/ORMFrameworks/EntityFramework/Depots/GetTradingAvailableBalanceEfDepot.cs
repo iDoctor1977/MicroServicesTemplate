@@ -1,4 +1,4 @@
-using CoreServicesTemplate.Shared.Core.Data;
+using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IData;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
@@ -6,6 +6,7 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
+using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 using CoreServicesTemplate.StorageRoom.Data.Interfaces.IRepositories;
 using Microsoft.Extensions.Logging;
 

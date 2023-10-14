@@ -2,7 +2,7 @@
 using CoreServicesTemplate.Shared.Core.Interfaces.IData;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 
-namespace CoreServicesTemplate.Shared.Core.Data
+namespace CoreServicesTemplate.Shared.Core.Bases
 {
     public class UnitOfWorkDepotBase : IUnitOfWorkContext
     {

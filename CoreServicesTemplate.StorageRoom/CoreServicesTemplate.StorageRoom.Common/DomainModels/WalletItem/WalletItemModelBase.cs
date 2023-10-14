@@ -1,6 +1,6 @@
 ﻿namespace CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
 
-public class BaseWalletItemModel
+public class WalletItemModelBase
 {
     public decimal BuyPrice { get; set; }
     public DateTime BuyDate { get; set; }

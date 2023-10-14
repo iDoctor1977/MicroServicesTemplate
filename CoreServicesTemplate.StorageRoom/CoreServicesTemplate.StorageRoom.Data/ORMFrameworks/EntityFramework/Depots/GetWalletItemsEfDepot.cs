@@ -1,4 +1,4 @@
-﻿using CoreServicesTemplate.Shared.Core.Data;
+﻿using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Interfaces.IData;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;

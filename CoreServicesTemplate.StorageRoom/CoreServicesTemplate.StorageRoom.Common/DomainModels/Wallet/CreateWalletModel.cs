@@ -1,4 +1,4 @@
 ﻿namespace CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet
 {
-    public class CreateWalletModel : BaseWalletModel { }
+    public class CreateWalletModel : WalletModelBase { }
 }
