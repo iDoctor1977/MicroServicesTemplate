@@ -5,22 +5,6 @@ This template was born to create Web Applications projects based on the use of m
 
 ![Project_Architecture](/docs/SolutionArchitecture.png "Project_Architecture")
 
-# Model vs DTO
-Differenze tra Dto, Model e Oggetti di Dominio:
-
-Model: 
-tilizzato per fornire dati da un livello di applicazione ad un altro, ad es. Controller MVC <--> Vista MVC.
-non ha una logica aziendale.
-può essere soggetto a qualche logica di valdazione ecc.
-
-Dto: 
-utilizzato per trasferire i dati oltre i limiti dell'applicazione, ad es. tra web server e browser web.
-solo proprietà/campi di tipo semplice ( stringhe, numeri, datetimes, booleani).
-Oggetto di dominio:
-rappresenta un oggetto del mondo reale.
-a una logica aziendale.
-non consente lo stato oggetto non valido e ha metodi per modificare correttamente lo stato dell'oggetto.
-
 # Basic architecture to create Web App and Web Api Domain Driven projects.
 
 > Style of creation for projects **WebApp MVC**  
