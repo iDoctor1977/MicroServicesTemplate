@@ -33,23 +33,3 @@ This template was born to create Web Applications projects based on the use of m
 >       6. ProjectName.Core
 >       7. ProjectName.Data => [ ***For data management if necessary*** ]
 >       8. ProjectName.Service [ ***For API service if necessary*** ]
----
-
-## Architecture components
-
-> - ViewModel, AppModel, Model, ApiDto. BusDto, Entity (Model and DTO)
-> - Aggregates and Childs (Domain objects definition)
-> - Features
-> - Mappers (default, custom)
-> - Repositories (Repository pattern + CQRS pattern)
-> - Depots (Unit of Works pattern)
-
----
-
-## Accessories project components.
-
-> - Builder
-> - Event Bus
-> - Action Filter
-> - Health Check
-> - Mapper
