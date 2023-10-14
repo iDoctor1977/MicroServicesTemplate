@@ -14,7 +14,7 @@ namespace CoreServicesTemplate.StorageRoom.Data.Entities
         public DateTime? DateCreated { get; set; }
         public DateTime? LastModifiedDate { get; set; }
 
-        public EntityEfBase()
+        protected EntityEfBase()
         {
             Guid = Guid.NewGuid();
             State = EntityState.Added;

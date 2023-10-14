@@ -4,7 +4,7 @@ using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
 
-public class WalletItemEntity
+public class WalletItemChild
 {
     public Guid Guid { get; private set; }
     public decimal Amount { get; private set; }
@@ -15,14 +15,14 @@ public class WalletItemEntity
     public string ExtTicker { get; private set; }
     public Guid ExtMarketItemGuid { get; private set; }
 
-    private readonly IDefaultMapper<CreateWalletItemModel, WalletItemEntity> _createWalletItemMapper;
-    private readonly IDefaultMapper<WalletItemModel, WalletItemEntity> _walletItemMapper;
+    private readonly IDefaultMapper<CreateWalletItemModel, WalletItemChild> _createWalletItemMapper;
+    private readonly IDefaultMapper<WalletItemModel, WalletItemChild> _walletItemMapper;
 
-    #region Aggregate construction instance
+    #region Domain child construction instance
 
-    private WalletItemEntity(
-    IDefaultMapper<CreateWalletItemModel, WalletItemEntity> createWalletItemMapper,
-    IDefaultMapper<WalletItemModel, WalletItemEntity> walletItemMapper)
+    private WalletItemChild(
+    IDefaultMapper<CreateWalletItemModel, WalletItemChild> createWalletItemMapper,
+    IDefaultMapper<WalletItemModel, WalletItemChild> walletItemMapper)
     {
         _createWalletItemMapper = createWalletItemMapper;
         _walletItemMapper = walletItemMapper;
@@ -34,9 +34,9 @@ public class WalletItemEntity
     /// <param name="createWalletItemMapper"></param>
     /// <param name="walletItemMapper"></param>
     /// <param name="model"></param>
-    public WalletItemEntity(
-        IDefaultMapper<CreateWalletItemModel, WalletItemEntity> createWalletItemMapper,
-        IDefaultMapper<WalletItemModel, WalletItemEntity> walletItemMapper,
+    public WalletItemChild(
+        IDefaultMapper<CreateWalletItemModel, WalletItemChild> createWalletItemMapper,
+        IDefaultMapper<WalletItemModel, WalletItemChild> walletItemMapper,
         CreateWalletItemModel model) : this(createWalletItemMapper, walletItemMapper)
     {
         SharedConstruction(model);
@@ -53,26 +53,26 @@ public class WalletItemEntity
     /// <param name="walletItemMapper"></param>
     /// <param name="model"></param>
     /// <exception cref="DomainValidationException{T}"></exception>
-    public WalletItemEntity(
-        IDefaultMapper<CreateWalletItemModel, WalletItemEntity> createWalletItemMapper,
-        IDefaultMapper<WalletItemModel, WalletItemEntity> walletItemMapper,
+    public WalletItemChild(
+        IDefaultMapper<CreateWalletItemModel, WalletItemChild> createWalletItemMapper,
+        IDefaultMapper<WalletItemModel, WalletItemChild> walletItemMapper,
         WalletItemModel model) : this(createWalletItemMapper, walletItemMapper)
     {
         if (model.ExtTicker.Equals(null))
         {
-            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.ExtTicker)} is not valid");
+            throw new DomainValidationException<WalletItemChild>($"{nameof(model.ExtTicker)} is not valid");
         }
         if (model.Guid.Equals(null) || model.Guid == Guid.Empty)
         {
-            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.Guid)} is not valid");
+            throw new DomainValidationException<WalletItemChild>($"{nameof(model.Guid)} is not valid");
         }
         if (model.Amount <= 0)
         {
-            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.Amount)} is not valid");
+            throw new DomainValidationException<WalletItemChild>($"{nameof(model.Amount)} is not valid");
         }
         if (model.DateUpdated.Equals(DateTime.MinValue))
         {
-            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.DateUpdated)} is not valid");
+            throw new DomainValidationException<WalletItemChild>($"{nameof(model.DateUpdated)} is not valid");
         }
 
         SharedConstruction(model);
@@ -84,19 +84,19 @@ public class WalletItemEntity
     {
         if (model.ExtMarketItemGuid.Equals(null) || model.ExtMarketItemGuid == Guid.Empty)
         {
-            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.ExtMarketItemGuid)} is not valid");
+            throw new DomainValidationException<WalletItemChild>($"{nameof(model.ExtMarketItemGuid)} is not valid");
         }
         if (model.BuyPrice <= 0)
         {
-            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.BuyPrice)} is not valid");
+            throw new DomainValidationException<WalletItemChild>($"{nameof(model.BuyPrice)} is not valid");
         }
         if (model.Quantity <= 0)
         {
-            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.Quantity)} is not valid");
+            throw new DomainValidationException<WalletItemChild>($"{nameof(model.Quantity)} is not valid");
         }
         if (model.BuyDate.Equals(DateTime.MinValue))
         {
-            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.BuyDate)} is not valid");
+            throw new DomainValidationException<WalletItemChild>($"{nameof(model.BuyDate)} is not valid");
         }
     }
 

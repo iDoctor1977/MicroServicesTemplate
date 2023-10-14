@@ -15,13 +15,13 @@ public class WalletAggregate
     public decimal OperationAllowedBalance { get; private set; }
     public decimal Balance { get; private set; }
     public decimal Performance { get; private set; }
-    public ICollection<WalletItemEntity> WalletItems { get; private set; }
+    public ICollection<WalletItemChild> WalletItems { get; private set; }
 
     private readonly IDomainEntityFactory _domainEntityFactory;
     private readonly IDefaultMapper<WalletModel, WalletAggregate> _walletMapper;
     private readonly ILogger<WalletAggregate> _logger;
 
-    #region Aggregate construction instance
+    #region Domain aggregate construction instance
 
     private WalletAggregate(
         IDomainEntityFactory domainEntityFactory,
@@ -32,7 +32,7 @@ public class WalletAggregate
         _domainEntityFactory = domainEntityFactory;
         _logger = logger;
 
-        WalletItems = new List<WalletItemEntity>();
+        WalletItems = new List<WalletItemChild>();
     }
 
     /// <summary>
@@ -83,9 +83,9 @@ public class WalletAggregate
 
         try
         {
-           WalletItems = model.WalletItems.Select(_domainEntityFactory.Generate<WalletItemModel, WalletItemEntity>).ToList();
+           WalletItems = model.WalletItems.Select(_domainEntityFactory.Generate<WalletItemModel, WalletItemChild>).ToList();
         }
-        catch (DomainValidationException<WalletItemEntity> e)
+        catch (DomainValidationException<WalletItemChild> e)
         {
             _logger.LogCritical($"{GetType().Name}: {e.Message}");
 
@@ -143,11 +143,11 @@ public class WalletAggregate
                 Balance -= walletItemValue;
                 TradingAllowedBalance -= walletItemValue;
 
-                var walletItemEntity = _domainEntityFactory.Generate<CreateWalletItemModel, WalletItemEntity>(createWalletItemModel);
+                var walletItemEntity = _domainEntityFactory.Generate<CreateWalletItemModel, WalletItemChild>(createWalletItemModel);
                 WalletItems.Add(walletItemEntity);
             }
         }
-        catch (DomainValidationException<WalletItemEntity> e)
+        catch (DomainValidationException<WalletItemChild> e)
         {
             _logger.LogCritical($"{GetType().Name}: {e.Message}");
 

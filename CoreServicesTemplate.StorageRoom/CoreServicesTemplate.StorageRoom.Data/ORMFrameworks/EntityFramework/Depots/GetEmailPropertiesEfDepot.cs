@@ -35,14 +35,14 @@ public class GetEmailPropertiesEfDepot : IGetEmailPropertiesEfDepot
         var entities = await _walletRepository.ReadForOwnerGuidAsync(ownerGuid);
         var model =_walletEventMapper.Map(entities);
 
-        // in this point you can read user info from repository and map here to return model
+        // in this point you can read user info from specific repository and map here to return model
         model.Name = "Filippo";
         model.Surname = "Foglia";
         model.Cap = "44123";
         model.Address = "Via A. Magri, 12";
         model.FromAddress = "info@wallet.com";
 
-        // in this point you can read site info from repository and map here to return model
+        // in this point you can read site info from specific repository and map here to return model
         model.ToAddress = "fifoglia@gmail.com";
             
         return new OperationResult<EmailPropertiesModel>(model);
