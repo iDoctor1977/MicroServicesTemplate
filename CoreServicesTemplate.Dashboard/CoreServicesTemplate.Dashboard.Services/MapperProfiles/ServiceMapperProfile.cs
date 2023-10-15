@@ -10,8 +10,8 @@ namespace CoreServicesTemplate.Dashboard.Services.MapperProfiles
     {
         public ServiceMapperProfile()
         {
-            CreateMap<CreateWalletAppModel, CreateWalletApiDto>().ReverseMap();
-            CreateMap<WalletModel, WalletApiDto>().ReverseMap();
+            CreateMap<CreateWalletAppModel, RequestCreateWalletApiDto>().ReverseMap();
+            CreateMap<WalletModel, ResponseWalletApiDto>().ReverseMap();
 
             CreateMap<WalletItemModel, MarketItemApiDto>().ReverseMap();
         }

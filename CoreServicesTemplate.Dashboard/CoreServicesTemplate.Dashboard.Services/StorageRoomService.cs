@@ -12,14 +12,14 @@ namespace CoreServicesTemplate.Dashboard.Services
 {
     public class StorageRoomService : IStorageRoomService
     {
-        private readonly IDefaultMapper<CreateWalletModel, CreateWalletApiDto> _createWalletMapper;
-        private readonly IDefaultMapper<WalletModel, WalletApiDto> _walletMapper;
+        private readonly IDefaultMapper<CreateWalletModel, RequestCreateWalletApiDto> _createWalletMapper;
+        private readonly IDefaultMapper<WalletModel, ResponseWalletApiDto> _walletMapper;
         private readonly ILogger<StorageRoomService> _logger;
         private readonly HttpClient _client;
 
         public StorageRoomService(
-            IDefaultMapper<CreateWalletModel, CreateWalletApiDto> createWalletMapper,
-            ILogger<StorageRoomService> logger, IDefaultMapper<WalletModel, WalletApiDto> walletMapper)
+            IDefaultMapper<CreateWalletModel, RequestCreateWalletApiDto> createWalletMapper,
+            ILogger<StorageRoomService> logger, IDefaultMapper<WalletModel, ResponseWalletApiDto> walletMapper)
         {
             _logger = logger;
             _walletMapper = walletMapper;
@@ -46,7 +46,7 @@ namespace CoreServicesTemplate.Dashboard.Services
 
             //HTTP GET
             var url = ApiUrl.StorageRoomApi.GetWallet();
-            var apiModel = await _client.GetFromJsonAsync<WalletApiDto>($"{url}/{ownerGuid}");
+            var apiModel = await _client.GetFromJsonAsync<ResponseWalletApiDto>($"{url}/{ownerGuid}");
 
             if (apiModel != null)
             {
