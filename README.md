@@ -1,5 +1,5 @@
 # Microservices Project Template
-This template was born to be a start point to create Web Applications projects based on the use of microservices. The general architecture was designed and created following the main development techniques, the concepts of Domain Drive Design, observing the SOLID principles and the use of strongly recommended patterns such as Unit of Work and CQRS for example.
+This template was born to be a start point to create Web Applications based on the use of microservices. The general architecture was designed and created following the main development techniques, the concepts of Domain Drive Design, observing the SOLID principles and the use of strongly recommended patterns such as Unit of Work and CQRS for example.
 
 ## Architecture schema
 
