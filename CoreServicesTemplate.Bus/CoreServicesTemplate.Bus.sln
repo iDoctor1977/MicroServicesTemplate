@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Bus.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Bus.Services", "CoreServicesTemplate.Bus.Services\CoreServicesTemplate.Bus.Services.csproj", "{5040CBD3-751A-4BCB-96D6-F6773D248CE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Bus.Handler.Testing", "CoreServicesTemplate.Bus.Handler.Testing\CoreServicesTemplate.Bus.Handler.Testing.csproj", "{AE7BD05C-A6B8-4FAF-916B-323307ABA1F7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{5040CBD3-751A-4BCB-96D6-F6773D248CE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5040CBD3-751A-4BCB-96D6-F6773D248CE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5040CBD3-751A-4BCB-96D6-F6773D248CE6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE7BD05C-A6B8-4FAF-916B-323307ABA1F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE7BD05C-A6B8-4FAF-916B-323307ABA1F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE7BD05C-A6B8-4FAF-916B-323307ABA1F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE7BD05C-A6B8-4FAF-916B-323307ABA1F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
