@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Bus.Ha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Shared.Core", "..\CoreServicesTemplate.Shared\CoreServicesTemplate.Shared.Core\CoreServicesTemplate.Shared.Core.csproj", "{A24442FC-A1FF-4F54-BFB1-D7B4B8E8E7CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Bus.Common", "CoreServicesTemplate.Bus.Common\CoreServicesTemplate.Bus.Common.csproj", "{A5D835F2-B829-4227-AC30-3023FD7E0709}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Bus.Common", "CoreServicesTemplate.Bus.Common\CoreServicesTemplate.Bus.Common.csproj", "{A5D835F2-B829-4227-AC30-3023FD7E0709}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Bus.Core", "CoreServicesTemplate.Bus.Core\CoreServicesTemplate.Bus.Core.csproj", "{184CD3F0-D832-46A3-A119-D2EE9EB4DE6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Bus.Core", "CoreServicesTemplate.Bus.Core\CoreServicesTemplate.Bus.Core.csproj", "{184CD3F0-D832-46A3-A119-D2EE9EB4DE6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreServicesTemplate.Bus.Services", "CoreServicesTemplate.Bus.Services\CoreServicesTemplate.Bus.Services.csproj", "{5040CBD3-751A-4BCB-96D6-F6773D248CE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreServicesTemplate.Bus.Services", "CoreServicesTemplate.Bus.Services\CoreServicesTemplate.Bus.Services.csproj", "{5040CBD3-751A-4BCB-96D6-F6773D248CE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

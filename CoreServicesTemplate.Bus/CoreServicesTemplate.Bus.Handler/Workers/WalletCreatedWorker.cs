@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using CoreServicesTemplate.Bus.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.Shared.Core.EventModels.Wallet;
+using CoreServicesTemplate.Shared.Core.BusModels.Wallet;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
 

@@ -13,12 +13,12 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     public class CreateWalletController : ControllerBase
     {
         private readonly ICreateWalletFeature _createWalletFeature;
-        private readonly IDefaultMapper<CreateWalletApiDto, CreateWalletAppModel> _customMapper;
+        private readonly IDefaultMapper<RequestCreateWalletApiDto, CreateWalletAppModel> _customMapper;
         private readonly ILogger<CreateWalletController> _logger;
 
         public CreateWalletController(
             ICreateWalletFeature createWalletFeature,
-            IDefaultMapper<CreateWalletApiDto, CreateWalletAppModel> customMapper,
+            IDefaultMapper<RequestCreateWalletApiDto, CreateWalletAppModel> customMapper,
             ILogger<CreateWalletController> logger)
         {
             _createWalletFeature = createWalletFeature;
@@ -28,7 +28,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
         // POST api/storageroom/createwallet/{apiDto}
         [HttpPost]
-        public async Task<ActionResult> Post(CreateWalletApiDto apiDto)
+        public async Task<ActionResult> Post(RequestCreateWalletApiDto apiDto)
         {
             _logger.LogInformation("----- POST on controller: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
