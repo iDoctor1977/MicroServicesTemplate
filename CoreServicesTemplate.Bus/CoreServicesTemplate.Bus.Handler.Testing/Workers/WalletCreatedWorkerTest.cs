@@ -1,5 +1,4 @@
 using CoreServicesTemplate.Bus.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.Bus.Handler.Testing.Fixtures;
 using CoreServicesTemplate.Bus.Handler.Workers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,8 +29,7 @@ namespace CoreServicesTemplate.Bus.Handler.Testing.Workers
         public async Task StartAsyncThenDisposeTriggersCancelledToken()
         {
             // Arrange
-            //var service = new WalletCreatedWorker(_connectionFactory, _sendEmailFeature, "e", "q", _logger);
-            var service = _factory.Services.GetRequiredService<BackgroundService>();
+            var service = new WalletCreatedWorker(_connectionFactory, _sendEmailFeature, "e", "q", _logger);
 
             // Act
             await service.StartAsync(CancellationToken.None);

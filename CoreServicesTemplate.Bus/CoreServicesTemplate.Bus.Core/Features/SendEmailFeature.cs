@@ -4,8 +4,6 @@ using CoreServicesTemplate.Bus.Common.Interfaces.IServices;
 using CoreServicesTemplate.Bus.Common.Models;
 using CoreServicesTemplate.Shared.Core.BusModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Enums;
-using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
-using CoreServicesTemplate.Shared.Core.Models.Wallet;
 using CoreServicesTemplate.Shared.Core.Results;
 using Microsoft.Extensions.Logging;
 
@@ -14,17 +12,14 @@ namespace CoreServicesTemplate.Bus.Core.Features;
 public class SendEmailFeature : ISendEmailFeature
 {
     private readonly IBusService _eventService;
-    private readonly IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesModel> _mapper;
     private readonly ILogger<SendEmailFeature> _logger;
 
     public SendEmailFeature(
         IBusService eventService,
-        IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesModel> mapper,
         ILogger<SendEmailFeature> logger)
     {
         _eventService = eventService;
         _logger = logger;
-        _mapper = mapper;
     }
 
     public async Task<OperationResult> ExecuteAsync(WalletCreatedBusDto busDto)

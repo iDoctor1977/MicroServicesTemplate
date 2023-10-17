@@ -11,10 +11,10 @@ namespace CoreServicesTemplate.Bus.Services
 {
     public class BusService : IBusService
     {
-        private IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesModel> _mapper;
+        private readonly IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesModel> _mapper;
         private readonly HttpClient _client;
 
-        protected BusService(IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesModel> mapper)
+        public BusService(IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesModel> mapper)
         {
             _mapper = mapper;
             _client = new HttpClient();
