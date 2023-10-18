@@ -9,27 +9,31 @@ This template was born to be a start point to create Web Applications based on t
 
 > Style of creation to **WebApp MVC** projects  
 > 1. **SolutionName**.*ProjectName*.
->       1. ProjectName.Common
->       2. ProjectName.Web
->       3. ProjectName.Web.Testing
->       4. ProjectName.Core
->       5. ProjectName.Data => [ ***For data management if necessary*** ]
->       6. ProjectName.Service [ ***For API service if necessary*** ]
+>       1. *SolutionName*.ProjectName.Common
+>       2. *SolutionName*.ProjectName.Web
+>       3. *SolutionName*.ProjectName.Web.Testing
+>       4. *SolutionName*.ProjectName.Core
+>       5. *SolutionName*.ProjectName.Data => [ ***For data management if necessary*** ]
+>       6. *SolutionName*.ProjectName.Service [ ***For API service if necessary*** ]
 
 > Style of creation to **WebApi Service** projects 
 > 1. **SolutionName**.*ProjectName*.
->       1. ProjectName.Common
->       2. ProjectName.Api
->       3. ProjectName.Api.Testing
->       6. ProjectName.Core
->       7. ProjectName.Data => [ ***For data management if necessary*** ]
->       8. ProjectName.Service [ ***For API service if necessary*** ]
+>       1. *SolutionName*.ProjectName.Common
+>       2. *SolutionName*.ProjectName.Api
+>       3. *SolutionName*.ProjectName.Api.Testing
+>       6. *SolutionName*.ProjectName.Core
+>       7. *SolutionName*.ProjectName.Data => [ ***For data management if necessary*** ]
+>       8. *SolutionName*.ProjectName.Service [ ***For API service if necessary*** ]
 
 > Style of creation to **Bus Event**  projects
 > 1. **SolutionName**.*ProjectName*.
->       1. ProjectName.Common
->       2. ProjectName.Handler
->       3. ProjectName.Handler.Testing
->       6. ProjectName.Core
->       7. ProjectName.Data => [ ***For data management if necessary*** ]
->       8. ProjectName.Service [ ***For API service if necessary*** ]
+>       1. *SolutionName*.ProjectName.Common
+>       2. *SolutionName*.ProjectName.Handler
+>       3. *SolutionName*.ProjectName.Handler.Testing
+>       6. *SolutionName*.ProjectName.Core
+>       7. *SolutionName*.ProjectName.Data => [ ***For data management if necessary*** ]
+>       8. *SolutionName*.ProjectName.Service [ ***For API service if necessary*** ]
+
+> Style of creation to **Shared**  projects
+> 1. **SolutionName**.*ProjectName*.
+>       1. *SolutionName*.ProjectName.Core
