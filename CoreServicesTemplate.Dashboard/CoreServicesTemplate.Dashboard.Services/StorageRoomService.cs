@@ -32,10 +32,10 @@ namespace CoreServicesTemplate.Dashboard.Services
             _logger.LogInformation("----- Execute service: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
             //HTTP POST
-            var apiDto = _createWalletMapper.Map(model);
+            var requestApiDto = _createWalletMapper.Map(model);
 
             var url = ApiUrl.StorageRoomApi.CreateWallet();
-            var responseMessage = await _client.PostAsJsonAsync($"{url}/{apiDto}", apiDto);
+            var responseMessage = await _client.PostAsJsonAsync($"{url}/{requestApiDto}", requestApiDto);
 
             return new OperationResult<HttpResponseMessage>(responseMessage);
         }
@@ -46,11 +46,11 @@ namespace CoreServicesTemplate.Dashboard.Services
 
             //HTTP GET
             var url = ApiUrl.StorageRoomApi.GetWallet();
-            var apiModel = await _client.GetFromJsonAsync<ResponseWalletApiDto>($"{url}/{ownerGuid}");
+            var responseApiModel = await _client.GetFromJsonAsync<ResponseWalletApiDto>($"{url}/{ownerGuid}");
 
-            if (apiModel != null)
+            if (responseApiModel != null)
             {
-                var model = _walletMapper.Map(apiModel);
+                var model = _walletMapper.Map(responseApiModel);
 
                 return new OperationResult<WalletModel>(model);
             };
