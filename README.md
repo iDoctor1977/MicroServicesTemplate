@@ -8,7 +8,7 @@ This template was born to be a start point to create Web Applications based on t
 # WebApp, WebApi and EventBus projects composition.
 
 > Style of creation to **WebApp MVC** projects  
-> 1. **SolutionName**.*ProjectName*.
+> 1. **SolutionName**.*ProjectName*
 >       1. *SolutionName*.ProjectName.Common
 >       2. *SolutionName*.ProjectName.Web
 >       3. *SolutionName*.ProjectName.Web.Testing
@@ -17,7 +17,7 @@ This template was born to be a start point to create Web Applications based on t
 >       6. *SolutionName*.ProjectName.Service [ ***For API service if necessary*** ]
 
 > Style of creation to **WebApi Service** projects 
-> 1. **SolutionName**.*ProjectName*.
+> 1. **SolutionName**.*ProjectName*
 >       1. *SolutionName*.ProjectName.Common
 >       2. *SolutionName*.ProjectName.Api
 >       3. *SolutionName*.ProjectName.Api.Testing
@@ -26,7 +26,7 @@ This template was born to be a start point to create Web Applications based on t
 >       8. *SolutionName*.ProjectName.Service [ ***For API service if necessary*** ]
 
 > Style of creation to **Bus Event**  projects
-> 1. **SolutionName**.*ProjectName*.
+> 1. **SolutionName**.*ProjectName*
 >       1. *SolutionName*.ProjectName.Common
 >       2. *SolutionName*.ProjectName.Handler
 >       3. *SolutionName*.ProjectName.Handler.Testing
@@ -35,5 +35,5 @@ This template was born to be a start point to create Web Applications based on t
 >       8. *SolutionName*.ProjectName.Service [ ***For API service if necessary*** ]
 
 > Style of creation to **Shared**  projects
-> 1. **SolutionName**.*ProjectName*.
+> 1. **SolutionName**.*ProjectName*
 >       1. *SolutionName*.ProjectName.Core
