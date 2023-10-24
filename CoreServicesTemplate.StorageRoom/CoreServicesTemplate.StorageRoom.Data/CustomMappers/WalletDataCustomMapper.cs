@@ -2,7 +2,6 @@
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
-using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 using Microsoft.IdentityModel.Tokens;
 

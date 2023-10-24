@@ -11,7 +11,6 @@ using CoreServicesTemplate.StorageRoom.Api.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 using CoreServicesTemplate.StorageRoom.Core.Features;
 using CoreServicesTemplate.StorageRoom.Core.MapperProfiles;
 using CoreServicesTemplate.StorageRoom.Data.CustomMappers;

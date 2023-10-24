@@ -7,7 +7,6 @@ using CoreServicesTemplate.StorageRoom.Api.Testing.Builders;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
-using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;

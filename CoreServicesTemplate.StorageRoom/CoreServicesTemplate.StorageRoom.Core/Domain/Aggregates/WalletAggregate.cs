@@ -2,8 +2,6 @@
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
-using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
-using CoreServicesTemplate.StorageRoom.Common.Models.WalletItem;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
 using Microsoft.Extensions.Logging;
 
@@ -42,6 +40,7 @@ public class WalletAggregate
     /// </summary>
     /// <param name="domainEntityFactory"></param>
     /// <param name="createWalletMapper"></param>
+    /// <param name="walletMapper"></param>
     /// <param name="logger"></param>
     /// <param name="model"></param>
     public WalletAggregate(
