@@ -35,5 +35,5 @@ This template was born to be a start point to create Web Applications based on t
 >       8. *SolutionName*.ProjectName.Service => [ ***For API service if necessary*** ]
 
 > Style of creation to **Shared**  projects
-> 1. **SolutionName**.*Shared *
+> 1. **SolutionName**.*Shared*
 >       1. *SolutionName*.Shared .Core
