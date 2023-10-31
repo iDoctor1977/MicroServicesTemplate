@@ -14,7 +14,7 @@ This template was born to be a start point to create Web Applications based on t
 >       3. *SolutionName*.ProjectName.Web.Testing
 >       4. *SolutionName*.ProjectName.Core
 >       5. *SolutionName*.ProjectName.Data => [ ***For data management if necessary*** ]
->       6. *SolutionName*.ProjectName.Service [ ***For API service if necessary*** ]
+>       6. *SolutionName*.ProjectName.Service => [ ***For API service if necessary*** ]
 
 > Style of creation to **WebApi Service** projects 
 > 1. **SolutionName**.*ProjectName*
@@ -23,7 +23,7 @@ This template was born to be a start point to create Web Applications based on t
 >       3. *SolutionName*.ProjectName.Api.Testing
 >       6. *SolutionName*.ProjectName.Core
 >       7. *SolutionName*.ProjectName.Data => [ ***For data management if necessary*** ]
->       8. *SolutionName*.ProjectName.Service [ ***For API service if necessary*** ]
+>       8. *SolutionName*.ProjectName.Service => [ ***For API service if necessary*** ]
 
 > Style of creation to **Bus Event**  projects
 > 1. **SolutionName**.*ProjectName*
@@ -32,7 +32,7 @@ This template was born to be a start point to create Web Applications based on t
 >       3. *SolutionName*.ProjectName.Handler.Testing
 >       6. *SolutionName*.ProjectName.Core
 >       7. *SolutionName*.ProjectName.Data => [ ***For data management if necessary*** ]
->       8. *SolutionName*.ProjectName.Service [ ***For API service if necessary*** ]
+>       8. *SolutionName*.ProjectName.Service => [ ***For API service if necessary*** ]
 
 > Style of creation to **Shared**  projects
 > 1. **SolutionName**.*ProjectName*
