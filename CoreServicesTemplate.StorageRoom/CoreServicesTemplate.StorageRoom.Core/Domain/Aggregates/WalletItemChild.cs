@@ -1,6 +1,6 @@
-﻿using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+﻿using CoreServicesTemplate.Shared.Core.Exceptions;
+using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
-using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
 
