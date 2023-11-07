@@ -1,13 +1,15 @@
-﻿using CoreServicesTemplate.Shared.Core.Exceptions;
+﻿using CoreServicesTemplate.Shared.Core.Bases;
+using CoreServicesTemplate.Shared.Core.Exceptions;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
+using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
 using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
 
-public class WalletAggregate
+public class WalletAggregate : EntityBase<WalletModel, WalletAggregate>
 {
     public Guid Guid { get; private set; }
     public Guid OwnerGuid { get; private set; }
@@ -15,44 +17,36 @@ public class WalletAggregate
     public decimal OperationAllowedBalance { get; private set; }
     public decimal Balance { get; private set; }
     public decimal Performance { get; private set; }
-    public ICollection<WalletItemChild> WalletItems { get; private set; }
-
-    private readonly IDomainEntityFactory _domainEntityFactory;
-    private readonly IDefaultMapper<WalletModel, WalletAggregate> _walletMapper;
-    private readonly ILogger<WalletAggregate> _logger;
+    public ICollection<WalletItemEntity> WalletItems { get; private set; }
 
     #region Domain aggregate construction instance
 
     private WalletAggregate(
-        IDomainEntityFactory domainEntityFactory,
-        IDefaultMapper<WalletModel, WalletAggregate> walletMapper,
-        ILogger<WalletAggregate> logger)
+        IDomainEntityFactory factoryBase,
+        IDefaultMapper<WalletModel, WalletAggregate> mapperBase,
+        ILogger<WalletAggregate> loggerBase) : base(factoryBase, mapperBase, loggerBase)
     {
-        _walletMapper = walletMapper;
-        _domainEntityFactory = domainEntityFactory;
-        _logger = logger;
-
-        WalletItems = new List<WalletItemChild>();
+        WalletItems = new List<WalletItemEntity>();
     }
 
     /// <summary>
     /// To create instance
     /// </summary>
-    /// <param name="domainEntityFactory"></param>
-    /// <param name="createWalletMapper"></param>
-    /// <param name="walletMapper"></param>
+    /// <param name="factory"></param>
+    /// <param name="CreateMapper"></param>
+    /// <param name="mapper"></param>
     /// <param name="logger"></param>
     /// <param name="model"></param>
     public WalletAggregate(
-        IDomainEntityFactory domainEntityFactory,
-        IDefaultMapper<CreateWalletModel, WalletAggregate> createWalletMapper,
-        IDefaultMapper<WalletModel, WalletAggregate> walletMapper,
+        IDomainEntityFactory factory,
+        IDefaultMapper<CreateWalletModel, WalletAggregate> createMapper,
+        IDefaultMapper<WalletModel, WalletAggregate> mapper,
         ILogger<WalletAggregate> logger,
-        CreateWalletModel model) : this(domainEntityFactory, walletMapper, logger)
+        CreateWalletModel model) : this(factory, mapper, logger)
     {
         SharedConstruction(model);
 
-        createWalletMapper.Map(model, this);
+        createMapper.Map(model, this);
 
         Guid = Guid.NewGuid();
     }
@@ -60,16 +54,16 @@ public class WalletAggregate
     /// <summary>
     /// To update instance
     /// </summary>
-    /// <param name="domainEntityFactory"></param>
-    /// <param name="walletMapper"></param>
-    /// <param name="logger"></param>
+    /// <param name="factoryBase"></param>
+    /// <param name="mapperBase"></param>
+    /// <param name="loggerBase"></param>
     /// <param name="model"></param>
     /// <exception cref="DomainValidationException{T}"></exception>
     public WalletAggregate(
-        IDomainEntityFactory domainEntityFactory,
-        IDefaultMapper<WalletModel, WalletAggregate> walletMapper,
-        ILogger<WalletAggregate> logger,
-        WalletModel model) : this(domainEntityFactory, walletMapper, logger)
+        IDomainEntityFactory factoryBase,
+        IDefaultMapper<WalletModel, WalletAggregate> mapperBase,
+        ILogger<WalletAggregate> loggerBase,
+        WalletModel model) : this(factoryBase, mapperBase, loggerBase)
     {
         if (model.Guid == Guid.Empty || model.Equals(null))
         {
@@ -84,35 +78,42 @@ public class WalletAggregate
 
         try
         {
-           WalletItems = model.WalletItems.Select(_domainEntityFactory.Generate<WalletItemModel, WalletItemChild>).ToList();
+           WalletItems = model.WalletItems.Select(FactoryBase.Generate<WalletItemModel, WalletItemEntity>).ToList();
         }
-        catch (DomainValidationException<WalletItemChild> e)
+        catch (DomainValidationException<WalletItemEntity> e)
         {
-            _logger.LogCritical($"{GetType().Name}: {e.Message}");
+            LoggerBase.LogCritical($"{GetType().Name}: {e.Message}");
 
             throw new DomainValidationException<WalletAggregate>($"{GetType().Name}: wallet item generation failed", e);
         }
 
-        _walletMapper.Map(model, this);
+        MapperBase.Map(model, this);
     }
 
-    private void SharedConstruction(WalletModelBase model)
+    protected override void SharedConstruction(IModelBase modelBase)
     {
-        if (model.Balance <= 0)
+        if (modelBase is WalletModelBase model)
         {
-            throw new DomainValidationException<WalletAggregate>($"{nameof(model.Balance)} is not valid");
+            if (model.Balance <= 0)
+            {
+                throw new DomainValidationException<WalletAggregate>($"{nameof(model.Balance)} is not valid");
+            }
+            if (model.OwnerGuid == Guid.Empty || model.Equals(null))
+            {
+                throw new DomainValidationException<WalletAggregate>($"{nameof(model.OwnerGuid)} is not valid");
+            }
+            if (model.TradingAllowedBalance <= 0)
+            {
+                throw new DomainValidationException<WalletAggregate>($"{nameof(model.TradingAllowedBalance)} is not valid");
+            }
+            if (model.OperationAllowedBalance <= 0)
+            {
+                throw new DomainValidationException<WalletAggregate>($"{nameof(model.OperationAllowedBalance)} is not valid");
+            }
         }
-        if (model.OwnerGuid == Guid.Empty || model.Equals(null))
+        else
         {
-            throw new DomainValidationException<WalletAggregate>($"{nameof(model.OwnerGuid)} is not valid");
-        }
-        if (model.TradingAllowedBalance <= 0)
-        {
-            throw new DomainValidationException<WalletAggregate>($"{nameof(model.TradingAllowedBalance)} is not valid");
-        }
-        if (model.OperationAllowedBalance <= 0)
-        {
-            throw new DomainValidationException<WalletAggregate>($"{nameof(model.OperationAllowedBalance)} is not valid");
+            throw new DomainValidationException<WalletAggregate>($"{nameof(model)} is not valid");
         }
     }
 
@@ -144,21 +145,21 @@ public class WalletAggregate
                 Balance -= walletItemValue;
                 TradingAllowedBalance -= walletItemValue;
 
-                var walletItemEntity = _domainEntityFactory.Generate<CreateWalletItemModel, WalletItemChild>(createWalletItemModel);
+                var walletItemEntity = FactoryBase.Generate<CreateWalletItemModel, WalletItemEntity>(createWalletItemModel);
                 WalletItems.Add(walletItemEntity);
             }
         }
-        catch (DomainValidationException<WalletItemChild> e)
+        catch (DomainValidationException<WalletItemEntity> e)
         {
-            _logger.LogCritical($"{GetType().Name}: {e.Message}");
+            LoggerBase.LogCritical($"{GetType().Name}: {e.Message}");
 
             throw new DomainValidationException<WalletAggregate>($"{GetType().Name}: wallet item generation failed", e);
         }
     }
 
-    public WalletModel ToWalletModel()
+    public override WalletModel ToModel()
     {
-        var toModel = _walletMapper.Map(this);
+        var toModel = MapperBase.Map(this);
 
         return toModel;
     }

@@ -55,7 +55,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
                 return new OperationResult(OutcomeState.Failure, default, $"{e.ClassName}: {e.Message}");
             }
 
-            var model = aggregate.ToWalletModel();
+            var model = aggregate.ToModel();
 
             try
             {

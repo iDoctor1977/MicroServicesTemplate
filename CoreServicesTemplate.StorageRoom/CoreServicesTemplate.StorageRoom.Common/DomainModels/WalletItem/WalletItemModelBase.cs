@@ -1,6 +1,8 @@
-﻿namespace CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
+﻿using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 
-public class WalletItemModelBase
+namespace CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
+
+public class WalletItemModelBase : IModelBase
 {
     public decimal BuyPrice { get; set; }
     public DateTime BuyDate { get; set; }
