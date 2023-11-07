@@ -3,7 +3,7 @@ This template was born to be a start point to create Web Applications based on t
 
 ## Architecture schema
 
-![Project_Architecture](/docs/SolutionArchitecture_style.png "Project_Architecture")
+![Project_Architecture](/docs/SolutionArchitecture.png "Project_Architecture")
 
 # WebApp, WebApi and EventBus projects composition.
 
