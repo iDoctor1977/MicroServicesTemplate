@@ -1,4 +1,6 @@
-﻿namespace CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions
+﻿using System;
+
+namespace CoreServicesTemplate.Shared.Core.Exceptions
 {
     public class DomainValidationException<T> : Exception where T : class
     {

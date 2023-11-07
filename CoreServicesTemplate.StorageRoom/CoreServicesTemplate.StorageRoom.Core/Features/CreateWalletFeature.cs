@@ -1,5 +1,6 @@
 ﻿using CoreServicesTemplate.Shared.Core.BusModels.Wallet;
 using CoreServicesTemplate.Shared.Core.Enums;
+using CoreServicesTemplate.Shared.Core.Exceptions;
 using CoreServicesTemplate.Shared.Core.Interfaces.IEvents;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
@@ -9,7 +10,6 @@ using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
-using CoreServicesTemplate.StorageRoom.Core.Domain.Exceptions;
 using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features
@@ -55,7 +55,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
                 return new OperationResult(OutcomeState.Failure, default, $"{e.ClassName}: {e.Message}");
             }
 
-            var model = aggregate.ToWalletModel();
+            var model = aggregate.ToModel();
 
             try
             {

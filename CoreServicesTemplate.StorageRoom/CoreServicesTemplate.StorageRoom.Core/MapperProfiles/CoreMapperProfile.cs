@@ -20,8 +20,8 @@ namespace CoreServicesTemplate.StorageRoom.Core.MapperProfiles
                 .ForMember(x => x.WalletItems, opt => { opt.Ignore(); })
                 .ReverseMap();
 
-            CreateMap<CreateWalletItemModel, WalletItemChild>().ReverseMap();
-            CreateMap<WalletItemModel, WalletItemChild>().ReverseMap();
+            CreateMap<CreateWalletItemModel, WalletItemEntity>().ReverseMap();
+            CreateMap<WalletItemModel, WalletItemEntity>().ReverseMap();
             CreateMap<WalletItemAppModel, WalletItemModel>().ReverseMap();
 
             CreateMap<ResponseEmailPropertiesApiDto, EmailPropertiesAppModel>().ReverseMap();
