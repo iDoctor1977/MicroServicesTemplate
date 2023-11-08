@@ -16,7 +16,7 @@ This template was born to be a start point to create Web Applications based on t
 >       5. *SolutionName*.ProjectName.Data => [ ***For data management if necessary*** ]
 >       6. *SolutionName*.ProjectName.Service => [ ***For API service if necessary*** ]
 
-> Style of creation to **WebApi Service** projects 
+> Style of creation to **WebApi** projects 
 > 1. **SolutionName**.*ProjectName*
 >       1. *SolutionName*.ProjectName.Common
 >       2. *SolutionName*.ProjectName.Api
