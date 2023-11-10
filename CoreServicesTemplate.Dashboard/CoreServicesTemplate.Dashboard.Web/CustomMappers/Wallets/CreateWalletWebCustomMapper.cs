@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
+using CoreServicesTemplate.Dashboard.Common.Models.AppModels.Wallets;
 using CoreServicesTemplate.Dashboard.Web.Models.Wallets;
 using CoreServicesTemplate.Shared.Core.Extensions;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;

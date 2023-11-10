@@ -1,4 +1,4 @@
-﻿using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
+﻿using CoreServicesTemplate.StorageRoom.Common.Models.DomainModels.WalletItem;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Testing.Builders
 {

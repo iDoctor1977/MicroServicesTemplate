@@ -1,6 +1,7 @@
 using CoreServicesTemplate.Dashboard.Common.Builders;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
+using CoreServicesTemplate.Dashboard.Common.Models.AppModels.Wallets;
+using CoreServicesTemplate.Dashboard.Common.Models.DomainModels.Wallets;
 using CoreServicesTemplate.Dashboard.Web.Models.Wallets;
 using CoreServicesTemplate.Dashboard.Web.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
@@ -29,7 +30,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
             IWalletModelAdded walletBuilder = new WalletModelBuilder();
             var wallets = walletBuilder.AddWallet(ownerGuid, 123589.63m, 236.9m, 124.2m).Build();
 
-            _factory.StorageRoomServiceMock.Setup(service => service.GetWalletAsync(ownerGuid)).ReturnsAsync(new OperationResult<WalletModel>(wallets.FirstOrDefault(x => x.OwnerGuid == ownerGuid) ?? throw new InvalidOperationException()));
+            _factory.GetWalletServiceMock.Setup(service => service.ExecuteAsync(ownerGuid)).ReturnsAsync(new OperationResult<WalletModel>(wallets.FirstOrDefault(x => x.OwnerGuid == ownerGuid) ?? throw new InvalidOperationException()));
 
             var controller = new Controllers.WalletController(
                 _factory.Services.GetRequiredService<ICustomMapper<CreateWalletViewModel, CreateWalletAppModel>>(),
@@ -42,7 +43,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
             var result = await controller.ReadWallet(ownerGuid);
 
             //Assert
-            _factory.StorageRoomServiceMock.Verify((c => c.GetWalletAsync(ownerGuid)), Times.Once);
+            _factory.GetWalletServiceMock.Verify((c => c.ExecuteAsync(ownerGuid)), Times.Once);
         }
     }
 }

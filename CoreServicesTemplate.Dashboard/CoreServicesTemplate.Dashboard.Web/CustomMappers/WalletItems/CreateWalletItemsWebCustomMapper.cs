@@ -1,4 +1,4 @@
-﻿using CoreServicesTemplate.Dashboard.Common.Models.WalletItems;
+﻿using CoreServicesTemplate.Dashboard.Common.Models.AppModels.WalletItems;
 using CoreServicesTemplate.Dashboard.Web.Models.WalletItems;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 

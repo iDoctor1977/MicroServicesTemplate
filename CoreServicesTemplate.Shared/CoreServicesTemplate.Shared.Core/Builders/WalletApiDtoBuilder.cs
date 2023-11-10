@@ -6,16 +6,16 @@ namespace CoreServicesTemplate.Shared.Core.Builders
 {
     public class WalletApiDtoBuilder : IWalletApiDtoBuilder, IWalletApiDtoAdded
     {
-        private ICollection<ResponseWalletApiDto> _walletApiDtoCollection;
+        private ICollection<ResponseStorageRoomGetWalletApiDto> _walletApiDtoCollection;
 
         public WalletApiDtoBuilder()
         {
-            _walletApiDtoCollection = new List<ResponseWalletApiDto>();
+            _walletApiDtoCollection = new List<ResponseStorageRoomGetWalletApiDto>();
         }
 
-        private ResponseWalletApiDto CreateWallet(Guid ownerGuid, decimal? balance, decimal? tradingAllowedBalance, decimal? operationAllowedBalance)
+        private ResponseStorageRoomGetWalletApiDto CreateWallet(Guid ownerGuid, decimal? balance, decimal? tradingAllowedBalance, decimal? operationAllowedBalance)
         {
-            var wallet = new ResponseWalletApiDto
+            var wallet = new ResponseStorageRoomGetWalletApiDto
             {
                 OwnerGuid = ownerGuid,
                 Balance = balance,
@@ -35,7 +35,7 @@ namespace CoreServicesTemplate.Shared.Core.Builders
             return this;
         }
 
-        public ICollection<ResponseWalletApiDto> Build()
+        public ICollection<ResponseStorageRoomGetWalletApiDto> Build()
         {
             var result = _walletApiDtoCollection;
             _walletApiDtoCollection = null;
@@ -51,6 +51,6 @@ namespace CoreServicesTemplate.Shared.Core.Builders
 
     public interface IWalletApiDtoBuilder
     {
-        ICollection<ResponseWalletApiDto> Build();
+        ICollection<ResponseStorageRoomGetWalletApiDto> Build();
     }
 }

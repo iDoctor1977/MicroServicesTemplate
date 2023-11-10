@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
+using CoreServicesTemplate.Dashboard.Common.Models.AppModels.Wallets;
 using CoreServicesTemplate.Dashboard.Web.Models.Wallets;
 
 namespace CoreServicesTemplate.Dashboard.Web.MapperProfiles

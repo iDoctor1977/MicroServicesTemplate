@@ -3,7 +3,7 @@ using CoreServicesTemplate.Shared.Core.Exceptions;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
-using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
+using CoreServicesTemplate.StorageRoom.Common.Models.DomainModels.WalletItem;
 using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;

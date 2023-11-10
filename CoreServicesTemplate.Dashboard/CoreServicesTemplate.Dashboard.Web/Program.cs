@@ -1,7 +1,7 @@
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
-using CoreServicesTemplate.Dashboard.Common.Models.WalletItems;
-using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
+using CoreServicesTemplate.Dashboard.Common.Models.AppModels.WalletItems;
+using CoreServicesTemplate.Dashboard.Common.Models.AppModels.Wallets;
 using CoreServicesTemplate.Dashboard.Core.Features;
 using CoreServicesTemplate.Dashboard.Core.MapperProfiles;
 using CoreServicesTemplate.Dashboard.Services;
@@ -23,7 +23,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<ICreateWalletFeature, CreateWalletFeature>();
 builder.Services.AddTransient<IGetWalletFeature, ReadWalletFeature>();
-builder.Services.AddTransient<IStorageRoomService, StorageRoomService>();
+
+builder.Services.AddTransient<ICreateWalletService, CreateWalletService>();
+builder.Services.AddTransient<IGetWalletService, GetWalletService>();
 
 #endregion
 

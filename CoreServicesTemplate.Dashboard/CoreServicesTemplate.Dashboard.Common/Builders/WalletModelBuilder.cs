@@ -1,4 +1,4 @@
-﻿using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
+﻿using CoreServicesTemplate.Dashboard.Common.Models.DomainModels.Wallets;
 
 namespace CoreServicesTemplate.Dashboard.Common.Builders
 {

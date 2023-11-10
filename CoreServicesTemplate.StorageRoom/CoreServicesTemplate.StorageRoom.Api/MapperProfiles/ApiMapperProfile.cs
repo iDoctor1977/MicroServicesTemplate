@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using CoreServicesTemplate.Shared.Core.Models.Wallet;
 using CoreServicesTemplate.Shared.Core.Models.WalletItem;
-using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
-using CoreServicesTemplate.StorageRoom.Common.Models.WalletItem;
+using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.WalletItem;
 
 namespace CoreServicesTemplate.StorageRoom.Api.MapperProfiles
 {
@@ -10,10 +10,10 @@ namespace CoreServicesTemplate.StorageRoom.Api.MapperProfiles
     {
         public ApiMapperProfile()
         {
-            CreateMap<RequestCreateWalletApiDto, CreateWalletAppModel>().ReverseMap();
+            CreateMap<RequestStorageRoomCreateWalletApiDto, CreateWalletAppModel>().ReverseMap();
             CreateMap<MarketItemApiDto, WalletItemAppModel>().ReverseMap();
 
-            CreateMap<ResponseEmailPropertiesApiDto, EmailPropertiesAppModel>().ReverseMap();
+            CreateMap<ResponseStorageRoomEmailPropertiesApiDto, EmailPropertiesAppModel>().ReverseMap();
         }
     }
 }
