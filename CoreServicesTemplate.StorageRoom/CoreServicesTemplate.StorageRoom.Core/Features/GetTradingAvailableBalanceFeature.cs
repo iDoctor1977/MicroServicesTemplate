@@ -46,10 +46,10 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             try
             {
-                var aggregate = _domainEntityFactory.Generate<WalletModel, WalletAggregate>(model);
+                var aggregate = _domainEntityFactory.Generate<WalletModel, Wallet>(model);
                 tradingAllowed = aggregate.CalculateTradingAvailableBalance();
             }
-            catch (DomainValidationException<WalletAggregate> e)
+            catch (DomainValidationException<Wallet> e)
             {
                 OperationResult<decimal>? innerResult = null;
                 if (e.InnerException != null)

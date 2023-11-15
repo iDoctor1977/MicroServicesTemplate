@@ -43,12 +43,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             var baseModel = _walletMapper.Map(appModel);
 
             OperationResult operationResult;
-            WalletAggregate aggregate;
+            Wallet aggregate;
             try
             {
-                aggregate = _domainEntityFactory.Generate<CreateWalletModel, WalletAggregate>(baseModel);
+                aggregate = _domainEntityFactory.Generate<CreateWalletModel, Wallet>(baseModel);
             }
-            catch (DomainValidationException<WalletAggregate> e)
+            catch (DomainValidationException<Wallet> e)
             {
                 _logger.LogCritical(e.Message);
 

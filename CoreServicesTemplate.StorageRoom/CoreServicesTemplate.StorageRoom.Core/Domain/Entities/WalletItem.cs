@@ -1,15 +1,16 @@
-﻿using CoreServicesTemplate.Dashboard.Common.Models.DomainModels.WalletItems;
-using CoreServicesTemplate.Shared.Core.Bases;
+﻿using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Exceptions;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
+using CoreServicesTemplate.StorageRoom.Common.Models.DomainModels.WalletItem;
 using Microsoft.Extensions.Logging;
 
-namespace CoreServicesTemplate.Dashboard.Core.Domain;
+namespace CoreServicesTemplate.StorageRoom.Core.Domain.Entities;
 
-public class WalletItemEntity : EntityBase<WalletItemModel, WalletItemEntity>
+public class WalletItem : EntityBase<WalletItemModel, WalletItem>
 {
+    public Guid Guid { get; private set; }
     public decimal Amount { get; private set; }
     public decimal BuyPrice { get; private set; }
     public DateTime BuyDate { get; private set; }
@@ -20,9 +21,9 @@ public class WalletItemEntity : EntityBase<WalletItemModel, WalletItemEntity>
 
     #region Domain child construction instance
 
-    private WalletItemEntity(IDomainEntityFactory factoryBase,
-    IDefaultMapper<WalletItemModel, WalletItemEntity> mapperBase,
-    ILogger<WalletItemEntity> loggerBase) : base(factoryBase, mapperBase, loggerBase)
+    private WalletItem(IDomainEntityFactory factoryBase,
+    IDefaultMapper<WalletItemModel, WalletItem> mapperBase,
+    ILogger<WalletItem> loggerBase) : base(factoryBase, mapperBase, loggerBase)
     {
     }
 
@@ -34,16 +35,18 @@ public class WalletItemEntity : EntityBase<WalletItemModel, WalletItemEntity>
     /// <param name="mapper"></param>
     /// <param name="logger"></param>
     /// <param name="model"></param>
-    public WalletItemEntity(
+    public WalletItem(
         IDomainEntityFactory factory,
-        IDefaultMapper<CreateWalletItemModel, WalletItemEntity> createMapper,
-        IDefaultMapper<WalletItemModel, WalletItemEntity> mapper,
-        ILogger<WalletItemEntity> logger,
+        IDefaultMapper<CreateWalletItemModel, WalletItem> createMapper,
+        IDefaultMapper<WalletItemModel, WalletItem> mapper,
+        ILogger<WalletItem> logger,
         CreateWalletItemModel model) : this(factory, mapper, logger)
     {
         SharedConstruction(model);
 
         createMapper.Map(model, this);
+
+        Guid = Guid.NewGuid();
     }
 
     /// <summary>
@@ -54,19 +57,27 @@ public class WalletItemEntity : EntityBase<WalletItemModel, WalletItemEntity>
     /// <param name="logger"></param>
     /// <param name="model"></param>
     /// <exception cref="DomainValidationException{WalletItemEntity}"></exception>
-    public WalletItemEntity(
+    public WalletItem(
         IDomainEntityFactory factory,
-        IDefaultMapper<WalletItemModel, WalletItemEntity> mapper,
-        ILogger<WalletItemEntity> logger,
+        IDefaultMapper<WalletItemModel, WalletItem> mapper,
+        ILogger<WalletItem> logger,
         WalletItemModel model) : this(factory, mapper, logger)
     {
+        if (model.ExtTicker.Equals(null))
+        {
+            throw new DomainValidationException<WalletItem>($"{nameof(model.ExtTicker)} is not valid");
+        }
+        if (model.Guid.Equals(null) || model.Guid == Guid.Empty)
+        {
+            throw new DomainValidationException<WalletItem>($"{nameof(model.Guid)} is not valid");
+        }
         if (model.Amount <= 0)
         {
-            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.Amount)} is not valid");
+            throw new DomainValidationException<WalletItem>($"{nameof(model.Amount)} is not valid");
         }
         if (model.DateUpdated.Equals(DateTime.MinValue))
         {
-            throw new DomainValidationException<WalletItemEntity>($"{nameof(model.DateUpdated)} is not valid");
+            throw new DomainValidationException<WalletItem>($"{nameof(model.DateUpdated)} is not valid");
         }
 
         SharedConstruction(model);
@@ -78,22 +89,26 @@ public class WalletItemEntity : EntityBase<WalletItemModel, WalletItemEntity>
     {
         if (modelBase is WalletItemModelBase model)
         {
+            if (model.ExtMarketItemGuid.Equals(null) || model.ExtMarketItemGuid == Guid.Empty)
+            {
+                throw new DomainValidationException<WalletItem>($"{nameof(model.ExtMarketItemGuid)} is not valid");
+            }
             if (model.BuyPrice <= 0)
             {
-                throw new DomainValidationException<WalletItemEntity>($"{nameof(model.BuyPrice)} is not valid");
+                throw new DomainValidationException<WalletItem>($"{nameof(model.BuyPrice)} is not valid");
             }
             if (model.Quantity <= 0)
             {
-                throw new DomainValidationException<WalletItemEntity>($"{nameof(model.Quantity)} is not valid");
+                throw new DomainValidationException<WalletItem>($"{nameof(model.Quantity)} is not valid");
             }
             if (model.BuyDate.Equals(DateTime.MinValue))
             {
-                throw new DomainValidationException<WalletItemEntity>($"{nameof(model.BuyDate)} is not valid");
+                throw new DomainValidationException<WalletItem>($"{nameof(model.BuyDate)} is not valid");
             }
         }
         else
         {
-            throw new DomainValidationException<WalletItemEntity>($"{nameof(modelBase)} is not valid");
+            throw new DomainValidationException<WalletItem>($"{nameof(modelBase)} is not valid");
         }
     }
 

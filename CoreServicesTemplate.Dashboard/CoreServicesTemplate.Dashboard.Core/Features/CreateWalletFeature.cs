@@ -2,7 +2,7 @@
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IServices;
 using CoreServicesTemplate.Dashboard.Common.Models.AppModels.Wallets;
 using CoreServicesTemplate.Dashboard.Common.Models.DomainModels.Wallets;
-using CoreServicesTemplate.Dashboard.Core.Domain;
+using CoreServicesTemplate.Dashboard.Core.Domain.Aggregates;
 using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Exceptions;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
@@ -37,12 +37,12 @@ namespace CoreServicesTemplate.Dashboard.Core.Features
 
             var baseModel = _mapper.Map(appModel);
 
-            WalletAggregate aggregate;
+            Wallet aggregate;
             try
             {
-                aggregate = _domainEntityFactory.Generate<CreateWalletModel, WalletAggregate>(baseModel);
+                aggregate = _domainEntityFactory.Generate<CreateWalletModel, Wallet>(baseModel);
             }
-            catch (DomainValidationException<WalletAggregate> e)
+            catch (DomainValidationException<Wallet> e)
             {
                 _logger.LogCritical(e.Message);
 

@@ -1,5 +1,6 @@
 ﻿using CoreServicesTemplate.Dashboard.Common.Models.DomainModels.WalletItems;
 using CoreServicesTemplate.Dashboard.Common.Models.DomainModels.Wallets;
+using CoreServicesTemplate.Dashboard.Core.Domain.Entities;
 using CoreServicesTemplate.Shared.Core.Bases;
 using CoreServicesTemplate.Shared.Core.Exceptions;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
@@ -7,25 +8,25 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Interfaces.IModels;
 using Microsoft.Extensions.Logging;
 
-namespace CoreServicesTemplate.Dashboard.Core.Domain
+namespace CoreServicesTemplate.Dashboard.Core.Domain.Aggregates
 {
-    public class WalletAggregate : EntityBase<WalletModel, WalletAggregate>
+    public class Wallet : EntityBase<WalletModel, Wallet>
     {
         public Guid OwnerGuid { get; private set; }
         public decimal TradingAllowedBalance { get; private set; }
         public decimal OperationAllowedBalance { get; private set; }
         public decimal Balance { get; private set; }
         public decimal Performance { get; private set; }
-        public ICollection<WalletItemEntity> WalletItems { get; private set; }
+        public ICollection<WalletItem> WalletItems { get; private set; }
 
         #region Domain aggregate construction instance
 
-        private WalletAggregate(
+        private Wallet(
             IDomainEntityFactory factoryBase,
-            IDefaultMapper<WalletModel, WalletAggregate> mapperBase,
-            ILogger<WalletAggregate> loggerBase) : base(factoryBase, mapperBase, loggerBase)
+            IDefaultMapper<WalletModel, Wallet> mapperBase,
+            ILogger<Wallet> loggerBase) : base(factoryBase, mapperBase, loggerBase)
         {
-            WalletItems = new List<WalletItemEntity>();
+            WalletItems = new List<WalletItem>();
         }
 
         /// <summary>
@@ -36,11 +37,11 @@ namespace CoreServicesTemplate.Dashboard.Core.Domain
         /// <param name="mapper"></param>
         /// <param name="logger"></param>
         /// <param name="model"></param>
-        public WalletAggregate(
+        public Wallet(
             IDomainEntityFactory factory,
-            IDefaultMapper<CreateWalletModel, WalletAggregate> createMapper,
-            IDefaultMapper<WalletModel, WalletAggregate> mapper,
-            ILogger<WalletAggregate> logger,
+            IDefaultMapper<CreateWalletModel, Wallet> createMapper,
+            IDefaultMapper<WalletModel, Wallet> mapper,
+            ILogger<Wallet> logger,
             CreateWalletModel model) : this(factory, mapper, logger)
         {
             SharedConstruction(model);
@@ -56,23 +57,23 @@ namespace CoreServicesTemplate.Dashboard.Core.Domain
         /// <param name="loggerBase"></param>
         /// <param name="model"></param>
         /// <exception cref="DomainValidationException{T}"></exception>
-        public WalletAggregate(
+        public Wallet(
             IDomainEntityFactory factoryBase,
-            IDefaultMapper<WalletModel, WalletAggregate> mapperBase,
-            ILogger<WalletAggregate> loggerBase,
+            IDefaultMapper<WalletModel, Wallet> mapperBase,
+            ILogger<Wallet> loggerBase,
             WalletModel model) : this(factoryBase, mapperBase, loggerBase)
         {
             SharedConstruction(model);
 
             try
             {
-                WalletItems = model.WalletItems.Select(FactoryBase.Generate<WalletItemModel, WalletItemEntity>).ToList();
+                WalletItems = model.WalletItems.Select(FactoryBase.Generate<WalletItemModel, WalletItem>).ToList();
             }
-            catch (DomainValidationException<WalletItemEntity> e)
+            catch (DomainValidationException<WalletItem> e)
             {
                 LoggerBase.LogCritical($"{GetType().Name}: {e.Message}");
 
-                throw new DomainValidationException<WalletAggregate>($"{GetType().Name}: wallet item generation failed", e);
+                throw new DomainValidationException<Wallet>($"{GetType().Name}: wallet item generation failed", e);
             }
 
             MapperBase.Map(model, this);
@@ -84,24 +85,24 @@ namespace CoreServicesTemplate.Dashboard.Core.Domain
             {
                 if (model.Balance <= 0)
                 {
-                    throw new DomainValidationException<WalletAggregate>($"{nameof(model.Balance)} is not valid");
+                    throw new DomainValidationException<Wallet>($"{nameof(model.Balance)} is not valid");
                 }
                 if (model.OwnerGuid == Guid.Empty || model.Equals(null))
                 {
-                    throw new DomainValidationException<WalletAggregate>($"{nameof(model.OwnerGuid)} is not valid");
+                    throw new DomainValidationException<Wallet>($"{nameof(model.OwnerGuid)} is not valid");
                 }
                 if (model.TradingAllowedBalance <= 0)
                 {
-                    throw new DomainValidationException<WalletAggregate>($"{nameof(model.TradingAllowedBalance)} is not valid");
+                    throw new DomainValidationException<Wallet>($"{nameof(model.TradingAllowedBalance)} is not valid");
                 }
                 if (model.OperationAllowedBalance <= 0)
                 {
-                    throw new DomainValidationException<WalletAggregate>($"{nameof(model.OperationAllowedBalance)} is not valid");
+                    throw new DomainValidationException<Wallet>($"{nameof(model.OperationAllowedBalance)} is not valid");
                 }
             }
             else
             {
-                throw new DomainValidationException<WalletAggregate>($"{nameof(model)} is not valid");
+                throw new DomainValidationException<Wallet>($"{nameof(model)} is not valid");
             }
         }
 
