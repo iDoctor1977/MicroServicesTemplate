@@ -36,7 +36,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             try
             {
                 OperationResult<WalletModel> result = await _walletDepot.ExecuteAsync(ownerGuid);
-                model = result.Value;
+                model = result.Value ?? throw new FeatureValidationException<GetTradingAvailableBalanceFeature>($"{GetType().Name}: {nameof(result.Value)} is null");
             }
             catch (Exception e)
             {

@@ -1,6 +1,7 @@
 ﻿using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models.Wallet;
+using CoreServicesTemplate.Shared.Core.Results;
 using Microsoft.AspNetCore.Mvc;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.Wallet;
@@ -39,7 +40,18 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 return BadRequest(message);
             }
 
-            var operationResult = await _getEmailPropertiesFeature.ExecuteAsync(ownerGuid);
+            OperationResult<EmailPropertiesAppModel> operationResult;
+            try
+            {
+                operationResult = await _getEmailPropertiesFeature.ExecuteAsync(ownerGuid);
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical(e.Message);
+
+                return ValidationProblem(e.Message);
+            }
+
 
             if (operationResult.State.Equals(OutcomeState.Success))
             {
