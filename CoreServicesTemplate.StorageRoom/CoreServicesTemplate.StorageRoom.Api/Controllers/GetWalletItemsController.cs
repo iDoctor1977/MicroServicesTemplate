@@ -2,7 +2,7 @@
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models.WalletItem;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.StorageRoom.Common.Models.WalletItem;
+using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.WalletItem;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers

@@ -38,7 +38,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Testing.ApiLogActionFilter
         public async Task Should_LogTheCallToAnyAction()
         {
             //Arrange
-            var apiModel = new RequestCreateWalletApiDto
+            var apiModel = new RequestStorageRoomCreateWalletApiDto()
             {
                 TradingAllowedBalance = 1.23m,
                 OperationAllowedBalance = 12.3m,

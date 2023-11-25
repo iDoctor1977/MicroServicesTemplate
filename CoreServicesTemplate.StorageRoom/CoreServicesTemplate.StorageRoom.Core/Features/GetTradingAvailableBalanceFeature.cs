@@ -2,9 +2,9 @@
 using CoreServicesTemplate.Shared.Core.Exceptions;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Results;
-using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
+using CoreServicesTemplate.StorageRoom.Common.Models.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
 using Microsoft.Extensions.Logging;
 
@@ -36,7 +36,7 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             try
             {
                 OperationResult<WalletModel> result = await _walletDepot.ExecuteAsync(ownerGuid);
-                model = result.Value;
+                model = result.Value ?? throw new FeatureValidationException<GetTradingAvailableBalanceFeature>($"{GetType().Name}: {nameof(result.Value)} is null");
             }
             catch (Exception e)
             {
@@ -46,10 +46,10 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
 
             try
             {
-                var aggregate = _domainEntityFactory.Generate<WalletModel, WalletAggregate>(model);
+                var aggregate = _domainEntityFactory.Generate<WalletModel, Wallet>(model);
                 tradingAllowed = aggregate.CalculateTradingAvailableBalance();
             }
-            catch (DomainValidationException<WalletAggregate> e)
+            catch (DomainValidationException<Wallet> e)
             {
                 OperationResult<decimal>? innerResult = null;
                 if (e.InnerException != null)

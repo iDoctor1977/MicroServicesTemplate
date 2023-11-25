@@ -1,4 +1,5 @@
 ﻿using CoreServicesTemplate.Shared.Core.Enums;
+using CoreServicesTemplate.Shared.Core.Results;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,7 +34,18 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 return BadRequest(message);
             }
 
-            var operationResult = await _availableBalanceFeature.ExecuteAsync(ownerGuid);
+            OperationResult<decimal> operationResult;
+            try
+            {
+                operationResult = await _availableBalanceFeature.ExecuteAsync(ownerGuid);
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical(e.Message);
+
+                return ValidationProblem(e.Message);
+            }
+
 
             if (operationResult.State.Equals(OutcomeState.Success))
             {

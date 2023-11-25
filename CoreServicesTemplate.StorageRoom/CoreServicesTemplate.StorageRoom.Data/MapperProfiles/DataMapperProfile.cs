@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
-using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
+using CoreServicesTemplate.StorageRoom.Common.Models.DomainModels.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.DomainModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Data.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Data.MapperProfiles

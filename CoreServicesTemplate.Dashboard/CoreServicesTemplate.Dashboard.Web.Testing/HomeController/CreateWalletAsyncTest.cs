@@ -1,7 +1,8 @@
 using System.Globalization;
 using System.Net;
 using CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
+using CoreServicesTemplate.Dashboard.Common.Models.AppModels.Wallets;
+using CoreServicesTemplate.Dashboard.Common.Models.DomainModels.Wallets;
 using CoreServicesTemplate.Dashboard.Web.Models.Wallets;
 using CoreServicesTemplate.Dashboard.Web.Testing.Fixtures;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
@@ -33,7 +34,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
                 OperationAllowedBalance = "128.96"
             };
 
-            _factory.StorageRoomServiceMock.Setup(service => service.CreateNewWalletAsync(It.IsAny<CreateWalletModel>())).ReturnsAsync(new OperationResult<HttpResponseMessage>(new HttpResponseMessage { StatusCode = HttpStatusCode.OK }));
+            _factory.CreateWalletServiceMock.Setup(service => service.ExecuteAsync(It.IsAny<WalletModel>())).ReturnsAsync(new OperationResult<HttpResponseMessage>(new HttpResponseMessage { StatusCode = HttpStatusCode.OK }));
 
             var controller = new Controllers.WalletController(
                 _factory.Services.GetRequiredService<ICustomMapper<CreateWalletViewModel, CreateWalletAppModel>>(),
@@ -46,7 +47,7 @@ namespace CoreServicesTemplate.Dashboard.Web.Testing.HomeController
             var responseMessage = await controller.Create(userViewModel);
 
             //Assert
-            _factory.StorageRoomServiceMock.Verify(method => method.CreateNewWalletAsync(It.IsAny<CreateWalletModel>()), Times.Once);
+            _factory.CreateWalletServiceMock.Verify(method => method.ExecuteAsync(It.IsAny<WalletModel>()), Times.Once);
         }
     }
 }

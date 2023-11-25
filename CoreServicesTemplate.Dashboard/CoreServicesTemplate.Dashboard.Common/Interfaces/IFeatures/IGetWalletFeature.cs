@@ -1,4 +1,4 @@
-using CoreServicesTemplate.Dashboard.Common.Models.Wallets;
+using CoreServicesTemplate.Dashboard.Common.Models.AppModels.Wallets;
 using CoreServicesTemplate.Shared.Core.Interfaces.IHandlers;
 
 namespace CoreServicesTemplate.Dashboard.Common.Interfaces.IFeatures;

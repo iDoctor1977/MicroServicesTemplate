@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using CoreServicesTemplate.Shared.Core.Models.Wallet;
-using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
-using CoreServicesTemplate.StorageRoom.Common.DomainModels.WalletItem;
-using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
-using CoreServicesTemplate.StorageRoom.Common.Models.WalletItem;
+using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.WalletItem;
+using CoreServicesTemplate.StorageRoom.Common.Models.DomainModels.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.DomainModels.WalletItem;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
+using CoreServicesTemplate.StorageRoom.Core.Domain.Entities;
 
 namespace CoreServicesTemplate.StorageRoom.Core.MapperProfiles
 {
@@ -15,16 +16,16 @@ namespace CoreServicesTemplate.StorageRoom.Core.MapperProfiles
             CreateMap<CreateWalletAppModel, CreateWalletModel>().ReverseMap();
             CreateMap<CreateWalletAppModel, WalletModel>().ReverseMap();
 
-            CreateMap<CreateWalletModel, WalletAggregate>().ReverseMap();
-            CreateMap<WalletModel, WalletAggregate>()
+            CreateMap<CreateWalletModel, Wallet>().ReverseMap();
+            CreateMap<WalletModel, Wallet>()
                 .ForMember(x => x.WalletItems, opt => { opt.Ignore(); })
                 .ReverseMap();
 
-            CreateMap<CreateWalletItemModel, WalletItemEntity>().ReverseMap();
-            CreateMap<WalletItemModel, WalletItemEntity>().ReverseMap();
+            CreateMap<CreateWalletItemModel, WalletItem>().ReverseMap();
+            CreateMap<WalletItemModel, WalletItem>().ReverseMap();
             CreateMap<WalletItemAppModel, WalletItemModel>().ReverseMap();
 
-            CreateMap<ResponseEmailPropertiesApiDto, EmailPropertiesAppModel>().ReverseMap();
+            CreateMap<ResponseStorageRoomEmailPropertiesApiDto, EmailPropertiesAppModel>().ReverseMap();
             CreateMap<EmailPropertiesAppModel, EmailPropertiesModel>().ReverseMap();
         }
     }

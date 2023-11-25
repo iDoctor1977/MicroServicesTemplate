@@ -1,10 +1,11 @@
 ﻿using CoreServicesTemplate.Shared.Core.Enums;
+using CoreServicesTemplate.Shared.Core.Exceptions;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
-using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.DomainModels.Wallet;
 using Microsoft.Extensions.Logging;
 
 namespace CoreServicesTemplate.StorageRoom.Core.Features;
@@ -33,7 +34,7 @@ public class GetEmailPropertiesFeature : IGetEmailPropertiesFeature
         try
         {
             var result = await _walletEventEfDepot.ExecuteAsync(ownerGuid);
-            model = result.Value;
+            model = result.Value ?? throw new FeatureValidationException<GetEmailPropertiesFeature>($"{GetType().Name}: {nameof(result.Value)} is null");
         }
         catch (Exception e)
         {

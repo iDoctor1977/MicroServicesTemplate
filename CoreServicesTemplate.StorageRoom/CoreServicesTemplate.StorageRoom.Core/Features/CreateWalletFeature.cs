@@ -5,10 +5,10 @@ using CoreServicesTemplate.Shared.Core.Interfaces.IEvents;
 using CoreServicesTemplate.Shared.Core.Interfaces.IFactories;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Results;
-using CoreServicesTemplate.StorageRoom.Common.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IDepots;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.DomainModels.Wallet;
 using CoreServicesTemplate.StorageRoom.Core.Domain.Aggregates;
 using Microsoft.Extensions.Logging;
 
@@ -43,12 +43,12 @@ namespace CoreServicesTemplate.StorageRoom.Core.Features
             var baseModel = _walletMapper.Map(appModel);
 
             OperationResult operationResult;
-            WalletAggregate aggregate;
+            Wallet aggregate;
             try
             {
-                aggregate = _domainEntityFactory.Generate<CreateWalletModel, WalletAggregate>(baseModel);
+                aggregate = _domainEntityFactory.Generate<CreateWalletModel, Wallet>(baseModel);
             }
-            catch (DomainValidationException<WalletAggregate> e)
+            catch (DomainValidationException<Wallet> e)
             {
                 _logger.LogCritical(e.Message);
 

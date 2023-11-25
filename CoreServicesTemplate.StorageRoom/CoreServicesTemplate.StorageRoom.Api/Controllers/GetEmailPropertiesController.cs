@@ -1,9 +1,10 @@
 ﻿using CoreServicesTemplate.Shared.Core.Enums;
 using CoreServicesTemplate.Shared.Core.Interfaces.IMappers;
 using CoreServicesTemplate.Shared.Core.Models.Wallet;
+using CoreServicesTemplate.Shared.Core.Results;
 using Microsoft.AspNetCore.Mvc;
 using CoreServicesTemplate.StorageRoom.Common.Interfaces.IFeatures;
-using CoreServicesTemplate.StorageRoom.Common.Models.Wallet;
+using CoreServicesTemplate.StorageRoom.Common.Models.AppModels.Wallet;
 
 namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 {
@@ -13,12 +14,12 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
     public class GetEmailPropertiesController : ControllerBase
     {
         private readonly IGetEmailPropertiesFeature _getEmailPropertiesFeature;
-        private readonly IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesAppModel> _walletEventMapper;
+        private readonly IDefaultMapper<ResponseStorageRoomEmailPropertiesApiDto, EmailPropertiesAppModel> _walletEventMapper;
         private readonly ILogger<CreateWalletController> _logger;
 
         public GetEmailPropertiesController(
             IGetEmailPropertiesFeature getEmailPropertiesFeature, 
-            IDefaultMapper<ResponseEmailPropertiesApiDto, EmailPropertiesAppModel> walletEventMapper, 
+            IDefaultMapper<ResponseStorageRoomEmailPropertiesApiDto, EmailPropertiesAppModel> walletEventMapper, 
             ILogger<CreateWalletController> logger)
         {
             _getEmailPropertiesFeature = getEmailPropertiesFeature;
@@ -28,7 +29,7 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
 
         // GET api/storageroom/createwalletevent/{ownerGuid}
         [HttpGet("{ownerGuid}")]
-        public async Task<ActionResult<ResponseEmailPropertiesApiDto>> Get(Guid ownerGuid)
+        public async Task<ActionResult<ResponseStorageRoomEmailPropertiesApiDto>> Get(Guid ownerGuid)
         {
             _logger.LogInformation("----- GET on controller: {@Class} at {Dt}", GetType().Name, DateTime.UtcNow.ToLongTimeString());
 
@@ -39,7 +40,18 @@ namespace CoreServicesTemplate.StorageRoom.Api.Controllers
                 return BadRequest(message);
             }
 
-            var operationResult = await _getEmailPropertiesFeature.ExecuteAsync(ownerGuid);
+            OperationResult<EmailPropertiesAppModel> operationResult;
+            try
+            {
+                operationResult = await _getEmailPropertiesFeature.ExecuteAsync(ownerGuid);
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical(e.Message);
+
+                return ValidationProblem(e.Message);
+            }
+
 
             if (operationResult.State.Equals(OutcomeState.Success))
             {
