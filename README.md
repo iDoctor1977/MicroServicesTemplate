@@ -1,5 +1,5 @@
 # .Net Core Microservices Template
-This template was born to be a starting point to create decoupled and easely scalable Web Applications based on the use of microservices. The general architecture was designed and created following the main development techniques, the concepts of Domain Drive Design, observing the SOLID principles and the use of strongly recommended patterns such as, for example, Unit of Work and CQRS.
+This template was born to be a starting point to create decoupled and easely scalable MVC Web Applications based on the use of microservices. The general architecture was designed and created following the main development techniques, the concepts of Domain Drive Design, observing the SOLID principles and the use of strongly recommended patterns such as, for example, Unit of Work and CQRS.
 
 ## Architecture schema
 
