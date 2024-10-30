@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.8 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.8">
   <diagram id="iLdezfkAtNY4yDoed4SI" name="Pagina-1">
-    <mxGraphModel dx="3772" dy="1671" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="1">
+    <mxGraphModel dx="3021" dy="1229" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="1">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -68,13 +68,13 @@
         <mxCell id="Y56JENVlmp1elNJCTX5K-129" value="AggregateRoot.cs" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;fillStyle=auto;fontFamily=Helvetica;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" vertex="1">
           <mxGeometry x="160" y="40" width="120" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Y56JENVlmp1elNJCTX5K-130" value="ValueObj.cs" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;fontFamily=Helvetica;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" vertex="1">
+        <mxCell id="Y56JENVlmp1elNJCTX5K-130" value="Entity.cs" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;fontFamily=Helvetica;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" vertex="1">
           <mxGeometry x="160" y="140" width="120" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Y56JENVlmp1elNJCTX5K-131" value="Model" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;labelBackgroundColor=default;strokeColor=#788AA3;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;startArrow=classicThin;startFill=1;endArrow=classicThin;endFill=1;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" source="Y56JENVlmp1elNJCTX5K-132" target="Y56JENVlmp1elNJCTX5K-139" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Y56JENVlmp1elNJCTX5K-132" value="Entity.cs" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;fontFamily=Helvetica;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" vertex="1">
+        <mxCell id="Y56JENVlmp1elNJCTX5K-132" value="Aggregate.cs" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;fontFamily=Helvetica;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" vertex="1">
           <mxGeometry x="300" y="140" width="120" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Y56JENVlmp1elNJCTX5K-133" value="Model" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;labelBackgroundColor=default;strokeColor=#788AA3;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;startArrow=classicThin;startFill=1;endArrow=classicThin;endFill=1;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" source="Y56JENVlmp1elNJCTX5K-135" target="Y56JENVlmp1elNJCTX5K-138" edge="1">
@@ -85,7 +85,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Y56JENVlmp1elNJCTX5K-135" value="Entity.cs" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;fontFamily=Helvetica;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" vertex="1">
+        <mxCell id="Y56JENVlmp1elNJCTX5K-135" value="Aggregate.cs" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;fontFamily=Helvetica;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" vertex="1">
           <mxGeometry x="20" y="140" width="120" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Y56JENVlmp1elNJCTX5K-136" value="Model" style="endArrow=classicThin;html=1;rounded=1;dashed=1;labelBackgroundColor=default;strokeColor=#788AA3;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;startArrow=classicThin;startFill=1;endFill=1;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" source="Y56JENVlmp1elNJCTX5K-130" target="Y56JENVlmp1elNJCTX5K-129" edge="1">
@@ -97,7 +97,7 @@
         <mxCell id="Y56JENVlmp1elNJCTX5K-137" value="ValueObj.cs" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;fontFamily=Helvetica;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" vertex="1">
           <mxGeometry x="20" y="240" width="120" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Y56JENVlmp1elNJCTX5K-138" value="ValueObj.cs" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;fontFamily=Helvetica;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" vertex="1">
+        <mxCell id="Y56JENVlmp1elNJCTX5K-138" value="Entity.cs" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;fontFamily=Helvetica;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" vertex="1">
           <mxGeometry x="160" y="240" width="120" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Y56JENVlmp1elNJCTX5K-139" value="ValueObj" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;fontFamily=Helvetica;sketch=1;curveFitting=1;jiggle=2;" parent="Y56JENVlmp1elNJCTX5K-126" vertex="1">
